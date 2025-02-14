@@ -35,14 +35,14 @@ input {
   transition: border-color 0.3s ease-in-out;
 }
 input:focus {
-  border-color: #457EE8;
+  border-color: #0073e6;
   outline: none;
 }
 button {
   width: 100%;
   padding: 10px;
   border: none;
-  background-color: #457EE8;
+  background-color: #0073e6;
   color: #fff;
   font-size: 16px;
   border-radius: 5px;
@@ -50,7 +50,7 @@ button {
   margin-top: 10px;
 }
 button:hover {
-  background-color:  #3765BB;
+  background-color:  #0059b3;
 }
 
 .error {
@@ -65,12 +65,12 @@ button:hover {
   margin-top: 15px;
 }
 #already a {
-  color: #457EE8;
+  color: #0073e6;
   text-decoration: none;
   font-weight: bold;
 }
 #already a:hover {
-  color: #3765BB;
+  color: #0059b3;
 }
 @media (max-width: 768px) {
   .signup-container {
@@ -169,7 +169,7 @@ input {
 }
 
 input:focus {
-  border-color: #457EE8;
+  border-color: #0073e6;
   outline: none;
 }
 
@@ -177,7 +177,7 @@ button {
   width: 100%;
   padding: 10px;
   border: none;
-  background-color: #457EE8;
+  background-color: #0073e6;
   color: #fff;
   font-size: 16px;
   border-radius: 5px;
@@ -186,7 +186,7 @@ button {
 }
 
 button:hover {
-  background-color: #3765BB;
+  background-color: #0059b3;
 }
 
 .error {
@@ -202,13 +202,13 @@ button:hover {
 }
 
 #already a {
-  color: #457EE8;
+  color: #0073e6;
   text-decoration: none;
   font-weight: bold;
 }
 
 #already a:hover {
-  color: #3765BB;
+  color: #0059b3;
 }
 .signup-logo{
   display: flex;
@@ -308,13 +308,13 @@ button:hover {
     font-size: 12px;
   }
   #already a {
-    color: #457EE8;
+    color: #0073e6;
     text-decoration: none;
     font-weight: bold;
     font-size: 12px;
   }
   #already a:hover {
-    color: #3765BB;
+    color: #0059b3;
   }
   .signup-logo img{
     width: 60px;
@@ -326,10 +326,10 @@ button:hover {
   margin-top: 15px;
 }
 #already a {
-  color: #457EE8;
+  color: #0073e6;
   text-decoration: none;
   font-weight: bold;
 }
 #already a:hover {
-  color: #3765BB;
+  color: #0059b3;
 }

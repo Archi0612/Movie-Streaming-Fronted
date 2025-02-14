@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './ResetPassword.css';
-import img2 from "../../../assets/reset-password-icon-20.png"
+import img2 from "../../../assets/locklogo.png"
 const ResetPassword: React.FC = () => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
@@ -65,7 +65,8 @@ const ResetPassword: React.FC = () => {
 
   return (
     <div className="reset-container">
-    <img src={img2} alt="" />
+      <div className='img-container'><img src={img2} alt="" /></div>
+    
       <h2>Reset Password</h2>
       <form onSubmit={handleSubmit}>
         <div className="input-group">
