@@ -40,7 +40,7 @@ const Home: React.FC = () => {
   return (
     <div className="home-container">
     
-
+    
       {/* Trending Movies */}
       <div className="section-container">
         <TrendingMovies movies={trendingMovies} />
