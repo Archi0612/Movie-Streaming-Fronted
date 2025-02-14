@@ -1,13 +1,15 @@
-import './App.css'
+// import './App.css'
 import AppRoute from './routes/AppRouter'
 
 function App() {
   return (
     <>
-        <AppRoute/>
+      <AppRoute />
     </>
-        
+
   )
 }
 
 export default App
+
+

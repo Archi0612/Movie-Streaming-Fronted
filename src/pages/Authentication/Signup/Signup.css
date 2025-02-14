@@ -1,9 +1,7 @@
-/* h2 {
-  text-align: center;
-  color: #FFFFFF;
-  margin-bottom: 20px;
-  font-size: 24px;
+.container{
+  background-image: url("../../../assets/background.jpg");
 }
+<<<<<<< HEAD
 .signup-container {
   background-color: #333;
   padding: 20px;
@@ -121,25 +119,28 @@ body {
   font-family: Arial, sans-serif;
   background-color: #161515;
   color: #fff;
+=======
+.welcome-overly{
+>>>>>>> 2f835e81bac5ada51c05cad4143e6bc63b7e0961
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  
-} */
-
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 19, 31, 0.6);
+}
 h2 {
   text-align: center;
   color: #FFFFFF;
   margin-bottom: 20px;
 }
-
 .signup-container {
-  background-color: #3b3b3b;
+  background-color: rgba(26,26,45,0.8);
+  box-shadow: 0px 2px 5px var(--hover-shadow);
   padding: 20px;
   border-radius: 8px;
-  width: 500px;
-
+  width: 450px;
   min-height: 500px;
   display: flex;
   flex-direction: column;
@@ -199,6 +200,7 @@ button:hover {
 #already {
   text-align: center;
   margin-top: 15px;
+  color: var(--text-color);
 }
 
 #already a {

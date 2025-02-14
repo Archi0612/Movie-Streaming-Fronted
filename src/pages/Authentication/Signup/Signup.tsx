@@ -102,6 +102,8 @@ const Signup: React.FC = () => {
   };
 
   return (
+    <div className="container">
+      <div className="welcome-overly">
     <div className="signup-container">
       <div className='signup-logo'>
       <img src={img} alt=""/>
@@ -164,6 +166,8 @@ const Signup: React.FC = () => {
       <p id='already'>
         Already have an account? <Link to="/login">Login</Link>
       </p>
+    </div>
+    </div>
     </div>
   );
 };

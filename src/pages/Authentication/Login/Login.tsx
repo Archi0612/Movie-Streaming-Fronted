@@ -61,6 +61,9 @@ const Login = () => {
   };
 
   return (
+    <div className='container'>
+      <div className="welcome-overlay">
+   
     <div className="login-container">
       <div className='login-logo'>
         <img src={img1} alt="" width={"80px"} height={"80px"}/>
@@ -98,6 +101,8 @@ const Login = () => {
           </span>
         </div>
       </form>
+    </div>
+    </div>
     </div>
   );
 };

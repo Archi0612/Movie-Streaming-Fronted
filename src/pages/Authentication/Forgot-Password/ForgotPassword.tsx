@@ -5,26 +5,33 @@ import "./ForgotPassword.css"
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');
     const [error, setError] = useState('');
-    const validateEmail = () => {
+    const validateEmail = (email:string) => {
       if (!email) {
-        setError('Email is required');
-        return false;
+        return 'Email is required';
+      } 
+      else if (!/\S+@\S+\.\S+/.test(email)) {
+        return 'Please enter a valid email';
       }
-      if (!/\S+@\S+\.\S+/.test(email)) {
-        setError('Please enter a valid email');
-        return false;
-      }
-      setError('');
-      return true;
+      return '';
     };
-    const handleSubmit = (event: React.FormEvent) => {
+    const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { value } = e.target;
+      setEmail(value);
+      setError(validateEmail(value));
+    };
+    const handleSubmit = (event:React.FormEvent) => {
       event.preventDefault();
-      if (validateEmail()) {
+      const emailError = validateEmail(email);
+      if (emailError) {
+        setError(emailError);
+      } else {
         console.log('Email Submitted:', email);
-        // You can perform an action here, such as sending a password reset link to the email
+        // Perform actions such as sending a password reset link
       }
     };
     return (
+      <div className="container">
+      <div className="welcome-overly">
       <div className="forgot-container">
         <button className="back-btn">
           <Link to={"/login"}>    
@@ -45,7 +52,7 @@ const ForgotPassword = () => {
             <input
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleEmailChange}
               placeholder="Enter your email"
             />
             {error && <span className="error">{error}</span>}
@@ -56,6 +63,8 @@ const ForgotPassword = () => {
         </div>
         <div className='create-link'><Link to={"/signup"}>Create new account</Link></div>
         </form>
+      </div>
+      </div>
       </div>
     );
 }
