@@ -1,0 +1,50 @@
+.trending-movies {
+  padding: 2rem;
+  position: relative;
+}
+
+.trending-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+/* Swiper Custom Navigation Buttons */
+.custom-prev,
+.custom-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.6);
+  border: none;
+  color: white;
+  font-size: 2rem;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 10;
+  transition: background 0.3s ease;
+}
+
+.custom-prev {
+  left: -30px;
+}
+
+.custom-next {
+  right: -30px;
+}
+
+.custom-prev:hover,
+.custom-next:hover {
+  background-color: rgba(255, 0, 0, 0.8);
+}
+
+/* Swiper Slider Adjustments */
+.trending-slider {
+  overflow: hidden;
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+}
