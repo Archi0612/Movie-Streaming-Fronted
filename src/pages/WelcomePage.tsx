@@ -15,7 +15,6 @@ const WelcomePage: React.FC = () => {
       {/* Hero Section */}
       <div
         className="welcome-section"
-        style={{ backgroundImage: "url(src/assets/background.jpg)" }}
       >
         <div className="welcome-overlay"></div>
 
