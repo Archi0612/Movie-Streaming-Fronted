@@ -1,14 +1,22 @@
-* {
-    margin: 0;
+@import 'swiper/css';
+@import 'swiper/css/free-mode';
+@import 'swiper/css/navigation'; 
+
+:root {
+    --primary-color: #0073e6;
+    --secondary-color: #0059b3;
+    --background-color: #00131f;
+    --text-color: white;
+    --card-background: #1a1a1a;
+    --hover-shadow: #2a2a72;
+}
+
+*{
     padding: 0;
-    box-sizing: border-box;  }
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #121212;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
     margin: 0;
-  }
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+
+

@@ -1,0 +1,92 @@
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  margin: 1rem 0;
+  top: 0;
+  z-index: 10;
+  padding: 1rem;
+}
+
+/* Logo */
+.logo {
+  width: 20vh;
+  height: auto;
+}
+
+/* Sign In Button */
+.sign-in-button {
+  background-color: transparent;
+  color: var(--text-color);
+  font-size: 1rem;
+  padding: 0.8rem 1.5rem;
+  border: 2px solid var(--primary-color);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.sign-in-button:hover {
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  color: var(--text-color);
+  box-shadow: 0 6px 30px var(--hover-shadow);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) { /* Tablets */
+  .header {
+      width: 90%;
+      padding: 0.8rem;
+  }
+
+  .logo {
+      width: 12vh;
+  }
+
+  .sign-in-button {
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+  }
+}
+
+@media (max-width: 768px) { /* Mobile Devices */
+  .header {
+      /* flex-direction: column; */
+      text-align: center;
+      width: 100%;
+      padding: 1rem;
+  }
+
+  .logo {
+      width: 10vh;
+      margin-bottom: 0.5rem;
+  }
+
+  .sign-in-button {
+      font-size: 0.8rem;
+      padding: 0.5rem 0.8rem;
+  }
+}
+
+@media (max-width: 480px) { /* Small Mobile Devices */
+  .header {
+      width: 100%;
+      padding: 1rem;
+  }
+
+  .logo {
+      width: 9vh;
+      margin-bottom: 0.5rem;
+  }
+
+  .sign-in-button {
+      font-size: 0.8rem;
+      padding: 0.5rem;
+      text-align: center;
+  }
+}

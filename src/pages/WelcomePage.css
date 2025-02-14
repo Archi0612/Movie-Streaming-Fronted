@@ -1,0 +1,115 @@
+/* WelcomePage.css */
+.welcome-container {
+  /* background-color: #00131f; */
+  min-height: 100vh;
+}
+
+/* Hero Section */
+.welcome-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.welcome-overlay {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 19, 31, 0.6); /* Darker effect without affecting text */
+}
+
+/* Content Styles */
+.welcome-content {
+  position: absolute;
+  text-align: center;
+}
+
+.welcome-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+}
+
+.welcome-subtitle {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-bottom: 2rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Button Styles */
+.start-button {
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-color);
+  background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 30px var(--hover-shadow);
+}
+
+.start-button:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  box-shadow: 0 8px 35px var(--hover-shadow);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .welcome-title {
+    font-size: 3rem;
+  }
+
+  .welcome-subtitle {
+    font-size: 1.3rem;
+  }
+
+  .start-button {
+    padding: 0.9rem 1.8rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .welcome-content {
+    padding: 2rem;
+  }
+
+  .welcome-title {
+    font-size: 2.5rem;
+  }
+
+  .welcome-subtitle {
+    font-size: 1.2rem;
+  }
+
+  .start-button {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .welcome-title {
+    font-size: 2rem;
+  }
+
+  .welcome-subtitle {
+    font-size: 1rem;
+  }
+
+  .start-button {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.8rem;
+  }
+}
