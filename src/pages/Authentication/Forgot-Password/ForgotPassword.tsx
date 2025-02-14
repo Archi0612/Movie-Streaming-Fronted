@@ -30,6 +30,8 @@ const ForgotPassword = () => {
       }
     };
     return (
+      <div className="container">
+      <div className="welcome-overly">
       <div className="forgot-container">
         <button className="back-btn">
           <Link to={"/login"}>    
@@ -61,6 +63,8 @@ const ForgotPassword = () => {
         </div>
         <div className='create-link'><Link to={"/signup"}>Create new account</Link></div>
         </form>
+      </div>
+      </div>
       </div>
     );
 }
