@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import MoviesGrid from "../components/MoviesGrid";
 import TrendingMovies from "../components/TrendingMovies";
-import { fetchTrendingMovies, fetchMoviesByGenre } from "../services/TMDB-api-service";
+import {
+  fetchTrendingMovies,
+  fetchMoviesByGenre,
+} from "../services/TMDB-api-service";
 import { Movie } from "../interfaces/movie.interface";
 import "./Home.css"; // Import CSS
-import Sidebar  from "./Sidebar";
+import Sidebar from "./Sidebar";
 
 const Home: React.FC = () => {
   const [trendingMovies, setTrendingMovies] = useState<Movie[]>([]);
@@ -40,20 +43,19 @@ const Home: React.FC = () => {
 
   return (
     <>
+      <div className="home-container">
+        {/* sticky sidebar */}
+        <Sidebar />
+        {/* Trending Movies */}
+        <div className="section-container">
+          <TrendingMovies movies={trendingMovies} />
+        </div>
 
-    <Sidebar></Sidebar>
-    <div className="home-container">
-   
-      {/* Trending Movies */}
-      <div className="section-container">
-        <TrendingMovies movies={trendingMovies} />
+        {/* Action Movies */}
+        <div className="section-container">
+          <MoviesGrid movies={actionMovies} title="Action Movies" />
+        </div>
       </div>
-
-      {/* Action Movies */}
-      <div className="section-container">
-        <MoviesGrid movies={actionMovies} title="Action Movies" />
-      </div>
-    </div>
     </>
   );
 };

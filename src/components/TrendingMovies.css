@@ -1,5 +1,4 @@
 .trending-movies {
-  margin-left: 4rem;
   padding: 2rem;
   position: relative;
 }
@@ -17,10 +16,10 @@
   position: absolute;
   top: 57%;
   transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.6);
+  /* background-color: rgba(0, 0, 0, 0.6); */
   border: none;
   color: white;
-  font-size: 2rem;
+  font-size: 0.5rem;
   padding: 10px;
   cursor: pointer;
   z-index: 10;
@@ -32,13 +31,14 @@
 }
 
 .custom-next {
-  right: -30px;
+  right: 35px;
 }
 
 .custom-prev:hover,
 .custom-next:hover {
   height: auto;
-  background-color: var(--primary-color);
+  box-shadow: 0 4px 15px rgba(144, 192, 229, 0.3);
+  /* background-color: var(--primary-color); */
 }
 
 /* Swiper Slider Adjustments */
