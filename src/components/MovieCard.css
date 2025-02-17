@@ -43,17 +43,24 @@
   }
   
   .movie-details {
+    flex-direction: column;
     color: #d1d5db;
     font-size: 0.875rem;
     display: flex;
     gap: 0.75rem;
-    margin-bottom: 0.5rem;
+    margin:0 0 0.5rem 1rem;
   }
   
   .movie-overview {
-    color: white;
+    color: var(--text-color);
     font-size: 0.875rem;
     margin-top: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Limit to 3 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 4.5rem; /* Adjust height to match the number of lines */
   }
   
   .movie-buttons {
