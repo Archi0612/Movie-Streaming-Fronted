@@ -13,29 +13,31 @@ const Sidebar = () => {
       onMouseEnter={() => setIsExpanded(true)}
       onMouseLeave={() => setIsExpanded(false)}
     >
-      <ul>
+      <ul className={`sidebar-list ${isExpanded? "expanded" : ""}`}
+      onMouseEnter={() => setIsExpanded(true)}
+      onMouseLeave={() => setIsExpanded(false)}>
         <li>
-          <FaHome size={24}/>
+          <FaHome size={26}/>
           {isExpanded && <span className="Link-text">Home</span>}
         </li>
         <li>
-          <FaFilm size={24}/>
+          <FaFilm size={26}/>
           {isExpanded && <span className="Link-text">Movies</span>}
         </li>
         <li>
-          <FaTv size={24} />
+          <FaTv size={26} />
           {isExpanded && <span className="Link-text">Series</span>}
         </li>
         <li>
-          <BiCategory size={24} />
+          <BiCategory size={26} />
           {isExpanded && <span className="Link-text">Genres</span>}
         </li>
         <li>
-          <FaEnvelope size={24}/>
+          <FaEnvelope size={26}/>
           {isExpanded && <span className="Link-text">Contact Us</span>}
         </li>
         <li>
-          <CgProfile size={24}/>
+          <CgProfile size={26}/>
           {isExpanded && <span className="Link-text">My Space</span>}
         </li>
       </ul>

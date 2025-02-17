@@ -17,11 +17,11 @@ const TrendingMovies = ({ movies }: TrendingMoviesProps) => {
       <div className="relative">
         <Swiper
           slidesPerView={2}
-          spaceBetween={15}
+          spaceBetween={3}
           breakpoints={{
-            640: { slidesPerView: 3 },
-            768: { slidesPerView: 4 },
-            1024: { slidesPerView: 5 },
+            640: { slidesPerView: 4 },
+            768: { slidesPerView: 5 },
+            1024: { slidesPerView: 7 },
           }}
           navigation={{ nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" }}
           freeMode={true}

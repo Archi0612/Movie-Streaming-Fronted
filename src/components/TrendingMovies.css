@@ -1,4 +1,5 @@
 .trending-movies {
+  /* width: 60vw; */
   padding: 2rem;
   position: relative;
 }
@@ -6,7 +7,7 @@
 .trending-title {
   font-size: 2rem;
   font-weight: bold;
-  color: white;
+  color: var(--primary-color);
   margin-bottom: 1rem;
 }
 
@@ -16,7 +17,7 @@
   position: absolute;
   top: 57%;
   transform: translateY(-50%);
-  /* background-color: rgba(0, 0, 0, 0.6); */
+  background-color: rgba(0, 0, 0, 0.6);
   border: none;
   color: white;
   font-size: 0.5rem;
@@ -27,18 +28,17 @@
 }
 
 .custom-prev {
-  left: 35px;
+  left: 75px;
 }
 
 .custom-next {
-  right: 35px;
+  right: 75px;
 }
 
 .custom-prev:hover,
 .custom-next:hover {
-  height: auto;
-  box-shadow: 0 4px 15px rgba(144, 192, 229, 0.3);
-  /* background-color: var(--primary-color); */
+  box-shadow: 0 4px 20px var(--text-color);
+  background-color: var(--background-color);
 }
 
 /* Swiper Slider Adjustments */
