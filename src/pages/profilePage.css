@@ -1,146 +1,295 @@
-.mainContainer {
-    /* border: 2px solid black; */
-    width: 95vw;
-    height: 100vh;
-    position: relative;
-    margin-left: auto;
+/* .mainContainer {
+    width: 80vw;
+    height: 90vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    background-color: black;
+    background: linear-gradient(135deg, black, #1a1a1a);
+    color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
 }
 
 .primaryContainer {
-    height: 12vh;
-    width: 80vw;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: #000;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+}
+
+.navbar h1 {
+    font-size: 1.8rem;
+}
+
+.profileDropdown {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 10px;
+}
+
+.profileIcon,
+.dropdownArrow {
     color: white;
-}
-
-.secondaryContainer {
-    /* border: 2px solid red; */
-    height: auto;
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    border-radius: 40px 40px 0 0;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.secondaryContainer:hover {
-    box-shadow: 0 8px 30px rgba(255, 255, 255, 0.3);
-    /* Enhance the shadow on hover with white color */
-}
-
-.sec-primaryContainer {
-    background: linear-gradient(45deg, #000428, #004e92);
-    color: black;
-    height: 80vh;
-    width: 80vw;
-    padding: 1rem;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    border-radius: 40px 40px 0 0;
-
-    box-shadow: 0 6px 25px rgba(255, 255, 255, 0.5);
-}
-
-.sec-secondaryContainer {
-    background-color: black;
-    height: 70vh;
-    width: 80vw;
-    position: absolute;
-    bottom: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    color: white;
-    align-items: center;
 }
 
 .profileSection {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-top: 1rem;
-    width: 70vw;
     justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 2rem;
+    background: #121212;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
 }
 
-.profilePic-Img {
-    display: flex;
-    flex-direction: row;
-
-}
-
-.img {
-    width: 6vw;
-    height: 6vh;
+.profilePic {
+    border-radius: 50%;
     background-color: white;
-    border-radius: 200%;
-    margin-right: 15px;
-}
-
-.details {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    margin-left: 15px;
+    padding: 5px;
 }
 
 .details h3,
-h4 {
-    margin: 3px;
-}
-
-.saveBtn {
-    background: linear-gradient(45deg, #000428, #004e92);
+.details h4 {
+    margin: 5px 0;
+    color: #ddd;
 }
 
 .formMain {
-    width: 70vw;
-    height: 40vh;
-    margin-top: 15px;
     display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 2rem;
 }
 
-.primaryformContainer {
-    width: 30vw;
-    height: 30vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-}
-
-.primaryformContainer input,
-.secondaryformContainer input {
-    background-color: white;
-}
-
-.primaryformContainer label,
-.secondaryformContainer label {
-    font-size: large;
-    font-weight: 100;
-}
-
+.primaryformContainer,
 .secondaryformContainer {
-    width: 30vw;
-    height: 20vh;
+    width: 48%;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    gap: 15px;
 }
 
+label {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: #aaa;
+}
+
+input,
+select {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    width: 100%;
+    background: #222;
+    color: white;
+}
+
+input:focus,
+select:focus {
+    outline: 2px solid white;
+}
+
+.saveBtn {
+    padding: 12px 20px;
+    border: none;
+    cursor: pointer;
+    background: white;
+    color: black;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+.saveBtn:hover {
+    background: grey;
+}
 
 .emailSection {
-    height: 20vh;
-    width: 70vw;
-    margin-top: 30px;
+    width: 100%;
+    margin-top: 2rem;
+    background: #121212;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+}
+
+.emailSection h3 {
+    color: #ddd;
+}
+
+.emailSection button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    background: white;
+    color: black;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+.emailSection button:hover {
+    background: grey;
+}
+
+*/
+
+
+/* Main Container */
+.mainContainer {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    background: linear-gradient(135deg, black, #1a1a1a);
+    color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+/* Navbar */
+.primaryContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: #000;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+}
+
+.navbar h1 {
+    font-size: 1.8rem;
+}
+
+.profileDropdown {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 10px;
+}
+
+.profileIcon,
+.dropdownArrow {
+    color: white;
+}
+
+/* Profile Section */
+.profileSection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 2rem;
+    background: #121212;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+}
+
+.profilePic {
+    border-radius: 50%;
+    background-color: white;
+    padding: 5px;
+}
+
+.details h3,
+.details h4 {
+    margin: 5px 0;
+    color: #ddd;
+}
+
+/* Form Section */
+.formMain {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.primaryformContainer,
+.secondaryformContainer {
+    width: 48%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: #aaa;
+}
+
+input,
+select {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    width: 100%;
+    background: #222;
+    color: white;
+}
+
+input:focus,
+select:focus {
+    outline: 2px solid white;
+}
+
+/* Save Button */
+.saveBtn {
+    padding: 12px 20px;
+    border: none;
+    cursor: pointer;
+    background: white;
+    color: black;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+.saveBtn:hover {
+    background: grey;
+}
+
+/* Email Section */
+.emailSection {
+    width: 100%;
+    margin-top: 2rem;
+    background: #121212;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+}
+
+.emailSection h3 {
+    color: #ddd;
+}
+
+.emailSection button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    background: white;
+    color: black;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+.emailSection button:hover {
+    background: grey;
 }

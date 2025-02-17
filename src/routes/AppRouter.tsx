@@ -6,6 +6,7 @@ import Login from "../pages/Authentication/Login/Login";
 import Signup from "../pages/Authentication/Signup/Signup";
 import ForgotPassword from "../pages/Authentication/Forgot-Password/ForgotPassword";
 import ResetPassword from "../pages/Authentication/Reset-Password/ResetPassword";
+import ProfilePage from "../pages/profilePage";
 
 const AppRoute: React.FC = () => {
   return (
@@ -17,6 +18,8 @@ const AppRoute: React.FC = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/profile-page" element={<ProfilePage />} />
+
       </Routes>
     </BrowserRouter>
   );

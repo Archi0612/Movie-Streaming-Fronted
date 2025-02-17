@@ -4,6 +4,7 @@ import ForgotPassword from '../pages/Authentication/Forgot-Password/ForgotPasswo
 import ResetPassword from '../pages/Authentication/Reset-Password/ResetPassword'
 import Home from '../pages/Home';
 import { RouteConfig } from '../types/types';
+import ProfilePage from '../pages/profilePage';
 
 const routes: RouteConfig[] = [
     { path: "/", element: <Home /> },
@@ -11,6 +12,8 @@ const routes: RouteConfig[] = [
     { path: "/signup", element: <Signup /> },
     { path: "/forgot-password", element: <ForgotPassword /> },
     { path: "/reset-password", element: <ResetPassword /> },
+    { path: "/profile-page", element: <ProfilePage /> },
+
 
 ]
 
