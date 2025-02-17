@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './ResetPassword.css';
 import img2 from "../../../assets/resetlogo.png"
+import { FaEye,FaEyeSlash } from 'react-icons/fa';
 const ResetPassword: React.FC = () => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
@@ -8,7 +9,8 @@ const ResetPassword: React.FC = () => {
     newPassword: '',
     confirmNewPassword: '',
   });
-
+  const[showPassword,setShowPassword]=useState<boolean>(false);
+  const[showConfirmPassword,setShowConfirmPassword]=useState<boolean>(false);
   const validateNewPassword = (password: string) => {
     if (!password) {
       return 'New Password is required';
@@ -46,6 +48,12 @@ const ResetPassword: React.FC = () => {
       confirmNewPassword: validateConfirmNewPassword(newPassword, value),
     }));
   };
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
+  };
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword((prevState) => !prevState);
+  };
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -66,35 +74,39 @@ const ResetPassword: React.FC = () => {
   return (
     <div className="container">
       <div className="welcome-overly">
-
-      
-    
     <div className="reset-container">
       <div className='img-container'>
     <img src={img2} alt="" className='reset-logo' />
     </div>
       <h2>Reset Password</h2>
       <form onSubmit={handleSubmit}>
-        <div className="input-group">
-          <label>New Password</label>
-          <input
-            type="password"
-            value={newPassword}
-            onChange={handleNewPasswordChange}
-            placeholder="Enter your new password"
-            className={errors.newPassword ? 'input-error' : newPassword ? 'input-valid' : ''}
-          />
+         <div className="input-group">
+          <label>Password</label>
+          <div className="password-container">
+            <input
+              type={showPassword ? "text" : "password"}
+              value={newPassword}
+              onChange={handleNewPasswordChange}
+              placeholder="Enter your password"
+            />
+            <span className="toggle-icon" onClick={togglePasswordVisibility}>
+              {showPassword ? <FaEyeSlash color='white'/> : <FaEye color='white'/>}
+            </span>
+          </div>
           {errors.newPassword && <span className="error">{errors.newPassword}</span>}
         </div>
-        <div className="input-group">
-          <label>Confirm New Password</label>
-          <input
-            type="password"
+        <div className='input-group'>
+          <label>Confirm Password</label>
+          <div className="password-container">
+            <input type={showConfirmPassword ? "text" : "password"}
             value={confirmNewPassword}
             onChange={handleConfirmNewPasswordChange}
-            placeholder="Confirm your new password"
-            className={errors.confirmNewPassword ? 'input-error' : confirmNewPassword ? 'input-valid' : ''}
-          />
+            placeholder='Confirm your password'
+             />
+             <span className='toggle-icon' onClick={toggleConfirmPasswordVisibility}>
+              {showConfirmPassword ? <FaEyeSlash color='white'/>: <FaEye color='white'/> }
+             </span>
+          </div>
           {errors.confirmNewPassword && <span className="error">{errors.confirmNewPassword}</span>}
         </div>
         <button type="submit">Reset Password</button>
