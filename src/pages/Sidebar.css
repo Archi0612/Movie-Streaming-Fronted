@@ -2,42 +2,47 @@
     position: fixed;
     left: 0;
     top: 0;
-    max-width: fit-content;
+    padding-left: 1.7rem;
+    /* max-width: fit-content; */
     height: 100vh;
-    background: var(--background-color);
+    background: rgba(var(--primary-color), 0.7);
     transition: 0.3s ease;
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: start;
     padding-top: 2rem;
     z-index: 1000;
  
   }
   
-  /* .sidebar.expanded {
-    
-  } */
+  .sidebar.expanded {
+    width: 45%;
+    background: linear-gradient(to right, rgba(0, 31, 63, 0.702), rgba(0, 0, 0, 0)); 
+  }
   
-  .sidebar ul {
+  .sidebar-list {
     list-style: none;
-    margin-top: 250px;
     padding: 0;
-    /* margin: 0; */
+    width: 8vw;
   }
   
   .sidebar li {
     display: flex;
     align-items: center;
-    padding: 15px;
-    color: white;
+    padding: 20px;
     border-radius: 0.5rem;
     cursor: pointer;
     transition: background 0.3s ease;
     margin-top: 1rem;
+    color: rgb(185, 177, 177);
+    font-weight: 700;
   }
   
   .sidebar li:hover {
-    background: var(--secondary-color);
+    /* color: var(--text-color); */
+    color: var(--primary-color);
   }
   
   .icon {
