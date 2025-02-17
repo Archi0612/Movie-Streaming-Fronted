@@ -2,6 +2,8 @@ import { useState } from "react";
 import { FaHome, FaFilm, FaTv, FaEnvelope } from "react-icons/fa";
 import { BiCategory } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
+import logo from "../assets/Logo (1).png"
+import logo1 from "../assets/logoF (1).png"
 import "./Sidebar.css";
 
 const Sidebar = () => {

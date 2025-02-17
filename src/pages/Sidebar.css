@@ -14,7 +14,6 @@
     align-items: start;
     padding-top: 2rem;
     z-index: 1000;
- 
   }
   
   .sidebar.expanded {
@@ -27,7 +26,24 @@
     padding: 0;
     width: 8vw;
   }
+  .sidebar-logo {
+    /* width: 100%; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 0;
+  }
   
+  .logo1 {
+    position: absolute;
+    width: 40px;
+    height: auto;
+  }
+  .logo2{
+    position: absolute;
+    height: auto;
+    width: 80px;
+  }
   .sidebar li {
     display: flex;
     align-items: center;
