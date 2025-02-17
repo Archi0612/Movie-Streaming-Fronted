@@ -23,8 +23,9 @@
 .sign-in-button {
   width: 11vh;
   background-color: transparent;
-  color: var(--text-color);
+  color: var(--primary-color);
   font-size: 1rem;
+  font-weight: 800;
   padding: 0.8rem 1.5rem;
   border: 2px solid var(--primary-color);
   border-radius: 5px;

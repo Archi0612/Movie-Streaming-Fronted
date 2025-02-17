@@ -6,7 +6,7 @@ const WelcomePage: React.FC = () => {
   const navigate = useNavigate();
   const handleGetStarted = () => {
     console.log("Get Started clicked");
-    navigate("/login");
+    navigate("/home");
   };
 
   return (
