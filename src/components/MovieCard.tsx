@@ -37,9 +37,9 @@ const MovieCard = ({ title, posterPath, overview, releaseDate, voteAverage, lang
             <h3 className="movie-title">{title}</h3>
             <div className="movie-rating">{stars}</div>
             <ul className="movie-details">
-              <li>• {new Date(releaseDate).getFullYear()}</li>
-              <li>• {language?.toUpperCase()}</li>
-              <li>• {genreNames}</li>
+              <li> {new Date(releaseDate).getFullYear()}</li>
+              <li> {language?.toUpperCase()}</li>
+              <li> {genreNames}</li>
             </ul>
             <p className="movie-overview">{overview}</p>
           </div>
