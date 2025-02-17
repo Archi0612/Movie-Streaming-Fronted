@@ -2,19 +2,19 @@
     position: fixed;
     left: 0;
     top: 0;
-    height: 100vh;
-    width: 60px;
-    background: rgba(7, 7, 7, 0.5);
-    transition: width 0.3s ease;
+    /* height: 100vh; */
+    background: var(--background-color);
+    transition: 0.3s ease;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    padding-top: 20px;
+    padding-top: 2rem;
+    z-index: 1;
   }
   
-  .sidebar.expanded {
-    width: 200px;
-  }
+  /* .sidebar.expanded {
+    
+  } */
   
   .sidebar ul {
     list-style: none;
@@ -28,13 +28,14 @@
     align-items: center;
     padding: 15px;
     color: white;
+    border-radius: 0.5rem;
     cursor: pointer;
-    transition: background 0.3s;
-    margin-top: 8px;
+    transition: background 0.3s ease;
+    margin-top: 1rem;
   }
   
   .sidebar li:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--secondary-color);
   }
   
   .icon {

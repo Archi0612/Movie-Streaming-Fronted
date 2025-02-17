@@ -4,6 +4,7 @@ import TrendingMovies from "../components/TrendingMovies";
 import { fetchTrendingMovies, fetchMoviesByGenre } from "../services/TMDB-api-service";
 import { Movie } from "../interfaces/movie.interface";
 import "./Home.css"; // Import CSS
+import Sidebar  from "./Sidebar";
 
 const Home: React.FC = () => {
   const [trendingMovies, setTrendingMovies] = useState<Movie[]>([]);
@@ -38,9 +39,11 @@ const Home: React.FC = () => {
   }
 
   return (
+    <>
+
+    <Sidebar></Sidebar>
     <div className="home-container">
-    
-    
+   
       {/* Trending Movies */}
       <div className="section-container">
         <TrendingMovies movies={trendingMovies} />
@@ -51,6 +54,7 @@ const Home: React.FC = () => {
         <MoviesGrid movies={actionMovies} title="Action Movies" />
       </div>
     </div>
+    </>
   );
 };
 

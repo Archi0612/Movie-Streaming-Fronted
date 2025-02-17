@@ -15,7 +15,7 @@ const Sidebar = () => {
     >
       <ul>
         <li>
-          <FaHome size={24} />
+          <FaHome size={24}/>
           {isExpanded && <span className="Link-text">Home</span>}
         </li>
         <li>
