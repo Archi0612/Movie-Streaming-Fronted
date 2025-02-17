@@ -119,11 +119,28 @@ button:hover {
 .signup-link a:hover{
   color:  #3765BB;
 }
+.password-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+.password-container input {
+  width: 100%;
+  padding-right: 40px; /* Space for the eye icon */
+}
+
+.toggle-icon {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  color: gray;
+}
 @media (max-width: 1024px) {
   .login-container {
     width: 450px;
- 
-
   }
 
   input {

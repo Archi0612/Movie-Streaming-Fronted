@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import "./Signup.css"
 import img from "../../../assets/avatar.png"
+import { FaEye,FaEyeSlash } from "react-icons/fa";
 const Signup: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [name, setName] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [phoneNumber, setPhoneNumber] = useState<string>('');
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const[showConfirmPassword,setShowConfirmPassword]=useState<boolean>(false);
   const [errors, setErrors] = useState<{
     email: string;
     name: string;
@@ -49,7 +52,12 @@ const Signup: React.FC = () => {
     const phoneRegex = /^\d{10}$/;
     return phoneRegex.test(phoneNumber) ? '' : 'Phone number must be 10 digits';
   };
-
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
+  };
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword((prevState) => !prevState);
+  };
   const handleChange = (field: string, value: string) => {
     let error = '';
     switch (field) {
@@ -142,26 +150,34 @@ const Signup: React.FC = () => {
         </div>
         <div className="input-group">
           <label>Password</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => handleChange('password', e.target.value)}
-            placeholder="Enter your password"
-          />
-          {errors.password && <span className="error">{errors.password}</span>}
-        </div>
-        <div className="input-group">
-          <label>Confirm Password</label>
-          <input
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => handleChange('confirmPassword', e.target.value)}
-            placeholder="Confirm your password"
-          />
-          {errors.confirmPassword && <span className="error">{errors.confirmPassword}</span>}
-        </div>
-        
-        <button type="submit">Sign Up</button>
+      <div className="password-container">
+      <input
+      type={showPassword ? "text" : "password"}
+      value={password}
+      onChange={(e) => handleChange('password', e.target.value)}
+      placeholder="Enter your password"
+    />
+    <span className="toggle-icon" onClick={togglePasswordVisibility}>
+      {showPassword ? <FaEyeSlash color='white'/> : <FaEye color='white'/>}
+    </span>
+  </div>
+  {errors.password && <span className="error">{errors.password}</span>}
+</div>
+<div className='input-group'>
+  <label>Confirm Password</label>
+  <div className="password-container">
+    <input type={showConfirmPassword ? "text" : "password"}
+    value={confirmPassword}
+    onChange={(e)=>handleChange('confirmPassword',e.target.value)}
+    placeholder='Confirm your password'
+     />
+     <span className='toggle-icon' onClick={toggleConfirmPasswordVisibility}>
+      {showConfirmPassword ? <FaEyeSlash color='white'/>: <FaEye color='white'/> }
+     </span>
+  </div>
+  {errors.confirmPassword && <span className="error">{errors.confirmPassword}</span>}
+</div>      
+  <button type="submit">Sign Up</button>
       </form>
       <p id='already'>
         Already have an account? <Link to="/login">Login</Link>

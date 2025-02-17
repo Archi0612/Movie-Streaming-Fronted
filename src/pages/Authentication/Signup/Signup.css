@@ -102,6 +102,34 @@ button:hover {
   height: 100px;
 }
 
+.input-group {
+  width: 100%;
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.password-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+.password-container input {
+  width: 100%;
+  padding-right: 40px; /* Space for the eye icon */
+}
+
+.toggle-icon {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  color: gray;
+}
+
+
+
 @media (max-width: 1024px) {
   .signup-container {
     width: 450px;

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Login.css';
 import img1 from "../../../assets/login-64.png"
+import { FaEyeSlash,FaEye } from 'react-icons/fa';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -9,7 +10,7 @@ const Login = () => {
     email: '',
     password: '',
   });
-
+  const[showPassword,setShowPassword]=useState<boolean>(false);
   const validateEmail = (email:string) => {
     if (!email) return 'Email is required';
     const emailRegex = /\S+@\S+\.\S+/;
@@ -25,6 +26,9 @@ const Login = () => {
     }
     return '';
     
+  };
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
   };
 
   const handleChange = (field:string, value:string) => {
@@ -80,15 +84,19 @@ const Login = () => {
           />
           {errors.email && <span className="error">{errors.email}</span>}
         </div>
-        <div className="input-group">
+        <div className='input-group'>
           <label>Password</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => handleChange('password', e.target.value)}
-            placeholder="Enter your password"
-          />
-          {errors.password && <span className="error">{errors.password}</span>}
+          <div className="password-container">
+          <input type={showPassword ? 'text':'password'}
+          value={password}
+          onChange={(e)=>handleChange('password',e.target.value)}
+          placeholder='Enter your password'
+        />
+        <span className='toggle-icon' onClick={togglePasswordVisibility}>
+          {showPassword ? <FaEyeSlash color='white'/>:<FaEye color='white'/>}
+        </span>
+        </div>
+        {errors.password && <span className="error">{errors.password}</span>}
         </div>
         <button type="submit">Login</button>
         <p className="forgot-link">
