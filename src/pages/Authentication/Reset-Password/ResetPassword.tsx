@@ -54,7 +54,9 @@ const ResetPassword: React.FC = () => {
   const toggleConfirmPasswordVisibility = () => {
     setShowConfirmPassword((prevState) => !prevState);
   };
-
+  const hidePasswordOnBlur = () => {
+    setShowPassword(false);
+  };
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     const newPasswordError = validateNewPassword(newPassword);
@@ -86,6 +88,7 @@ const ResetPassword: React.FC = () => {
             <input
               type={showPassword ? "text" : "password"}
               value={newPassword}
+              onBlur={hidePasswordOnBlur}
               onChange={handleNewPasswordChange}
               placeholder="Enter your password"
             />
