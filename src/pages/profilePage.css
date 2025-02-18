@@ -161,14 +161,28 @@ select:focus {
 
 /* Navbar */
 .primaryContainer {
-    width: 100%;
+    width: 50%;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     padding: 1rem 2rem;
     background: #000;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+}
+
+.secondaryContainer {
+    width: 80vw;
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sec-primaryContainer {
+    width: 40vw;
+    height: 40vh;
 }
 
 .navbar h1 {
@@ -203,6 +217,10 @@ select:focus {
     border-radius: 50%;
     background-color: white;
     padding: 5px;
+}
+
+.saveBtn {
+    width: 10vw
 }
 
 .details h3,
