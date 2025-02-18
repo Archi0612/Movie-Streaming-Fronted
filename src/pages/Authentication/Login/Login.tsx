@@ -1,44 +1,46 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import './Login.css';
-import img1 from "../../../assets/login-64.png"
-import { FaEyeSlash,FaEye } from 'react-icons/fa';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import "./Login.css";
+import img1 from "../../../assets/login-64.png";
+import { FaEyeSlash, FaEye } from "react-icons/fa";
+
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
-  const[showPassword,setShowPassword]=useState<boolean>(false);
-  const validateEmail = (email:string) => {
-    if (!email) return 'Email is required';
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+
+  const validateEmail = (email: string) => {
+    if (!email) return "Email is required";
     const emailRegex = /\S+@\S+\.\S+/;
-    return emailRegex.test(email) ? '' : 'Please enter a valid email';
+    return emailRegex.test(email) ? "" : "Please enter a valid email";
   };
 
-  const validatePassword = (password:string) => {
+ 
+  const validatePassword = (password: string) => {
     if (!password) {
-      return 'Password is required';
+      return "Password is required";
     }
     if (password.length < 6) {
-      return 'Password must be at least 6 characters';
+      return "Password must be at least 6 characters";
     }
-    return '';
-    
+    return "";
   };
   const togglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);
   };
 
-  const handleChange = (field:string, value:string) => {
-    let error = '';
+  const handleChange = (field: string, value: string) => {
+    let error = "";
     switch (field) {
-      case 'email':
+      case "email":
         setEmail(value);
         error = validateEmail(value);
         break;
-      case 'password':
+      case "password":
         setPassword(value);
         error = validatePassword(value);
         break;
@@ -48,7 +50,8 @@ const Login = () => {
     setErrors((prevErrors) => ({ ...prevErrors, [field]: error }));
   };
 
-  const handleSubmit = (event:React.FormEvent) => {
+ 
+  const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     const emailError = validateEmail(email);
     const passwordError = validatePassword(password);
@@ -59,13 +62,16 @@ const Login = () => {
         password: passwordError,
       });
     } else {
-      console.log('Login Successful', { email, password });
+      console.log("Login Successful", { email, password });
       // Proceed with login logic (e.g., API call)
     }
   };
 
+
+
   return (
-    <div className='container'>
+    <div className="container">
+      {/* <Header minimal /> */}
       <div className="welcome-overlay">
    
     <div className="login-container">

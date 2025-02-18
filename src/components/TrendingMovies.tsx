@@ -21,7 +21,7 @@ const TrendingMovies = ({ movies }: TrendingMoviesProps) => {
           breakpoints={{
             640: { slidesPerView: 4 },
             768: { slidesPerView: 5 },
-            1024: { slidesPerView: 7 },
+            1024: { slidesPerView: 6 },
           }}
           navigation={{ nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" }}
           freeMode={true}
