@@ -15,6 +15,9 @@ const Sidebar = () => {
       onMouseEnter={() => setIsExpanded(true)}
       onMouseLeave={() => setIsExpanded(false)}
     >
+      <div className="sidebar-logo">
+      {!isExpanded ?  (<img src={logo1} className="logo1"/>):(<img src={logo} className="logo2"/>)}
+      </div>
       <ul className={`sidebar-list ${isExpanded? "expanded" : ""}`}
       onMouseEnter={() => setIsExpanded(true)}
       onMouseLeave={() => setIsExpanded(false)}>
