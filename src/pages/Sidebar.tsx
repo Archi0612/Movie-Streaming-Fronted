@@ -2,7 +2,6 @@ import { useState } from "react";
 import { FaHome, FaFilm, FaTv, FaEnvelope } from "react-icons/fa";
 import { BiCategory } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
-import logo from "../assets/Logo (1).png"
 import logo1 from "../assets/logoF (1).png"
 import "./Sidebar.css";
 
@@ -15,6 +14,9 @@ const Sidebar = () => {
       onMouseEnter={() => setIsExpanded(true)}
       onMouseLeave={() => setIsExpanded(false)}
     >
+      <div className="sidebar-logo">
+        {!isExpanded ? (<img src={logo1} className="logo1"/>):(<img src={logo1} className="logo2"/>)}
+      </div>
       <ul className={`sidebar-list ${isExpanded? "expanded" : ""}`}
       onMouseEnter={() => setIsExpanded(true)}
       onMouseLeave={() => setIsExpanded(false)}>
