@@ -9,7 +9,7 @@ const Header: React.FC= () => {
       }
   return (
     <header className="header">
-    <img src="src/assets/logo.png" alt="Filmster Logo" className="logo" />
+    <img src="src/assets/filmsterLogo.png" alt="Filmster Logo" className="logo" />
     <button className="sign-in-button" onClick={handleSignIn}>
       Sign In
     </button>

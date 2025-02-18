@@ -18,7 +18,7 @@
   
   .sidebar.expanded {
     width: 45%;
-    background: linear-gradient(to right, rgba(0, 31, 63, 0.702), rgba(0, 0, 0, 0)); 
+    background: linear-gradient(to right, rgba(0, 31, 63, 0.722), rgba(0, 0, 0, 0)); 
   }
   
   .sidebar-list {
@@ -26,6 +26,7 @@
     padding: 0;
     width: 8vw;
   }
+
   .sidebar-logo {
     display: flex;
     align-items: center;
@@ -33,20 +34,21 @@
     padding: 15px 0;
   }
   
-  .logo1 {
+  .logo-1 {
     position: absolute;
-    width: 40px;
-    height: auto;
+    width: 3rem;
+    /* height: auto; */
     top: 1rem;
-    left: 2rem;
+    left: 2.1rem;
   }
+   /*
   .logo2{
     position: absolute;
     height: auto;
-    width: 80px;
+    width: 3rem;
     top: 1rem;
     left: 2rem;
-  }
+  } */
   .sidebar li {
     display: flex;
     align-items: center;
