@@ -3,11 +3,11 @@ import "./Header.css";
 import { useNavigate } from "react-router-dom";
 import { HeaderProps } from "../interfaces/movie.interface";
 
-const Header: React.FC<HeaderProps> = ({ minimal }) => {
+const Header: React.FC<HeaderProps> = ({ showFullHeader, showOnlyLogo }) => {
   const navigate = useNavigate();
   const handleSignIn = () => {
     console.log("Sign in button");
-    navigate("/login");
+    navigate("login");
   };
   const handleLogoClick = () => {
     navigate("/");
@@ -20,7 +20,7 @@ const Header: React.FC<HeaderProps> = ({ minimal }) => {
         className="logo"
         onClick={handleLogoClick}
       />
-      {!minimal && (
+      {showFullHeader && !showOnlyLogo && (
         <button className="sign-in-button" onClick={handleSignIn}>
           Sign In
         </button>

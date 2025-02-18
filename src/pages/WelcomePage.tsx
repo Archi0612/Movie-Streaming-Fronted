@@ -1,6 +1,5 @@
 import React from "react";
 import "./WelcomePage.css";
-import Header from "./Header";
 import { useNavigate } from "react-router-dom";
 const WelcomePage: React.FC = () => {
   const navigate = useNavigate();
@@ -11,7 +10,6 @@ const WelcomePage: React.FC = () => {
 
   return (
     <div className="welcome-container">
-      <Header />
       {/* Hero Section */}
       <div
         className="welcome-section"

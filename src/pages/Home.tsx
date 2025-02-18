@@ -8,6 +8,7 @@ import {
 import { Movie } from "../interfaces/movie.interface";
 import "./Home.css"; // Import CSS
 import Sidebar from "./Sidebar";
+import Shimmer from "../components/shimmerUI/Shimmer";
 
 
 const Home: React.FC = () => {
@@ -34,17 +35,12 @@ const Home: React.FC = () => {
     fetchMovies();
   }, []);
 
-  if (isLoading) {
-    return (
-      <div className="loading-container">
-        <div className="loading-spinner"></div>
-      </div>
-    );
-  }
 
   return (
     <>
-      <div className="home-container">
+    {isLoading ? (<Shimmer/> ):
+      (
+        <div className="home-container">
         {/* sticky sidebar */}
         <Sidebar />
         {/* Trending Movies */}
@@ -57,6 +53,9 @@ const Home: React.FC = () => {
           <MoviesGrid movies={actionMovies} title="Action Movies" />
         </div>
       </div>
+      ) 
+      }
+
     </>
   );
 };

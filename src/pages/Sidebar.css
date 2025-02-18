@@ -24,7 +24,7 @@
   .sidebar-list {
     list-style: none;
     padding: 0;
-    width: 8vw;
+    width: 10vw;
   }
 
   .sidebar-logo {
@@ -58,7 +58,7 @@
     transition: background 0.3s ease;
     margin-top: 1rem;
     color: rgb(185, 177, 177);
-    font-weight: 700;
+    font-weight: 800;
   }
   
   .sidebar li:hover {
@@ -66,8 +66,8 @@
   }
   
   .icon {
-    font-size: 24px;
-    margin-right: 15px;
+    font-size: 3rem;
+    margin-right: 2rem;
   }
   
   .sidebar span {
