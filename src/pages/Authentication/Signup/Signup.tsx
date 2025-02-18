@@ -181,7 +181,7 @@ const Signup: React.FC = () => {
   </div>
   {errors.confirmPassword && <span className="error">{errors.confirmPassword}</span>}
 </div>      
-  <button type="submit">Sign Up</button>
+  <button type="submit" className='signup-btn'>Sign Up</button>
       </form>
       <p id='already'>
         Already have an account? <Link to="/login">Login</Link>

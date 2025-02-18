@@ -112,7 +112,7 @@ const ResetPassword: React.FC = () => {
           </div>
           {errors.confirmNewPassword && <span className="error">{errors.confirmNewPassword}</span>}
         </div>
-        <button type="submit">Reset Password</button>
+        <button type="submit" className='reset-btn'>Reset Password</button>
       </form>
     </div>
     </div>

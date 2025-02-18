@@ -57,7 +57,7 @@ const ForgotPassword = () => {
             />
             {error && <span className="error">{error}</span>}
           </div>
-          <button type="submit">Verify your email</button>
+          <button type="submit" className='forgot-btn'>Verify your email</button>
           <div className="horizontal-line">
           <span>OR</span>
         </div>
