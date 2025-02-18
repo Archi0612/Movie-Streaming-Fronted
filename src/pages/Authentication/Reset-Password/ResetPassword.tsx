@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './ResetPassword.css';
 import img2 from "../../../assets/resetlogo.png"
 import { FaEye,FaEyeSlash } from 'react-icons/fa';
-import Header from '../../Header';
 
 
 const ResetPassword: React.FC = () => {
@@ -78,7 +77,7 @@ const ResetPassword: React.FC = () => {
 
   return (
     <div className="container">
-      <Header minimal />
+      {/* <Header minimal /> */}
       <div className="welcome-overly">
         
     <div className="reset-container">

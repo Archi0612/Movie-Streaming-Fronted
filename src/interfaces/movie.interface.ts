@@ -39,8 +39,9 @@ export interface MovieGridProps {
   title: string;
 }
 
-export interface HeaderProps {
-  minimal?: boolean;
+export interface HeaderProps{
+  showFullHeader?: boolean;
+  showOnlyLogo?: boolean;
 }
 
 export interface MovieResponse {

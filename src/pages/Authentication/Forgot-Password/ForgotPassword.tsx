@@ -1,9 +1,8 @@
-import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Header from "../../Header";
 import "./ForgotPassword.css";
+import React,{ useState } from "react";
 
-const ForgotPassword = () => {
+const ForgotPassword:React.FC = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const validateEmail = (email: string) => {
@@ -31,7 +30,7 @@ const ForgotPassword = () => {
   };
   return (
     <div className="container">
-      <Header minimal />
+      {/* <Header minimal /> */}
       <div className="welcome-overly">
         <div className="forgot-container">
           <button className="back-btn">

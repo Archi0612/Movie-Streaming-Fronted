@@ -32,7 +32,9 @@ const Sidebar: React.FC = () => {
       <ul className={`sidebar-list ${isExpanded? "expanded" : ""}`}
       onMouseEnter={() => setIsExpanded(true)}
       onMouseLeave={() => setIsExpanded(false)}>
-        <li>
+        <li onClick={() => {
+          navigate("/home");
+        }}>
           <FaHome size={26}/>
           {isExpanded && <span className="Link-text">Home</span>}
         </li>

@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import "./Login.css";
 import img1 from "../../../assets/login-64.png";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
-import Header from "../../Header";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -13,7 +12,7 @@ const Login = () => {
     password: "",
   });
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  
+
   const validateEmail = (email: string) => {
     if (!email) return "Email is required";
     const emailRegex = /\S+@\S+\.\S+/;
@@ -72,7 +71,7 @@ const Login = () => {
 
   return (
     <div className="container">
-      <Header minimal />
+      {/* <Header minimal /> */}
       <div className="welcome-overlay">
    
     <div className="login-container">

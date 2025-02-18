@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import "./Signup.css";
 import img from "../../../assets/avatar.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import Header from "../../Header";
 
 const Signup: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -128,7 +127,7 @@ const Signup: React.FC = () => {
 
   return (
     <div className="container">
-      <Header minimal />
+      {/* <Header minimal /> */}
       <div className="welcome-overly">
         <div className="signup-container">
           <div className="signup-logo">
