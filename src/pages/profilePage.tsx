@@ -1,11 +1,11 @@
 import './profilePage.css';
 import { useState } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
-
+import { Profile } from '../interfaces/movie.interface';
 export default function ProfilePage() {
-    const [showEmailInput, setShowEmailInput] = useState(false);
+    const [showEmailInput, setShowEmailInput] = useState<boolean>(false);
 
-    const [profile, setProfile] = useState({
+    const [profile, setProfile] = useState<Profile>({
         name: '',
         gender: '',
         dob: '',
