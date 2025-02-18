@@ -27,7 +27,6 @@
     width: 8vw;
   }
   .sidebar-logo {
-    /* width: 100%; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -38,11 +37,15 @@
     position: absolute;
     width: 40px;
     height: auto;
+    top: 1rem;
+    left: 2rem;
   }
   .logo2{
     position: absolute;
     height: auto;
     width: 80px;
+    top: 1rem;
+    left: 2rem;
   }
   .sidebar li {
     display: flex;
@@ -57,7 +60,6 @@
   }
   
   .sidebar li:hover {
-    /* color: var(--text-color); */
     color: var(--primary-color);
   }
   
