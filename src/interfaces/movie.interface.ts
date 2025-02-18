@@ -42,6 +42,7 @@ export interface MovieGridProps {
 export interface HeaderProps {
   minimal?: boolean;
 }
+
 export interface MovieResponse {
   page: number;
   results: Movie[];
@@ -62,3 +63,11 @@ export interface VideoResponse {
   id: number;
   results: VideoResult[];
 }
+export interface Profile {
+  name: string;
+  gender: string;
+  dob: string;
+  country: string;
+  email: string;
+}
+
