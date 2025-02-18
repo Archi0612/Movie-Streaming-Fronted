@@ -1,14 +1,12 @@
-import React from 'react';
-import MovieCard from './MovieCard';
-import { Movie } from '../interfaces/movie.interface';
-import './MovieGrid.css';
+import React from "react";
+import MovieCard from "./MovieCard";
+import { MovieGridProps } from "../interfaces/movie.interface";
+import "./MovieGrid.css";
 
-interface MovieGridProps {
-  movies: Movie[];
-  title: string;
-}
-
-const MoviesGrid = ({ movies, title }: MovieGridProps) => {
+const MoviesGrid: React.FC<MovieGridProps> = ({
+  movies,
+  title,
+}: MovieGridProps) => {
   return (
     <div className="movies-grid">
       <h2 className="movies-title">{title}</h2>
