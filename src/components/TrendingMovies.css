@@ -1,10 +1,11 @@
 .trending-movies {
-  /* width: 60vw; */
+  margin-left: 3rem;
   padding: 2rem;
   position: relative;
 }
 
 .trending-title {
+  text-align: start;
   font-size: 2rem;
   font-weight: bold;
   color: var(--primary-color);
@@ -46,7 +47,4 @@
   overflow: hidden;
 }
 
-.swiper-slide {
-  display: flex;
-  justify-content: center;
-}
+

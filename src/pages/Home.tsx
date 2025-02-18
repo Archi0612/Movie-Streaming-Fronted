@@ -9,6 +9,7 @@ import { Movie } from "../interfaces/movie.interface";
 import "./Home.css"; // Import CSS
 import Sidebar from "./Sidebar";
 
+
 const Home: React.FC = () => {
   const [trendingMovies, setTrendingMovies] = useState<Movie[]>([]);
   const [actionMovies, setActionMovies] = useState<Movie[]>([]);
