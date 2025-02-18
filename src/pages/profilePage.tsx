@@ -1,23 +1,34 @@
 import './profilePage.css';
 import { useState } from 'react';
-import { FaUserCircle } from 'react-icons/fa'; // For profile icon
-import { IoIosArrowDown } from 'react-icons/io'; // For dropdown arrow
+import { FaUserCircle } from 'react-icons/fa';
 
 export default function ProfilePage() {
-    const [firstname, setFirstname] = useState('');
-    const [gender, setGender] = useState('');
-    const [dob, setDob] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [country, setCountry] = useState('');
     const [showEmailInput, setShowEmailInput] = useState(false);
-    const [email, setEmail] = useState('');
 
-    const getFormattedDate = (): string => {
-        const today = new Date();
-        const day = String(today.getDate()).padStart(2, "0");
-        const month = String(today.getMonth() + 1).padStart(2, "0");
-        const year = today.getFullYear();
-        return `${day}-${month}-${year}`;
+    const [profile, setProfile] = useState({
+        name: '',
+        gender: '',
+        dob: '',
+        country: '',
+        email: '',
+    });
+
+    const user = {
+        firstName: "Priyanshu",
+        lastName: "Choudhary",
+        email: "Priyanshuchoudhary0104@gmail.com",
+    };
+
+    const getFormattedDate = (): string => new Date().toISOString().split("T")[0];
+
+    const handleSave = () => {
+        console.log("Profile saved:", profile);
+        // API call logic
+    };
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { name, value } = e.target;
+        setProfile((prev) => ({ ...prev, [name]: value }));
     };
 
     return (
@@ -25,16 +36,11 @@ export default function ProfilePage() {
             {/* Navbar */}
             <div className='primaryContainer'>
                 <div className="navbar">
-                    <h1>Welcome, Priyanshu</h1>
-                    <div className="profileDropdown">
-                        <FaUserCircle size={40} className="profileIcon" />
-                        <IoIosArrowDown size={20} className="dropdownArrow" />
-                    </div>
+                    <h1>Welcome, {user.firstName}</h1>
                 </div>
                 <h2>{getFormattedDate()}</h2>
             </div>
 
-            {/* Profile Section */}
             <div className='secondaryContainer'>
                 <div className='sec-primaryContainer'>
                     <div className='sec-secondaryContainer'>
@@ -42,59 +48,50 @@ export default function ProfilePage() {
                             <div className='profilePic-Img'>
                                 <FaUserCircle size={60} className="profilePic" />
                                 <div className='details'>
-                                    <h3>Priyanshu Choudhary</h3>
-                                    <h4>Priyanshuchoudhary0104@gmail.com</h4>
+                                    <h3>{user.firstName} {user.lastName}</h3>
+                                    <h4>{user.email}</h4>
                                 </div>
                             </div>
-                            <button className='saveBtn'>Save</button>
+                            <button className='saveBtn' onClick={handleSave}>Save</button>
                         </div>
 
-                        {/* Form Section */}
                         <div className='formMain'>
                             <div className='primaryformContainer'>
                                 <div>
-                                    <label>First Name</label>
-                                    <input type='text' value={firstname} onChange={(e) => setFirstname(e.target.value)} />
+                                    <label>Name</label>
+                                    <input type='text' name="name" value={profile.name} onChange={handleChange} />
                                 </div>
                                 <div>
                                     <label>Gender</label>
-                                    <select value={gender} onChange={(e) => setGender(e.target.value)}>
+                                    <select name="gender" value={profile.gender} onChange={handleChange}>
                                         <option value="">Select</option>
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
                                         <option value="Other">Other</option>
                                     </select>
                                 </div>
-                                <div>
-                                    <label>Date of Birth</label>
-                                    <input type='date' value={dob} onChange={(e) => setDob(e.target.value)} />
-                                </div>
                             </div>
 
                             <div className='secondaryformContainer'>
                                 <div>
-                                    <label>Last Name</label>
-                                    <input type='text' value={lastName} onChange={(e) => setLastName(e.target.value)} />
+                                    <label>Date of Birth</label>
+                                    <input type='date' name="dob" value={profile.dob} onChange={handleChange} />
                                 </div>
                                 <div>
                                     <label>Country</label>
-                                    <input type='text' value={country} onChange={(e) => setCountry(e.target.value)} />
+                                    <input type='text' name="country" value={profile.country} onChange={handleChange} />
                                 </div>
                             </div>
                         </div>
 
-                        {/* Email Section */}
                         <div className='emailSection'>
                             <h3>My Email Address</h3>
-                            {showEmailInput ? (
-                                <input
-                                    type="email"
-                                    placeholder="Enter your email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
-                            ) : null}
-                            <button onClick={() => setShowEmailInput(true)}> + Add Email Address</button>
+                            {showEmailInput && (
+                                <input type="email" name="email" placeholder="Enter your email" value={profile.email} onChange={handleChange} />
+                            )}
+                            <button onClick={() => setShowEmailInput((prev) => !prev)}>
+                                {showEmailInput ? "Cancel" : "+ Add New Email Address"}
+                            </button>
                         </div>
                     </div>
                 </div>
