@@ -54,7 +54,7 @@ input:focus {
   outline: none;
 }
 
-button {
+.signup-btn {
   width: 100%;
   padding: 10px;
   border: none;
@@ -66,7 +66,7 @@ button {
   margin-top: 10px;
 }
 
-button:hover {
+.signup-btn:hover {
   background-color: #3765BB;
 }
 
@@ -141,7 +141,7 @@ button:hover {
     font-size: 16px; 
   }
 
-  button {
+  .signup-btn {
     font-size: 18px;
   }
 }
@@ -160,7 +160,7 @@ button:hover {
     font-size: 14px; 
   }
 
-  button {
+  .signup-btn {
     font-size: 16px; 
   }
 }
@@ -180,7 +180,7 @@ button:hover {
     padding: 12px; 
   }
 
-  button {
+  .signup-btn {
     font-size: 14px; 
     padding: 12px; 
   }
@@ -208,7 +208,7 @@ button:hover {
     padding: 6px; 
   }
 
-  button {
+  .signup-btn{
     font-size: 12px; 
     padding: 10px; 
   }

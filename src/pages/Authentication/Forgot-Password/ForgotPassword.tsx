@@ -84,6 +84,11 @@ const ForgotPassword:React.FC = () => {
               ></path>
             </svg>
           </div>
+
+          <button type="submit" className='forgot-btn'>Verify your email</button>
+          <div className="horizontal-line">
+          <span>OR</span>
+
           <h2 className="forgot-title">Forgot Password</h2>
           <p className="forgot-subtitle">
             Enter your email and we'll send you a link to get back into your
@@ -108,6 +113,7 @@ const ForgotPassword:React.FC = () => {
               <Link to={"/signup"}>Create new account</Link>
             </div>
           </form>
+
         </div>
       </div>
     </div>

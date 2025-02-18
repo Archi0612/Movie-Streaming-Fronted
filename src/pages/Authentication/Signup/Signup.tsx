@@ -224,7 +224,47 @@ const Signup: React.FC = () => {
             Already have an account? <Link to="/login">Login</Link>
           </p>
         </div>
+
+        <div className="input-group">
+          <label>Password</label>
+      <div className="password-container">
+      <input
+      type={showPassword ? "text" : "password"}
+      value={password}
+      onBlur={hidePasswordOnBlur}
+      onChange={(e) => handleChange('password', e.target.value)}
+      placeholder="Enter your password"
+    />
+    <span className="toggle-icon" onClick={togglePasswordVisibility}>
+      {showPassword ? <FaEyeSlash color='white'/> : <FaEye color='white'/>}
+    </span>
+  </div>
+  {errors.password && <span className="error">{errors.password}</span>}
+</div>
+<div className='input-group'>
+  <label>Confirm Password</label>
+  <div className="password-container">
+    <input type={showConfirmPassword ? "text" : "password"}
+    value={confirmPassword}
+    onChange={(e)=>handleChange('confirmPassword',e.target.value)}
+    placeholder='Confirm your password'
+     />
+     <span className='toggle-icon' onClick={toggleConfirmPasswordVisibility}>
+      {showConfirmPassword ? <FaEyeSlash color='white'/>: <FaEye color='white'/> }
+     </span>
+  </div>
+  {errors.confirmPassword && <span className="error">{errors.confirmPassword}</span>}
+</div>      
+  <button type="submit" className='signup-btn'>Sign Up</button>
+      </form>
+      <p id='already'>
+        Already have an account? <Link to="/login">Login</Link>
+      </p>
+    </div>
+    </div>
+
       </div>
+
     </div>
   );
 };
