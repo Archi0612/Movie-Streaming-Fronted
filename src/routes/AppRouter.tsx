@@ -12,6 +12,7 @@ import AdminDashboard from "../pages/Admin/AdminDashboard";
 
 import HeaderLayout from "../pages/Layouts/HeaderLayout";
 import MainLayout from "../pages/Layouts/MainLayout";
+import OtpCode from "../pages/Authentication/Otp/OtpCode";
 
 
 const AppRoute: React.FC = () => {
@@ -24,6 +25,7 @@ const AppRoute: React.FC = () => {
           <Route path="/signup" element={<Signup />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/otp" element={<OtpCode/>}/>
         </Route>
 
         <Route element={<MainLayout />}>
