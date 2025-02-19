@@ -14,17 +14,7 @@ import poster2 from "../../assets/salar.jpeg";
 // Register AG Grid Modules
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
-// Sidebar Component
-const Sidebar: React.FC = () => (
-  <div className="sidebar">
-    <h2 className="sidebar-title">Admin Panel</h2>
-    <ul className="sidebar-menu">
-      <li><a href="#">Movies</a></li>
-      <li><a href="#">Series</a></li>
-      <li><a href="#">Users</a></li>
-    </ul>
-  </div>
-);
+
 
 // Movie Interface
 interface Movie {
@@ -89,7 +79,7 @@ const AdminDashboard: React.FC = () => {
 
   return (
     <div className="admin-container">
-      <Sidebar />
+      
       <div className="content">
         <div className="content-card">
           <div className="add-btn-container">
