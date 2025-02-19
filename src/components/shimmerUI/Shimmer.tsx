@@ -1,5 +1,5 @@
 import React from "react";
-import "./shimmer.css";
+import "./Shimmer.css";
 
 const ShimmerUI: React.FC = () => {
   return (
