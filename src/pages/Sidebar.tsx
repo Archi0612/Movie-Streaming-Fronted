@@ -59,7 +59,7 @@ const Sidebar: React.FC = () => {
               className={isActive ? "active" : ""}
             >
               <IconComponent
-                size={26}
+                size={24}
                 className={isActive ? "active-icon" : ""}
               />
               {isExpanded && (
