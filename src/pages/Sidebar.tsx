@@ -1,64 +1,75 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaHome, FaFilm, FaTv, FaEnvelope } from "react-icons/fa";
 import { BiCategory } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
-import logo from "../assets/logo.png"
+import logo from "../assets/logo.png";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./Sidebar.css";
-import { useNavigate } from "react-router-dom";
 
 const Sidebar: React.FC = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation(); // Get the current route
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [activeItem, setActiveItem] = useState(location.pathname); // Set active item based on URL
 
-  const handleLogoClick = () => {
-    console.log("logo clicked");
-    navigate("/home");
-  }
-  const handleProfileClick = () => {
-    console.log("profile clicked");
-    navigate("/profile-page");
-  }
+  useEffect(() => {
+    setActiveItem(location.pathname); // Update active item when route changes
+  }, [location.pathname]);
+
+  const menuItems = [
+    { name: "Home", icon: FaHome, path: "/home" },
+    { name: "Movies", icon: FaFilm, path: "/movies" },
+    { name: "Series", icon: FaTv, path: "/series" },
+    { name: "Genres", icon: BiCategory, path: "/genres" },
+    { name: "Contact Us", icon: FaEnvelope, path: "/contact" },
+    { name: "My Space", icon: CgProfile, path: "/profile-page" },
+  ];
+
+  const handleItemClick = (path: string) => {
+    navigate(path);
+  };
 
   return (
-    <div 
+    <div
       className={`sidebar ${isExpanded ? "expanded" : ""}`}
       onMouseEnter={() => setIsExpanded(true)}
       onMouseLeave={() => setIsExpanded(false)}
     >
       <div className="sidebar-logo">
-        {/* {!isExpanded ? (<img src={logo1} className="logo1"/>):(<img src={logo1} className="logo2"/>)} */}
-        <img src={logo} className="logo-1" onClick={handleLogoClick}/>
+        <img
+          src={logo}
+          className="logo-1"
+          onClick={() => handleItemClick("/home")}
+        />
       </div>
-      <ul className={`sidebar-list ${isExpanded? "expanded" : ""}`}
-      onMouseEnter={() => setIsExpanded(true)}
-      onMouseLeave={() => setIsExpanded(false)}>
-        <li onClick={() => {
-          navigate("/home");
-        }}>
-          <FaHome size={26}/>
-          {isExpanded && <span className="Link-text">Home</span>}
-        </li>
-        <li>
-          <FaFilm size={26}/>
-          {isExpanded && <span className="Link-text">Movies</span>}
-          
-        </li>
-        <li>
-          <FaTv size={26} />
-          {isExpanded && <span className="Link-text">Series</span>}
-        </li>
-        <li>
-          <BiCategory size={26} />
-          {isExpanded && <span className="Link-text">Genres</span>}
-        </li>
-        <li>
-          <FaEnvelope size={26}/>
-          {isExpanded && <span className="Link-text">Contact Us</span>}
-        </li>
-        <li onClick={handleProfileClick}>
-          <CgProfile size={26}/>
-          {isExpanded && <span className="Link-text">My Space</span>}
-        </li>
+
+      <ul
+        className={`sidebar-list ${isExpanded ? "expanded" : ""}`}
+        onMouseEnter={() => setIsExpanded(true)}
+        onMouseLeave={() => setIsExpanded(false)}
+      >
+        {menuItems.map((item) => {
+          const IconComponent = item.icon;
+          const isActive = activeItem === item.path; // Check if current path is active
+
+          return (
+            <li
+              key={item.path}
+              onClick={() => handleItemClick(item.path)}
+              className={isActive ? "active" : ""}
+            >
+              <IconComponent
+                size={26}
+                className={isActive ? "active-icon" : ""}
+              />
+              {isExpanded && (
+                <span className={`Link-text ${isActive ? "active-text" : ""}`}>
+                  {item.name}
+                </span>
+              )}
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
