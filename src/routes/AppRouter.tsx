@@ -7,9 +7,7 @@ import Signup from "../pages/Authentication/Signup/Signup";
 import ForgotPassword from "../pages/Authentication/Forgot-Password/ForgotPassword";
 import ResetPassword from "../pages/Authentication/Reset-Password/ResetPassword";
 import ProfilePage from "../pages/profilePage";
-
 import AdminDashboard from "../pages/Admin/AdminDashboard";
-
 import HeaderLayout from "../pages/Layouts/HeaderLayout";
 import MainLayout from "../pages/Layouts/MainLayout";
 import OtpCode from "../pages/Authentication/Otp/OtpCode";
@@ -32,11 +30,8 @@ const AppRoute: React.FC = () => {
         <Route element={<MainLayout />}>
           <Route path="/home" element={<Home />} />
           <Route path="/profile-page" element={<ProfilePage />} />
-<<<<<<< HEAD
           <Route path="/contact-us" element={<ContactUs />} />
-=======
           <Route path="/admin-dashboard" element={<AdminDashboard/>}/>
->>>>>>> 614b53130459663975dc80c48efe123c22563afb
         </Route>
       </Routes>
     </BrowserRouter>
