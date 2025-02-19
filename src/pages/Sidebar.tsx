@@ -21,7 +21,7 @@ const Sidebar: React.FC = () => {
     { name: "Movies", icon: FaFilm, path: "/movies" },
     { name: "Series", icon: FaTv, path: "/series" },
     { name: "Genres", icon: BiCategory, path: "/genres" },
-    { name: "Contact Us", icon: FaEnvelope, path: "/contact" },
+    { name: "Contact Us", icon: FaEnvelope, path: "/contact-us" },
     { name: "My Space", icon: CgProfile, path: "/profile-page" },
   ];
 

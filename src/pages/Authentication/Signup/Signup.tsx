@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import "./Signup.css";
 import img from "../../../assets/avatar.png";
@@ -11,8 +11,7 @@ const Signup: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [showConfirmPassword, setShowConfirmPassword] =
-    useState<boolean>(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
   const [errors, setErrors] = useState<{
     email: string;
     name: string;
@@ -26,6 +25,9 @@ const Signup: React.FC = () => {
     confirmPassword: "",
     phoneNumber: "",
   });
+  const [otpSent, setOtpSent] = useState<boolean>(false);
+  const [otp, setOtp] = useState<string[]>(["", "", "", ""]);
+  const otpRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   const validateEmail = (email: string): string => {
     if (!email) return "Email is required";
@@ -36,7 +38,7 @@ const Signup: React.FC = () => {
   const validateName = (name: string): string => {
     if (!name) return "Name is required";
     const nameRegex = /^[A-Za-z\s]+$/;
-    return nameRegex.test(name) ? "" : "Please enter alphabets character"; // return name ? '' : 'Name is required';
+    return nameRegex.test(name) ? "" : "Please enter alphabets only";
   };
 
   const validatePassword = (password: string): string => {
@@ -56,15 +58,15 @@ const Signup: React.FC = () => {
     const phoneRegex = /^\d{10}$/;
     return phoneRegex.test(phoneNumber) ? "" : "Phone number must be 10 digits";
   };
+
   const togglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);
   };
+
   const toggleConfirmPasswordVisibility = () => {
     setShowConfirmPassword((prevState) => !prevState);
   };
-  const hidePasswordOnBlur = () => {
-    setShowPassword(false);
-  };
+
   const handleChange = (field: string, value: string) => {
     let error = "";
     switch (field) {
@@ -94,6 +96,28 @@ const Signup: React.FC = () => {
     setErrors((prevErrors) => ({ ...prevErrors, [field]: error }));
   };
 
+  const handleOtpChange = (index: number, value: string) => {
+    if (/^\d?$/.test(value)) {
+      const newOtp = [...otp];
+      newOtp[index] = value;
+      setOtp(newOtp);
+
+      // Move focus to next input if value is entered
+      if (value && index < otpRefs.current.length - 1) {
+        otpRefs.current[index + 1]?.focus();
+      }
+    }
+  };
+
+  const handleOtpKeyDown = (
+    index: number,
+    event: React.KeyboardEvent<HTMLInputElement>
+  ) => {
+    if (event.key === "Backspace" && !otp[index] && index > 0) {
+      otpRefs.current[index - 1]?.focus();
+    }
+  };
+
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     const emailError = validateEmail(email);
@@ -120,8 +144,19 @@ const Signup: React.FC = () => {
         phoneNumber: phoneNumberError,
       });
     } else {
-      console.log("Form Submitted", { email, name, password, phoneNumber });
-      // Proceed with form submission logic (e.g., API call)
+      // Simulate sending OTP
+      console.log("OTP sent to:", email);
+      setOtpSent(true);
+    }
+  };
+
+  const handleOtpVerify = () => {
+    const enteredOtp = otp.join("");
+    if (enteredOtp.length === 4) {
+      console.log("OTP Verified:", enteredOtp);
+      // Proceed with further actions (e.g., form submission)
+    } else {
+      console.log("Invalid OTP");
     }
   };
 
@@ -173,7 +208,7 @@ const Signup: React.FC = () => {
                 <input
                   type={showPassword ? "text" : "password"}
                   value={password}
-                  onBlur={hidePasswordOnBlur}
+                 
                   onChange={(e) => handleChange("password", e.target.value)}
                   placeholder="Enter your password"
                 />
@@ -220,9 +255,34 @@ const Signup: React.FC = () => {
             </div>
             <button type="submit" className="signup-btn">Sign Up</button>
           </form>
+          {otpSent && (
+            <div className="otp-container">
+              <h3>Enter OTP</h3>
+              <div className="otp-input-group">
+                {otp.map((digit, index) => (
+                  <input
+                    key={index}
+                    type="text"
+                    value={digit}
+                    maxLength={1}
+                    ref={(el) => {
+                      otpRefs.current[index] = el;
+                    }}
+                    onChange={(e) => handleOtpChange(index, e.target.value)}
+                    onKeyDown={(e) => handleOtpKeyDown(index, e)}
+                    className="otp-input"
+                  />
+                ))}
+              </div>
+              <button onClick={handleOtpVerify} className="verify-btn">Verify OTP</button>
+            </div>
+          )}
+
+          
           <p id="already">
             Already have an account? <Link to="/login">Login</Link>
           </p>
+
         </div>
  
     </div>

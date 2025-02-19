@@ -13,7 +13,7 @@ import AdminDashboard from "../pages/Admin/AdminDashboard";
 import HeaderLayout from "../pages/Layouts/HeaderLayout";
 import MainLayout from "../pages/Layouts/MainLayout";
 import OtpCode from "../pages/Authentication/Otp/OtpCode";
-
+import ContactUs from "../pages/ContactUs";
 
 const AppRoute: React.FC = () => {
   return (
@@ -32,7 +32,11 @@ const AppRoute: React.FC = () => {
         <Route element={<MainLayout />}>
           <Route path="/home" element={<Home />} />
           <Route path="/profile-page" element={<ProfilePage />} />
+<<<<<<< HEAD
+          <Route path="/contact-us" element={<ContactUs />} />
+=======
           <Route path="/admin-dashboard" element={<AdminDashboard/>}/>
+>>>>>>> 614b53130459663975dc80c48efe123c22563afb
         </Route>
       </Routes>
     </BrowserRouter>
