@@ -26,12 +26,17 @@ const AppRoute: React.FC = () => {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/otp" element={<OtpCode/>}/>
+          
         </Route>
 
         <Route element={<MainLayout />}>
           <Route path="/home" element={<Home />} />
           <Route path="/profile-page" element={<ProfilePage />} />
+<<<<<<< HEAD
           <Route path="/contact-us" element={<ContactUs />} />
+=======
+          <Route path="/admin-dashboard" element={<AdminDashboard/>}/>
+>>>>>>> 614b53130459663975dc80c48efe123c22563afb
         </Route>
       </Routes>
     </BrowserRouter>
