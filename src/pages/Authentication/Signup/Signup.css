@@ -54,11 +54,17 @@ input:focus {
   outline: none;
 }
 
+input:disabled{
+  cursor: not-allowed;
+  background: rgb(167, 170, 175);
+  opacity: 0.5;
+}
+
 .signup-btn {
   width: 100%;
   padding: 10px;
   border: none;
-  background-color: #457EE8;
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
   color: #fff;
   font-size: 16px;
   border-radius: 5px;
@@ -67,9 +73,26 @@ input:focus {
 }
 
 .signup-btn:hover {
-  background-color: #3765BB;
+  background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
 }
-
+.edit-icon{
+  width: 3rem;
+  padding: 0.3rem;
+  background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+  border: var(--primary-color);
+  border-radius: 0.2rem;
+  color: var(--text-color);
+  left: 22rem;
+  position: relative;
+}
+.edit-icon:hover{
+  /* background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)); */
+  background: none;
+  size: 20px;
+  /* color: var(--text-color); */
+  color: var(--primary-color);
+  box-shadow: 0 6px 30px var(--hover-shadow);
+}
 .error {
   color: rgb(231, 55, 55);
   font-size: 12px;
@@ -132,6 +155,9 @@ input:focus {
   margin-top: 20px;
   text-align: center;
   color: #f1f1f1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .otp-input-group {
@@ -157,21 +183,43 @@ input:focus {
   border-color: #457ee8;
   outline: none;
 }
+.resend-btn {
+  margin-top: 10px;
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  font-weight: 600;
+  cursor: pointer;
+  left: -8.5rem;
+  position: relative;
+  text-decoration: underline;
+}
+
+.resend-btn:hover{
+  color: var(--text-color);
+  font-weight: 500;
+}
+.resend-btn:disabled {
+  color: rgb(151, 161, 185);
+  cursor: not-allowed;
+}
 
 .verify-btn {
-  width: 100%;
-  padding: 10px;
+  width: 40%;
+  padding: 0.6rem;
   border: none;
-  background-color: #457ee8;
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
   color: #fff;
-  font-size: 16px;
-  border-radius: 5px;
+  font-size: 0.8rem;
+  border-radius: 0.4rem;
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: 1rem;
+  /* position: relative; */
+  /* left: 7rem; */
 }
 
 .verify-btn:hover {
-  background-color: #3765bb;
+  background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
 }
 
 
