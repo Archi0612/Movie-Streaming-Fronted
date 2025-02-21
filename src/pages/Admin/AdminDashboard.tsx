@@ -5,11 +5,11 @@ import { ModuleRegistry } from "ag-grid-community";
 import { ColDef } from "ag-grid-community";
 // import "ag-grid-community/styles/ag-grid.css"; 
 import "ag-grid-community/styles/ag-theme-quartz.css"; 
-import Modal from "react-modal";
 import { MdEdit, MdDelete, MdAdd } from "react-icons/md";
 import "./AdminDashboard.css";
 import poster1 from "../../assets/kgf2poster.jpeg";
 import poster2 from "../../assets/salar.jpeg";
+import { useNavigate } from "react-router-dom";
 
 // Register AG Grid Modules
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
@@ -31,7 +31,6 @@ interface Movie {
 
 // AdminDashboard Component
 const AdminDashboard: React.FC = () => {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [movies, setMovies] = useState<Movie[]>([
     {
       id: 1,
@@ -54,7 +53,7 @@ const AdminDashboard: React.FC = () => {
       director: "Prashant Neel",
     },
   ]);
-
+  const navigate=useNavigate();
   const columnDefs: ColDef<Movie>[] = [
     { headerName: "Poster", field: "img", cellRenderer: (params: any) => <img src={params.value} alt="poster" className="poster-img" />, flex: 2, sortable: false },
     { headerName: "Title", field: "title", flex: 2 },
@@ -76,14 +75,16 @@ const AdminDashboard: React.FC = () => {
       filter: false
     },
   ];
-
+  const handleClick=()=>{
+    navigate("/add-movie");
+  }
   return (
     <div className="admin-container">
       
       <div className="content">
         <div className="content-card">
           <div className="add-btn-container">
-            <button className="add-movie-btn" onClick={() => setIsModalOpen(true)}>
+            <button className="add-movie-btn" onClick={handleClick}>
               <MdAdd size={20} />
             </button>
           </div>
@@ -108,19 +109,6 @@ const AdminDashboard: React.FC = () => {
           </div>
         </div>
       </div>
-      <Modal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} className="modal">
-        <h2 className="modal-title">Add Movie</h2>
-        <input type="text" placeholder="Title" className="input-field" />
-        <input type="file" className="input-field" />
-        <textarea placeholder="Description" className="input-field"></textarea>
-        <input type="text" placeholder="Duration" className="input-field" />
-        <input type="text" placeholder="Cast" className="input-field" />
-        <input type="text" placeholder="Director" className="input-field" />
-        <div className="modal-actions">
-          <button className="cancel-btn" onClick={() => setIsModalOpen(false)}>Cancel</button>
-          <button className="save-btn">Save</button>
-        </div>
-      </Modal>
     </div>
   );
 };
