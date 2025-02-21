@@ -2,7 +2,8 @@
   position: fixed;
   left: 0;
   top: 0;
-  /* padding-left: 1rem; */
+  padding-left: 1.7rem;
+  /* max-width: fit-content; */
   height: 100vh;
   background: rgba(var(--primary-color), 0.7);
   transition: 0.3s ease;
@@ -11,6 +12,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: start;
+  padding-top: 2rem;
   z-index: 1000;
 }
 
@@ -22,7 +24,7 @@
 .sidebar-list {
   list-style: none;
   padding: 0;
-  width: 10vw;
+  width: 9vw;
 }
 
 .sidebar-logo {
@@ -43,12 +45,11 @@
 .sidebar li {
   display: flex;
   align-items: center;
-  padding: 1.5rem;
+  padding: 20px;
   border-radius: 0.5rem;
   cursor: pointer;
   transition: background 0.3s ease;
-  /* margin-top: 1rem; */
-  /* color: rgb(185, 177, 177); */
+  margin-top: 1rem;
   color: var(--text-color);
   font-weight: 800;
 }
@@ -73,103 +74,4 @@
 }
 .Link-text{
   margin-left: 10px;
-}
-
-/* Default styles (Desktop) */
-.sidebar {
-  width: 15vw; /* Normal width for desktop */
-}
-
-.sidebar.expanded {
-  width: 45%;
-}
-
-.sidebar-list {
-  width: 100%;
-}
-
-/* Medium Screens (Tablets) */
-@media screen and (max-width: 1024px) {
-  .sidebar {
-    width: 12vw;
-  }
-
-  .sidebar.expanded {
-    width: 35%;
-  }
-
-  .sidebar-list {
-    width: 100%;
-  }
-
-  .sidebar li {
-    font-size: 1rem;
-    padding: 1rem;
-  }
-
-  .icon {
-    font-size: 2.2rem;
-  }
-
-  .logo-1 {
-    width: 2.5rem;
-  }
-}
-
-/* Small Screens (Mobile) */
-@media screen and (max-width: 768px) {
-  .sidebar {
-    width: 60px;
-    align-items: center;
-  }
-
-  .sidebar.expanded {
-    width: 70%;
-  }
-
-  .sidebar-list {
-    width: 100%;
-  }
-
-  .sidebar li {
-    padding: 0.8rem;
-    justify-content: center;
-    text-align: center;
-  }
-
-  .Link-text {
-    display: none; /* Hide text on mobile by default */
-  }
-
-  .sidebar.expanded .Link-text {
-    display: inline;
-  }
-
-  .icon {
-    font-size: 1.8rem;
-  }
-
-  .logo-1 {
-    width: 2rem;
-    left: 1rem;
-  }
-}
-
-/* Very Small Screens (Phones <480px) */
-@media screen and (max-width: 480px) {
-  .sidebar {
-    width: 50px;
-  }
-
-  .sidebar.expanded {
-    width: 80%;
-  }
-
-  .sidebar li {
-    padding: 0.6rem;
-  }
-
-  .icon {
-    font-size: 1.5rem;
-  }
 }
