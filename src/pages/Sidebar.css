@@ -74,3 +74,102 @@
 .Link-text{
   margin-left: 10px;
 }
+
+/* Default styles (Desktop) */
+.sidebar {
+  width: 15vw; /* Normal width for desktop */
+}
+
+.sidebar.expanded {
+  width: 45%;
+}
+
+.sidebar-list {
+  width: 100%;
+}
+
+/* Medium Screens (Tablets) */
+@media screen and (max-width: 1024px) {
+  .sidebar {
+    width: 12vw;
+  }
+
+  .sidebar.expanded {
+    width: 35%;
+  }
+
+  .sidebar-list {
+    width: 100%;
+  }
+
+  .sidebar li {
+    font-size: 1rem;
+    padding: 1rem;
+  }
+
+  .icon {
+    font-size: 2.2rem;
+  }
+
+  .logo-1 {
+    width: 2.5rem;
+  }
+}
+
+/* Small Screens (Mobile) */
+@media screen and (max-width: 768px) {
+  .sidebar {
+    width: 60px;
+    align-items: center;
+  }
+
+  .sidebar.expanded {
+    width: 70%;
+  }
+
+  .sidebar-list {
+    width: 100%;
+  }
+
+  .sidebar li {
+    padding: 0.8rem;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .Link-text {
+    display: none; /* Hide text on mobile by default */
+  }
+
+  .sidebar.expanded .Link-text {
+    display: inline;
+  }
+
+  .icon {
+    font-size: 1.8rem;
+  }
+
+  .logo-1 {
+    width: 2rem;
+    left: 1rem;
+  }
+}
+
+/* Very Small Screens (Phones <480px) */
+@media screen and (max-width: 480px) {
+  .sidebar {
+    width: 50px;
+  }
+
+  .sidebar.expanded {
+    width: 80%;
+  }
+
+  .sidebar li {
+    padding: 0.6rem;
+  }
+
+  .icon {
+    font-size: 1.5rem;
+  }
+}
