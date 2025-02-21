@@ -37,7 +37,7 @@
     display: flex;
     justify-content: flex-end; 
     align-items: flex-end; 
-    padding: 25px;
+    padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     color: #f1f1f1;
@@ -53,6 +53,7 @@
     .contact-info h2{
     text-align: left;
     font-size: 40px;
+    color: #0073e6;
     }
     .contact-info .contact-info-text {
     margin-bottom: 20px;
@@ -65,8 +66,9 @@
     }
     .form-group textarea{
     color: #f1f1f1;
-    resize: vertical; 
+    resize: none; 
     overflow-y: auto;
+    height: 100px;
     }
     label {
     display: block;
@@ -82,10 +84,13 @@
     background-color: #022135;
     border: 1px solid #075081;
     }
+
     .form-input:focus, 
     textarea:focus {
     outline: none;
     border: 1px solid #1287d4; 
+    background-color: #022135;
+    color: #f1f1f1;
     }
     .submit-button {
     background-color: #0073e6;
@@ -117,23 +122,24 @@
     margin-top: 20px;
     }
     .social-link svg {
-    fill: #0073e6;
+    fill: #f1f1f1;
     width: 24px;
     height: 24px;
     transition: fill 0.3s ease;
     }
     .social-link:hover svg {
-    fill: #0059b3;
+    fill: #0073e6;
     }
     .faq-section {
-    margin-top: 25px;
-    padding: 20px;
+ 
+    padding: 27px;
     border-radius: 8px;
     color: #f1f1f1;
     }
     .faq-section h3{
-    font-size: 30px;
+    font-size: 32px;
     margin-bottom: 14px;
+    color: #0073e6;
     }
     
     .faq-question {
@@ -149,10 +155,11 @@
     
     }
     .faq-answer {
+    margin-bottom: 10px;
     margin-top: 2px;
     font-size: 16px;
     color: #f1f1f1;
-    background-color: #022135;
+    background-color: #03304a; 
     padding: 10px;
     border-radius: 5px;
     }
@@ -178,4 +185,3 @@
     max-width: 100%;
     }
     }
-    
