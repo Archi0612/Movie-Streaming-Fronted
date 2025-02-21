@@ -1,167 +1,371 @@
-/* Main Container */
-.mainContainer {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    background: linear-gradient(135deg, black, #1a1a1a);
-    color: white;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+/* Base Styles */
+html {
+    font-size: 16px;
+    /* Default root size for rem scaling */
 }
 
-/* Navbar */
+.profilepagecontainer {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100vw;
+    height: 100vh;
+    background-color: #00131f;
+    border: none;
+    padding: 3rem;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+/* Profile Page Heading */
+.profilepage-heading h1 {
+    color: white;
+    font-size: 2rem;
+    text-align: center;
+}
+
+/* Profile Card Layout */
+.profileCard-information {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 95vw;
+    height: 40vh;
+    flex-wrap: wrap;
+    margin: 4rem;
+    /* Allow items to wrap for smaller screens */
+}
+
+.sec-profilecard {
+    height: 65%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: white;
+}
+
+.heading {
+    display: flex;
+    flex-direction: row;
+    width: 55vw;
+    justify-content: space-between;
+}
+
+.edit-btn {
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.edit-btn :hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
 .primaryContainer {
-    width: 50%;
+    width: 25vw;
+    height: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    color: black;
+    position: relative;
+}
+
+.img-username {
+    max-width: 6.25rem;
+    max-height: 6.25rem;
+    min-height: auto;
+    min-width: auto;
+
+    background-color: lightblue;
+    border-radius: 50%;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 0.25rem solid white;
+}
+
+
+.profile-section {
+    width: 60vw;
+    border-radius: 1rem;
+    padding: 0.625rem;
+    background-color: #003366;
+}
+
+/* Profile Information */
+.profile-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-top: 0.625rem;
+}
+
+.profile-titles {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: flex-start;
-    padding: 1rem 2rem;
-    background: #000;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+    width: 15vw;
 }
 
-.secondaryContainer {
-    width: 80vw;
-    height: 70vh;
+.profile-titles label {
+    margin: 0.625rem;
+    font-weight: 100;
+    color: darkgray;
+}
+
+.profile-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-weight: bold;
+    width: 40vw;
+}
+
+.profile-details span {
+    color: white;
+}
+
+/* Watchlist & Liked Content */
+.profilepage-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 95vw;
+    height: 55vh;
+    flex-wrap: wrap;
+    margin-left: 4rem;
+}
+
+.profilepage-watchlist,
+.profilepage-likedContent {
+    width: 47vw;
+    height: 55vh;
+    border-radius: 1rem;
+    /* padding: 0.625rem; */
+}
+
+/* Mobile Responsive */
+@media screen and (max-width: 768px) {
+    .profilepagecontainer {
+        position: relative;
+        top: 0;
+        transform: none;
+        padding: 1rem;
+    }
+
+    .profileCard-information {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        width: 100%;
+    }
+
+    .profile-card {
+        width: 90%;
+        height: auto;
+        margin-bottom: 1rem;
+
+    }
+
+    .profile-section {
+        width: 90%;
+        padding: 1rem;
+    }
+
+    .profile-info {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .profile-titles,
+    .profile-details {
+        width: 100%;
+        text-align: center;
+    }
+
+    .profilepage-content {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        height: auto;
+    }
+
+    .profilepage-watchlist,
+    .profilepage-likedContent {
+        width: 90%;
+        height: auto;
+        margin-bottom: 1rem;
+    }
+
+}
+
+/* Modal */
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 1000;
 }
 
-.sec-primaryContainer {
-    width: 40vw;
-    height: 40vh;
-}
-
-.navbar h1 {
-    font-size: 1.8rem;
-}
-
-.profileDropdown {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    gap: 10px;
-}
-
-.profileIcon,
-.dropdownArrow {
-    color: white;
-}
-
-/* Profile Section */
-.profileSection {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
+/* Modal Container */
+.modal {
+    background: white;
+    width: 40%;
+    max-width: 500px;
     padding: 2rem;
-    background: #121212;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
-}
-
-.profilePic {
-    border-radius: 50%;
-    background-color: white;
-    padding: 5px;
-}
-
-.saveBtn {
-    width: 10vw
-}
-
-.details h3,
-.details h4 {
-    margin: 5px 0;
-    color: #ddd;
-}
-
-/* Form Section */
-.formMain {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin-top: 2rem;
-}
-
-.primaryformContainer,
-.secondaryformContainer {
-    width: 48%;
+    border-radius: 12px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    position: relative;
+    animation: fadeIn 0.3s ease-in-out;
 }
 
-label {
-    font-size: 1rem;
-    margin-bottom: 5px;
-    color: #aaa;
+/* Modal Heading */
+.modal h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 1rem;
 }
 
-input,
-select {
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    width: 100%;
-    background: #222;
-    color: white;
+/* Form Styling */
+.modal form {
+    display: flex;
+    flex-direction: column;
 }
 
-input:focus,
-select:focus {
-    outline: 2px solid white;
+.modal label {
+    font-weight: bold;
+    margin-top: 0.8rem;
+    color: #333;
 }
 
-/* Save Button */
-.saveBtn {
-    padding: 12px 20px;
-    border: none;
-    cursor: pointer;
-    background: white;
-    color: black;
+.modal input,
+.modal select {
+    padding: 0.75rem;
+    margin-top: 0.3rem;
+    border: 1px solid #ccc;
     border-radius: 8px;
-    font-size: 16px;
-    transition: background 0.3s;
-}
-
-.saveBtn:hover {
-    background: grey;
-}
-
-/* Email Section */
-.emailSection {
+    font-size: 1rem;
     width: 100%;
-    margin-top: 2rem;
-    background: #121212;
-    padding: 1rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
 }
 
-.emailSection h3 {
-    color: #ddd;
+/* Modal Buttons */
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
 }
 
-.emailSection button {
-    margin-top: 10px;
-    padding: 10px 15px;
-    border-radius: 5px;
+.modal-buttons button {
+    flex: 1;
+    padding: 0.75rem;
+    font-size: 1rem;
     border: none;
+    border-radius: 8px;
     cursor: pointer;
-    background: white;
-    color: black;
-    font-size: 14px;
-    transition: background 0.3s;
+    transition: 0.3s;
+    font-weight: bold;
 }
 
-.emailSection button:hover {
-    background: grey;
+.modal-buttons button:first-child {
+    background: #007bff;
+    color: white;
+    margin-right: 0.5rem;
+}
+
+.modal-buttons button:first-child:hover {
+    background: #0056b3;
+}
+
+.modal-buttons button:last-child {
+    background: #ccc;
+    color: black;
+}
+
+.modal-buttons button:last-child:hover {
+    background: #999;
+}
+
+/* Close Button (if needed) */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #555;
+}
+
+/* Mobile Responsive */
+@media screen and (max-width: 768px) {
+    .modal {
+        width: 90%;
+        padding: 1.5rem;
+    }
+}
+
+.modal label {
+    display: block;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    /* White label text */
+    margin-top: 10px;
+}
+
+.modal input,
+.modal select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: white;
+    /* White input background */
+    color: black;
+    /* Black text inside input */
+}
+
+/* Ensure the dropdown select has the same styling */
+.modal select {
+    background-color: white;
+    color: black;
+}
+
+/* Placeholder text color */
+.modal input::placeholder {
+    color: gray;
+}
+
+/* Add focus effect */
+.modal input:focus,
+.modal select:focus {
+    outline: none;
+    border: 2px solid #007bff;
+    /* Blue border on focus */
 }
