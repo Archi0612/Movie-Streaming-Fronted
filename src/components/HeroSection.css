@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 80vh;
+    overflow: hidden;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+}
+
+.hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.hero-content {
+    position: absolute;
+    top: 30%;
+    left: 5%;
+    max-width: 40%;
+    z-index: 2;
+}
+
+.movie-title {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.movie-meta {
+    font-size: 1rem;
+    opacity: 0.8;
+    margin-bottom: 10px;
+}
+
+.movie-description {
+    font-size: 1rem;
+    opacity: 0.9;
+    margin-bottom: 20px;
+}
+
+.watch-now-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background: linear-gradient(90deg, #005bea, #00c6fb);
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+.watch-now-btn:hover {
+    background: linear-gradient(90deg, #0044cc, #0099ff);
+}
+
+.slider-container {
+    position: absolute;
+    bottom: 20px;
+    right: 5%;
+    width: 35%;
+}
+
+.swiper-slide img {
+    width: 100%;
+    border-radius: 10px;
+    transition: 0.3s ease;
+}
+
+.swiper-slide:hover img {
+    transform: scale(1.05);
+}

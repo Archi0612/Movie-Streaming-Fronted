@@ -2,7 +2,7 @@
   position: fixed;
   left: 0;
   top: 0;
-  padding-left: 1.3rem;
+  padding-left: 1.7rem;
   /* max-width: fit-content; */
   height: 100vh;
   background: rgba(var(--primary-color), 0.7);
@@ -18,13 +18,13 @@
 
 .sidebar.expanded {
   width: 45%;
-  background: linear-gradient(to right, rgba(0, 31, 63, 0.722), rgba(0, 0, 0, 0)); 
+  background: linear-gradient(to right, var(--hover-shadow), rgba(0, 0, 0, 0)); 
 }
 
 .sidebar-list {
   list-style: none;
   padding: 0;
-  width: 7.5vw;
+  width: 9vw;
 }
 
 .sidebar-logo {
@@ -50,12 +50,11 @@
   cursor: pointer;
   transition: background 0.3s ease;
   margin-top: 1rem;
-  color: rgb(185, 177, 177);
+  color: var(--text-color);
   font-weight: 800;
 }
 
 .sidebar li:hover {
-  size: 1rem;
   color: var(--primary-color);
 }
 
