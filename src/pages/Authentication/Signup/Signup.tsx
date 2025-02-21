@@ -66,7 +66,9 @@ const Signup: React.FC = () => {
   const toggleConfirmPasswordVisibility = () => {
     setShowConfirmPassword((prevState) => !prevState);
   };
-
+  const hidePasswordOnBlur = () => {
+    setShowPassword(false);
+  };
   const handleChange = (field: string, value: string) => {
     let error = "";
     switch (field) {
@@ -208,7 +210,7 @@ const Signup: React.FC = () => {
                 <input
                   type={showPassword ? "text" : "password"}
                   value={password}
-                 
+                 onBlur={hidePasswordOnBlur}
                   onChange={(e) => handleChange("password", e.target.value)}
                   placeholder="Enter your password"
                 />

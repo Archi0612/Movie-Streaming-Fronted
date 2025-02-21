@@ -7,9 +7,7 @@ import Signup from "../pages/Authentication/Signup/Signup";
 import ForgotPassword from "../pages/Authentication/Forgot-Password/ForgotPassword";
 import ResetPassword from "../pages/Authentication/Reset-Password/ResetPassword";
 import ProfilePage from "../pages/profilePage";
-
 import AdminDashboard from "../pages/Admin/AdminDashboard";
-
 import HeaderLayout from "../pages/Layouts/HeaderLayout";
 import MainLayout from "../pages/Layouts/MainLayout";
 import OtpCode from "../pages/Authentication/Otp/OtpCode";
