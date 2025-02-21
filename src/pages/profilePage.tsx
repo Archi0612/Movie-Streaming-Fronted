@@ -37,7 +37,7 @@ export default function ProfilePage() {
                     <div className='profile-card'>
                         <div className='primaryContainer'>
                             <div className='img-username'>
-                                <img ></img>
+                                <img src="https://via.placeholder.com/100"></img>
                             </div>
                         </div>
                         <div className='sec-profilecard'>
@@ -85,45 +85,46 @@ export default function ProfilePage() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
             {/* Modal Overlay */}
-            {isOpen && (
-                <div className="modal-overlay">
-                    <div className="modal">
-                        <h2 style={{ color: 'black' }}>Edit Profile</h2>
-                        <form onSubmit={handleSubmit}>
-                            <label>Name:</label>
-                            <input type="text" name="name" value={formData.name} onChange={handleChange} required />
+            {
+                isOpen && (
+                    <div className="modal-overlay">
+                        <div className="modal">
+                            <h2 style={{ color: 'black' }}>Edit Profile</h2>
+                            <form onSubmit={handleSubmit}>
+                                <label>Name:</label>
+                                <input type="text" name="name" value={formData.name} onChange={handleChange} required />
 
-                            <label>Email:</label>
-                            <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+                                <label>Email:</label>
+                                <input type="email" name="email" value={formData.email} onChange={handleChange} required />
 
-                            <label>Phone Number:</label>
-                            <input type="tel" name="phone" value={formData.phone} onChange={handleChange} required />
+                                <label>Phone Number:</label>
+                                <input type="tel" name="phone" value={formData.phone} onChange={handleChange} required />
 
-                            <label>Country:</label>
-                            <input type="text" name="country" value={formData.country} onChange={handleChange} required />
+                                <label>Country:</label>
+                                <input type="text" name="country" value={formData.country} onChange={handleChange} required />
 
-                            <label>Date of Birth:</label>
-                            <input type="date" name="dob" value={formData.dob} onChange={handleChange} required />
+                                <label>Date of Birth:</label>
+                                <input type="date" name="dob" value={formData.dob} onChange={handleChange} required />
 
-                            <label>Gender:</label>
-                            <select name="gender" value={formData.gender} onChange={handleChange} required>
-                                <option value="">Select Gender</option>
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                                <option value="Other">Other</option>
-                            </select>
+                                <label>Gender:</label>
+                                <select name="gender" value={formData.gender} onChange={handleChange} required>
+                                    <option value="">Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
 
-                            <div className="modal-buttons">
-                                <button type="submit">Save</button>
-                                <button type="button" onClick={() => setIsOpen(false)}>Cancel</button>
-                            </div>
-                        </form>
+                                <div className="modal-buttons">
+                                    <button type="submit">Save</button>
+                                    <button type="button" onClick={() => setIsOpen(false)}>Cancel</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                </div>
-            )}
-
+                )
+            }
         </>
     );
 }

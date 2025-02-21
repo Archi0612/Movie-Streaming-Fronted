@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import './ResetPassword.css';
 import img2 from "../../../assets/resetlogo.png"
 import { FaEye,FaEyeSlash } from 'react-icons/fa';
+
+
 const ResetPassword: React.FC = () => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
@@ -75,7 +77,9 @@ const ResetPassword: React.FC = () => {
 
   return (
     <div className="container">
+      {/* <Header minimal /> */}
       <div className="welcome-overly">
+        
     <div className="reset-container">
       <div className='img-container'>
     <img src={img2} alt="" className='reset-logo' />
@@ -112,7 +116,7 @@ const ResetPassword: React.FC = () => {
           </div>
           {errors.confirmNewPassword && <span className="error">{errors.confirmNewPassword}</span>}
         </div>
-        <button type="submit">Reset Password</button>
+        <button type="submit" className='reset-btn'>Reset Password</button>
       </form>
     </div>
     </div>

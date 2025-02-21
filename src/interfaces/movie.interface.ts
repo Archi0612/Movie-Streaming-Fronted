@@ -14,13 +14,16 @@ export interface Movie {
   vote_count: number;
   adult: boolean;
   video: boolean;
-
 }
 
 export interface TrendingMoviesProps {
   movies: Movie[];
 }
 
+export interface MovieGridProps {
+  movies: Movie[];
+  title: string;
+}
 export interface MovieCardProps {
   title: string;
   posterPath: string;
@@ -34,6 +37,11 @@ export interface MovieCardProps {
 export interface MovieGridProps {
   movies: Movie[];
   title: string;
+}
+
+export interface HeaderProps{
+  showFullHeader?: boolean;
+  showOnlyLogo?: boolean;
 }
 
 export interface MovieResponse {
@@ -56,7 +64,6 @@ export interface VideoResponse {
   id: number;
   results: VideoResult[];
 }
-
 export interface Profile {
   name: string;
   gender: string;
@@ -64,3 +71,4 @@ export interface Profile {
   country: string;
   email: string;
 }
+

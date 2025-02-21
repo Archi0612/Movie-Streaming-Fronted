@@ -53,7 +53,7 @@ function Likedlist() {
 
                         <div className='likedlist' key={index}>
                             <div className='likedlist-img'>
-                                <img alt='img'></img>
+                                <img src="https://via.placeholder.com/100"></img>
                             </div>
                             <div className='likedlist-info'>
                                 <h4>{likedlist.title}</h4>

@@ -1,21 +1,72 @@
-.profilepage-heading h1 {
-    color: white;
+/* Base Styles */
+html {
+    font-size: 16px;
+    /* Default root size for rem scaling */
 }
 
 .profilepagecontainer {
-    margin: 30px;
-    border: 2px solid black;
-    width: auto;
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100vw;
     height: 100vh;
     background-color: #00131f;
+    border: none;
+    padding: 3rem;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 
+/* Profile Page Heading */
+.profilepage-heading h1 {
+    color: white;
+    font-size: 2rem;
+    text-align: center;
+}
+
+/* Profile Card Layout */
 .profileCard-information {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     width: 95vw;
     height: 40vh;
+    flex-wrap: wrap;
+    margin: 4rem;
+    /* Allow items to wrap for smaller screens */
+}
+
+.sec-profilecard {
+    height: 65%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: white;
+}
+
+.heading {
+    display: flex;
+    flex-direction: row;
+    width: 55vw;
+    justify-content: space-between;
+}
+
+.edit-btn {
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.edit-btn :hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
 }
 
 .primaryContainer {
@@ -25,87 +76,41 @@
     align-items: center;
     justify-content: center;
     background-color: white;
-    font-size: 18px;
+    font-size: 1rem;
     font-weight: bold;
     color: black;
     position: relative;
 }
 
 .img-username {
-    width: 100px;
-    /* Adjust size as needed */
-    height: 100px;
+    max-width: 6.25rem;
+    max-height: 6.25rem;
+    min-height: auto;
+    min-width: auto;
+
     background-color: lightblue;
     border-radius: 50%;
     position: absolute;
     top: 100%;
-    /* Move it down so it overlaps */
     left: 50%;
     transform: translate(-50%, -50%);
-    /* Center it */
-    border: 4px solid white;
+    border: 0.25rem solid white;
 }
 
-.sec-profilecard {
-    width: 25vw;
-    height: 70%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(to bottom, rgba(0, 51, 102, 0.8), rgba(0, 51, 102, 1));
-    font-size: 18px;
-    font-weight: bold;
-    color: white;
-    position: relative;
-}
-
-.profile-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 400px;
-    border-radius: 10px;
-    overflow: hidden;
-    position: relative;
-    background: #f4f4f4;
-}
 
 .profile-section {
     width: 60vw;
-    /* border: 1px solid white; */
-    margin: 10px;
-    border-radius: 15px;
-    padding: 10px;
+    border-radius: 1rem;
+    padding: 0.625rem;
     background-color: #003366;
-    /* background-color: var(--secondary-color); */
-
 }
 
-.heading {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.heading button {
-    width: 7vw;
-    background-color: var(--primary-color);
-}
-
-.heading h3 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 300;
-    color: rgba(255, 255, 255, 1);
-}
-
+/* Profile Information */
 .profile-info {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    margin-top: 10px;
+    margin-top: 0.625rem;
 }
 
 .profile-titles {
@@ -116,7 +121,7 @@
 }
 
 .profile-titles label {
-    margin: 10px;
+    margin: 0.625rem;
     font-weight: 100;
     color: darkgray;
 }
@@ -133,6 +138,7 @@
     color: white;
 }
 
+/* Watchlist & Liked Content */
 .profilepage-content {
     display: flex;
     flex-direction: row;
@@ -140,105 +146,110 @@
     justify-content: space-evenly;
     width: 95vw;
     height: 55vh;
+    flex-wrap: wrap;
+    margin-left: 4rem;
 }
 
-.profilepage-watchlist {
-    width: 47vw;
-    height: 55vh;
-    border-radius: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-}
-
+.profilepage-watchlist,
 .profilepage-likedContent {
     width: 47vw;
     height: 55vh;
-    border-radius: 15px;
-    padding: 10px;
+    border-radius: 1rem;
+    /* padding: 0.625rem; */
 }
 
-.watchlist-component {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border-radius: 15px;
-    box-shadow: 0px 6px 15px rgba(255, 255, 255, 0.3);
+/* Mobile Responsive */
+@media screen and (max-width: 768px) {
+    .profilepagecontainer {
+        position: relative;
+        top: 0;
+        transform: none;
+        padding: 1rem;
+    }
+
+    .profileCard-information {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        width: 100%;
+    }
+
+    .profile-card {
+        width: 90%;
+        height: auto;
+        margin-bottom: 1rem;
+
+    }
+
+    .profile-section {
+        width: 90%;
+        padding: 1rem;
+    }
+
+    .profile-info {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .profile-titles,
+    .profile-details {
+        width: 100%;
+        text-align: center;
+    }
+
+    .profilepage-content {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        height: auto;
+    }
+
+    .profilepage-watchlist,
+    .profilepage-likedContent {
+        width: 90%;
+        height: auto;
+        margin-bottom: 1rem;
+    }
+
 }
 
-.profilepage-liked {
-    height: inherit;
-
-}
-
-.profilepage-likedContent {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-
-
-/* Edit Button */
-.edit-btn {
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.edit-btn:hover {
-    background-color: #0056b3;
-}
-
-/* Modal Overlay (Dark Background) */
+/* Modal */
+/* Modal Overlay */
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     background: rgba(0, 0, 0, 0.6);
-    /* Dark overlay */
     display: flex;
-    align-items: center;
     justify-content: center;
-    z-index: 999;
-    /* Ensure it appears above other elements */
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Modal Container */
+.modal {
+    background: white;
+    width: 40%;
+    max-width: 500px;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    position: relative;
     animation: fadeIn 0.3s ease-in-out;
 }
 
-/* Modal Box (Pop-up) */
-.modal {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 400px;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+/* Modal Heading */
+.modal h2 {
+    color: #333;
     text-align: center;
-    position: relative;
-    transform: scale(0.8);
-    animation: popIn 0.3s forwards ease-in-out;
+    margin-bottom: 1rem;
 }
 
-/* Close Button */
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    color: black;
-}
-
-/* Modal Form */
+/* Form Styling */
 .modal form {
     display: flex;
     flex-direction: column;
@@ -246,118 +257,115 @@
 
 .modal label {
     font-weight: bold;
-    margin-top: 10px;
-    text-align: left;
+    margin-top: 0.8rem;
+    color: #333;
 }
 
 .modal input,
 .modal select {
-    padding: 8px;
-    margin-top: 5px;
+    padding: 0.75rem;
+    margin-top: 0.3rem;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 8px;
+    font-size: 1rem;
+    width: 100%;
 }
 
-/* Buttons */
+/* Modal Buttons */
 .modal-buttons {
     display: flex;
     justify-content: space-between;
-    margin-top: 20px;
+    margin-top: 1.5rem;
 }
 
 .modal-buttons button {
-    padding: 8px 12px;
+    flex: 1;
+    padding: 0.75rem;
+    font-size: 1rem;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
+    transition: 0.3s;
+    font-weight: bold;
 }
 
 .modal-buttons button:first-child {
-    background-color: #28a745;
+    background: #007bff;
     color: white;
+    margin-right: 0.5rem;
+}
+
+.modal-buttons button:first-child:hover {
+    background: #0056b3;
 }
 
 .modal-buttons button:last-child {
-    background-color: #dc3545;
-    color: white;
-}
-
-/* Animation for Smooth Pop-up */
-@keyframes popIn {
-    from {
-        transform: scale(0.8);
-        opacity: 0;
-    }
-
-    to {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
-
-/* Fade-in Effect */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-.modal {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 400px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-    text-align: center;
-    position: relative;
-    transform: scale(0.8);
-    animation: popIn 0.3s forwards ease-in-out;
+    background: #ccc;
     color: black;
-    /* Change text color to black */
 }
 
+.modal-buttons button:last-child:hover {
+    background: #999;
+}
+
+/* Close Button (if needed) */
 .close-btn {
     position: absolute;
-    top: 10px;
+    top: 15px;
     right: 15px;
     background: none;
     border: none;
-    font-size: 20px;
+    font-size: 1.5rem;
     cursor: pointer;
-    color: black;
-    /* Change close button color to black */
+    color: #555;
+}
+
+/* Mobile Responsive */
+@media screen and (max-width: 768px) {
+    .modal {
+        width: 90%;
+        padding: 1.5rem;
+    }
 }
 
 .modal label {
+    display: block;
+    font-size: 1rem;
     font-weight: bold;
+    color: white;
+    /* White label text */
     margin-top: 10px;
-    text-align: left;
-    color: black;
-    /* Change label text color to black */
 }
 
 .modal input,
 .modal select {
-    padding: 8px;
+    width: 100%;
+    padding: 10px;
     margin-top: 5px;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    color: black;
-    /* Ensure text inside input fields is black */
-}
-
-.modal input,
-.modal select {
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 8px;
+    font-size: 1rem;
     background-color: white;
-    /* Set input fields to white */
+    /* White input background */
     color: black;
-    /* Ensure text inside input fields is black */
+    /* Black text inside input */
+}
+
+/* Ensure the dropdown select has the same styling */
+.modal select {
+    background-color: white;
+    color: black;
+}
+
+/* Placeholder text color */
+.modal input::placeholder {
+    color: gray;
+}
+
+/* Add focus effect */
+.modal input:focus,
+.modal select:focus {
+    outline: none;
+    border: 2px solid #007bff;
+    /* Blue border on focus */
 }

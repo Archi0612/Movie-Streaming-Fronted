@@ -54,11 +54,17 @@ input:focus {
   outline: none;
 }
 
-button {
+input:disabled{
+  cursor: not-allowed;
+  background: rgb(167, 170, 175);
+  opacity: 0.5;
+}
+
+.signup-btn {
   width: 100%;
   padding: 10px;
   border: none;
-  background-color: #457EE8;
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
   color: #fff;
   font-size: 16px;
   border-radius: 5px;
@@ -66,10 +72,27 @@ button {
   margin-top: 10px;
 }
 
-button:hover {
-  background-color: #3765BB;
+.signup-btn:hover {
+  background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
 }
-
+.edit-icon{
+  width: 3rem;
+  padding: 0.3rem;
+  background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+  border: var(--primary-color);
+  border-radius: 0.2rem;
+  color: var(--text-color);
+  left: 22rem;
+  position: relative;
+}
+.edit-icon:hover{
+  /* background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)); */
+  background: none;
+  size: 20px;
+  /* color: var(--text-color); */
+  color: var(--primary-color);
+  box-shadow: 0 6px 30px var(--hover-shadow);
+}
 .error {
   color: rgb(231, 55, 55);
   font-size: 12px;
@@ -128,6 +151,76 @@ button:hover {
   color: gray;
 }
 
+.otp-container {
+  margin-top: 20px;
+  text-align: center;
+  color: #f1f1f1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.otp-input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.otp-input {
+  width: 50px;
+  padding: 10px;
+  margin: 5px 0;
+  font-size: 18px;
+  text-align: center;
+  border: 1px solid #555;
+  border-radius: 5px;
+  background-color: #222;
+  color: #fff;
+}
+
+.otp-input:focus {
+  border-color: #457ee8;
+  outline: none;
+}
+.resend-btn {
+  margin-top: 10px;
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  font-weight: 600;
+  cursor: pointer;
+  left: -8.5rem;
+  position: relative;
+  text-decoration: underline;
+}
+
+.resend-btn:hover{
+  color: var(--text-color);
+  font-weight: 500;
+}
+.resend-btn:disabled {
+  color: rgb(151, 161, 185);
+  cursor: not-allowed;
+}
+
+.verify-btn {
+  width: 40%;
+  padding: 0.6rem;
+  border: none;
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  color: #fff;
+  font-size: 0.8rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  /* position: relative; */
+  /* left: 7rem; */
+}
+
+.verify-btn:hover {
+  background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+}
 
 
 @media (max-width: 1024px) {
@@ -141,8 +234,14 @@ button:hover {
     font-size: 16px; 
   }
 
-  button {
+  .signup-btn {
     font-size: 18px;
+  }
+  .otp-container {
+    margin-top: 20px;
+    text-align: center;
+    color: #f1f1f1;
+    width: 40 0px;
   }
 }
 
@@ -160,9 +259,17 @@ button:hover {
     font-size: 14px; 
   }
 
-  button {
+  .signup-btn {
     font-size: 16px; 
   }
+  .otp-container {
+ 
+  width: 350px !important;
+}
+.verify-btn{
+  width: 300px;
+}
+
 }
 
 @media (max-width: 480px) {
@@ -180,13 +287,20 @@ button:hover {
     padding: 12px; 
   }
 
-  button {
+  .signup-btn {
     font-size: 14px; 
     padding: 12px; 
   }
   .signup-logo img{
     width: 75px;
     height: 75px;
+  }
+  .otp-container {
+   
+    width: 290px !important;
+  }
+  .verify-btn{
+    width: 250px;
   }
 }
 @media (max-width: 376px) {
@@ -208,7 +322,7 @@ button:hover {
     padding: 6px; 
   }
 
-  button {
+  .signup-btn{
     font-size: 12px; 
     padding: 10px; 
   }
@@ -230,6 +344,15 @@ button:hover {
     width: 60px;
     height: 60px;
   }
+  .otp-container {
+    margin-top: 20px;
+    text-align: center;
+    color: #f1f1f1;
+    width: 230px !important;
+  }
+  .verify-btn{
+    width: 190px;
+  }
 }
 #already {
   text-align: center;
@@ -243,3 +366,4 @@ button:hover {
 #already a:hover {
   color: #3765BB;
 }
+

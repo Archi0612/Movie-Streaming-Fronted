@@ -53,7 +53,7 @@ function WatchList() {
 
                         <div className='watchlist' key={index}>
                             <div className='watchlist-img'>
-                                <img alt='img'></img>
+                                <img src="https://via.placeholder.com/100"></img>
                             </div>
                             <div className='watchlist-info'>
                                 <h4>{watchlist.title}</h4>
