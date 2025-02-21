@@ -1,313 +1,371 @@
-/* .mainContainer {
-    width: 80vw;
-    height: 90vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: linear-gradient(135deg, black, #1a1a1a);
-    color: white;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-}
-
-.primaryContainer {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    background: #000;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
-}
-
-.navbar h1 {
-    font-size: 1.8rem;
-}
-
-.profileDropdown {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    gap: 10px;
-}
-
-.profileIcon,
-.dropdownArrow {
+.profilepage-heading h1 {
     color: white;
 }
 
-.profileSection {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding: 2rem;
-    background: #121212;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
-}
-
-.profilePic {
-    border-radius: 50%;
-    background-color: white;
-    padding: 5px;
-}
-
-.details h3,
-.details h4 {
-    margin: 5px 0;
-    color: #ddd;
-}
-
-.formMain {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin-top: 2rem;
-}
-
-.primaryformContainer,
-.secondaryformContainer {
-    width: 48%;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-label {
-    font-size: 1rem;
-    margin-bottom: 5px;
-    color: #aaa;
-}
-
-input,
-select {
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    width: 100%;
-    background: #222;
-    color: white;
-}
-
-input:focus,
-select:focus {
-    outline: 2px solid white;
-}
-
-.saveBtn {
-    padding: 12px 20px;
-    border: none;
-    cursor: pointer;
-    background: white;
-    color: black;
-    border-radius: 8px;
-    font-size: 16px;
-    transition: background 0.3s;
-}
-
-.saveBtn:hover {
-    background: grey;
-}
-
-.emailSection {
-    width: 100%;
-    margin-top: 2rem;
-    background: #121212;
-    padding: 1rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
-}
-
-.emailSection h3 {
-    color: #ddd;
-}
-
-.emailSection button {
-    margin-top: 10px;
-    padding: 10px 15px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    background: white;
-    color: black;
-    font-size: 14px;
-    transition: background 0.3s;
-}
-
-.emailSection button:hover {
-    background: grey;
-}
-
-*/
-
-
-/* Main Container */
-.mainContainer {
-    width: 100vw;
+.profilepagecontainer {
+    margin: 30px;
+    border: 2px solid black;
+    width: auto;
     height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    background: linear-gradient(135deg, black, #1a1a1a);
-    color: white;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    background-color: #00131f;
 }
 
-/* Navbar */
-.primaryContainer {
-    width: 50%;
+.profileCard-information {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 1rem 2rem;
-    background: #000;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
-}
-
-.secondaryContainer {
-    width: 80vw;
-    height: 70vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.sec-primaryContainer {
-    width: 40vw;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 95vw;
     height: 40vh;
 }
 
-.navbar h1 {
-    font-size: 1.8rem;
-}
-
-.profileDropdown {
+.primaryContainer {
+    width: 25vw;
+    height: 30%;
     display: flex;
     align-items: center;
-    cursor: pointer;
-    gap: 10px;
-}
-
-.profileIcon,
-.dropdownArrow {
-    color: white;
-}
-
-/* Profile Section */
-.profileSection {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding: 2rem;
-    background: #121212;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
-}
-
-.profilePic {
-    border-radius: 50%;
+    justify-content: center;
     background-color: white;
-    padding: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+    position: relative;
 }
 
-.saveBtn {
-    width: 10vw
+.img-username {
+    width: 100px;
+    /* Adjust size as needed */
+    height: 100px;
+    background-color: lightblue;
+    border-radius: 50%;
+    position: absolute;
+    top: 100%;
+    /* Move it down so it overlaps */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* Center it */
+    border: 4px solid white;
 }
 
-.details h3,
-.details h4 {
-    margin: 5px 0;
-    color: #ddd;
-}
-
-/* Form Section */
-.formMain {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin-top: 2rem;
-}
-
-.primaryformContainer,
-.secondaryformContainer {
-    width: 48%;
+.sec-profilecard {
+    width: 25vw;
+    height: 70%;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom, rgba(0, 51, 102, 0.8), rgba(0, 51, 102, 1));
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    position: relative;
 }
 
-label {
-    font-size: 1rem;
-    margin-bottom: 5px;
-    color: #aaa;
+.profile-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 400px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    background: #f4f4f4;
 }
 
-input,
-select {
+.profile-section {
+    width: 60vw;
+    /* border: 1px solid white; */
+    margin: 10px;
+    border-radius: 15px;
     padding: 10px;
-    border-radius: 5px;
-    border: none;
-    width: 100%;
-    background: #222;
+    background-color: #003366;
+    /* background-color: var(--secondary-color); */
+
+}
+
+.heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.heading button {
+    width: 7vw;
+    background-color: var(--primary-color);
+}
+
+.heading h3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 1);
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-top: 10px;
+}
+
+.profile-titles {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 15vw;
+}
+
+.profile-titles label {
+    margin: 10px;
+    font-weight: 100;
+    color: darkgray;
+}
+
+.profile-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-weight: bold;
+    width: 40vw;
+}
+
+.profile-details span {
     color: white;
 }
 
-input:focus,
-select:focus {
-    outline: 2px solid white;
+.profilepage-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 95vw;
+    height: 55vh;
 }
 
-/* Save Button */
-.saveBtn {
-    padding: 12px 20px;
-    border: none;
-    cursor: pointer;
-    background: white;
-    color: black;
-    border-radius: 8px;
-    font-size: 16px;
-    transition: background 0.3s;
+.profilepage-watchlist {
+    width: 47vw;
+    height: 55vh;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
 }
 
-.saveBtn:hover {
-    background: grey;
+.profilepage-likedContent {
+    width: 47vw;
+    height: 55vh;
+    border-radius: 15px;
+    padding: 10px;
 }
 
-/* Email Section */
-.emailSection {
-    width: 100%;
-    margin-top: 2rem;
-    background: #121212;
-    padding: 1rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+.watchlist-component {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 15px;
+    box-shadow: 0px 6px 15px rgba(255, 255, 255, 0.3);
 }
 
-.emailSection h3 {
-    color: #ddd;
+.profilepage-liked {
+    height: inherit;
+
 }
 
-.emailSection button {
-    margin-top: 10px;
+.profilepage-likedContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* 
+// modal css */
+
+
+/* Edit Button */
+.edit-btn {
     padding: 10px 15px;
-    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
-    background: white;
-    color: black;
-    font-size: 14px;
-    transition: background 0.3s;
 }
 
-.emailSection button:hover {
-    background: grey;
+.edit-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Modal Overlay (Dark Background) */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    /* Dark overlay */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    /* Ensure it appears above other elements */
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Modal Box (Pop-up) */
+.modal {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    text-align: center;
+    position: relative;
+    transform: scale(0.8);
+    animation: popIn 0.3s forwards ease-in-out;
+}
+
+/* Close Button */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: black;
+}
+
+/* Modal Form */
+.modal form {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal label {
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: left;
+}
+
+.modal input,
+.modal select {
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Buttons */
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.modal-buttons button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal-buttons button:first-child {
+    background-color: #28a745;
+    color: white;
+}
+
+.modal-buttons button:last-child {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Animation for Smooth Pop-up */
+@keyframes popIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Fade-in Effect */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Modal Box (Pop-up) */
+.modal {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    position: relative;
+    transform: scale(0.8);
+    animation: popIn 0.3s forwards ease-in-out;
+    color: black;
+    /* Change text color to black */
+}
+
+/* Close Button */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: black;
+    /* Change close button color to black */
+}
+
+/* Modal Labels */
+.modal label {
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: left;
+    color: black;
+    /* Change label text color to black */
+}
+
+/* Modal Input Fields */
+.modal input,
+.modal select {
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: black;
+    /* Ensure text inside input fields is black */
+}
+
+/* Modal Input Fields */
+.modal input,
+.modal select {
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    /* Set input fields to white */
+    color: black;
+    /* Ensure text inside input fields is black */
 }
