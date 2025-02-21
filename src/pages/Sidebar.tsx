@@ -45,8 +45,7 @@ const Sidebar: React.FC = () => {
 
       <ul
         className={`sidebar-list ${isExpanded ? "expanded" : ""}`}
-        onMouseEnter={() => setIsExpanded(true)}
-        onMouseLeave={() => setIsExpanded(false)}
+        
       >
         {menuItems.map((item) => {
           const IconComponent = item.icon;
@@ -57,9 +56,11 @@ const Sidebar: React.FC = () => {
               key={item.path}
               onClick={() => handleItemClick(item.path)}
               className={isActive ? "active" : ""}
+              onMouseEnter={() => setIsExpanded(true)}
+        onMouseLeave={() => setIsExpanded(false)}
             >
               <IconComponent
-                size={24}
+                size={26}
                 className={isActive ? "active-icon" : ""}
               />
               {isExpanded && (
