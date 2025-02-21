@@ -181,9 +181,6 @@
 }
 
 
-/* 
-// modal css */
-
 
 /* Edit Button */
 .edit-btn {
@@ -309,7 +306,6 @@
     }
 }
 
-/* Modal Box (Pop-up) */
 .modal {
     background: white;
     padding: 20px;
@@ -324,7 +320,6 @@
     /* Change text color to black */
 }
 
-/* Close Button */
 .close-btn {
     position: absolute;
     top: 10px;
@@ -337,7 +332,6 @@
     /* Change close button color to black */
 }
 
-/* Modal Labels */
 .modal label {
     font-weight: bold;
     margin-top: 10px;
@@ -346,7 +340,6 @@
     /* Change label text color to black */
 }
 
-/* Modal Input Fields */
 .modal input,
 .modal select {
     padding: 8px;
@@ -357,7 +350,6 @@
     /* Ensure text inside input fields is black */
 }
 
-/* Modal Input Fields */
 .modal input,
 .modal select {
     padding: 8px;
