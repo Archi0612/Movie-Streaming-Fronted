@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import "./Signup.css";
 import img from "../../../assets/avatar.png";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaEdit } from "react-icons/fa";
 
 const Signup: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -11,7 +11,8 @@ const Signup: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
+  const [showConfirmPassword, setShowConfirmPassword] =
+    useState<boolean>(false);
   const [errors, setErrors] = useState<{
     email: string;
     name: string;
@@ -28,6 +29,9 @@ const Signup: React.FC = () => {
   const [otpSent, setOtpSent] = useState<boolean>(false);
   const [otp, setOtp] = useState<string[]>(["", "", "", ""]);
   const otpRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const [resendDisabled, setResendDisabled] = useState<boolean>(false);
+  const [resendTimer, setResendTimer] = useState<number>(30);
+  const [isEditable, setIsEditable] = useState<boolean>(true);
 
   const validateEmail = (email: string): string => {
     if (!email) return "Email is required";
@@ -149,9 +153,13 @@ const Signup: React.FC = () => {
       // Simulate sending OTP
       console.log("OTP sent to:", email);
       setOtpSent(true);
+      setIsEditable(false);
     }
   };
 
+  const handleEdit = () => {
+    setIsEditable(true);
+  };
   const handleOtpVerify = () => {
     const enteredOtp = otp.join("");
     if (enteredOtp.length === 4) {
@@ -160,6 +168,23 @@ const Signup: React.FC = () => {
     } else {
       console.log("Invalid OTP");
     }
+  };
+  const handleResendOtp = () => {
+    console.log("Resending OTP...");
+    setOtp(["", "", "", ""]); // Clear previous OTP input
+    setResendDisabled(true);
+    setResendTimer(30);
+
+    // Simulate sending OTP (Replace this with an actual API call)
+    const interval = setInterval(() => {
+      setResendTimer((prev) => {
+        if (prev === 1) {
+          clearInterval(interval);
+          setResendDisabled(false);
+        }
+        return prev - 1;
+      });
+    }, 1000);
   };
 
   return (
@@ -171,6 +196,11 @@ const Signup: React.FC = () => {
             <img src={img} alt="" />
           </div>
           <h2>Sign Up</h2>
+          {otpSent && (
+            <button type="button" className="edit-icon" onClick={handleEdit}>
+              <FaEdit onClick={handleEdit} size={20} />
+            </button>
+          )}
           <form onSubmit={handleSubmit}>
             <div className="input-group">
               <label>Name</label>
@@ -179,6 +209,7 @@ const Signup: React.FC = () => {
                 value={name}
                 onChange={(e) => handleChange("name", e.target.value)}
                 placeholder="Enter your name"
+                disabled={!isEditable}
               />
               {errors.name && <span className="error">{errors.name}</span>}
             </div>
@@ -189,6 +220,7 @@ const Signup: React.FC = () => {
                 value={email}
                 onChange={(e) => handleChange("email", e.target.value)}
                 placeholder="Enter your email"
+                disabled={!isEditable}
               />
               {errors.email && <span className="error">{errors.email}</span>}
             </div>
@@ -199,6 +231,7 @@ const Signup: React.FC = () => {
                 value={phoneNumber}
                 onChange={(e) => handleChange("phoneNumber", e.target.value)}
                 placeholder="Enter your phone number"
+                disabled={!isEditable}
               />
               {errors.phoneNumber && (
                 <span className="error">{errors.phoneNumber}</span>
@@ -210,9 +243,10 @@ const Signup: React.FC = () => {
                 <input
                   type={showPassword ? "text" : "password"}
                   value={password}
-                 onBlur={hidePasswordOnBlur}
+                  onBlur={hidePasswordOnBlur}
                   onChange={(e) => handleChange("password", e.target.value)}
                   placeholder="Enter your password"
+                  disabled={!isEditable}
                 />
                 <span
                   className="toggle-icon"
@@ -239,6 +273,7 @@ const Signup: React.FC = () => {
                     handleChange("confirmPassword", e.target.value)
                   }
                   placeholder="Confirm your password"
+                  disabled={!isEditable}
                 />
                 <span
                   className="toggle-icon"
@@ -255,11 +290,16 @@ const Signup: React.FC = () => {
                 <span className="error">{errors.confirmPassword}</span>
               )}
             </div>
-            <button type="submit" className="signup-btn">Sign Up</button>
+            {!otpSent && (
+              <button type="submit" className="signup-btn">
+                Sign Up
+              </button>
+            )}
           </form>
           {otpSent && (
             <div className="otp-container">
               <h3>Enter OTP</h3>
+              {/* OTP Input Fields */}
               <div className="otp-input-group">
                 {otp.map((digit, index) => (
                   <input
@@ -276,20 +316,30 @@ const Signup: React.FC = () => {
                   />
                 ))}
               </div>
-              <button onClick={handleOtpVerify} className="verify-btn">Verify OTP</button>
+              {/* Verify OTP Button */}
+              <button onClick={handleOtpVerify} className="verify-btn">
+                Verify OTP
+              </button>
+              
+              {/* Resend OTP Button */}
+              <button
+                onClick={handleResendOtp}
+                className="resend-btn"
+                disabled={resendDisabled}
+              >
+                {resendDisabled
+                  ? `Resend OTP in ${resendTimer}s`
+                  : "Resend OTP"}
+              </button>
             </div>
           )}
 
-          
           <p id="already">
             Already have an account? <Link to="/login">Login</Link>
           </p>
-
         </div>
- 
+      </div>
     </div>
-    </div>
-
   );
 };
 
