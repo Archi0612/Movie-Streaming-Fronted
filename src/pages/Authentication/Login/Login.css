@@ -149,6 +149,23 @@ input:focus {
   font-size: 18px;
   color: gray;
 }
+.message {
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.success-msg {
+  color:  #28a745;
+  
+}
+
+.error-msg {
+  color: #dc3545;
+}
+
 
 @media (max-width: 1024px) {
   .login-container {

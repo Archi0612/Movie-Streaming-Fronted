@@ -2,9 +2,14 @@ import React, { useState } from 'react';
 import './ResetPassword.css';
 import img2 from "../../../assets/resetlogo.png"
 import { FaEye,FaEyeSlash } from 'react-icons/fa';
+import { resetPassword } from '../../../services/apis/authService';
+import { useSearchParams } from 'react-router-dom';
 
 
 const ResetPassword: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  const token = searchParams.get("token");
+  console.log("token:", token);
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
   const [errors, setErrors] = useState({
@@ -13,6 +18,7 @@ const ResetPassword: React.FC = () => {
   });
   const[showPassword,setShowPassword]=useState<boolean>(false);
   const[showConfirmPassword,setShowConfirmPassword]=useState<boolean>(false);
+
   const validateNewPassword = (password: string) => {
     if (!password) {
       return 'New Password is required';
@@ -70,8 +76,14 @@ const ResetPassword: React.FC = () => {
         confirmNewPassword: confirmNewPasswordError,
       });
     } else {
-      console.log('Password Reset Successful');
       // Add your password reset API call here
+      try{
+        const result = resetPassword(newPassword, token as string);
+        console.log("New pass from reset password:",result);
+        return result;
+      }catch(err){
+        console.log('Error resetting password:', err.message);
+      }
     }
   };
 

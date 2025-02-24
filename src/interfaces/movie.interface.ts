@@ -72,3 +72,29 @@ export interface Profile {
   email: string;
 }
 
+export interface FormData {
+  email: string;
+  name: string;
+  password: string;
+  confirmPassword: string;
+  phoneNumber: string;
+  showPassword: boolean;
+  showConfirmPassword: boolean;
+}
+
+
+export interface Errors {
+  email: string;
+  name: string;
+  password: string;
+  confirmPassword: string;
+  phoneNumber: string;
+}
+
+export interface OtpState {
+  otpSent: boolean;
+  otp: string[];
+  resendDisabled: boolean;
+  resendTimer: number;
+  isEditable: boolean;
+}

@@ -3,15 +3,20 @@ import { Link } from "react-router-dom";
 import "./Login.css";
 import img1 from "../../../assets/login-64.png";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
+import { login } from "../../../services/apis/authService";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({
+  const [formData, setFormData] = useState({
     email: "",
     password: "",
+    errors: {
+      email: "",
+      password: "",
+    },
   });
+
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [message, setMessage] = useState<{ text: string; type: "success" | "error" } | null>(null);
 
   const validateEmail = (email: string) => {
     if (!email) return "Email is required";
@@ -19,104 +24,106 @@ const Login = () => {
     return emailRegex.test(email) ? "" : "Please enter a valid email";
   };
 
- 
   const validatePassword = (password: string) => {
-    if (!password) {
-      return "Password is required";
-    }
-    if (password.length < 6) {
-      return "Password must be at least 6 characters";
-    }
+    if (!password) return "Password is required";
+    if (password.length < 6) return "Password must be at least 6 characters";
     return "";
   };
+
   const togglePasswordVisibility = () => {
-    setShowPassword((prevState) => !prevState);
+    setShowPassword((prev) => !prev);
   };
 
   const handleChange = (field: string, value: string) => {
     let error = "";
-    switch (field) {
-      case "email":
-        setEmail(value);
-        error = validateEmail(value);
-        break;
-      case "password":
-        setPassword(value);
-        error = validatePassword(value);
-        break;
-      default:
-        break;
-    }
-    setErrors((prevErrors) => ({ ...prevErrors, [field]: error }));
+    if (field === "email") error = validateEmail(value);
+    if (field === "password") error = validatePassword(value);
+
+    setFormData((prev) => ({
+      ...prev, // Keep the existing state
+      [field]: value,// Update only the specific field (email or password)
+      errors: { ...prev.errors, [field]: error }, // Keep existing errors and update only the error for the current field
+    }));
   };
 
- 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    const emailError = validateEmail(email);
-    const passwordError = validatePassword(password);
+
+    const emailError = validateEmail(formData.email);
+    const passwordError = validatePassword(formData.password);
 
     if (emailError || passwordError) {
-      setErrors({
-        email: emailError,
-        password: passwordError,
-      });
+      setFormData((prev) => ({
+        ...prev,
+        errors: { email: emailError, password: passwordError },
+      }));
+      setMessage(null);
     } else {
-      console.log("Login Successful", { email, password });
-      // Proceed with login logic (e.g., API call)
+      try {
+        const data = await login(formData.email, formData.password);
+        console.log("User logged in:", data);
+        setMessage({ text: "Successfully logged in!", type: "success" });
+      } catch (err) {
+        console.log(err);
+        setMessage({ text: "Incorrect Email or Password!", type: "error" });
+      }
     }
   };
-
-
 
   return (
     <div className="container">
-      {/* <Header minimal /> */}
       <div className="welcome-overlay">
-   
-    <div className="login-container">
-      <div className='login-logo'>
-        <img src={img1} alt="" width={"80px"} height={"80px"}/>
+        <div className="login-container">
+          
+          {message && (
+            <div className={`message ${message.type === "success" ? "success-msg" : "error-msg"}`}>
+              {message.text}
+            </div>
+          )}
+
+          <div className="login-logo">
+            <img src={img1} alt="Login"/>
+          </div>
+          <h2>Login</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="input-group">
+              <label>Email</label>
+              <input
+                type="email"
+                value={formData.email}
+                onChange={(e) => handleChange("email", e.target.value)}
+                placeholder="Enter your email"
+              />
+              {formData.errors.email && <span className="error">{formData.errors.email}</span>}
+            </div>
+            <div className="input-group">
+              <label>Password</label>
+              <div className="password-container">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  value={formData.password}
+                  onChange={(e) => handleChange("password", e.target.value)}
+                  placeholder="Enter your password"
+                />
+                <span className="toggle-icon" onClick={togglePasswordVisibility}>
+                  {showPassword ? <FaEyeSlash color="white" /> : <FaEye color="white" />}
+                </span>
+              </div>
+              {formData.errors.password && <span className="error">{formData.errors.password}</span>}
+            </div>
+            <button type="submit" className="login-btn">Login</button>
+            <p className="forgot-link">
+              <Link to="/forgot-password">Forgot password?</Link>
+            </p>
+            <div className="signup-text">
+              <span>Don't have an account yet?</span>
+              <span className="signup-link">
+                <Link to="/signup">Create an account</Link>
+              </span>
+            </div>
+          </form>
+        </div>
       </div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="input-group">
-          <label>Email</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => handleChange('email', e.target.value)}
-            placeholder="Enter your email"
-          />
-          {errors.email && <span className="error">{errors.email}</span>}
-        </div>
-        <div className='input-group'>
-          <label>Password</label>
-          <div className="password-container">
-          <input type={showPassword ? 'text':'password'}
-          value={password}
-          onChange={(e)=>handleChange('password',e.target.value)}
-          placeholder='Enter your password'
-        />
-        <span className='toggle-icon' onClick={togglePasswordVisibility}>
-          {showPassword ? <FaEyeSlash color='white'/>:<FaEye color='white'/>}
-        </span>
-        </div>
-        {errors.password && <span className="error">{errors.password}</span>}
-        </div>
-        <button type="submit" className='login-btn'>Login</button>
-        <p className="forgot-link">
-          <Link to="/forgot-password">Forgot password?</Link>
-        </p>
-        <div className="signup-text">
-          <span>Don't have an account yet?</span>
-          <span className="signup-link">
-            <Link to="/signup">Create an account</Link>
-          </span>
-        </div>
-      </form>
-    </div>
-    </div>
     </div>
   );
 };
