@@ -51,7 +51,7 @@ export const signup = async(userData:{
     email: string;
     phoneNumber: string;
     password: string;
-    otp: number;
+    numberOTP: number;
 }) => {
     try{
         const result = await API.post("auth/signup", {
@@ -59,7 +59,7 @@ export const signup = async(userData:{
             contactNo: userData.phoneNumber,
             name: userData.name,
             password: userData.password,
-            otp: userData.otp
+            otp: userData.numberOTP
         });
         console.log("Sign up result:", result);
         return result;
@@ -72,4 +72,38 @@ export const signup = async(userData:{
           throw new Error("An unknown error occurred");
         }
       }
+}
+
+export const sendMailResetPassword = async(email: string) => {
+    try{
+        const result = await API.post("auth/sendMailResetPassword", {
+            email: email,
+            // password: userData.password
+        });
+        console.log("Forgot password result:", result.data.message);
+        return result;
+    }catch(err:unknown){
+        if(axios.isAxiosError(err)){
+            throw new Error(err.response?.data?.message || "Something went wrong");
+        }else{
+            throw new Error("An unknown error occurred");
+        }
+    }
+}
+
+export const resetPassword = async(password: string, token: string) => {
+    try{
+        const result = await API.post("auth/resetPassword", {
+            password: password,
+            token: token
+        });
+        console.log("Forgot password result:", result.data.message);
+        return result;
+    }catch(err:unknown){
+        if(axios.isAxiosError(err)){
+            throw new Error(err.response?.data?.message || "Something went wrong");
+        }else{
+            throw new Error("An unknown error occurred");
+        }
+    }
 }
