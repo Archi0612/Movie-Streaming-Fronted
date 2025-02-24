@@ -95,7 +95,7 @@ const Feedback: React.FC = () => {
 
           <div className="btn-container">
             <button type="submit" className="feedback-button">
-              Submit Feedback
+              Submit
             </button>
             <button type="button" className="feedback-button skip-button" onClick={handleSkip}>
               Skip

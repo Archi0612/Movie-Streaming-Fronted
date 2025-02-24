@@ -123,3 +123,8 @@
     background: var(--secondary-color);
   }
   
+  @media (max-width: 480px) {
+    .page-container {
+      width: 100%;
+    }
+  }
