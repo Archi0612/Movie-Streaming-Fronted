@@ -1,10 +1,14 @@
 import { Link } from "react-router-dom";
 import "./ForgotPassword.css";
 import React,{ useState } from "react";
+import { sendMailResetPassword } from "../../../services/apis/authService";
+// import axios from "axios";
 
 const ForgotPassword:React.FC = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+  const [message, setMessage] = useState<{text: string, type: "success" | "error"} | null>(null);
+
   const validateEmail = (email: string) => {
     if (!email) {
       return "Email is required";
@@ -18,14 +22,36 @@ const ForgotPassword:React.FC = () => {
     setEmail(value);
     setError(validateEmail(value));
   };
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async(event: React.FormEvent) => {
     event.preventDefault();
     const emailError = validateEmail(email);
     if (emailError) {
       setError(emailError);
-    } else {
+    } 
+    else {
       console.log("Email Submitted:", email);
       // Perform actions such as sending a password reset link
+      try{
+        const data = await sendMailResetPassword(email);
+        console.log("Email send:", data?.data?.message);
+        setMessage({
+          text: data?.data?.message,
+          type: "success",
+        });
+        return data;
+      }catch(err:unknown){
+        console.log("Error sending email:", err.message);
+        setMessage({
+          // text: "Incorrect email",
+          text: err?.message,
+          type: "error",
+          });
+        // if(axios.isAxiosError(err)){
+        //   throw new Error(err.response?.data?.message || "Something went wrong")
+        // }else{
+        //   throw new Error("An unknown error");
+        // }
+      }
     }
   };
   return (
@@ -33,6 +59,12 @@ const ForgotPassword:React.FC = () => {
       {/* <Header minimal /> */}
       <div className="welcome-overly">
         <div className="forgot-container">
+
+          {message && (
+            <div className={`message ${message.type === "success" ? "success-msg" : "err-msg"}`}>
+              {message.text}
+            </div>
+          )}
           <button className="back-btn">
             <Link to={"/login"}>
               {/* <img src={img} alt="" style={{width:"20px", height:"20px"}} /> */}

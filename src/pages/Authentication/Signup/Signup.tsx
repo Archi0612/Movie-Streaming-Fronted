@@ -1,8 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, ChangeEvent } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import "./Signup.css";
 import img from "../../../assets/avatar.png";
 import { FaEye, FaEyeSlash, FaEdit } from "react-icons/fa";
+import { generateOTP, signup } from "../../../services/apis/authService";
 import { Errors, FormData, OtpState } from "../../../interfaces/movie.interface";
 
 const Signup: React.FC = () => {
@@ -26,7 +28,7 @@ const Signup: React.FC = () => {
 
   const [otpState, setOtpState] = useState<OtpState>({
     otpSent: false,
-    otp: ["", "", "", ""],
+    otp: ["", "", "", "", "", ""],
     resendDisabled: false,
     resendTimer: 30,
     isEditable: true,
@@ -68,7 +70,7 @@ const Signup: React.FC = () => {
     if (event.key === "Backspace" && !otpState.otp[index] && index > 0) otpRefs.current[index - 1]?.focus();
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleOTPSend = async (event: React.FormEvent) => {
     event.preventDefault();
     const emailError = validateEmail(formData.email);
     const nameError = validateName(formData.name);
@@ -80,16 +82,63 @@ const Signup: React.FC = () => {
       setErrors({ email: emailError, name: nameError, password: passwordError, confirmPassword: confirmPasswordError, phoneNumber: phoneNumberError });
     } else {
       console.log("OTP sent to:", formData.email);
-      setOtpState((prevState) => ({ ...prevState, otpSent: true, isEditable: false }));
+      setOtpState((prevState) => ({
+        ...prevState,
+        otpSent: true,
+        isEditable: false,
+      }));
+      try {
+        const data = await generateOTP(formData);
+        console.log("OTP sent to the user mail:", data);
+        return data;
+      } catch (err: unknown) {
+        if (axios.isAxiosError(err)) {
+          throw new Error(err.response?.data?.message || "Something went wrong");
+        } else {
+          throw new Error("An unknown error occurred");
+        }
+      }
     }
   };
 
-  const handleEdit = () => setOtpState((prevState) => ({ ...prevState, isEditable: true, otpSent: false }));
-  const handleOtpVerify = () => console.log(otpState.otp.join("").length === 4 ? "OTP Verified:" + otpState.otp.join("") : "Invalid OTP");
+  const handleEdit = () => {
+    setOtpState((prevState) => ({
+      ...prevState,
+      isEditable: true,
+      otpSent: false,
+    }));
+  };
+
+  const handleOtpVerify = async () => {
+    const enteredOtp = otpState.otp.join("");
+    if (enteredOtp.length === 6) {
+      console.log("OTP Verified:", enteredOtp);
+      try {
+        const numberOTP = parseInt(enteredOtp);
+        const data = await signup({ ...formData, numberOTP });
+        console.log("OTP verified and signup:", data);
+        return data;
+      } catch (err: unknown) {
+        if (axios.isAxiosError(err)) {
+          throw new Error(err.response?.data?.message || "Something went wrong");
+        } else {
+          throw new Error("An unknown error occurred");
+        }
+      }
+    } else {
+      console.log("Invalid OTP");
+    }
+  };
 
   const handleResendOtp = () => {
     console.log("Resending OTP...");
-    setOtpState((prevState) => ({ ...prevState, otp: ["", "", "", ""], resendDisabled: true, resendTimer: 30 }));
+    setOtpState((prevState) => ({
+      ...prevState,
+      otp: ["", "", "", "", "", ""],
+      resendDisabled: true,
+      resendTimer: 30,
+    }));
+
     const interval = setInterval(() => {
       setOtpState((prevState) => {
         if (prevState.resendTimer === 1) {
@@ -114,26 +163,55 @@ const Signup: React.FC = () => {
               <FaEdit onClick={handleEdit} size={20} />
             </button>
           )}
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleOTPSend}>
             <div className="input-group">
               <label>Name</label>
-              <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Enter your name" disabled={!otpState.isEditable} />
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="Enter your name"
+                disabled={!otpState.isEditable}
+              />
               {errors.name && <span className="error">{errors.name}</span>}
             </div>
             <div className="input-group">
               <label>Email</label>
-              <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Enter your email" disabled={!otpState.isEditable} />
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Enter your email"
+                disabled={!otpState.isEditable}
+              />
               {errors.email && <span className="error">{errors.email}</span>}
             </div>
             <div className="input-group">
               <label>Contact Number</label>
-              <input type="text" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} placeholder="Enter your phone number" disabled={!otpState.isEditable} />
+              <input
+                type="text"
+                name="phoneNumber"
+                value={formData.phoneNumber}
+                onChange={handleChange}
+                placeholder="Enter your phone number"
+                disabled={!otpState.isEditable}
+              />
               {errors.phoneNumber && <span className="error">{errors.phoneNumber}</span>}
             </div>
             <div className="input-group">
               <label>Password</label>
               <div className="password-container">
-                <input type={formData.showPassword ? "text" : "password"} name="password" value={formData.password} onBlur={hidePasswordOnBlur} onChange={handleChange} placeholder="Enter your password" disabled={!otpState.isEditable} />
+                <input
+                  type={formData.showPassword ? "text" : "password"}
+                  name="password"
+                  value={formData.password}
+                  onBlur={hidePasswordOnBlur}
+                  onChange={handleChange}
+                  placeholder="Enter your password"
+                  disabled={!otpState.isEditable}
+                />
                 <span className="toggle-icon" onClick={togglePasswordVisibility}>
                   {formData.showPassword ? <FaEyeSlash color="white" /> : <FaEye color="white" />}
                 </span>
@@ -143,24 +221,46 @@ const Signup: React.FC = () => {
             <div className="input-group">
               <label>Confirm Password</label>
               <div className="password-container">
-                <input type={formData.showConfirmPassword ? "text" : "password"} name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} placeholder="Confirm your password" disabled={!otpState.isEditable} />
+                <input
+                  type={formData.showConfirmPassword ? "text" : "password"}
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  placeholder="Confirm your password"
+                  disabled={!otpState.isEditable}
+                />
                 <span className="toggle-icon" onClick={toggleConfirmPasswordVisibility}>
                   {formData.showConfirmPassword ? <FaEyeSlash color="white" /> : <FaEye color="white" />}
                 </span>
               </div>
               {errors.confirmPassword && <span className="error">{errors.confirmPassword}</span>}
             </div>
-            {!otpState.otpSent && <button type="submit" className="signup-btn">Sign Up</button>}
+            {!otpState.otpSent && (
+              <button type="submit" className="signup-btn">
+                Send OTP
+              </button>
+            )}
           </form>
           {otpState.otpSent && (
             <div className="otp-container">
               <h3>Enter OTP</h3>
               <div className="otp-input-group">
                 {otpState.otp.map((digit, index) => (
-                  <input key={index} type="text" value={digit} maxLength={1} ref={(el) => { otpRefs.current[index] = el; }} onChange={(e) => handleOtpChange(index, e.target.value)} onKeyDown={(e) => handleOtpKeyDown(index, e)} className="otp-input" />
+                  <input
+                    key={index}
+                    type="text"
+                    value={digit}
+                    maxLength={1}
+                    ref={(el) => { otpRefs.current[index] = el; }}
+                    onChange={(e) => handleOtpChange(index, e.target.value)}
+                    onKeyDown={(e) => handleOtpKeyDown(index, e)}
+                    className="otp-input"
+                  />
                 ))}
               </div>
-              <button onClick={handleOtpVerify} className="verify-btn">Verify OTP</button>
+              <button onClick={handleOtpVerify} className="verify-btn">
+                Sign Up
+              </button>
               <button onClick={handleResendOtp} className="resend-btn" disabled={otpState.resendDisabled}>
                 {otpState.resendDisabled ? `Resend OTP in ${otpState.resendTimer}s` : "Resend OTP"}
               </button>
