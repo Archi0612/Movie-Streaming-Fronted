@@ -82,7 +82,7 @@ input:disabled{
   border: var(--primary-color);
   border-radius: 0.2rem;
   color: var(--text-color);
-  left: 22rem;
+  left: 86%;
   position: relative;
 }
 .edit-icon:hover{
