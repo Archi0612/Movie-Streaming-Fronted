@@ -16,10 +16,7 @@ import Feedback from "../pages/Feedback";
 import AddMovie from "../pages/Admin/AddMovie";
 import AdminDashboardSeries from "../pages/Admin/AdminDashboardSeries";
 import AddSeries from "../pages/Admin/AddSeries";
-<<<<<<< HEAD
-=======
-import HeroSection from "../components/Herosection";
->>>>>>> 201fc6aff28abddcc35bf53e06c48b3aeb52a5ca
+import HeroSection from "../components/HeroSection";
 
 const AppRoute: React.FC = () => {
   return (
@@ -38,10 +35,7 @@ const AppRoute: React.FC = () => {
           <Route path="/profile-page" element={<ProfilePage />} />
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/admin-dashboard" element={<AdminDashboard/>}/>
-<<<<<<< HEAD
-=======
           <Route path="/movies" element={<HeroSection/>}/> 
->>>>>>> 201fc6aff28abddcc35bf53e06c48b3aeb52a5ca
           <Route path="/feedback" element={<Feedback/>}/>
           <Route path="/add-movie" element={<AddMovie/>}/> 
           <Route path="/admin-dashboard-series" element={<AdminDashboardSeries/>}/>

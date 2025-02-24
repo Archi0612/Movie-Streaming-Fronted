@@ -1,4 +1,4 @@
-import './Likedlist.css';
+import './LikedList.css';
 function Likedlist() {
     const Likedlists = [
         {
