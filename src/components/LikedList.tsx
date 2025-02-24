@@ -1,4 +1,6 @@
 import './LikedList.css';
+import poster2 from "../assets/salar.jpeg";
+
 function Likedlist() {
     const Likedlists = [
         {
@@ -53,7 +55,7 @@ function Likedlist() {
 
                         <div className='likedlist' key={index}>
                             <div className='likedlist-img'>
-                                <img src="https://via.placeholder.com/100"></img>
+                                <img src={poster2} alt="Poster" />
                             </div>
                             <div className='likedlist-info'>
                                 <h4>{likedlist.title}</h4>
