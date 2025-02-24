@@ -5,35 +5,37 @@ import "./Signup.css";
 import img from "../../../assets/avatar.png";
 import { FaEye, FaEyeSlash, FaEdit } from "react-icons/fa";
 import { generateOTP, signup } from "../../../services/apis/authService";
+import { Errors, FormData, OtpState } from "../../../interfaces/movie.interface";
+
 
 const Signup: React.FC = () => {
-  const [email, setEmail] = useState<string>("");
-  const [name, setName] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [confirmPassword, setConfirmPassword] = useState<string>("");
-  const [phoneNumber, setPhoneNumber] = useState<string>("");
-  const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [showConfirmPassword, setShowConfirmPassword] =
-    useState<boolean>(false);
-  const [errors, setErrors] = useState<{
-    email: string;
-    name: string;
-    password: string;
-    confirmPassword: string;
-    phoneNumber: string;
-  }>({
+  const [formData, setFormData] = useState<FormData>({
+    email: "",
+    name: "",
+    password: "",
+    confirmPassword: "",
+    phoneNumber: "",
+    showPassword: false,
+    showConfirmPassword: false,
+  });
+
+  const [errors, setErrors] = useState<Errors>({
     email: "",
     name: "",
     password: "",
     confirmPassword: "",
     phoneNumber: "",
   });
-  const [otpSent, setOtpSent] = useState<boolean>(false);
-  const [otp, setOtp] = useState<string[]>(["", "", "", "", "", ""]);
+
+  const [otpState, setOtpState] = useState<OtpState>({
+    otpSent: false,
+    otp: ["", "", "", "", "", ""],
+    resendDisabled: false,
+    resendTimer: 30,
+    isEditable: true,
+  });
+
   const otpRefs = useRef<(HTMLInputElement | null)[]>([]);
-  const [resendDisabled, setResendDisabled] = useState<boolean>(false);
-  const [resendTimer, setResendTimer] = useState<number>(30);
-  const [isEditable, setIsEditable] = useState<boolean>(true);
 
   const validateEmail = (email: string): string => {
     if (!email) return "Email is required";
@@ -66,49 +68,56 @@ const Signup: React.FC = () => {
   };
 
   const togglePasswordVisibility = () => {
-    setShowPassword((prevState) => !prevState);
+    setFormData((prevState) => ({
+      ...prevState,
+      showPassword: !prevState.showPassword,
+    }));
   };
 
   const toggleConfirmPasswordVisibility = () => {
-    setShowConfirmPassword((prevState) => !prevState);
+    setFormData((prevState) => ({
+      ...prevState,
+      showConfirmPassword: !prevState.showConfirmPassword,
+    }));
   };
+
   const hidePasswordOnBlur = () => {
-    setShowPassword(false);
+    setFormData((prevState) => ({
+      ...prevState,
+      showPassword: false,
+    }));
   };
+
   const handleChange = (field: string, value: string) => {
     let error = "";
     switch (field) {
       case "email":
-        setEmail(value);
         error = validateEmail(value);
         break;
       case "name":
-        setName(value);
         error = validateName(value);
         break;
       case "password":
-        setPassword(value);
         error = validatePassword(value);
         break;
       case "confirmPassword":
-        setConfirmPassword(value);
-        error = validateConfirmPassword(value, password);
+        error = validateConfirmPassword(value, formData.password);
         break;
       case "phoneNumber":
-        setPhoneNumber(value);
         error = validatePhoneNumber(value);
         break;
       default:
         break;
     }
+    setFormData((prevState) => ({ ...prevState, [field]: value }));
     setErrors((prevErrors) => ({ ...prevErrors, [field]: error }));
   };
 
   const handleOtpChange = (index: number, value: string) => {
     if (/^\d?$/.test(value)) {
-      const newOtp = [...otp];
+      const newOtp = [...otpState.otp];
       newOtp[index] = value;
-      setOtp(newOtp);
+      setOtpState((prevState) => ({ ...prevState, otp: newOtp }));
 
       // Move focus to next input if value is entered
       if (value && index < otpRefs.current.length - 1) {
@@ -121,21 +130,21 @@ const Signup: React.FC = () => {
     index: number,
     event: React.KeyboardEvent<HTMLInputElement>
   ) => {
-    if (event.key === "Backspace" && !otp[index] && index > 0) {
+    if (event.key === "Backspace" && !otpState.otp[index] && index > 0) {
       otpRefs.current[index - 1]?.focus();
     }
   };
 
   const handleOTPSend = async (event: React.FormEvent) => {
     event.preventDefault();
-    const emailError = validateEmail(email);
-    const nameError = validateName(name);
-    const passwordError = validatePassword(password);
+    const emailError = validateEmail(formData.email);
+    const nameError = validateName(formData.name);
+    const passwordError = validatePassword(formData.password);
     const confirmPasswordError = validateConfirmPassword(
-      confirmPassword,
-      password
+      formData.confirmPassword,
+      formData.password
     );
-    const phoneNumberError = validatePhoneNumber(phoneNumber);
+    const phoneNumberError = validatePhoneNumber(formData.phoneNumber);
 
     if (
       emailError ||
@@ -153,9 +162,12 @@ const Signup: React.FC = () => {
       });
     } else {
       // Simulate sending OTP
-      console.log("OTP sent to:", email);
-      setOtpSent(true);
-      setIsEditable(false);
+      console.log("OTP sent to:", formData.email);
+      setOtpState((prevState) => ({
+        ...prevState,
+        otpSent: true,
+        isEditable: false,
+      }));
       //call SendOTP api
       try{
         //it will return the user data to the backend
@@ -172,12 +184,16 @@ const Signup: React.FC = () => {
           throw new Error("An unknown error occurred");
         }
       }
+
     }
   };
 
   const handleEdit = () => {
-    setIsEditable(true);
-    setOtpSent(false);
+    setOtpState((prevState) => ({
+      ...prevState,
+      isEditable: true,
+      otpSent: false,
+    }));
   };
   
   const handleOtpVerify = () => {
@@ -205,20 +221,24 @@ const Signup: React.FC = () => {
       console.log("Invalid OTP");
     }
   };
+
   const handleResendOtp = () => {
     console.log("Resending OTP...");
-    setOtp(["", "", "", "", "", ""]); // Clear previous OTP input
-    setResendDisabled(true);
-    setResendTimer(30);
+    setOtpState((prevState) => ({
+      ...prevState,
+      otp: ["", "", "", "", "", ""],
+      resendDisabled: true,
+      resendTimer: 30,
+    }));
 
     // Simulate sending OTP (Replace this with an actual API call)
     const interval = setInterval(() => {
-      setResendTimer((prev) => {
-        if (prev === 1) {
+      setOtpState((prevState) => {
+        if (prevState.resendTimer === 1) {
           clearInterval(interval);
-          setResendDisabled(false);
+          return { ...prevState, resendDisabled: false };
         }
-        return prev - 1;
+        return { ...prevState, resendTimer: prevState.resendTimer - 1 };
       });
     }, 1000);
   };
@@ -232,7 +252,7 @@ const Signup: React.FC = () => {
             <img src={img} alt="" />
           </div>
           <h2>Sign Up</h2>
-          {otpSent && (
+          {otpState.otpSent && (
             <button type="button" className="edit-icon" onClick={handleEdit}>
               <FaEdit onClick={handleEdit} size={20} />
             </button>
@@ -242,10 +262,10 @@ const Signup: React.FC = () => {
               <label>Name</label>
               <input
                 type="text"
-                value={name}
+                value={formData.name}
                 onChange={(e) => handleChange("name", e.target.value)}
                 placeholder="Enter your name"
-                disabled={!isEditable}
+                disabled={!otpState.isEditable}
               />
               {errors.name && <span className="error">{errors.name}</span>}
             </div>
@@ -253,10 +273,10 @@ const Signup: React.FC = () => {
               <label>Email</label>
               <input
                 type="email"
-                value={email}
+                value={formData.email}
                 onChange={(e) => handleChange("email", e.target.value)}
                 placeholder="Enter your email"
-                disabled={!isEditable}
+                disabled={!otpState.isEditable}
               />
               {errors.email && <span className="error">{errors.email}</span>}
             </div>
@@ -264,10 +284,10 @@ const Signup: React.FC = () => {
               <label>Contact Number</label>
               <input
                 type="text"
-                value={phoneNumber}
+                value={formData.phoneNumber}
                 onChange={(e) => handleChange("phoneNumber", e.target.value)}
                 placeholder="Enter your phone number"
-                disabled={!isEditable}
+                disabled={!otpState.isEditable}
               />
               {errors.phoneNumber && (
                 <span className="error">{errors.phoneNumber}</span>
@@ -277,18 +297,18 @@ const Signup: React.FC = () => {
               <label>Password</label>
               <div className="password-container">
                 <input
-                  type={showPassword ? "text" : "password"}
-                  value={password}
+                  type={formData.showPassword ? "text" : "password"}
+                  value={formData.password}
                   onBlur={hidePasswordOnBlur}
                   onChange={(e) => handleChange("password", e.target.value)}
                   placeholder="Enter your password"
-                  disabled={!isEditable}
+                  disabled={!otpState.isEditable}
                 />
                 <span
                   className="toggle-icon"
                   onClick={togglePasswordVisibility}
                 >
-                  {showPassword ? (
+                  {formData.showPassword ? (
                     <FaEyeSlash color="white" />
                   ) : (
                     <FaEye color="white" />
@@ -303,19 +323,19 @@ const Signup: React.FC = () => {
               <label>Confirm Password</label>
               <div className="password-container">
                 <input
-                  type={showConfirmPassword ? "text" : "password"}
-                  value={confirmPassword}
+                  type={formData.showConfirmPassword ? "text" : "password"}
+                  value={formData.confirmPassword}
                   onChange={(e) =>
                     handleChange("confirmPassword", e.target.value)
                   }
                   placeholder="Confirm your password"
-                  disabled={!isEditable}
+                  disabled={!otpState.isEditable}
                 />
                 <span
                   className="toggle-icon"
                   onClick={toggleConfirmPasswordVisibility}
                 >
-                  {showConfirmPassword ? (
+                  {formData.showConfirmPassword ? (
                     <FaEyeSlash color="white" />
                   ) : (
                     <FaEye color="white" />
@@ -326,18 +346,18 @@ const Signup: React.FC = () => {
                 <span className="error">{errors.confirmPassword}</span>
               )}
             </div>
-            {!otpSent && (
+            {!otpState.otpSent && (
               <button type="submit" className="signup-btn">
                 Send OTP
               </button>
             )}
           </form>
-          {otpSent && (
+          {otpState.otpSent && (
             <div className="otp-container">
               <h3>Enter OTP</h3>
               {/* OTP Input Fields */}
               <div className="otp-input-group">
-                {otp.map((digit, index) => (
+                {otpState.otp.map((digit, index) => (
                   <input
                     key={index}
                     type="text"
@@ -361,10 +381,10 @@ const Signup: React.FC = () => {
               <button
                 onClick={handleResendOtp}
                 className="resend-btn"
-                disabled={resendDisabled}
+                disabled={otpState.resendDisabled}
               >
-                {resendDisabled
-                  ? `Resend OTP in ${resendTimer}s`
+                {otpState.resendDisabled
+                  ? `Resend OTP in ${otpState.resendTimer}s`
                   : "Resend OTP"}
               </button>
             </div>
