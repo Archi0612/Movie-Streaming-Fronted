@@ -1,8 +1,10 @@
 import React, { useState, useRef } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import "./Signup.css";
 import img from "../../../assets/avatar.png";
 import { FaEye, FaEyeSlash, FaEdit } from "react-icons/fa";
+import { generateOTP, signup } from "../../../services/apis/authService";
 
 const Signup: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -27,7 +29,7 @@ const Signup: React.FC = () => {
     phoneNumber: "",
   });
   const [otpSent, setOtpSent] = useState<boolean>(false);
-  const [otp, setOtp] = useState<string[]>(["", "", "", ""]);
+  const [otp, setOtp] = useState<string[]>(["", "", "", "", "", ""]);
   const otpRefs = useRef<(HTMLInputElement | null)[]>([]);
   const [resendDisabled, setResendDisabled] = useState<boolean>(false);
   const [resendTimer, setResendTimer] = useState<number>(30);
@@ -124,7 +126,7 @@ const Signup: React.FC = () => {
     }
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleOTPSend = async (event: React.FormEvent) => {
     event.preventDefault();
     const emailError = validateEmail(email);
     const nameError = validateName(name);
@@ -154,6 +156,22 @@ const Signup: React.FC = () => {
       console.log("OTP sent to:", email);
       setOtpSent(true);
       setIsEditable(false);
+      //call SendOTP api
+      try{
+        //it will return the user data to the backend
+        const userData = {name, email, phoneNumber, password};
+        const data = generateOTP(userData);
+        console.log("OTP send to the user mail:", data);
+        return data;
+      }catch (err: unknown) {
+        if (axios.isAxiosError(err)) {
+          // If it's an Axios error, check for response data
+          throw new Error(err.response?.data?.message || "Something went wrong");
+        } else {
+          // Generic error handling
+          throw new Error("An unknown error occurred");
+        }
+      }
     }
   };
 
@@ -161,18 +179,35 @@ const Signup: React.FC = () => {
     setIsEditable(true);
     setOtpSent(false);
   };
+  
   const handleOtpVerify = () => {
     const enteredOtp = otp.join("");
-    if (enteredOtp.length === 4) {
+    if (enteredOtp.length === 6) {
       console.log("OTP Verified:", enteredOtp);
-      // Proceed with further actions (e.g., form submission)
+      
+      try{
+        //it will return the user data and otp entered by user.
+        const numberOTP = parseInt(enteredOtp);
+        const userData = {name, email, phoneNumber, password, otp: numberOTP};
+        const data = signup(userData);
+        console.log("OTP verified and signup:", data);
+        return data;
+      }catch (err: unknown) {
+        if (axios.isAxiosError(err)) {
+          // If it's an Axios error, check for response data
+          throw new Error(err.response?.data?.message || "Something went wrong");
+        } else {
+          // Generic error handling
+          throw new Error("An unknown error occurred");
+        }
+      }
     } else {
       console.log("Invalid OTP");
     }
   };
   const handleResendOtp = () => {
     console.log("Resending OTP...");
-    setOtp(["", "", "", ""]); // Clear previous OTP input
+    setOtp(["", "", "", "", "", ""]); // Clear previous OTP input
     setResendDisabled(true);
     setResendTimer(30);
 
@@ -202,7 +237,7 @@ const Signup: React.FC = () => {
               <FaEdit onClick={handleEdit} size={20} />
             </button>
           )}
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleOTPSend}>
             <div className="input-group">
               <label>Name</label>
               <input
@@ -293,7 +328,7 @@ const Signup: React.FC = () => {
             </div>
             {!otpSent && (
               <button type="submit" className="signup-btn">
-                Sign Up
+                Send OTP
               </button>
             )}
           </form>
@@ -319,7 +354,7 @@ const Signup: React.FC = () => {
               </div>
               {/* Verify OTP Button */}
               <button onClick={handleOtpVerify} className="verify-btn">
-                Verify OTP
+                Sign Up
               </button>
 
               {/* Resend OTP Button */}
