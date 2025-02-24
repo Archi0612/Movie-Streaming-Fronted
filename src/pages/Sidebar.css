@@ -2,7 +2,7 @@
   position: fixed;
   left: 0;
   top: 0;
-  padding-left: 1.7rem;
+  padding-left: 1.3rem;
   /* max-width: fit-content; */
   height: 100vh;
   background: rgba(var(--primary-color), 0.7);
@@ -24,7 +24,7 @@
 .sidebar-list {
   list-style: none;
   padding: 0;
-  width: 9vw;
+  width: 7.5vw;
 }
 
 .sidebar-logo {
@@ -55,6 +55,7 @@
 }
 
 .sidebar li:hover {
+  size: 1rem;
   color: var(--primary-color);
 }
 

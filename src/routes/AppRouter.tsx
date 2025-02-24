@@ -13,6 +13,9 @@ import MainLayout from "../pages/Layouts/MainLayout";
 import OtpCode from "../pages/Authentication/Otp/OtpCode";
 import ContactUs from "../pages/ContactUs";
 import Feedback from "../pages/Feedback";
+import AddMovie from "../pages/Admin/AddMovie";
+import AdminDashboardSeries from "../pages/Admin/AdminDashboardSeries";
+import AddSeries from "../pages/Admin/AddSeries";
 
 const AppRoute: React.FC = () => {
   return (
@@ -34,6 +37,9 @@ const AppRoute: React.FC = () => {
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/admin-dashboard" element={<AdminDashboard/>}/>
           <Route path="/feedback" element={<Feedback/>}/>
+          <Route path="/add-movie" element={<AddMovie/>}/> 
+          <Route path="/admin-dashboard-series" element={<AdminDashboardSeries/>}/>
+          <Route path="/add-series" element={<AddSeries/>} />
         </Route>
       </Routes>
     </BrowserRouter>

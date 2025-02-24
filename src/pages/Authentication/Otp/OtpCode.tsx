@@ -1,6 +1,6 @@
 import React, { useState,useRef } from 'react';
 import './OtpCode.css';
-import img2 from "../../../assets/resetlogo.png"
+// import img2 from "../../../assets/resetlogo.png"
 // import { FaEye,FaEyeSlash } from 'react-icons/fa';
 import { MdOutlinePhonelinkLock } from 'react-icons/md';
 

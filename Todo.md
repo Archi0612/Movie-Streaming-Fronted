@@ -1,1 +1,2 @@
-- [ ] Add show password (eye button ) in the login and sign up page.
+- [x] Add show password (eye button ) in the login and sign up page.
+- 
