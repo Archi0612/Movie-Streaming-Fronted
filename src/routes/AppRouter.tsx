@@ -16,7 +16,7 @@ import Feedback from "../pages/Feedback";
 import AddMovie from "../pages/Admin/AddMovie";
 import AdminDashboardSeries from "../pages/Admin/AdminDashboardSeries";
 import AddSeries from "../pages/Admin/AddSeries";
-import HeroSection from "../components/Herosection";
+import HeroSection from "../components/HeroSection";
 
 const AppRoute: React.FC = () => {
   return (
