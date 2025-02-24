@@ -8,8 +8,8 @@ import ForgotPassword from "../pages/Authentication/Forgot-Password/ForgotPasswo
 import ResetPassword from "../pages/Authentication/Reset-Password/ResetPassword";
 import ProfilePage from "../pages/profilePage";
 import AdminDashboard from "../pages/Admin/AdminDashboard";
-import HeaderLayout from "../pages/Layouts/HeaderLayout";
-import MainLayout from "../pages/Layouts/MainLayout";
+import HeaderLayout from "../Layouts/HeaderLayout";
+import MainLayout from "../Layouts/MainLayout";
 import OtpCode from "../pages/Authentication/Otp/OtpCode";
 import ContactUs from "../pages/ContactUs";
 import Feedback from "../pages/Feedback";
