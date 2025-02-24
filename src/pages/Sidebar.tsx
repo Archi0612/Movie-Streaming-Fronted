@@ -32,8 +32,7 @@ const Sidebar: React.FC = () => {
   return (
     <div
       className={`sidebar ${isExpanded ? "expanded" : ""}`}
-      onMouseEnter={() => setIsExpanded(true)}
-      onMouseLeave={() => setIsExpanded(false)}
+     
     >
       <div className="sidebar-logo">
         <img
@@ -57,9 +56,11 @@ const Sidebar: React.FC = () => {
               key={item.path}
               onClick={() => handleItemClick(item.path)}
               className={isActive ? "active" : ""}
+              onMouseEnter={() => setIsExpanded(true)}
+        onMouseLeave={() => setIsExpanded(false)}
             >
               <IconComponent
-                size={24}
+                size={26}
                 className={isActive ? "active-icon" : ""}
               />
               {isExpanded && (

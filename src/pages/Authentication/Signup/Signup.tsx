@@ -159,6 +159,7 @@ const Signup: React.FC = () => {
 
   const handleEdit = () => {
     setIsEditable(true);
+    setOtpSent(false);
   };
   const handleOtpVerify = () => {
     const enteredOtp = otp.join("");
@@ -320,7 +321,7 @@ const Signup: React.FC = () => {
               <button onClick={handleOtpVerify} className="verify-btn">
                 Verify OTP
               </button>
-              
+
               {/* Resend OTP Button */}
               <button
                 onClick={handleResendOtp}
