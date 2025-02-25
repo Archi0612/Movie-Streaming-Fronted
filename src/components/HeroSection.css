@@ -1,78 +1,188 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-
+/* General container */
 .hero-section {
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
-    height: 80vh;
-    overflow: hidden;
+    height: 100vh; /* Full viewport height */
+    background-color: black;
     color: white;
-    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
 }
 
-.hero-video {
+.movie-slider-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    z-index: 1; /* Keep it above background but below details */
+}
+
+/* Swiper adjustments */
+.movie-slider {
+    width: 100%;
+    height: 100%;
+}
+
+.mySwiper {
+    width: 100%;
+    height: 100%; /* Ensures Swiper takes full height */
+}
+
+.mySwiper .swiper-slide {
+    width: 100%;
+    height: 100%; /* Makes each slide take full height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-overlay {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.image-overlay::before {
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    z-index: -1;
+    background: linear-gradient(to right, rgb(22, 22, 22), transparent); /* Gradient from black to transparent */
+    z-index: 1;
 }
 
-.hero-content {
-    position: absolute;
-    top: 30%;
-    left: 5%;
-    max-width: 40%;
-    z-index: 2;
-}
-
-.movie-title {
-    font-size: 2.5rem;
-    font-weight: 600;
-    margin-bottom: 10px;
-}
-
-.movie-meta {
-    font-size: 1rem;
-    opacity: 0.8;
-    margin-bottom: 10px;
-}
-
-.movie-description {
-    font-size: 1rem;
-    opacity: 0.9;
-    margin-bottom: 20px;
-}
-
-.watch-now-btn {
-    display: inline-block;
-    padding: 12px 24px;
-    background: linear-gradient(90deg, #005bea, #00c6fb);
-    border-radius: 5px;
-    text-decoration: none;
-    color: white;
-    font-weight: 600;
-    transition: 0.3s ease;
-}
-
-.watch-now-btn:hover {
-    background: linear-gradient(90deg, #0044cc, #0099ff);
-}
-
-.slider-container {
-    position: absolute;
-    bottom: 20px;
-    right: 5%;
-    width: 35%;
-}
-
-.swiper-slide img {
+.image-overlay img {
     width: 100%;
-    border-radius: 10px;
-    transition: 0.3s ease;
+    height: 100%; /* Ensures the image fills the Swiper */
+    object-fit: fill; /* Prevents distortion while ensuring the image is fully visible */
+    position: relative;
+    z-index: 0;
 }
 
-.swiper-slide:hover img {
-    transform: scale(1.05);
+/* Movie Details (Overlay) */
+.movie-details {
+    position: absolute;
+    bottom: 40px;
+    left: 80px;
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+    max-width: 40%;
+    z-index: 100; /* Ensure it's above images */
+}
+
+/* Swiper Slide Fix */
+.mySwiper .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* Important */
+    z-index: 1; /* Lower than .movie-details */
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Movie Title */
+.movie-title {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+/* Movie Info */
+.movie-info {
+    font-size: 16px;
+    opacity: 0.8;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+/* Movie Description */
+.movie-desc {
+    font-size: 16px;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+/* Watch Now Button */
+.watch-now {
+    background: #0073e6;
+    color: white;
+    padding: 12px 24px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.watch-now:hover {
+    background: #0059b3;
+}
+
+.additional-content {
+    width: 100%;
+    height: 20vh;
+    background-color: #1b1b1b;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.additional-content h3 {
+    font-size: 22px;
+    margin-bottom: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .movie-details {
+        bottom: 20px;
+        left: 20px;
+        max-width: 60%;
+        padding: 15px;
+    }
+    .movie-title {
+        font-size: 24px;
+    }
+    .watch-now {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .movie-details {
+        max-width: 80%;
+        bottom: 10px;
+        left: 10px;
+        padding: 10px;
+    }
+    .movie-title {
+        font-size: 20px;
+    }
+    .movie-info, .movie-desc {
+        font-size: 12px;
+    }
+    .watch-now {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
 }
