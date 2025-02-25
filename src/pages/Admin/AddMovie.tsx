@@ -111,6 +111,10 @@ const AddMovie: React.FC = () => {
                     ...provided,
                     backgroundColor: "#6da3d6",
                     color: "white"
+                }),
+                input: (provided) => ({
+                    ...provided,
+                    color: "white"
                 })
               }}
             />
@@ -131,6 +135,7 @@ const AddMovie: React.FC = () => {
               onChange={(selected:any) => setMovie((prev) => ({ ...prev, cast: selected }))}
               placeholder="Select movie cast"
               styles={{
+                
                 control: (provided) => ({
                   ...provided,
                   backgroundColor: "rgba(93, 94, 95, 0.3)",
@@ -144,6 +149,10 @@ const AddMovie: React.FC = () => {
                 multiValue: (provided) => ({
                     ...provided,
                     backgroundColor: "#6da3d6",
+                    color: "white"
+                }),
+                input: (provided) => ({
+                    ...provided,
                     color: "white"
                 })
               }}
@@ -170,6 +179,10 @@ const AddMovie: React.FC = () => {
                 multiValue: (provided) => ({
                     ...provided,
                     backgroundColor: "#6da3d6",
+                    color: "white"
+                }),
+                input: (provided) => ({
+                    ...provided,
                     color: "white"
                 })
               }}
