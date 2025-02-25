@@ -115,6 +115,7 @@ const Signup: React.FC = () => {
       console.log("OTP Verified:", enteredOtp);
       try {
         const numberOTP = parseInt(enteredOtp);
+        
         const data = await signup({ ...formData, numberOTP });
         console.log("OTP verified and signup:", data);
         return data;
