@@ -5,9 +5,11 @@ import Footer from '../pages/Footer';
 
 const MainLayout:React.FC = () => {
   return (
-    <div className='body-wrapper'>
+    <div className='main-layout'>
         <Sidebar />
+        <main className='content1'>
         <Outlet />
+        </main>
         <Footer/>
     </div>
   )
