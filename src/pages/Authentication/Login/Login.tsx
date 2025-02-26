@@ -17,7 +17,6 @@ const Login = () => {
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-
   const validateEmail = (email: string) => {
     if (!email) return "Email is required";
     const emailRegex = /\S+@\S+\.\S+/;
