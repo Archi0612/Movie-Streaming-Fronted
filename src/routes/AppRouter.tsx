@@ -17,7 +17,7 @@ import AddMovie from "../pages/Admin/AddMovie";
 import AdminDashboardSeries from "../pages/Admin/AdminDashboardSeries";
 import AddSeries from "../pages/Admin/AddSeries";
 import HeroSection from "../components/HeroSection";
-
+import { Bounce, ToastContainer } from "react-toastify";
 const AppRoute: React.FC = () => {
   return (
     <BrowserRouter>
@@ -42,6 +42,7 @@ const AppRoute: React.FC = () => {
           <Route path="/add-series" element={<AddSeries/>} />
         </Route>
       </Routes>
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="dark" transition={Bounce} />
     </BrowserRouter>
   );
 };

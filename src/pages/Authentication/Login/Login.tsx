@@ -4,7 +4,7 @@ import "./Login.css";
 import img1 from "../../../assets/login-64.png";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { login } from "../../../services/apis/authService";
-
+import {toast} from "react-toastify";
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
@@ -16,7 +16,7 @@ const Login = () => {
   });
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [message, setMessage] = useState<{ text: string; type: "success" | "error" } | null>(null);
+
 
   const validateEmail = (email: string) => {
     if (!email) return "Email is required";
@@ -57,15 +57,14 @@ const Login = () => {
         ...prev,
         errors: { email: emailError, password: passwordError },
       }));
-      setMessage(null);
     } else {
       try {
         const data = await login(formData.email, formData.password);
         console.log("User logged in:", data);
-        setMessage({ text: "Successfully logged in!", type: "success" });
+        toast.success("Successfully logged in!");
       } catch (err) {
         console.log(err);
-        setMessage({ text: "Incorrect Email or Password!", type: "error" });
+        toast.error("Incorrect Email or Password!");
       }
     }
   };
@@ -74,13 +73,6 @@ const Login = () => {
     <div className="container">
       <div className="welcome-overlay">
         <div className="login-container">
-          
-          {message && (
-            <div className={`message ${message.type === "success" ? "success-msg" : "error-msg"}`}>
-              {message.text}
-            </div>
-          )}
-
           <div className="login-logo">
             <img src={img1} alt="Login"/>
           </div>
