@@ -60,9 +60,7 @@ const Login = () => {
       try {
         const data = await login(formData.email, formData.password);
         console.log("User logged in:", data);
-
         toast.success("Successfully logged in!");
-
       } catch (err) {
         console.log(err);
         toast.error("Incorrect Email or Password!");
