@@ -9,14 +9,14 @@ const Footer:React.FC = () => {
         <div className="footer-section">
           <h5 className="footer-title">FilmSter</h5>
           <p className="footer-text">
-            FilmSter is a movie streaming platform.
+          Filmster is a premium movie streaming platform offering a vast library of films, TV shows, and exclusive content across all genres. Enjoy seamless streaming in high quality, personalized recommendations, and the latest releases—all in one place.
           </p>
         </div>
 
         <div className="footer-section">
           <h5 className="footer-subtitle">Contacts</h5>
           <p className="footer-para">1004 Empire Business Hub, Science City, Sola, Ahmedabad, Gujarat 382350</p>
-          <p className="footer-para">+91 9884785445</p>
+          <p className="footer-para">+91 9876543210</p>
           <p className="footer-para">cldmate.trainee.2025@gmail.com</p>
         </div>
 
@@ -25,6 +25,7 @@ const Footer:React.FC = () => {
           <div className="footer-links">
             <Link to="/home">Home</Link>
             <Link to="/movies">Movies</Link>
+            <Link to="/series">Series</Link>
             <Link to="/contact-us">Contact Us</Link>
           </div>
         </div>
