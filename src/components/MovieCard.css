@@ -1,100 +1,134 @@
 .movie-card {
-    position: relative;
-    max-width: 16rem;
-    border-radius: 0.5rem;
-    overflow: hidden;
-    transition: transform 0.3s ease-in-out;
-    
-  }
+  position: relative;
+  max-width: 16rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.movie-card:hover {
+  transform: scale(1.08);
+  z-index: 10;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+}
+
+/* 🖼 Poster Image */
+.movie-card img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+
+/* 🎭 Hover Overlay */
+.movie-hover {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.6));
+  border-radius: 0.5rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.movie-card:hover .movie-hover {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 🎬 Movie Title */
+.movie-title {
+  color: #fff;
+  font-size: 1.0rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+/* ⭐ Rating */
+.movie-rating {
+  /* display: flex; */
+  gap: 2px;
+  margin-bottom: 0.5rem;
+}
+
+/* 📅 Movie Details (Now in ONE ROW) */
+.movie-details1 {
+  color: #d1d5db;
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 0.5rem;
+  flex-direction: row;
+
   
-  .movie-card:hover {
-    transform: scale(1.05);
-    z-index: 10;
-  }
-  
-  .movie-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 0.5rem;
-    
-  }
-  
-  .movie-hover {
-    position: absolute;
-    inset: 0;
-    background:linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-    border-radius: 0.5rem;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: opacity 0.3s;
-  }
-  
-  .movie-title {
-    text-align: start;
-    color: var(--text-color);
-    font-size: 1.4rem;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-  }
-  
-  .movie-rating {
-    display: flex;
-    margin-bottom: 0.75rem;
-  }
-  
-  .movie-details {
-    flex-direction: column;
-    color: #d1d5db;
-    font-size: 0.875rem;
-    display: flex;
-    gap: 0.75rem;
-    margin:0 0 0.5rem 1rem;
-  }
-  
-  .movie-overview {
-    color: var(--text-color);
-    font-size: 0.875rem;
-    margin-top: 1rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 3; /* Limit to 3 lines */
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-height: 4.5rem; /* Adjust height to match the number of lines */
-  }
-  
-  .movie-buttons {
-    display: flex;
-    gap: 0.5rem;
-  }
-  
-  .movie-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    padding: 0.5rem;
-    border: 2px solid #9ca3af;
-    transition: border-color 0.3s;
-  }
-  
-  .movie-button:hover {
-    border-color: white;
-  }
-  
-  .movie-button.play {
-    background: white;
-    color: black;
-  }
-  
-  .star {
-    color: #22c55e;
-  }
-  
-  .star-gray {
-    color: #9ca3af;
-  }
-  
+}
+
+.movie-details1 li {
+  list-style: none; /* Remove bullet points */
+  background: rgba(255, 255, 255, 0.1);
+  padding: 4px 10px;
+  border-radius: 10px;
+  text-align: center;
+  white-space: nowrap; /* Prevents breaking into multiple lines */
+ font-size: 10px;
+}
+
+
+/* 📝 Overview */
+.movie-overview {
+  color: var(--text-color);
+  font-size: 0.85rem;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  margin-bottom: auto; /* Pushes buttons to the bottom */
+}
+
+
+/* 🎬 Buttons (Always at the Bottom, Centered) */
+.movie-buttons {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 0.75rem;
+}
+
+.movie-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  padding: 0.5rem;
+  border: 2px solid #9ca3af;
+  transition: border-color 0.3s, background 0.3s;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  cursor: pointer;
+}
+
+.movie-button:hover {
+  border-color: white;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.movie-button.play {
+  background: white;
+  color: black;
+  border-color: white;
+}
+
+/* ⭐ Star Colors */
+.star {
+  color: goldenrod !important;
+}
+
+.star-gray {
+  color: #aaafb6 !important;
+}

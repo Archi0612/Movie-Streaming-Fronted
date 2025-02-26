@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
+
 import './ResetPassword.css';
 import img2 from "../../../assets/resetlogo.png"
 import { FaEye,FaEyeSlash } from 'react-icons/fa';
 import { resetPassword } from '../../../services/apis/authService';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 
 const ResetPassword: React.FC = () => {
+  const navigate=useNavigate();
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token");
   console.log("token:", token);
@@ -80,9 +83,16 @@ const ResetPassword: React.FC = () => {
       try{
         const result = resetPassword(newPassword, token as string);
         console.log("New pass from reset password:",result);
-        return result;
+        toast.success("Password reset successfully");
+        return navigate('/login');
+        // return result;
       }catch(err){
-        console.log('Error resetting password:', err.message);
+        if (err instanceof Error) {
+          console.log('Error resetting password:', err.message);
+          toast.error("error in resetting password");
+        } else {
+          console.log('Error resetting password:', err);
+        }
       }
     }
   };
