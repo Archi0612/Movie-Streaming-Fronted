@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import Header from "../pages/Header";
-import Footer from "../pages/Footer";
+// import Footer from "../pages/Footer";
 
 const HeaderLayout: React.FC = () => {
   const location = useLocation();
@@ -14,7 +14,7 @@ const HeaderLayout: React.FC = () => {
       
       <Header showFullHeader={location.pathname === "/"} showOnlyLogo={authPages.includes(location.pathname)} />
       <Outlet />
-      <Footer/>
+      {/* <Footer/> */}
     </>
   );
 };

@@ -35,9 +35,9 @@ const TrendingMovies = ({ movies }: TrendingMoviesProps) => {
                 posterPath={movie.poster_path}
                 overview={movie.overview}
                 releaseDate={movie.release_date}
-                voteAverage={movie.vote_average}
                 language={movie.original_language}
                 genres_id={movie.genre_ids}
+                voteAverage={movie.vote_average}
               />
             </SwiperSlide>
           ))}

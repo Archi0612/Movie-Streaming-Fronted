@@ -1,3 +1,11 @@
-.body-wrapper {
+.main-layout {
     display: flex;
-}
+    height: 100vh;
+    overflow: hidden;
+  }
+  .content1{
+    flex-grow: 1;
+    margin-left: 150px !important;
+    overflow-y: auto;
+    height: 100vh;
+  }

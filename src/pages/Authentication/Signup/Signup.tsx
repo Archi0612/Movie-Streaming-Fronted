@@ -1,4 +1,6 @@
 import React, { useState, useRef, ChangeEvent } from "react";
+import { useNavigate } from "react-router-dom";
+import {toast} from "react-toastify"
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "./Signup.css";
@@ -8,6 +10,7 @@ import { generateOTP, signup } from "../../../services/apis/authService";
 import { Errors, FormData, OtpState } from "../../../interfaces/movie.interface";
 
 const Signup: React.FC = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<FormData>({
     email: "",
     name: "",
@@ -35,7 +38,6 @@ const Signup: React.FC = () => {
   });
 
   const otpRefs = useRef<(HTMLInputElement | null)[]>([]);
-
   const validateEmail = (email: string) => (!email ? "Email is required" : /\S+@\S+\.\S+/.test(email) ? "" : "Please enter a valid email");
   const validateName = (name: string) => (!name ? "Name is required" : /^[A-Za-z\s]+$/.test(name) ? "" : "Please enter alphabets only");
   const validatePassword = (password: string) => (!password ? "Password is required" : password.length >= 6 ? "" : "Password must be at least 6 characters");
@@ -118,7 +120,10 @@ const Signup: React.FC = () => {
         
         const data = await signup({ ...formData, numberOTP });
         console.log("OTP verified and signup:", data);
-        return data;
+        toast.success("Signup successful");
+        return setTimeout(()=>{navigate("/login")}, 1000);
+        // return data;
+       
       } catch (err: unknown) {
         if (axios.isAxiosError(err)) {
           throw new Error(err.response?.data?.message || "Something went wrong");
@@ -128,6 +133,7 @@ const Signup: React.FC = () => {
       }
     } else {
       console.log("Invalid OTP");
+      toast.error("Invalid OTP");
     }
   };
 
