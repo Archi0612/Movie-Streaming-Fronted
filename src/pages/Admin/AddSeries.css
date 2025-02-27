@@ -159,7 +159,7 @@ textarea {
 }
 
 /* BUTTON STYLING */
-.add-btn, .remove-btn, .close-btn {
+.add-btn, .remove-btn, .close-btn1 {
     padding: 8px 12px;
     border: none;
     border-radius: 5px;
@@ -188,16 +188,23 @@ textarea {
 .remove-btn:hover {
     background: #c82333;
 }
-.close-btn {
+.close-btn1 {
     background: grey;
     color: white;
+    
   }
   
-  .close-btn:hover {
+  .close-btn1:hover {
     background: #666;
   }
   ::-webkit-calendar-picker-indicator  {
     filter: invert(1);
+  }
+  .episode-number{
+    margin-bottom: 11px;
+  }
+  .episode-label{
+    margin-top: 3px;
   }
 /* RESPONSIVE DESIGN */
 @media (max-width: 768px) {

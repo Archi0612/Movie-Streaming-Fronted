@@ -16,7 +16,7 @@ const Login = () => {
   });
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
-
+  const navigate = useNavigate();
   const validateEmail = (email: string) => {
     if (!email) return "Email is required";
     const emailRegex = /\S+@\S+\.\S+/;
@@ -61,6 +61,8 @@ const Login = () => {
         const data = await login(formData.email, formData.password);
         console.log("User logged in:", data);
         toast.success("Successfully logged in!");
+        return navigate("/home");
+        
       } catch (err) {
         console.log(err);
         toast.error("Incorrect Email or Password!");
