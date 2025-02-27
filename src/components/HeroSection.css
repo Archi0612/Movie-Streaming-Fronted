@@ -1,51 +1,54 @@
 /* General container */
 .hero-section {
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Ensures vertical stacking */
     align-items: center;
     width: 100%;
-    height: 100vh; /* Full viewport height */
+    min-height: 100vh; /* Ensures full viewport height */
     background-color: rgb(4, 14, 27);
     color: white;
-    overflow: hidden;
     padding-left: 100px;
+    gap: 20px; /* Adds spacing between sections */
 }
 
+/* Movie Slider Section */
 .movie-slider-container {
-    position: relative;
     width: 100%;
-    height: 100vh;
+    height: 98vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
-    z-index: 1; /* Keep it above background but below details */
+    position: relative;
+    z-index: 1;
 }
 
-/* Swiper adjustments */
 .movie-slider {
     width: 100%;
     height: 100%;
     margin-left: 50px;
 }
 
+/* Swiper adjustments */
 .mySwiper {
     width: 100%;
-    height: 100%; /* Ensures Swiper takes full height */
+    height: 100%;
 }
 
 .mySwiper .swiper-slide {
-    width: 100%;
-    height: 100%; /* Makes each slide take full height */
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+/* Video Overlay */
 .video-overlay {
     position: relative;
     width: 100%;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #05101b;
 }
 
 .video-overlay::before {
@@ -55,82 +58,78 @@
     left: 0;
     width: 38%;
     height: 100%;
-    background: linear-gradient(to right, rgb(0, 0, 0,0.7), transparent); 
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.7), transparent);
     z-index: 1;
 }
 
 .video-overlay video {
     width: 100%;
-    height: 100%; /* Ensures the video fills the Swiper */
-    object-fit: fill; /* Ensures the video is fully visible without being cropped */
-    position: relative;
-    z-index: 0;
+    height: 98vh;
+    object-fit: contain;
 }
 
-/* Movie Details (Overlay) */
+/* Movie Details */
 .movie-details {
     position: absolute;
-    bottom: 184px;
-    left: 80px;
+    bottom: 28px;
+    left: 28px;
     padding: 20px;
     border-radius: 10px;
     color: white;
-    max-width: 40%;
-    z-index: 100; /* Ensure it's above images */
-    
+    width: 40%;
+    z-index: 100;
+    display: flex;
+    flex-direction: column; 
+    gap: 10px;
 }
 
-/* Swiper Slide Fix */
-.mySwiper .swiper-slide {
+.movie-title {
+    font-size: 1.7rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    text-align: left;
+}
+
+/* Swiper Navigation */
+.swiper-button-next,
+.swiper-button-prev {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.swiper-button-prev {
+    left: 60px;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+    font-size: 30px;
+}
+
+/* Movie Categories & Lists */
+.movie-category, .movie-lists {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 12px;
+    text-align: center;
+    font-size: 24px;
+    color: #0073e6;
+    font-weight: bolder;
+    z-index: 2;
+}
+
+/* Swiper styles */
+.movie-category-swiper, .trending-movies-swiper {
+    width: 100%;
+}
+
+.movie-category-swiper .swiper-slide, 
+.trending-movies-swiper .swiper-slide {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative; /* Important */
-    z-index: 1; /* Lower than .movie-details */
-}
-
-/* Swiper Navigation Buttons */
-.swiper-button-next,
-.swiper-button-prev {
-    color: #0059b3; /* Change the color to make it visible */
-    z-index: 10; /* Ensure the buttons are above other elements */
-    font-weight: bold;
-}
-.swiper-button-prev{
-    left: 60px;
-    z-index: 10;
-}
-.swiper-button-next::after,
-.swiper-button-prev::after {
-    font-size: 30px; /* Adjust the size of the navigation arrows */
-}
-
-/* Fade-in animation */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Movie Title */
-.movie-title {
-    font-size: 32px;
-    font-weight: bold;
-    margin-bottom: 8px;
-}
-
-/* Movie Info */
-.movie-info {
-    font-size: 16px;
-    opacity: 0.8;
-    margin-bottom: 8px;
-    font-weight: bold;
-}
-
-/* Movie Description */
-.movie-desc {
-    font-size: 16px;
-    margin-bottom: 15px;
-    line-height: 1.5;
 }
 
 /* Watch Now Button */
@@ -147,58 +146,41 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    width: 215px;
 }
 
 .watch-now:hover {
     background: #0059b3;
 }
 
-.additional-content {
-    width: 100%;
-    height: 20vh;
-    background: rgba(var(--primary-color), 0.7);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 20px;
-}
-
-.additional-content h3 {
-    font-size: 22px;
-    margin-bottom: 5px;
-}
 
 /* Responsive Design */
 @media (max-width: 1024px) {
     .movie-details {
-       
-        max-width: 50%;
+        width: 50%;
         padding: 15px;
     }
     .movie-title {
         font-size: 24px;
     }
-    .watch-now {
+    .button-primary {
         font-size: 16px;
         padding: 10px 20px;
+        width: 200px;
     }
 }
 
 @media (max-width: 768px) {
     .movie-details {
-        max-width: 40%;
+        width: 50%;
         padding: 10px;
     }
     .movie-title {
         font-size: 20px;
     }
-    .movie-info, .movie-desc {
-        font-size: 12px;
-    }
-    .watch-now {
+    .button-primary {
         font-size: 14px;
         padding: 8px 16px;
+        width: 160px;
     }
 }
