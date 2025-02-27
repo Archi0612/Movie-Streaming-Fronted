@@ -18,6 +18,7 @@ import AdminDashboardSeries from "../pages/Admin/AdminDashboardSeries";
 import AddSeries from "../pages/Admin/AddSeries";
 import HeroSection from "../components/HeroSection";
 import { Bounce, ToastContainer } from "react-toastify";
+import GenrePage from "../pages/GenrePage";
 const AppRoute: React.FC = () => {
   return (
     <BrowserRouter>
@@ -36,6 +37,7 @@ const AppRoute: React.FC = () => {
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/admin-dashboard" element={<AdminDashboard/>}/>
           <Route path="/movies" element={<HeroSection/>}/> 
+          <Route path="/genres" element={<GenrePage/>}/>
           <Route path="/feedback" element={<Feedback/>}/>
           <Route path="/add-movie" element={<AddMovie/>}/> 
           <Route path="/admin-dashboard-series" element={<AdminDashboardSeries/>}/>

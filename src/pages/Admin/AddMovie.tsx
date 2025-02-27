@@ -11,7 +11,15 @@ const genreOptions = [
   { value: "thriller", label: "Thriller" },
   { value: "sci-fi", label: "Sci-Fi" },
 ];
-
+const languageOptions = [
+  { value: "hindi", label: "Hindi" },
+  { value: "english", label: "English" },
+  { value: "gujarati", label: "Gujarati" },
+  { value: "tamil", label: "Tamil" },
+  { value: "telugu", label: "Telugu" },
+  { value: "malayalam", label: "Malayalam" },
+  { value: "kannada", label: "Kannada" },
+];
 const fetchCastOptions = (inputValue: string): Promise<{ value: string; label: string }[]> => {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -54,6 +62,7 @@ const AddMovie: React.FC = () => {
     trailerUrl: "",
     movieUrl: "",
     availableForStreaming: false,
+    languages:[]
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -82,7 +91,7 @@ const AddMovie: React.FC = () => {
             <input type="text" name="title" value={movie.title} onChange={handleChange} placeholder="Enter movie title" />
 
             <label>Description</label>
-            <textarea name="description" value={movie.description} onChange={handleChange} placeholder="Enter movie details" />
+            <textarea name="description" value={movie.description} onChange={handleChange} placeholder="Enter movie details"className="text-desc" />
 
             <label>Release Date</label>
             <input type="date" name="releaseDate" value={movie.releaseDate} onChange={handleChange}  placeholder="Enter movie release date"/>
@@ -120,7 +129,7 @@ const AddMovie: React.FC = () => {
             />
 
             <label>Duration (minutes)</label>
-            <input type="number" name="duration" value={movie.duration} onChange={handleChange} placeholder="Enter duration"/>
+            <input type="number" name="duration" value={movie.duration} onChange={handleChange} placeholder="Enter duration" min="0"/>
           </div>
 
           <div className="fields2">
@@ -187,7 +196,34 @@ const AddMovie: React.FC = () => {
                 })
               }}
             />
-
+            <label>Language</label>
+            <Select
+              options={languageOptions}
+              value={movie.languages}
+              onChange={(selected: any) => setMovie((prev) => ({ ...prev, languages: selected }))}
+              placeholder="Select languages"
+              className="select"
+              styles={{
+                control: (provided) => ({
+                  ...provided,
+                  backgroundColor: "rgba(93, 94, 95, 0.3)",
+                  border: "none",
+                }),
+                option: (provided) => ({
+                  ...provided,
+                  backgroundColor: "#333",
+                  color: "white",
+                }),
+                singleValue: (provided) => ({
+                  ...provided,
+                  color: "white", // ✅ Ensures selected text is white
+                }),
+                input: (provided) => ({
+                  ...provided,
+                  color: "white",
+                }),
+              }}
+            />
             <label>Poster</label>
             <input type="file" name="poster" value={movie.poster} onChange={handleChange} />
 

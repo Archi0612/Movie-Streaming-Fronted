@@ -104,6 +104,7 @@
   .close-btn {
     background: grey;
     color: white;
+    position: relative;
   }
   
   .close-btn:hover {
@@ -111,5 +112,9 @@
   }
   ::-webkit-calendar-picker-indicator  {
     filter: invert(1);
+  }
+  .text-desc{
+    resize: none;
+    height:140px !important;
   }
   
