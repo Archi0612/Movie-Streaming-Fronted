@@ -5,6 +5,7 @@ import userIcon from '../assets/userIcon.png';
 import './profilePage.css';
 import SubscriptionSelection from '../components/subscription/Subscription';
 import ReactModal from 'react-modal';
+import { useSelector } from 'react-redux';
 
 ReactModal.setAppElement('#root'); // Ensure accessibility compliance
 
@@ -20,6 +21,8 @@ export default function ProfilePage() {
         gender: ""
     });
 
+    const user = useSelector(getState(user));
+
     // Handle input changes for Edit Profile form
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -29,7 +32,7 @@ export default function ProfilePage() {
         e.preventDefault();
         setIsOpen(false);
         // to update the profile info we need to setup an api call here 
-       
+
     };
 
     // Handle subscription selection

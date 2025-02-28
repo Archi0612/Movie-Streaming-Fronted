@@ -1,7 +1,6 @@
-import React, { useState, useRef } from "react";
 import React, { useState, useRef, ChangeEvent } from "react";
+import { toast } from "react-toastify"
 import { useNavigate } from "react-router-dom";
-import {toast} from "react-toastify"
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "./Signup.css";
@@ -14,8 +13,8 @@ import { registerUser } from "../../../state/actions/userAction";
 
 
 const Signup: React.FC = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [userFormData, setUserFormData] = useState<UserFormData>({
     email: "",
     name: "",
@@ -121,36 +120,17 @@ const Signup: React.FC = () => {
     if (enteredOtp.length === 6) {
       console.log("OTP Verified:", enteredOtp);
       try {
-        dispatch<any>(registerUser({ ...userFormData, numberOTP: parseInt(enteredOtp) }));
+        dispatch<any>(registerUser({ ...userFormData, numberOTP: parseInt(enteredOtp) }, navigate));
+
       } catch (error) {
         console.error("Signup failed", error);
-      } 
+      }
     } else {
       console.log("Invalid OTP");
       toast.error("Invalid OTP");
     }
   };
 
-  // const handleOtpVerify = async () => {
-  //   const enteredOtp = otpState.otp.join("");
-  //   if (enteredOtp.length === 6) {
-  //     console.log("OTP Verified:", enteredOtp);
-  //     try {
-  //       const numberOTP = parseInt(enteredOtp);
-  //       const data = await signup({ ...userFormData, numberOTP });
-  //       console.log("OTP verified and signup:", data);
-  //       return data;
-  //     } catch (err: unknown) {
-  //       if (axios.isAxiosError(err)) {
-  //         throw new Error(err.response?.data?.message || "Something went wrong");
-  //       } else {
-  //         throw new Error("An unknown error occurred");
-  //       }
-  //     }
-  //   } else {
-  //     console.log("Invalid OTP");
-  //   }
-  // };
 
   const handleResendOtp = () => {
     console.log("Resending OTP...");
@@ -300,7 +280,3 @@ export default Signup;
 
 
 
-
-/// changed the name from formData to userFormData because form data is a builtin browser api for handling file upopload
-// I did this to avoid conflicts 
-// Integrated redux in login signup 
