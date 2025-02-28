@@ -5,6 +5,9 @@ interface PaymentAction {
     type: string;
 }
 
+// we need to get current user from redux store 
+
+
 export const payment = (token: any, subscriptionType: string, total: number) =>
     async (dispatch: Dispatch<PaymentAction>, getState: any) => {
         dispatch({ type: 'PLACE_ORDER_REQUEST' });

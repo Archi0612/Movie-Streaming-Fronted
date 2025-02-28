@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import ReactModal from 'react-modal';
 import Likedlist from '../components/LikedList';
 import WatchList from '../components/WatchList';
 import userIcon from '../assets/userIcon.png';
 import './profilePage.css';
-import Checkout from '../components/Checkout';
+import SubscriptionSelection from '../components/subscription/Subscription';
+import ReactModal from 'react-modal';
 
 ReactModal.setAppElement('#root'); // Ensure accessibility compliance
 
 export default function ProfilePage() {
     const [isOpen, setIsOpen] = useState(false);
-    const [subscribeOpen, setSubscribeOpen] = useState(false);
+    const [isSubscribeOpen, setIsSubscribeOpen] = useState(false);
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -27,16 +27,10 @@ export default function ProfilePage() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log("Form Data:", formData);
         setIsOpen(false);
+        // to update the profile info we need to setup an api call here 
     };
 
-    // Handle subscription selection
-    const handleSubscribeSelection = (subscriptionType: string, total: number) => {
-        console.log("Selected subscription and its price:", subscriptionType, total);
-        Checkout(subscriptionType, total);
-        setSubscribeOpen(false);
-    };
 
     return (
         <>
@@ -63,7 +57,9 @@ export default function ProfilePage() {
                             <div className='heading'>
                                 <h3>Personal Information</h3>
                                 <button onClick={() => setIsOpen(true)} className="edit-btn">Edit</button>
-                                <button onClick={() => setSubscribeOpen(true)} className="subscribe-btn">Subscribe</button>
+                                <button className='subscribe-btn' onClick={() => setIsSubscribeOpen(true)} >
+                                    Subscribe
+                                </button>
                             </div>
                             <div className='profile-info'>
                                 <div className='profile-titles'>
@@ -140,8 +136,16 @@ export default function ProfilePage() {
                 </form>
             </ReactModal>
 
-            {/* Subscription Modal */}
-            <ReactModal
+
+
+            {/* Subscription Component */}
+
+            {isSubscribeOpen && (
+                < SubscriptionSelection isOpen={isSubscribeOpen} onClose={() => setIsSubscribeOpen(false)} />
+            )}
+
+
+            {/* <ReactModal
                 isOpen={subscribeOpen}
                 onRequestClose={() => setSubscribeOpen(false)}
                 className="subscriptionModal"
@@ -168,7 +172,7 @@ export default function ProfilePage() {
                 <div className="modal-buttons">
                     <button type="button" className='cancelSubscribe' onClick={() => setSubscribeOpen(false)}>Cancel</button>
                 </div>
-            </ReactModal >
+            </ReactModal > */}
         </>
     );
 }

@@ -1,0 +1,52 @@
+/* Cancel Page Styles */
+.cancel-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f7f7f7;
+}
+
+.cancel-box {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+}
+
+.cancel-icon {
+    width: 60px;
+    margin: 0 auto 1rem;
+    display: block;
+}
+
+h1 {
+    color: #d9534f;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+p {
+    color: #555;
+    margin: 0.5rem 0;
+}
+
+.home-button {
+    display: inline-block;
+    background-color: #d9534f;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    margin-top: 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background 0.3s ease-in-out;
+}
+
+.home-button:hover {
+    background-color: #b52b27;
+}

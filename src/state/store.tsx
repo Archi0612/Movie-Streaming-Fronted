@@ -1,6 +1,5 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import thunk from 'redux-thunk';
-// import { loginUserReducer, registerUserReducer } from './reducers/userReducer';
+import { loginUserReducer, registerUserReducer } from './reducers/userReducer';
 import { paymentReducer } from './reducers/paymentReducer';
 
 // Define the root reducer
@@ -13,7 +12,7 @@ const rootReducer = {
 // Create the store
 export const store = configureStore({
     reducer: rootReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware(), // No need to manually add thunk
     devTools: true,
 });
 
