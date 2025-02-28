@@ -7,7 +7,7 @@ import Checkout from '../components/Checkout';
 import { getNames } from "country-list";
 import SubscriptionSelection from '../components/subscription/Subscription';
 import ReactModal from 'react-modal';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
 ReactModal.setAppElement('#root'); // Ensure accessibility compliance
 
@@ -24,7 +24,7 @@ export default function ProfilePage() {
     });
     const countries = getNames().sort();
 
-    const user = useSelector(getState(user));
+    // const user = useSelector(getState(user));
 
     // Handle input changes for Edit Profile form
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -38,12 +38,12 @@ export default function ProfilePage() {
 
     };
 
-    // Handle subscription selection
-    const handleSubscribeSelection = (subscriptionType: string, total: number) => {
-        console.log("Selected subscription and its price:", subscriptionType, total);
-        Checkout(subscriptionType, total);
-        setSubscribeOpen(false);
-    };
+    // // Handle subscription selection
+    // const handleSubscribeSelection = (subscriptionType: string, total: number) => {
+    //     console.log("Selected subscription and its price:", subscriptionType, total);
+    //     Checkout(subscriptionType, total);
+    //     setSubscribeOpen(false);
+    // };
 
 
     return (
