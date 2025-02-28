@@ -17,47 +17,88 @@ const USER_LOGIN_FAILED = 'USER_LOGIN_FAILED';
 const USER_LOGOUT = 'USER_LOGOUT';
 
 // Register User Action
-export const registerUser = (user: UserFormData) => async (dispatch: Dispatch) => {
-    dispatch({ type: USER_REGISTER_REQUEST });
 
-    try {
-        // Extract only the required fields for API request
-        const userData = {
-            email: user.email,
-            contactNo: user.phoneNumber, // Ensure `phoneNumber` is not undefined
-            name: user.name,
-            password: user.password,
-            otp: user.numberOTP, // Ensure `numberOTP` is a number
-        };
 
-        // Debugging log
-        console.log("Sending user data to backend:", userData);
 
-        // Ensure no field is undefined
-        if (Object.values(userData).some(value => value === undefined)) {
-            throw new Error("Some required fields are missing.");
+export const registerUser = (user: UserFormData, navigate: (path: string) => void) =>
+    async (dispatch: Dispatch) => {
+        dispatch({ type: USER_REGISTER_REQUEST });
+
+        try {
+            const userData = {
+                email: user.email,
+                contactNo: user.phoneNumber,
+                name: user.name,
+                password: user.password,
+                otp: user.numberOTP,
+            };
+
+            console.log("Sending user data to backend:", userData);
+
+            if (Object.values(userData).some(value => value === undefined)) {
+                throw new Error("Some required fields are missing.");
+            }
+
+            const config = { headers: { "Content-Type": "application/json" }, withCredentials: true };
+
+            const response = await axios.post(`${API_BASE_URL}/auth/signup`, userData, config);
+
+            dispatch({ type: USER_REGISTER_SUCCESS, payload: response.data });
+
+            localStorage.setItem("authToken", response.data.token || "");
+
+            navigate("/login");
+
+            console.log("Registration successful:", response.data);
+        } catch (err: any) {
+            const errorMessage = err.response?.data?.message || err.message || "An error occurred";
+            dispatch({ type: USER_REGISTER_FAILED, payload: errorMessage });
+            console.error("Registration error:", errorMessage);
         }
+    };
 
-        const config = { headers: { "Content-Type": "application/json" }, withCredentials: true };
+// export const registerUser = (user: UserFormData) => async (dispatch: Dispatch) => {
+//     dispatch({ type: USER_REGISTER_REQUEST });
+//     const navigate = useNavigate();
 
-        // API request
-        const response = await axios.post(`${API_BASE_URL}/auth/signup`, userData, config);
+//     try {
+//         // Extract only the required fields for API request
+//         const userData = {
+//             email: user.email,
+//             contactNo: user.phoneNumber, // Ensure `phoneNumber` is not undefined
+//             name: user.name,
+//             password: user.password,
+//             otp: user.numberOTP, // Ensure `numberOTP` is a number
+//         };
 
-        dispatch({ type: USER_REGISTER_SUCCESS, payload: response.data });
+//         // Debugging log
+//         console.log("Sending user data to backend:", userData);
 
-        localStorage.setItem("authToken", response.data.token || ""); // Avoid storing undefined
+//         // Ensure no field is undefined
+//         if (Object.values(userData).some(value => value === undefined)) {
+//             throw new Error("Some required fields are missing.");
+//         }
 
-        console.log("Registration successful:", response.data);
-    } catch (err: any) {
-        const errorMessage = err.response?.data?.message || err.message || "An error occurred";
-        dispatch({ type: USER_REGISTER_FAILED, payload: errorMessage });
-        console.error("Registration error:", errorMessage);
-    }
-};
+//         const config = { headers: { "Content-Type": "application/json" }, withCredentials: true };
+
+//         // API request
+//         const response = await axios.post(`${API_BASE_URL}/auth/signup`, userData, config);
+
+//         dispatch({ type: USER_REGISTER_SUCCESS, payload: response.data });
+
+//         localStorage.setItem("authToken", response.data.token || ""); // Avoid storing undefined
+//         navigate("/login");
+//         console.log("Registration successful:", response.data);
+//     } catch (err: any) {
+//         const errorMessage = err.response?.data?.message || err.message || "An error occurred";
+//         dispatch({ type: USER_REGISTER_FAILED, payload: errorMessage });
+//         console.error("Registration error:", errorMessage);
+//     }
+// };
 
 
 // Login User Action
-export const loginUser = (user: LoginDetails) => async (dispatch: Dispatch) => {
+export const loginUser = (user: LoginDetails, navigate: (path: string) => void) => async (dispatch: Dispatch) => {
     dispatch({ type: USER_LOGIN_REQUEST });
 
     try {
@@ -73,6 +114,7 @@ export const loginUser = (user: LoginDetails) => async (dispatch: Dispatch) => {
         console.log(response, "this is the response that we got from api response")
         localStorage.setItem("currentUser", JSON.stringify(response.data));
         localStorage.setItem("authToken", response.data.token); // If token exists
+        navigate("/home");
 
         console.log("Login successful:", response.data);
     } catch (err: any) {

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { Link ,useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import img1 from "../../../assets/login-64.png";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { loginUser } from "../../../state/actions/userAction";
 import { useDispatch } from "react-redux";
 
-import { login } from "../../../services/apis/authService";
-import {toast} from "react-toastify";
+// import { login } from "../../../services/apis/authService";
+import { toast } from "react-toastify";
 const Login = () => {
   const dispatch = useDispatch();
 
@@ -63,8 +63,8 @@ const Login = () => {
       }));
     } else {
       try {
-        dispatch<any>(loginUser(userFormData));
-        setMessage({ text: "Successfully logged in!", type: "success" });
+        dispatch<any>(loginUser(userFormData, navigate));
+        // setMessage({ text: "Successfully logged in!", type: "success" });
         toast.success("Successfully logged in!");
         return navigate("/home");
       } catch (err) {
