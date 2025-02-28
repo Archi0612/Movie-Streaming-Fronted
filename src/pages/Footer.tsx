@@ -9,7 +9,7 @@ const Footer:React.FC = () => {
         <div className="footer-section">
           <h5 className="footer-title">FilmSter</h5>
           <p className="footer-text">
-          Filmster is a premium movie streaming platform offering a vast library of films, TV shows, and exclusive content across all genres. Enjoy seamless streaming in high quality, personalized recommendations, and the latest releases—all in one place.
+          Filmster is a premium movie streaming platform offering a vast library of films, TV shows, and exclusive content across all genres.
           </p>
         </div>
 

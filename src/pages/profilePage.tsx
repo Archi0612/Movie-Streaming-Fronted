@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
-import ReactModal from 'react-modal';
 import Likedlist from '../components/LikedList';
 import WatchList from '../components/WatchList';
 import userIcon from '../assets/userIcon.png';
 import './profilePage.css';
 import Checkout from '../components/Checkout';
+import { getNames } from "country-list";
+import SubscriptionSelection from '../components/subscription/Subscription';
+import ReactModal from 'react-modal';
+// import { useSelector } from 'react-redux';
 
 ReactModal.setAppElement('#root'); // Ensure accessibility compliance
 
 export default function ProfilePage() {
     const [isOpen, setIsOpen] = useState(false);
-    const [subscribeOpen, setSubscribeOpen] = useState(false);
+    const [isSubscribeOpen, setIsSubscribeOpen] = useState(false);
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -19,6 +22,9 @@ export default function ProfilePage() {
         dob: "",
         gender: ""
     });
+    const countries = getNames().sort();
+
+    // const user = useSelector(getState(user));
 
     // Handle input changes for Edit Profile form
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -27,16 +33,18 @@ export default function ProfilePage() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log("Form Data:", formData);
         setIsOpen(false);
+        // to update the profile info we need to setup an api call here 
+
     };
 
-    // Handle subscription selection
-    const handleSubscribeSelection = (subscriptionType: string, total: number) => {
-        console.log("Selected subscription and its price:", subscriptionType, total);
-        Checkout(subscriptionType, total);
-        setSubscribeOpen(false);
-    };
+    // // Handle subscription selection
+    // const handleSubscribeSelection = (subscriptionType: string, total: number) => {
+    //     console.log("Selected subscription and its price:", subscriptionType, total);
+    //     Checkout(subscriptionType, total);
+    //     setSubscribeOpen(false);
+    // };
+
 
     return (
         <>
@@ -63,7 +71,9 @@ export default function ProfilePage() {
                             <div className='heading'>
                                 <h3>Personal Information</h3>
                                 <button onClick={() => setIsOpen(true)} className="edit-btn">Edit</button>
-                                <button onClick={() => setSubscribeOpen(true)} className="subscribe-btn">Subscribe</button>
+                                <button className='subscribe-btn' onClick={() => setIsSubscribeOpen(true)} >
+                                    Subscribe
+                                </button>
                             </div>
                             <div className='profile-info'>
                                 <div className='profile-titles'>
@@ -105,28 +115,36 @@ export default function ProfilePage() {
             <ReactModal
                 isOpen={isOpen}
                 onRequestClose={() => setIsOpen(false)}
-                className="modal"
+                className="modal1"
                 overlayClassName="modal-overlay"
             >
                 <h2 style={{ color: 'white' }}>Edit Profile</h2>
                 <form onSubmit={handleSubmit}>
                     <label>Name:</label>
-                    <input type="text" name="name" value={formData.name} onChange={handleChange} required />
+                    <input type="text" name="name" value={formData.name} onChange={handleChange} autoComplete='off' required />
 
                     <label>Email:</label>
-                    <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+                    <input type="email" name="email" value={formData.email} onChange={handleChange} autoComplete='off' required />
 
                     <label>Phone Number:</label>
-                    <input type="tel" name="phone" value={formData.phone} onChange={handleChange} required />
-
-                    <label>Country:</label>
-                    <input type="text" name="country" value={formData.country} onChange={handleChange} required />
+                    <input type="tel" name="phone" value={formData.phone} onChange={handleChange} autoComplete='off' required />
+                    <div className="country">
+  <label className="country-label">Country:</label>
+  <select name="country" value={formData.country} onChange={handleChange} required className="country-select">
+    <option value="">Select a country</option>
+    {countries.map((country: string) => (
+      <option key={country} value={country}>
+        {country}
+      </option>
+    ))}
+  </select>
+</div>
 
                     <label>Date of Birth:</label>
-                    <input type="date" name="dob" value={formData.dob} onChange={handleChange} required />
+                    <input type="date" name="dob" value={formData.dob} onChange={handleChange} autoComplete='off' required />
 
                     <label>Gender:</label>
-                    <select name="gender" value={formData.gender} onChange={handleChange} required>
+                    <select name="gender" value={formData.gender} onChange={handleChange}  required>
                         <option value="">Select Gender</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
@@ -134,41 +152,22 @@ export default function ProfilePage() {
                     </select>
 
                     <div className="modal-buttons">
-                        <button type="submit">Save</button>
+                        
                         <button type="button" onClick={() => setIsOpen(false)}>Cancel</button>
+                        <button type="submit">Save</button>
                     </div>
                 </form>
             </ReactModal>
 
-            {/* Subscription Modal */}
-            <ReactModal
-                isOpen={subscribeOpen}
-                onRequestClose={() => setSubscribeOpen(false)}
-                className="subscriptionModal"
-                overlayClassName="subscriptionModal-overlay"
-            >
-                <h2 style={{ color: 'white' }}>Choose Your Subscription</h2>
-                <div className="subscription-options">
-                    <div className="subscription-card">
-                        <h2>Basic</h2>
-                        <p>Enjoy our Free basic subscription plan.</p>
-                        <button onClick={() => handleSubscribeSelection('Basic', 0)}>Pay 0</button>
-                    </div>
-                    <div className="subscription-card">
-                        <h2>Single User Premium</h2>
-                        <p>Premium features for single users comes with paying 100/Month only.</p>
-                        <button onClick={() => handleSubscribeSelection('Single User Premium', 100)}>Pay 100</button>
-                    </div>
-                    <div className="subscription-card">
-                        <h2>Multiple User Premium</h2>
-                        <p>Premium features for teams comes at 500/Month only.</p>
-                        <button onClick={() => handleSubscribeSelection('Multiple User Premium', 500)}>Pay 500</button>
-                    </div>
-                </div>
-                <div className="modal-buttons">
-                    <button type="button" className='cancelSubscribe' onClick={() => setSubscribeOpen(false)}>Cancel</button>
-                </div>
-            </ReactModal >
+
+
+            {/* Subscription Component */}
+
+            {isSubscribeOpen && (
+                < SubscriptionSelection isOpen={isSubscribeOpen} onClose={() => setIsSubscribeOpen(false)} />
+            )}
+
+
         </>
     );
 }

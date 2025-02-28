@@ -1,5 +1,10 @@
 .movie-card {
   position: relative;
+  /* Default size for larger screens */
+
+  width: 240px;
+  height: 350px;
+
   max-width: 16rem;
   border-radius: 0.5rem;
   overflow: hidden;
@@ -34,6 +39,7 @@
   opacity: 0;
   transform: translateY(10px);
   transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  text-align: left;
 }
 
 .movie-card:hover .movie-hover {
@@ -54,8 +60,7 @@
   /* display: flex; */
   gap: 2px;
   margin-bottom: 0.5rem;
-  /* display: flex; */
-   justify-content: left
+  justify-content: left;
 }
 
 /* 📅 Movie Details (Now in ONE ROW) */
@@ -134,4 +139,34 @@
 
 .star-gray {
   color: #aaafb6 !important;
+}
+@media (max-width: 1024px) {
+  .movie-card {
+      width: 180px;
+      height: 245px;
+  }
+}
+
+/* Small Tablets */
+@media (max-width: 768px) {
+  .movie-card {
+      width: 150px;
+      height: 180px;
+  }
+}
+
+/* Mobile View */
+@media (max-width: 480px) {
+  .movie-card {
+      width: 120px;
+      height: 140px;
+  }
+}
+
+
+@media (max-width: 400px) {
+  .movie-card {
+      width: 100px;
+      height: 120px;
+  }
 }

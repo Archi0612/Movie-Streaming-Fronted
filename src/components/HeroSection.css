@@ -21,6 +21,25 @@
     position: relative;
     z-index: 1;
 }
+.watch-now {
+    background: #0073e6;
+    color: white;
+    padding: 12px 24px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 215px;
+}
+
+.watch-now:hover {
+    background: #0059b3;
+}
 
 .movie-slider {
     width: 100%;
@@ -95,15 +114,32 @@
 .swiper-button-prev {
     color: #ffffff;
     font-weight: bold;
-}
-
-.swiper-button-prev {
-    left: 60px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    transition: opacity 0.3s ease-in-out, font-size 0.3s ease-in-out;
+    display: flex;
 }
 
 .swiper-button-next::after,
 .swiper-button-prev::after {
     font-size: 30px;
+}
+
+/* Ensure visibility on small screens */
+@media (max-width: 768px) {
+    .swiper-button-next, .swiper-button-prev {
+        display: flex !important;
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .swiper-button-next, .swiper-button-prev {
+        display: flex !important;
+        font-size: 16px;
+    }
 }
 
 /* Movie Categories & Lists */
@@ -121,41 +157,22 @@
 }
 
 /* Swiper styles */
-.movie-category-swiper, .trending-movies-swiper {
+.movie-category-swiper {
     width: 100%;
 }
 
-.movie-category-swiper .swiper-slide, 
-.trending-movies-swiper .swiper-slide {
+.movie-category-swiper .swiper-slide {
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: transform 0.3s ease-in-out;
 }
 
-/* Watch Now Button */
-.watch-now {
-    background: #0073e6;
-    color: white;
-    padding: 12px 24px;
-    font-size: 18px;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease-in-out;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    width: 215px;
-}
-
-.watch-now:hover {
-    background: #0059b3;
-}
-
-
-/* Responsive Design */
+/* Adjust the card size based on screen width */
 @media (max-width: 1024px) {
+    .movie-category-swiper .swiper-slide {
+        width: 180px;
+    }
     .movie-details {
         width: 50%;
         padding: 15px;
@@ -163,14 +180,12 @@
     .movie-title {
         font-size: 24px;
     }
-    .button-primary {
-        font-size: 16px;
-        padding: 10px 20px;
-        width: 200px;
-    }
 }
 
 @media (max-width: 768px) {
+    .movie-category-swiper .swiper-slide {
+        width: 150px;
+    }
     .movie-details {
         width: 50%;
         padding: 10px;
@@ -178,9 +193,17 @@
     .movie-title {
         font-size: 20px;
     }
-    .button-primary {
-        font-size: 14px;
-        padding: 8px 16px;
-        width: 160px;
+}
+
+@media (max-width: 480px) {
+    .movie-category-swiper .swiper-slide {
+        width: 120px;
+    }
+    .movie-details {
+        width: 100%;
+        padding: 10px;
+    }
+    .movie-title {
+        font-size: 18px;
     }
 }
