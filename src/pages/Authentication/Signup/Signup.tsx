@@ -175,6 +175,7 @@ const Signup: React.FC = () => {
                 onChange={handleChange}
                 placeholder="Enter your name"
                 disabled={!otpState.isEditable}
+                autoComplete="off"
               />
               {errors.name && <span className="error">{errors.name}</span>}
             </div>
@@ -187,6 +188,7 @@ const Signup: React.FC = () => {
                 onChange={handleChange}
                 placeholder="Enter your email"
                 disabled={!otpState.isEditable}
+                autoComplete="off"
               />
               {errors.email && <span className="error">{errors.email}</span>}
             </div>
@@ -199,6 +201,7 @@ const Signup: React.FC = () => {
                 onChange={handleChange}
                 placeholder="Enter your phone number"
                 disabled={!otpState.isEditable}
+                autoComplete="off"
               />
               {errors.phoneNumber && <span className="error">{errors.phoneNumber}</span>}
             </div>

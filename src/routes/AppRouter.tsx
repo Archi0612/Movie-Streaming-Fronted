@@ -22,6 +22,7 @@ import Cancel from "../pages/Cancel/Cancel";
 
 import { Bounce, ToastContainer } from "react-toastify";
 import GenrePage from "../pages/GenrePage";
+import Search from "../pages/Search";
 const AppRoute: React.FC = () => {
   return (
     <BrowserRouter>
@@ -36,6 +37,7 @@ const AppRoute: React.FC = () => {
         </Route>
         <Route element={<MainLayout />}>
           <Route path="/home" element={<Home />} />
+          <Route path="/search" element={<Search/>}/>
           <Route path="/profile-page" element={<ProfilePage />} />
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
