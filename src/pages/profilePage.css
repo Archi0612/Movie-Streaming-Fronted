@@ -257,8 +257,8 @@ html {
     z-index: 1000;
 }
 
-.modal {
-    background: white;
+.modal1 {
+    background-color:  rgba(26,26,45);
     width: 40%;
     max-width: 500px;
     padding: 2rem;
@@ -270,37 +270,55 @@ html {
     animation: fadeIn 0.3s ease-in-out;
 }
 
-.modal h2 {
+.modal1 h2 {
     color: #333;
     text-align: center;
     margin-bottom: 1rem;
 }
 
-.modal form {
+.modal1 form {
     display: flex;
     flex-direction: column;
 }
 
-.modal label {
+.modal1 label {
     font-weight: bold;
     margin-top: 0.8rem;
     color: #333;
 }
-
-.modal input,
-.modal select {
-    padding: 0.75rem;
-    margin-top: 0.3rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 1rem;
-    width: 100%;
+.country-label {
+    display: block !important;
 }
+
+.country {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 5px !important;
+}
+
+.country-select {
+    width: 100%;
+    padding: 8px;
+}
+
+/* Style dropdown menu */
+.country-select option {
+    max-height: 30px; /* Adjust this based on font size */
+}
+
+/* Limit dropdown height and enable scrolling */
+.country-select:focus {
+    overflow-y: auto !important;
+    height: auto !important;
+    max-height: 100px !important; /* Adjust to show ~7 items */
+}
+
 
 .modal-buttons {
     display: flex;
     justify-content: space-between;
     margin-top: 1.5rem;
+    gap: 5px;
 }
 
 .modal-buttons button {
@@ -314,24 +332,29 @@ html {
     font-weight: bold;
 }
 
-.modal-buttons button:first-child {
+.modal-buttons button:last-child {
     background: #007bff;
     color: white;
     margin-right: 0.5rem;
 }
 
-.modal-buttons button:first-child:hover {
-    color: var(--primary-color);
+.modal-buttons button:last-child:hover {
+    color: white;
     font-weight: 600;
-    border: 2px solid black;
+    /* border: 2px solid #0059b3; */
+    background-color: #0059b3;
     box-shadow: 0.2rem 0.2rem 1rem var(--background-color);
 }
 
-.modal-buttons button:last-child {
-    background: white;
-    color: black;
+.modal-buttons button:first-child {
+    background: gray;
+    color: rgb(255, 255, 255);
 }
 
+.modal-buttons button:first-child:hover {
+    background: rgba(128, 128, 128, 0.438);
+    
+}
 
 
 .close-btn {
@@ -352,7 +375,7 @@ html {
     }
 }
 
-.modal label {
+.modal1 label {
     display: block;
     font-size: 1rem;
     font-weight: bold;
@@ -360,33 +383,40 @@ html {
     margin-top: 10px;
 }
 
-.modal input,
-.modal select {
+.modal1 input,
+.modal1 select {
     width: 100%;
     padding: 10px;
     margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
     font-size: 1rem;
-    background-color: white;
-    color: black;
+    color: #fff;
+    border-radius: 5px;
+    background: rgba(93, 94, 95, 0.3);
 }
 
-.modal select {
-    background-color: white;
-    color: black;
+
+
+.modal1 input::placeholder {
+    color: #fff;
 }
 
-.modal input::placeholder {
-    color: gray;
-}
-
-.modal input:focus,
-.modal select:focus {
+.modal1 input:focus,
+.modal1 select:focus {
     outline: none;
     border: 2px solid #007bff;
+    
+}
+.modal1 select {
+    color: white !important;
+    background: rgba(93, 94, 95, 0.3) !important;
+    border-radius: 5px;
+    border: 1px solid #007bff;
 }
 
+.modal1 select option {
+    color: white !important; /* Ensures text color stays white */
+    background: rgba(30, 30, 30, 0.8) !important; /* Darker background */
+}
 
 /* 
 css for subscription modal  */

@@ -4,7 +4,7 @@
   
   .footer-content {
     width: 85%;
-    padding: 3rem 0;
+    padding: 1.5rem 0;
     margin: auto;
     color: #d1d5db;
     display: flex;
@@ -12,7 +12,7 @@
   
   .footer-section {
     width: 25%;
-    padding: 1.25rem;
+    padding: 1.1rem;
     border-right: 0.1rem solid #6b7280;
   }
   
@@ -37,7 +37,8 @@
   }
   .footer-para{
     padding-bottom: 1rem;
-  }
+    word-break: break-word;
+    }
   
   .footer-text {
     font-weight: 500;
@@ -95,4 +96,74 @@
     border: 0.1rem solid var(--text-color);
     background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)) ;
   }
-  
+  @media(max-width: 768px) {
+    .footer-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+        padding: 1rem 0;
+    }
+
+    .footer-section {
+        width: 100%;
+        padding: 0.75rem;
+        border-right: none;
+    }
+    .footer-title, .footer-subtitle {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+
+    }
+    .footer-text{
+        font-size: 1rem;
+        line-height: 18px;
+    }
+    .footer-links{
+      gap:0.5rem;
+    }
+    .footer-input{
+      padding: 0.375rem;
+
+    }
+    .footer-button{
+      padding: 0.25 rem 0.75rem;
+    }
+}
+@media(max-width: 480px) {
+  .footer-content {
+    display: grid;
+    grid-template-columns: 1fr ;
+    gap: 0.3rem;
+    padding: 0.8rem 0;
+}
+
+.footer-section {
+    width: 100%;
+    padding: 0.35rem;
+    border-right: none;
+    font-size: 0.8rem;
+}
+.footer-para{
+  padding-bottom: 0.3rem;
+  word-break: break-word;
+}
+.footer-title, .footer-subtitle {
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+
+}
+.footer-text{
+    font-size: 0.8rem;
+    line-height: 15px;
+}
+.footer-links{
+  gap:0.5rem;
+}
+.footer-input{
+  padding: 0.375rem;
+
+}
+.footer-button{
+  padding: 0.25 rem 0.75rem;
+}
+}
