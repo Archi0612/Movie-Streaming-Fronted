@@ -14,11 +14,11 @@ const MovieCard = ({ title, posterPath, overview, releaseDate, voteAverage, lang
   const stars = Array.from({ length: 5 }, (_, index) => {
     const rating = voteAverage / 2;
     if (index + 1 <= rating) {
-      return <FaStar key={index} className="star" />;
+      return <FaStar key={index} className="star"  size="20px"/>;
     } else if (index + 0.5 < rating) {
-      return <FaStarHalfAlt key={index} className="star" />;
+      return <FaStarHalfAlt key={index} className="star" size="20px" />;
     } else {
-      return <FaStar key={index} className="star-gray" />;
+      return <FaStar key={index} className="star-gray" size="20px"/>;
     }
   });
 
