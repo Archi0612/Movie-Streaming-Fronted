@@ -385,4 +385,5 @@ html {
 .modal select:focus {
     outline: none;
     border: 2px solid #007bff;
+
 }

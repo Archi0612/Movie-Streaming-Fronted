@@ -1,5 +1,6 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import { loginUserReducer, registerUserReducer } from './reducers/userReducer';
+
 import { paymentReducer } from './reducers/paymentReducer';
 
 // Define the root reducer

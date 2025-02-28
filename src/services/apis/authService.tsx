@@ -54,6 +54,7 @@ export const signup = async(userData:{
     numberOTP: number;
 }) => {
     try{
+        console.log("1", userData);
         const result = await API.post("auth/signup", {
             email: userData.email,
             contactNo: userData.phoneNumber,
@@ -68,7 +69,7 @@ export const signup = async(userData:{
           // If it's an Axios error, check for response data
           throw new Error(err.response?.data?.message || "Something went wrong");
         } else {
-          // Generic error handling
+          // Generic error handling 
           throw new Error("An unknown error occurred");
         }
       }

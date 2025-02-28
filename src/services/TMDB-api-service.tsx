@@ -38,7 +38,19 @@ export const fetchTrendingMovies = async () => {
     return response.json();
   };
   
-  
+  export const fetchPopularMovies = async () => {
+    const response = await fetch(
+      `${BASE_URL}/movie/popular?api_key=${API_KEY}&page=2`
+    );
+    return response.json();
+  }
+
+  export const fetchUpcomingMovies = async () => {
+    const response = await fetch(
+      `${BASE_URL}/movie/upcoming?api_key=${API_KEY}`
+    );
+    return response.json();
+  }
   // export const fetchMovieTrailer = async (movieId: number) => {
   //   const response = await fetch(
   //     `${BASE_URL}/movie/${movieId}/videos?api_key=${API_KEY}`

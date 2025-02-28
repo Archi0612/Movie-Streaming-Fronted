@@ -29,6 +29,14 @@ export default function ProfilePage() {
         e.preventDefault();
         setIsOpen(false);
         // to update the profile info we need to setup an api call here 
+       
+    };
+
+    // Handle subscription selection
+    const handleSubscribeSelection = (subscriptionType: string, total: number) => {
+        console.log("Selected subscription and its price:", subscriptionType, total);
+        Checkout(subscriptionType, total);
+        setSubscribeOpen(false);
     };
 
 
@@ -145,34 +153,6 @@ export default function ProfilePage() {
             )}
 
 
-            {/* <ReactModal
-                isOpen={subscribeOpen}
-                onRequestClose={() => setSubscribeOpen(false)}
-                className="subscriptionModal"
-                overlayClassName="subscriptionModal-overlay"
-            >
-                <h2 style={{ color: 'white' }}>Choose Your Subscription</h2>
-                <div className="subscription-options">
-                    <div className="subscription-card">
-                        <h2>Basic</h2>
-                        <p>Enjoy our Free basic subscription plan.</p>
-                        <button onClick={() => handleSubscribeSelection('Basic', 0)}>Pay 0</button>
-                    </div>
-                    <div className="subscription-card">
-                        <h2>Single User Premium</h2>
-                        <p>Premium features for single users comes with paying 100/Month only.</p>
-                        <button onClick={() => handleSubscribeSelection('Single User Premium', 100)}>Pay 100</button>
-                    </div>
-                    <div className="subscription-card">
-                        <h2>Multiple User Premium</h2>
-                        <p>Premium features for teams comes at 500/Month only.</p>
-                        <button onClick={() => handleSubscribeSelection('Multiple User Premium', 500)}>Pay 500</button>
-                    </div>
-                </div>
-                <div className="modal-buttons">
-                    <button type="button" className='cancelSubscribe' onClick={() => setSubscribeOpen(false)}>Cancel</button>
-                </div>
-            </ReactModal > */}
         </>
     );
 }

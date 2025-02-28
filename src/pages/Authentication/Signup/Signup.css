@@ -302,6 +302,9 @@ input:disabled{
   .verify-btn{
     width: 250px;
   }
+  .resend-btn{
+    left: -5.5rem;
+  }
 }
 @media (max-width: 376px) {
   .signup-container {
@@ -352,6 +355,9 @@ input:disabled{
   }
   .verify-btn{
     width: 190px;
+  }
+  .resend-btn{
+    left: -4.0rem;
   }
 }
 #already {

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link ,useNavigate} from "react-router-dom";
 import "./Login.css";
 import img1 from "../../../assets/login-64.png";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
-// import { login } from "../../../services/apis/authService";
 import { loginUser } from "../../../state/actions/userAction";
 import { useDispatch } from "react-redux";
 
-
+import { login } from "../../../services/apis/authService";
+import {toast} from "react-toastify";
 const Login = () => {
   const dispatch = useDispatch();
 
@@ -21,8 +21,7 @@ const Login = () => {
   });
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [message, setMessage] = useState<{ text: string; type: "success" | "error" } | null>(null);
-
+  const navigate = useNavigate();
   const validateEmail = (email: string) => {
     if (!email) return "Email is required";
     const emailRegex = /\S+@\S+\.\S+/;
@@ -62,14 +61,15 @@ const Login = () => {
         ...prev,
         errors: { email: emailError, password: passwordError },
       }));
-      setMessage(null);
     } else {
       try {
         dispatch<any>(loginUser(userFormData));
         setMessage({ text: "Successfully logged in!", type: "success" });
+        toast.success("Successfully logged in!");
+        return navigate("/home");
       } catch (err) {
         console.log(err);
-        setMessage({ text: "Incorrect Email or Password!", type: "error" });
+        toast.error("Incorrect Email or Password!");
       }
     }
   };
@@ -103,13 +103,6 @@ const Login = () => {
     <div className="container">
       <div className="welcome-overlay">
         <div className="login-container">
-
-          {message && (
-            <div className={`message ${message.type === "success" ? "success-msg" : "error-msg"}`}>
-              {message.text}
-            </div>
-          )}
-
           <div className="login-logo">
             <img src={img1} alt="Login" />
           </div>

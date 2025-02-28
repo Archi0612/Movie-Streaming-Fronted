@@ -1,4 +1,7 @@
 import React, { useState, useRef } from "react";
+import React, { useState, useRef, ChangeEvent } from "react";
+import { useNavigate } from "react-router-dom";
+import {toast} from "react-toastify"
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "./Signup.css";
@@ -12,7 +15,7 @@ import { registerUser } from "../../../state/actions/userAction";
 
 const Signup: React.FC = () => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const [userFormData, setUserFormData] = useState<UserFormData>({
     email: "",
     name: "",
@@ -40,7 +43,6 @@ const Signup: React.FC = () => {
   });
 
   const otpRefs = useRef<(HTMLInputElement | null)[]>([]);
-
   const validateEmail = (email: string) => (!email ? "Email is required" : /\S+@\S+\.\S+/.test(email) ? "" : "Please enter a valid email");
   const validateName = (name: string) => (!name ? "Name is required" : /^[A-Za-z\s]+$/.test(name) ? "" : "Please enter alphabets only");
   const validatePassword = (password: string) => (!password ? "Password is required" : password.length >= 6 ? "" : "Password must be at least 6 characters");
@@ -122,9 +124,10 @@ const Signup: React.FC = () => {
         dispatch<any>(registerUser({ ...userFormData, numberOTP: parseInt(enteredOtp) }));
       } catch (error) {
         console.error("Signup failed", error);
-      }
+      } 
     } else {
       console.log("Invalid OTP");
+      toast.error("Invalid OTP");
     }
   };
 
