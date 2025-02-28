@@ -39,7 +39,7 @@ export interface MovieGridProps {
   title: string;
 }
 
-export interface HeaderProps{
+export interface HeaderProps {
   showFullHeader?: boolean;
   showOnlyLogo?: boolean;
 }
@@ -72,7 +72,8 @@ export interface Profile {
   email: string;
 }
 
-export interface FormData {
+// changed the name from FormData to userFormData
+export interface UserFormData {
   email: string;
   name: string;
   password: string;
@@ -80,7 +81,9 @@ export interface FormData {
   phoneNumber: string;
   showPassword: boolean;
   showConfirmPassword: boolean;
+  numberOTP?: number;
 }
+
 
 
 export interface Errors {
@@ -97,4 +100,8 @@ export interface OtpState {
   resendDisabled: boolean;
   resendTimer: number;
   isEditable: boolean;
+}
+export interface LoginDetails {
+  email: string;
+  password: string;
 }

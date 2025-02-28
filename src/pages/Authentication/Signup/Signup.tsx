@@ -1,3 +1,4 @@
+import React, { useState, useRef } from "react";
 import React, { useState, useRef, ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import {toast} from "react-toastify"
@@ -6,12 +7,16 @@ import { Link } from "react-router-dom";
 import "./Signup.css";
 import img from "../../../assets/avatar.png";
 import { FaEye, FaEyeSlash, FaEdit } from "react-icons/fa";
-import { generateOTP, signup } from "../../../services/apis/authService";
-import { Errors, FormData, OtpState } from "../../../interfaces/movie.interface";
+import { generateOTP } from "../../../services/apis/authService";
+import { Errors, UserFormData, OtpState } from "../../../interfaces/movie.interface";
+import { useDispatch } from "react-redux";
+import { registerUser } from "../../../state/actions/userAction";
+
 
 const Signup: React.FC = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [formData, setFormData] = useState<FormData>({
+  const [userFormData, setUserFormData] = useState<UserFormData>({
     email: "",
     name: "",
     password: "",
@@ -44,18 +49,18 @@ const Signup: React.FC = () => {
   const validateConfirmPassword = (confirmPassword: string, password: string) => (confirmPassword === password ? "" : "Passwords must match");
   const validatePhoneNumber = (phoneNumber: string) => (!phoneNumber ? "Phone number is required" : /^\d{10}$/.test(phoneNumber) ? "" : "Phone number must be 10 digits");
 
-  const togglePasswordVisibility = () => setFormData((prevState) => ({ ...prevState, showPassword: !prevState.showPassword }));
-  const toggleConfirmPasswordVisibility = () => setFormData((prevState) => ({ ...prevState, showConfirmPassword: !prevState.showConfirmPassword }));
-  const hidePasswordOnBlur = () => setFormData((prevState) => ({ ...prevState, showPassword: false }));
+  const togglePasswordVisibility = () => setUserFormData((prevState) => ({ ...prevState, showPassword: !prevState.showPassword }));
+  const toggleConfirmPasswordVisibility = () => setUserFormData((prevState) => ({ ...prevState, showConfirmPassword: !prevState.showConfirmPassword }));
+  const hidePasswordOnBlur = () => setUserFormData((prevState) => ({ ...prevState, showPassword: false }));
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     const error = name === "email" ? validateEmail(value) :
-                  name === "name" ? validateName(value) :
-                  name === "password" ? validatePassword(value) :
-                  name === "confirmPassword" ? validateConfirmPassword(value, formData.password) :
-                  name === "phoneNumber" ? validatePhoneNumber(value) : "";
-    setFormData((prevState) => ({ ...prevState, [name]: value }));
+      name === "name" ? validateName(value) :
+        name === "password" ? validatePassword(value) :
+          name === "confirmPassword" ? validateConfirmPassword(value, userFormData.password) :
+            name === "phoneNumber" ? validatePhoneNumber(value) : "";
+    setUserFormData((prevState) => ({ ...prevState, [name]: value }));
     setErrors((prevErrors) => ({ ...prevErrors, [name]: error }));
   };
 
@@ -74,23 +79,23 @@ const Signup: React.FC = () => {
 
   const handleOTPSend = async (event: React.FormEvent) => {
     event.preventDefault();
-    const emailError = validateEmail(formData.email);
-    const nameError = validateName(formData.name);
-    const passwordError = validatePassword(formData.password);
-    const confirmPasswordError = validateConfirmPassword(formData.confirmPassword, formData.password);
-    const phoneNumberError = validatePhoneNumber(formData.phoneNumber);
+    const emailError = validateEmail(userFormData.email);
+    const nameError = validateName(userFormData.name);
+    const passwordError = validatePassword(userFormData.password);
+    const confirmPasswordError = validateConfirmPassword(userFormData.confirmPassword, userFormData.password);
+    const phoneNumberError = validatePhoneNumber(userFormData.phoneNumber);
 
     if (emailError || nameError || passwordError || confirmPasswordError || phoneNumberError) {
       setErrors({ email: emailError, name: nameError, password: passwordError, confirmPassword: confirmPasswordError, phoneNumber: phoneNumberError });
     } else {
-      console.log("OTP sent to:", formData.email);
+      console.log("OTP sent to:", userFormData.email);
       setOtpState((prevState) => ({
         ...prevState,
         otpSent: true,
         isEditable: false,
       }));
       try {
-        const data = await generateOTP(formData);
+        const data = await generateOTP(userFormData);
         console.log("OTP sent to the user mail:", data);
         return data;
       } catch (err: unknown) {
@@ -116,26 +121,36 @@ const Signup: React.FC = () => {
     if (enteredOtp.length === 6) {
       console.log("OTP Verified:", enteredOtp);
       try {
-        const numberOTP = parseInt(enteredOtp);
-        
-        const data = await signup({ ...formData, numberOTP });
-        console.log("OTP verified and signup:", data);
-        toast.success("Signup successful");
-        return setTimeout(()=>{navigate("/login")}, 1000);
-        // return data;
-       
-      } catch (err: unknown) {
-        if (axios.isAxiosError(err)) {
-          throw new Error(err.response?.data?.message || "Something went wrong");
-        } else {
-          throw new Error("An unknown error occurred");
-        }
-      }
+        dispatch<any>(registerUser({ ...userFormData, numberOTP: parseInt(enteredOtp) }));
+      } catch (error) {
+        console.error("Signup failed", error);
+      } 
     } else {
       console.log("Invalid OTP");
       toast.error("Invalid OTP");
     }
   };
+
+  // const handleOtpVerify = async () => {
+  //   const enteredOtp = otpState.otp.join("");
+  //   if (enteredOtp.length === 6) {
+  //     console.log("OTP Verified:", enteredOtp);
+  //     try {
+  //       const numberOTP = parseInt(enteredOtp);
+  //       const data = await signup({ ...userFormData, numberOTP });
+  //       console.log("OTP verified and signup:", data);
+  //       return data;
+  //     } catch (err: unknown) {
+  //       if (axios.isAxiosError(err)) {
+  //         throw new Error(err.response?.data?.message || "Something went wrong");
+  //       } else {
+  //         throw new Error("An unknown error occurred");
+  //       }
+  //     }
+  //   } else {
+  //     console.log("Invalid OTP");
+  //   }
+  // };
 
   const handleResendOtp = () => {
     console.log("Resending OTP...");
@@ -176,7 +191,7 @@ const Signup: React.FC = () => {
               <input
                 type="text"
                 name="name"
-                value={formData.name}
+                value={userFormData.name}
                 onChange={handleChange}
                 placeholder="Enter your name"
                 disabled={!otpState.isEditable}
@@ -188,7 +203,7 @@ const Signup: React.FC = () => {
               <input
                 type="email"
                 name="email"
-                value={formData.email}
+                value={userFormData.email}
                 onChange={handleChange}
                 placeholder="Enter your email"
                 disabled={!otpState.isEditable}
@@ -200,7 +215,7 @@ const Signup: React.FC = () => {
               <input
                 type="text"
                 name="phoneNumber"
-                value={formData.phoneNumber}
+                value={userFormData.phoneNumber}
                 onChange={handleChange}
                 placeholder="Enter your phone number"
                 disabled={!otpState.isEditable}
@@ -211,16 +226,16 @@ const Signup: React.FC = () => {
               <label>Password</label>
               <div className="password-container">
                 <input
-                  type={formData.showPassword ? "text" : "password"}
+                  type={userFormData.showPassword ? "text" : "password"}
                   name="password"
-                  value={formData.password}
+                  value={userFormData.password}
                   onBlur={hidePasswordOnBlur}
                   onChange={handleChange}
                   placeholder="Enter your password"
                   disabled={!otpState.isEditable}
                 />
                 <span className="toggle-icon" onClick={togglePasswordVisibility}>
-                  {formData.showPassword ? <FaEyeSlash color="white" /> : <FaEye color="white" />}
+                  {userFormData.showPassword ? <FaEyeSlash color="white" /> : <FaEye color="white" />}
                 </span>
               </div>
               {errors.password && <span className="error">{errors.password}</span>}
@@ -229,15 +244,15 @@ const Signup: React.FC = () => {
               <label>Confirm Password</label>
               <div className="password-container">
                 <input
-                  type={formData.showConfirmPassword ? "text" : "password"}
+                  type={userFormData.showConfirmPassword ? "text" : "password"}
                   name="confirmPassword"
-                  value={formData.confirmPassword}
+                  value={userFormData.confirmPassword}
                   onChange={handleChange}
                   placeholder="Confirm your password"
                   disabled={!otpState.isEditable}
                 />
                 <span className="toggle-icon" onClick={toggleConfirmPasswordVisibility}>
-                  {formData.showConfirmPassword ? <FaEyeSlash color="white" /> : <FaEye color="white" />}
+                  {userFormData.showConfirmPassword ? <FaEyeSlash color="white" /> : <FaEye color="white" />}
                 </span>
               </div>
               {errors.confirmPassword && <span className="error">{errors.confirmPassword}</span>}
@@ -281,3 +296,11 @@ const Signup: React.FC = () => {
 };
 
 export default Signup;
+
+
+
+
+
+/// changed the name from formData to userFormData because form data is a builtin browser api for handling file upopload
+// I did this to avoid conflicts 
+// Integrated redux in login signup 

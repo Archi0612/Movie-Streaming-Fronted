@@ -1,0 +1,64 @@
+/* Success Page Styles */
+.success-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--background-color);
+}
+
+.success-box {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 50rem;
+    width: 90%;
+    background-color: var(--secondary-color);
+}
+
+
+.success-icon {
+    width: 60px;
+    margin: 0 auto 1rem;
+    display: block;
+}
+
+/* 
+h1 {
+    color: #333;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+p {
+    color: #555;
+    margin: 0.5rem 0;
+} */
+
+.session-box {
+    background: #e0e0e0;
+    padding: 0.5rem;
+    margin-top: 1rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.sucesshome-button {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    margin-top: 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background 0.3s ease-in-out;
+}
+
+.sucesshome-button:hover {
+    background-color: #0073e6;
+}
