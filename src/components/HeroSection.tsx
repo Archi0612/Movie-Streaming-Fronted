@@ -72,6 +72,15 @@ const HeroSection: React.FC = () => {
     navigation={true}
     modules={[Navigation]}
     className="movie-category-swiper"
+    breakpoints={{
+      1400: { slidesPerView: 7 }, // Large screens (desktop)
+      // 1200: { slidesPerView: 6 },
+      1024: { slidesPerView: 6 },
+      768: { slidesPerView: 5 },  // Tablets
+      640: { slidesPerView: 5 },  // Small tablets
+      480: { slidesPerView: 4 },  // Phones
+      400: { slidesPerView: 3 }  // Very small screens
+    }}
   >
     {movies.trending.map((movie) => (
       <SwiperSlide key={movie.id}>
@@ -97,6 +106,15 @@ const HeroSection: React.FC = () => {
     navigation={true}
     modules={[Navigation]}
     className="movie-category-swiper"
+    breakpoints={{
+      1400: { slidesPerView: 7 }, // Large screens (desktop)
+      // 1200: { slidesPerView: 6 },
+      1024: { slidesPerView: 6 },
+      768: { slidesPerView: 5 },  // Tablets
+      640: { slidesPerView: 5 },  // Small tablets
+      480: { slidesPerView: 4 },  // Phones
+      400: { slidesPerView: 3 }   // Very small screens
+    }}
   >
     {movies.popular.map((movie) => (
       <SwiperSlide key={movie.id}>
@@ -122,6 +140,15 @@ const HeroSection: React.FC = () => {
     navigation={true}
     modules={[Navigation]}
     className="movie-category-swiper"
+    breakpoints={{
+      1400: { slidesPerView: 7 }, // Large screens (desktop)
+      // 1200: { slidesPerView: 6 },
+      1024: { slidesPerView: 6 },
+      768: { slidesPerView: 5 },  // Tablets
+      640: { slidesPerView: 5 },  // Small tablets
+      480: { slidesPerView: 4 },  // Phones
+      400: { slidesPerView: 3 }   // Very small screens
+    }}
   >
     {movies.upcoming.map((movie) => (
       <SwiperSlide key={movie.id}>
