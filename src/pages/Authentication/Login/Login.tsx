@@ -86,6 +86,7 @@ const Login = () => {
                 value={formData.email}
                 onChange={(e) => handleChange("email", e.target.value)}
                 placeholder="Enter your email"
+                autoComplete="off"
               />
               {formData.errors.email && <span className="error">{formData.errors.email}</span>}
             </div>

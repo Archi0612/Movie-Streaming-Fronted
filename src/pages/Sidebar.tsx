@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FaHome, FaFilm, FaTv, FaEnvelope } from "react-icons/fa";
+import { FaHome, FaFilm, FaTv, FaEnvelope,FaSearch } from "react-icons/fa";
 import { BiCategory } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
 import logo from "../assets/logo.png";
@@ -18,6 +18,7 @@ const Sidebar: React.FC = () => {
 
   const menuItems = [
     { name: "Home", icon: FaHome, path: "/home" },
+    {name:"Search",icon:FaSearch,path:"/search"},
     { name: "Movies", icon: FaFilm, path: "/movies" },
     { name: "Series", icon: FaTv, path: "/series" },
     { name: "Genres", icon: BiCategory, path: "/genres" },

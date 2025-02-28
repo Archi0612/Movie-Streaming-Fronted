@@ -79,12 +79,12 @@
   
   .buttons-container {
     margin-top: 20px;
-    display: flex;
+    /* display: flex; */
     justify-content: space-between;
     width: 100%;
   }
   
-  .button {
+  .save-btn,.close-btn1 {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -101,13 +101,13 @@
     background: #0059b3;
   }
   
-  .close-btn {
+  .close-btn1 {
     background: grey;
     color: white;
-    position: relative;
+    /* position: relative; */
   }
   
-  .close-btn:hover {
+  .close-btn1:hover {
     background: #666;
   }
   ::-webkit-calendar-picker-indicator  {

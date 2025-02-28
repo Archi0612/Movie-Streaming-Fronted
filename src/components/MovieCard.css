@@ -54,8 +54,8 @@
   /* display: flex; */
   gap: 2px;
   margin-bottom: 0.5rem;
-  display: flex;
-  justify-content: left;
+  /* display: flex; */
+   justify-content: left
 }
 
 /* 📅 Movie Details (Now in ONE ROW) */
