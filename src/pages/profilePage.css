@@ -404,6 +404,7 @@ html {
 .modal1 select:focus {
     outline: none;
     border: 2px solid #007bff;
+<<<<<<< HEAD
     
 }
 .modal1 select {
@@ -513,3 +514,7 @@ css for subscription modal  */
 .subscription-card button:hover {
     background: #0056b3;
 }
+=======
+
+}
+>>>>>>> d0392f8d88bb521c598f45cb1c09439ae8d72f82
