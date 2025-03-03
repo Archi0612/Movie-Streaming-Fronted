@@ -18,8 +18,6 @@ const USER_LOGOUT = 'USER_LOGOUT';
 
 // Register User Action
 
-
-
 export const registerUser = (user: UserFormData, navigate: (path: string) => void) =>
     async (dispatch: Dispatch) => {
         dispatch({ type: USER_REGISTER_REQUEST });

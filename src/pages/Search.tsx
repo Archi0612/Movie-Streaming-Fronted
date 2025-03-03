@@ -3,7 +3,6 @@ import "./Search.css";
 import { fetchTrendingMovies } from "../services/TMDB-api-service";
 import { Movie } from "../interfaces/movie.interface";
 import Shimmer from "../components/shimmerUI/Shimmer";
-import Sidebar from "./Sidebar";
 import MoviesGrid from "../components/MoviesGrid";
 import { GoSearch } from "react-icons/go";
 const Search: React.FC = () => {

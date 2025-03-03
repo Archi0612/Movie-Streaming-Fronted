@@ -36,12 +36,12 @@ const AppRoute: React.FC = () => {
           <Route path="/otp" element={<OtpCode />} />
         </Route>
         <Route element={<MainLayout />}>
-          <Route path="/home" element={<Home />} />
+          <Route path="/home" element={<HeroSection />} />
           <Route path="/search" element={<Search/>}/>
           <Route path="/profile-page" element={<ProfilePage />} />
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
-          <Route path="/movies" element={<HeroSection />} />
+          <Route path="/movies" element={<Home />} />
           <Route path="/feedback" element={<Feedback />} />
           <Route path="/add-movie" element={<AddMovie />} />
           <Route path="/admin-dashboard-series" element={<AdminDashboardSeries />} />

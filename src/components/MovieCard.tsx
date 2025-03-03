@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Play, Info, Plus } from 'lucide-react';
-import { FaStar, FaRegStar, FaStarHalfAlt } from "react-icons/fa";
+import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { MovieCardProps } from '../interfaces/movie.interface';
 import { genreMap } from '../utils/constants';
 import './MovieCard.css';
