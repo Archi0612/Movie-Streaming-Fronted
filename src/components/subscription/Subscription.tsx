@@ -36,8 +36,11 @@ const SubscriptionSelection: React.FC<SubscriptionProps> = ({ isOpen, onClose })
     console.log("Entered in Subscription component");
 
     const [loading, setLoading] = useState<boolean>(false);
+    const[billingCycle,setBillingCycle]=useState<"monthly" | "yearly">("monthly");
     const selectedPlanRef = useRef<"monthly" | "yearly" | null>(null);
-
+    // const handleToggle=()=>{
+    //     setBillingCycle((prev)=>prev==="monthly"?"yearly":"monthly");
+    // }
     const userData: UserData = {
         name: "Priyanshu1",
         email: "p6@gmail.com",
@@ -104,27 +107,105 @@ const SubscriptionSelection: React.FC<SubscriptionProps> = ({ isOpen, onClose })
             <div className="subscription-selection-overlay">
                 <div className="subscription-selection-container">
                     <h2 style={{ color: "white" }}>Choose Your Subscription</h2>
+                    <div className="toggle-container" onClick={() => setBillingCycle(billingCycle === "monthly" ? "yearly" : "monthly")}>
+                        <div className={`toggle-slider ${billingCycle === "monthly" ? "left" : "right"}`}></div>
+                        <span className={billingCycle === "monthly" ? "active" : ""}>Monthly</span>
+                        <span className={billingCycle === "yearly" ? "active" : ""}>Annually</span>
+                    </div>
+                    {billingCycle === "monthly" ? (
                     <div className="subscription-options">
                         <div className="subscription-card">
-                            <h2>Basic</h2>
-                            <p>Enjoy our Free basic subscription plan.</p>
-                            <button disabled={loading}>Pay 0</button>
+                            <h2 className="subscription-card-h2">Free</h2>
+                            <h3 className="subscription-card-h3">₹0</h3>
+                            <ul className="subscription-card-ul">
+                                <li className="subscription-card-li">Access to Movies & Series Trailer</li>
+                                <li className="subscription-card-li">Weekly Movie Recommendations</li>
+                                <li className="subscription-card-li">24/7 Customer Support</li>
+                                <li className="subscription-card-li">Personalized Watchlist & Liked Content</li>
+                                <li className="subscription-card-li">Stream on 2 Devices Simultaneously</li>
+                                <li className="subscription-card-li">Create a Private Watch Party with Friends</li>
+                            </ul>
+                            <button disabled={loading}>Selected</button>
                         </div>
                         <div className="subscription-card">
-                            <h2>Monthly</h2>
-                            <p>Enjoy Premium movies and content for a month at Rs 700/- only.</p>
+                            <h2 className="subscription-card-h2">Basic</h2>
+                            <h3 className="subscription-card-h3">₹199</h3>
+                            <ul className="subscription-card-ul">
+                                <li className="subscription-card-li">Access to 5000+ Movies & Series </li>
+                                <li className="subscription-card-li">Weekly Movie Recommendations</li>
+                                <li className="subscription-card-li">24/7 Customer Support</li>
+                                <li className="subscription-card-li">Personalized Watchlist & Liked Content</li>
+                                <li className="subscription-card-li">Stream on 2 Devices Simultaneously</li>
+                                <li className="subscription-card-li">Create a Private Watch Party with Friends</li>
+                            </ul>
                             <button disabled={loading} onClick={() => handleSubscription("monthly")}>
-                                Pay 700
+                                Select
                             </button>
                         </div>
                         <div className="subscription-card">
-                            <h2>Yearly</h2>
-                            <p>Enjoy all-year premium movies and subscriptions at Rs 8400/- only.</p>
+                            <h2 className="subscription-card-h2">Premium</h2>
+                            <h3 className="subscription-card-h3">₹299</h3>
+                            <ul className="subscription-card-ul">
+                                <li className="subscription-card-li">Unlimited access to all Movies & Series </li>
+                                <li className="subscription-card-li">Weekly Movie Recommendations</li>
+                                <li className="subscription-card-li">24/7 Customer Support</li>
+                                <li className="subscription-card-li">Personalized Watchlist & Liked Content</li>
+                                <li className="subscription-card-li">Stream on 4 Devices Simultaneously</li>
+                                <li className="subscription-card-li">Create a Private Watch Party with Friends</li>
+                            </ul>
                             <button disabled={loading} onClick={() => handleSubscription("yearly")}>
-                                Pay 8400
+                                Select
                             </button>
                         </div>
                     </div>
+
+                    ):(
+                        <div className="subscription-options">
+                        <div className="subscription-card">
+                            <h2 className="subscription-card-h2">Free</h2>
+                            <h3 className="subscription-card-h3">₹0</h3>
+                            <ul className="subscription-card-ul">
+                                <li className="subscription-card-li">Access to Movies & Series Trailer</li>
+                                <li className="subscription-card-li">Weekly Movie Recommendations</li>
+                                <li className="subscription-card-li">24/7 Customer Support</li>
+                                <li className="subscription-card-li">Personalized Watchlist & Liked Content</li>
+                                <li className="subscription-card-li">Stream on 2 Devices Simultaneously</li>
+                                <li className="subscription-card-li">Create a Private Watch Party with Friends</li>
+                            </ul>
+                            <button disabled={loading}>Selected</button>
+                        </div>
+                        <div className="subscription-card">
+                            <h2 className="subscription-card-h2">Basic</h2>
+                            <h3 className="subscription-card-h3">₹2299</h3>
+                            <ul className="subscription-card-ul">
+                                <li className="subscription-card-li">Access to 5000+ Movies & Series </li>
+                                <li className="subscription-card-li">Weekly Movie Recommendations</li>
+                                <li className="subscription-card-li">24/7 Customer Support</li>
+                                <li className="subscription-card-li">Personalized Watchlist & Liked Content</li>
+                                <li className="subscription-card-li">Stream on 2 Devices Simultaneously</li>
+                                <li className="subscription-card-li">Create a Private Watch Party with Friends</li>
+                            </ul>
+                            <button disabled={loading} onClick={() => handleSubscription("monthly")}>
+                                Select
+                            </button>
+                        </div>
+                        <div className="subscription-card">
+                            <h2 className="subscription-card-h2">Premium</h2>
+                            <h3 className="subscription-card-h3">₹3499</h3>
+                            <ul className="subscription-card-ul">
+                                <li className="subscription-card-li">Unlimited access to all Movies & Series </li>
+                                <li className="subscription-card-li">Weekly Movie Recommendations</li>
+                                <li className="subscription-card-li">24/7 Customer Support</li>
+                                <li className="subscription-card-li">Personalized Watchlist & Liked Content</li>
+                                <li className="subscription-card-li">Stream on 4 Devices Simultaneously</li>
+                                <li className="subscription-card-li">Create a Private Watch Party with Friends</li>
+                            </ul>
+                            <button disabled={loading} onClick={() => handleSubscription("yearly")}>
+                                Select
+                            </button>
+                        </div>
+                    </div>
+                    )}
                     <div className="cancelbutton">
                         <button type="button" className="cancelSubscribe" onClick={onClose}>
                             Cancel
