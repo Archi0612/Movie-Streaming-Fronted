@@ -6,6 +6,7 @@ import './profilePage.css';
 import SubscriptionSelection from '../components/subscription/Subscription';
 import ReactModal from 'react-modal';
 import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
 
 ReactModal.setAppElement('#root'); // Ensure accessibility compliance
 
@@ -21,8 +22,6 @@ export default function ProfilePage() {
         gender: ""
     });
 
-    const user = useSelector(getState(user));
-
     // Handle input changes for Edit Profile form
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -35,13 +34,8 @@ export default function ProfilePage() {
 
     };
 
-    // Handle subscription selection
-    const handleSubscribeSelection = (subscriptionType: string, total: number) => {
-        console.log("Selected subscription and its price:", subscriptionType, total);
-        Checkout(subscriptionType, total);
-        setSubscribeOpen(false);
-    };
-
+    const user = useSelector((state: RootState) => state.user.currentUser);
+    console.log(user, 'Here is the user');
 
     return (
         <>

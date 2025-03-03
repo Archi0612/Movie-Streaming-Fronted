@@ -1,4 +1,4 @@
-import React, { useState, useRef, ChangeEvent } from "react";
+import React, { useState, useRef } from "react";
 import { toast } from "react-toastify"
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -9,7 +9,7 @@ import { FaEye, FaEyeSlash, FaEdit } from "react-icons/fa";
 import { generateOTP } from "../../../services/apis/authService";
 import { Errors, UserFormData, OtpState } from "../../../interfaces/movie.interface";
 import { useDispatch } from "react-redux";
-import { registerUser } from "../../../state/actions/userAction";
+import { registerUser } from "../../../redux/slices/userSlice";
 
 
 const Signup: React.FC = () => {
@@ -120,7 +120,8 @@ const Signup: React.FC = () => {
     if (enteredOtp.length === 6) {
       console.log("OTP Verified:", enteredOtp);
       try {
-        dispatch<any>(registerUser({ ...userFormData, numberOTP: parseInt(enteredOtp) }, navigate));
+        dispatch<any>(registerUser({ ...userFormData, numberOTP: parseInt(enteredOtp) }));
+        navigate("/login");
 
       } catch (error) {
         console.error("Signup failed", error);

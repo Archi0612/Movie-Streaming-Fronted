@@ -105,3 +105,27 @@ export interface LoginDetails {
   email: string;
   password: string;
 }
+
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+  token: string;
+  numberOTP?: number;
+}
+
+// Define State Interface
+export interface UserState {
+  loading: boolean;
+  success?: boolean;
+  error?: string;
+  currentUser?: User | null;
+}
+
+// Define API Response Types
+export interface AuthResponse {
+  token: string;
+  userData: User;
+}

@@ -40,7 +40,7 @@ const SubscriptionSelection: React.FC<SubscriptionProps> = ({ isOpen, onClose })
 
     const userData: UserData = {
         name: "Priyanshu1",
-        email: "p6@gmail.com",
+        email: "p12@gmail.com",
         phone: "1234567890",
         country: "India",
         dob: "22-08-2001",
@@ -87,7 +87,10 @@ const SubscriptionSelection: React.FC<SubscriptionProps> = ({ isOpen, onClose })
                 const stripe = await stripePromise;
 
                 if (stripe) {
-                     
+                    const { error } = await stripe.redirectToCheckout({
+                        sessionId: session.id, // Ensure `session.id` exists
+                    });
+                    console.log(error, "at line 93 subs.ts");
                 }
             }
         } catch (error: unknown) {

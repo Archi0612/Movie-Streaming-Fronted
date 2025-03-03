@@ -1,0 +1,88 @@
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import axios from "axios";
+import { User, UserState, AuthResponse } from '../../interfaces/movie.interface';
+
+const API_BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
+
+const initialState: UserState = {
+    loading: false,
+    currentUser: JSON.parse(localStorage.getItem("currentUser") || "null"),
+};
+
+// Async Thunks
+export const registerUser = createAsyncThunk<AuthResponse, Omit<User, "id" | "token">, { rejectValue: string }>(
+    "user/register",
+    async (user, { rejectWithValue }) => {
+        try {
+            const config = { headers: { "Content-Type": "application/json" }, withCredentials: true };
+            const response = await axios.post<AuthResponse>(`${API_BASE_URL}/auth/signup`, user, config);
+
+            localStorage.setItem("authToken", response.data.token);
+            return response.data;
+        } catch (err: any) {
+            return rejectWithValue(err.response?.data?.message || "An error occurred");
+        }
+    }
+);
+
+export const loginUser = createAsyncThunk<AuthResponse, Pick<User, "email" | "password">, { rejectValue: string }>(
+    "user/login",
+    async (user, { rejectWithValue }) => {
+        try {
+            const config = { headers: { "Content-Type": "application/json" }, withCredentials: true };
+            const response = await axios.post<AuthResponse>(`${API_BASE_URL}/auth/login`, user, config);
+            // console.log(response.data.userData, "here is the response from login user");
+
+            localStorage.setItem("currentUser", JSON.stringify(response.data.userData));
+            localStorage.setItem("authToken", response.data.token);
+            return response.data;
+        } catch (err: any) {
+            return rejectWithValue(err.response?.data?.message || "An error occurred");
+        }
+    }
+);
+
+export const logoutUser = createAsyncThunk("user/logout", async () => {
+    localStorage.removeItem("currentUser");
+    localStorage.removeItem("authToken");
+    return null;
+});
+
+// Create Slice
+const userSlice = createSlice({
+    name: "user",
+    initialState,
+    reducers: {},
+    extraReducers: (builder) => {
+        builder
+            .addCase(registerUser.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(registerUser.fulfilled, (state, action: PayloadAction<AuthResponse>) => {
+                state.loading = false;
+                state.success = true;
+                state.currentUser = action.payload.userData;
+            })
+            .addCase(registerUser.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
+            .addCase(loginUser.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(loginUser.fulfilled, (state, action: PayloadAction<AuthResponse>) => {
+                state.loading = false;
+                state.success = true;
+                state.currentUser = action.payload.userData;
+            })
+            .addCase(loginUser.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
+            .addCase(logoutUser.fulfilled, (state) => {
+                state.currentUser = null;
+            });
+    },
+});
+
+export default userSlice.reducer;
