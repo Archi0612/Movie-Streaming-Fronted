@@ -111,11 +111,9 @@
   /* Sparks Popup */
   .sparks-popup {
     position: fixed;
-    width: 25%;
     bottom: 55px;
     left: 50%;
     transform: translateX(-50%);
-    /* background: var(--hover-shadow); */
     background: linear-gradient(50deg, var(--hover-shadow), var(--background-color));
     padding: 0.5rem;
     border-radius: 5rem;
@@ -130,7 +128,7 @@
     flex-direction: column;
     align-items: center;
     color: white;
-    font-size: 0.8rem;
+    /* font-size: 0.8rem; */
     cursor: pointer;
   }
 
@@ -138,6 +136,15 @@
     color: var(--primary-color);
   }
 
+  .sparks-option svg {
+    font-size: 1.2rem;
+  }
+}
+@media (max-width: 641px) {
+
+  .sparks-option {
+    font-size: 0.6rem;
+  }
   .sparks-option svg {
     font-size: 1rem;
   }
