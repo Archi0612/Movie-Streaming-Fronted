@@ -11,6 +11,7 @@ const Sidebar: React.FC = () => {
   const location = useLocation();
   const [isExpanded, setIsExpanded] = useState(false);
   const [activeItem, setActiveItem] = useState(location.pathname);
+  const [showSparksPopup, setShowSparksPopup] = useState(false);
 
   useEffect(() => {
     setActiveItem(location.pathname);
@@ -29,8 +30,14 @@ const Sidebar: React.FC = () => {
   const bottomNavItems = [
     { name: "Home", icon: FaHome, path: "/home" },
     { name: "Search", icon: FaSearch, path: "/search" },
-    { name: "Sparks", icon: FaTv, path: "/series" },
+    // { name: "Sparks", icon: FaTv, path: "/series" }, // Triggers Popup
     { name: "My Space", icon: CgProfile, path: "/profile-page" },
+  ];
+
+  const sparksOptions = [
+    { name: "Movies", icon: FaFilm, path: "/movies" },
+    { name: "Series", icon: FaTv, path: "/series" },
+    { name: "Genres", icon: BiCategory, path: "/genres" },
   ];
 
   const handleItemClick = (path: string) => {
@@ -49,10 +56,7 @@ const Sidebar: React.FC = () => {
           <img src={logo} className="logo-1" onClick={() => handleItemClick("/home")} />
         </div>
 
-        <ul className={`sidebar-list ${isExpanded ? "expanded" : ""}`}
-        onMouseEnter={() => setIsExpanded(true)}
-        onMouseLeave={() => setIsExpanded(false)}
-        >
+        <ul className={`sidebar-list ${isExpanded ? "expanded" : ""}`}>
           {menuItems.map((item) => {
             const IconComponent = item.icon;
             return (
@@ -76,7 +80,15 @@ const Sidebar: React.FC = () => {
           return (
             <li
               key={item.path}
-              onClick={() => handleItemClick(item.path)}
+              onClick={() => {
+                if (item.name === "Home") {
+                  handleItemClick(item.path);
+                  setShowSparksPopup(!showSparksPopup);
+                } else {
+                  handleItemClick(item.path);
+                  setShowSparksPopup(false)
+                }
+              }}
               className={activeItem === item.path ? "active" : ""}
             >
               <IconComponent />
@@ -85,6 +97,28 @@ const Sidebar: React.FC = () => {
           );
         })}
       </ul>
+
+      {/* Sparks Popup for Mobile */}
+      {showSparksPopup && (
+        <div className="sparks-popup">
+          {sparksOptions.map((option) => {
+            const IconComponent = option.icon;
+            return (
+              <div
+                key={option.path}
+                className="sparks-option"
+                onClick={() => {
+                  handleItemClick(option.path);
+                  setShowSparksPopup(true);
+                }}
+              >
+                <IconComponent />
+                <span>{option.name}</span>
+              </div>
+            );
+          })}
+        </div>
+      )}
     </>
   );
 };

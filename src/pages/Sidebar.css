@@ -14,12 +14,9 @@
   padding-top: 2rem;
   z-index: 1000;
 }
-
-
-.bottom-nav{
+.bottom-nav {
   display: none;
 }
-
 .sidebar.expanded {
   width: 45%;
   background: linear-gradient(to right, var(--hover-shadow), rgba(0, 0, 0, 0));
@@ -40,10 +37,10 @@
 
 .logo-1 {
   position: absolute;
-  width: 2.6rem;
+  width: 3rem;
   height: auto;
   top: 1.5rem;
-  left: 1rem;
+  left: 2.1rem;
 }
 
 .sidebar li {
@@ -74,14 +71,6 @@
 @media (max-width: 768px) {
   .sidebar {
     display: none; /* Hide Sidebar on Small Screens */
-  }
-
-  .logo-1 {
-    position: absolute;
-    width: 2rem;
-    /* height: auto; */
-    top: 1rem;
-    left: 1.8rem;
   }
 
   .bottom-nav {
@@ -117,5 +106,39 @@
 
   .bottom-nav svg {
     font-size: 24px;
+  }
+
+  /* Sparks Popup */
+  .sparks-popup {
+    position: fixed;
+    width: 25%;
+    bottom: 55px;
+    left: 50%;
+    transform: translateX(-50%);
+    /* background: var(--hover-shadow); */
+    background: linear-gradient(50deg, var(--hover-shadow), var(--background-color));
+    padding: 0.5rem;
+    border-radius: 5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.3rem;
+    z-index: 1001;
+  }
+
+  .sparks-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    font-size: 0.8rem;
+    cursor: pointer;
+  }
+
+  .sparks-option:hover {
+    color: var(--primary-color);
+  }
+
+  .sparks-option svg {
+    font-size: 1rem;
   }
 }
