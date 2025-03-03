@@ -14,7 +14,7 @@
   padding-top: 2rem;
   z-index: 1000;
 }
-.bottom-nav {
+.bottom-nav, .sparks-popup {
   display: none;
 }
 .sidebar.expanded {
