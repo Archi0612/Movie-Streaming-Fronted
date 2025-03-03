@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import img1 from "../../../assets/login-64.png";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { login } from "../../../services/apis/authService";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -63,6 +64,7 @@ const Login = () => {
         const data = await login(formData.email, formData.password);
         console.log("User logged in:", data);
         setMessage({ text: "Successfully logged in!", type: "success" });
+        navigate("/home");
       } catch (err) {
         console.log(err);
         setMessage({ text: "Incorrect Email or Password!", type: "error" });

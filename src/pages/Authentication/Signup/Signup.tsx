@@ -1,6 +1,6 @@
 import React, { useState, useRef, ChangeEvent } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Signup.css";
 import img from "../../../assets/avatar.png";
 import { FaEye, FaEyeSlash, FaEdit } from "react-icons/fa";
@@ -9,6 +9,7 @@ import { Errors, FormData, OtpState } from "../../../interfaces/movie.interface"
 
 
 const Signup: React.FC = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<FormData>({
     email: "",
     name: "",
@@ -155,7 +156,7 @@ const Signup: React.FC = () => {
         // const userData = {formData};
         const data = generateOTP(formData);
         console.log("OTP send to the user mail:", data);
-        return data;
+
       }catch (err: unknown) {
         if (axios.isAxiosError(err)) {
           // If it's an Axios error, check for response data
@@ -182,14 +183,15 @@ const Signup: React.FC = () => {
 
 
     if (enteredOtp.length === 6) {
-      console.log("OTP Verified:", enteredOtp);
       
       try{
         //it will return the user data and otp entered by user.
         const numberOTP = parseInt(enteredOtp);
         const data = signup({...formData, numberOTP});
         console.log("OTP verified and signup:", data);
-        return data;
+        navigate("/login");
+        // return data;
+
       }catch (err: unknown) {
         if (axios.isAxiosError(err)) {
           // If it's an Axios error, check for response data
@@ -213,8 +215,8 @@ const Signup: React.FC = () => {
       resendTimer: 30,
     }));
 
-    // Simulate sending OTP (Replace this with an actual API call)
-    const interval = setInterval(() => {
+     // Simulate sending OTP (Replace this with an actual API call)
+     const interval = setInterval(() => {
       setOtpState((prevState) => {
         if (prevState.resendTimer === 1) {
           clearInterval(interval);
@@ -223,6 +225,30 @@ const Signup: React.FC = () => {
         return { ...prevState, resendTimer: prevState.resendTimer - 1 };
       });
     }, 1000);
+
+      //call SendOTP api
+      try{
+        //it will return the user data to the backend
+        // const userData = {formData};
+        const data = generateOTP(formData);
+        console.log("OTP send to the user mail:", data);
+        return data;
+      }catch (err: unknown) {
+        if (axios.isAxiosError(err)) {
+          // If it's an Axios error, check for response data
+          throw new Error(err.response?.data?.message || "Something went wrong");
+        } else {
+          // Generic error handling
+          throw new Error("An unknown error occurred");
+        }
+      }
+
+
+
+
+
+   
+    
   };
 
   return (
@@ -268,6 +294,7 @@ const Signup: React.FC = () => {
               <label>Contact Number</label>
               <input
                 type="text"
+                name="phoneNumber"
                 value={formData.phoneNumber}
                 onChange={handleChange}
                 placeholder="Enter your phone number"
