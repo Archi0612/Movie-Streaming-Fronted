@@ -86,11 +86,11 @@ const SubscriptionSelection: React.FC<SubscriptionProps> = ({ isOpen, onClose })
             } else {
                 console.log("Step-5: Creating a new checkout session");
 
-                const session: CheckoutSession = response.data as CheckoutSession;
+                // const session: CheckoutSession = response.data as CheckoutSession;
                 const stripe = await stripePromise;
 
                 if (stripe) {
-                     
+                    console.log("Step-6: Creating a new payment method");
                 }
             }
         } catch (error: unknown) {

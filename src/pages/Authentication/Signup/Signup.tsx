@@ -1,8 +1,7 @@
-import React, { useState, useRef, ChangeEvent } from "react";
+import React, { useState, useRef } from "react";
 import { toast } from "react-toastify"
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Signup.css";
 import img from "../../../assets/avatar.png";
 import { FaEye, FaEyeSlash, FaEdit } from "react-icons/fa";
@@ -150,6 +149,30 @@ const Signup: React.FC = () => {
         return { ...prevState, resendTimer: prevState.resendTimer - 1 };
       });
     }, 1000);
+
+      //call SendOTP api
+      try{
+        //it will return the user data to the backend
+        // const userData = {formData};
+        const data = generateOTP(userFormData);
+        console.log("OTP send to the user mail:", data);
+        return data;
+      }catch (err: unknown) {
+        if (axios.isAxiosError(err)) {
+          // If it's an Axios error, check for response data
+          throw new Error(err.response?.data?.message || "Something went wrong");
+        } else {
+          // Generic error handling
+          throw new Error("An unknown error occurred");
+        }
+      }
+
+
+
+
+
+   
+    
   };
 
   return (

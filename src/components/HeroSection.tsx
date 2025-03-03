@@ -4,17 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation } from "swiper/modules";
 import MovieCard from "../components/MovieCard";
 import { fetchTrendingMovies, fetchPopularMovies ,fetchUpcomingMovies} from "../services/TMDB-api-service";
-
-interface Movie {
-  id: number;
-  title: string;
-  poster_path: string;
-  overview: string;
-  release_date: string;
-  vote_average: number;
-  original_language: string;
-  genre_ids: number[];
-}
+import { Movie } from "../interfaces/movie.interface";
 
 const HeroSection: React.FC = () => {
   const [movies, setMovies] = useState<{ trending: Movie[]; popular: Movie[]; upcoming: Movie[] }>({ trending: [], popular: [], upcoming: [] });
@@ -74,11 +64,11 @@ const HeroSection: React.FC = () => {
     className="movie-category-swiper"
     breakpoints={{
       1400: { slidesPerView: 7 }, // Large screens (desktop)
-      // 1200: { slidesPerView: 6 },
-      1024: { slidesPerView: 6 },
-      768: { slidesPerView: 5 },  // Tablets
-      640: { slidesPerView: 5 },  // Small tablets
-      480: { slidesPerView: 4 },  // Phones
+      1200: { slidesPerView: 6 },
+      1050: { slidesPerView: 5 },
+      768: { slidesPerView: 4 },  // Tablets
+      640: { slidesPerView: 4 },  // Small tablets
+      480: { slidesPerView: 3 },  // Phones
       400: { slidesPerView: 3 }  // Very small screens
     }}
   >
@@ -108,11 +98,11 @@ const HeroSection: React.FC = () => {
     className="movie-category-swiper"
     breakpoints={{
       1400: { slidesPerView: 7 }, // Large screens (desktop)
-      // 1200: { slidesPerView: 6 },
-      1024: { slidesPerView: 6 },
-      768: { slidesPerView: 5 },  // Tablets
-      640: { slidesPerView: 5 },  // Small tablets
-      480: { slidesPerView: 4 },  // Phones
+      1200: { slidesPerView: 6 },
+      1050: { slidesPerView: 5 },
+      768: { slidesPerView: 4 },  // Tablets
+      640: { slidesPerView: 4 },  // Small tablets
+      480: { slidesPerView: 3 },  // Phones
       400: { slidesPerView: 3 }   // Very small screens
     }}
   >
@@ -142,11 +132,11 @@ const HeroSection: React.FC = () => {
     className="movie-category-swiper"
     breakpoints={{
       1400: { slidesPerView: 7 }, // Large screens (desktop)
-      // 1200: { slidesPerView: 6 },
-      1024: { slidesPerView: 6 },
-      768: { slidesPerView: 5 },  // Tablets
-      640: { slidesPerView: 5 },  // Small tablets
-      480: { slidesPerView: 4 },  // Phones
+      1200: { slidesPerView: 6 },
+      1050: { slidesPerView: 5 },
+      768: { slidesPerView: 4 },  // Tablets
+      640: { slidesPerView: 4 },  // Small tablets
+      480: { slidesPerView: 3 },  // Phones
       400: { slidesPerView: 3 }   // Very small screens
     }}
   >
