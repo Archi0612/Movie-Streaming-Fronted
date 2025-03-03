@@ -66,6 +66,7 @@ input:-webkit-autofill:focus {
     margin-bottom: 20px;
     font-size: 18px;
     text-align: justify;
+    color: #f1f1f1;
     }
     
     .form-group {
@@ -126,6 +127,7 @@ input:-webkit-autofill:focus {
     .contact-info p {
     font-size: 16px;
     margin-bottom: 10px;
+    color: #f1f1f1;
     }
     .social-links {
     display: flex;
@@ -165,6 +167,9 @@ input:-webkit-autofill:focus {
     border-radius: 5px;
     
     }
+    .faq-question p{
+      color: #f1f1f1;
+    }
     .faq-answer {
     margin-bottom: 10px;
     margin-top: 2px;
@@ -173,6 +178,9 @@ input:-webkit-autofill:focus {
     background-color: #03304a; 
     padding: 10px;
     border-radius: 5px;
+    }
+    .faq-answer p{
+      color: #f1f1f1;
     }
     .faq-icon {
     transition: transform 0.3s ease;

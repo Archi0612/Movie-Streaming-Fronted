@@ -15,7 +15,7 @@
     padding: 1.1rem;
     border-right: 0.1rem solid #6b7280;
   }
-  
+
   .footer-section:last-child {
     border-right: none;
   }
@@ -38,6 +38,7 @@
   .footer-para{
     padding-bottom: 1rem;
     word-break: break-word;
+    color: white;
     }
   
   .footer-text {
@@ -45,6 +46,7 @@
     text-align: justify;
     font-size: 1rem;
     line-height: 21px;
+    color: white;
   }
   
   .footer-links {
@@ -67,6 +69,7 @@
     margin-bottom: 0.5rem;
     padding-left: 0.5rem;
     font-size: 0.875rem;
+    color: white;
   }
   
   .required {
