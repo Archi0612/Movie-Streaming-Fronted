@@ -88,10 +88,10 @@ const AddMovie: React.FC = () => {
         <div className="fields-container">
           <div className="fields1">
             <label>Title</label>
-            <input type="text" name="title" value={movie.title} onChange={handleChange} placeholder="Enter movie title" />
+            <input type="text" name="title" value={movie.title} onChange={handleChange} placeholder="Enter movie title" autoComplete="off" />
 
             <label>Description</label>
-            <textarea name="description" value={movie.description} onChange={handleChange} placeholder="Enter movie details"className="text-desc" />
+            <textarea name="description" value={movie.description} onChange={handleChange} placeholder="Enter movie details"className="text-desc" autoComplete="off" />
 
             <label>Release Date</label>
             <input type="date" name="releaseDate" value={movie.releaseDate} onChange={handleChange}  placeholder="Enter movie release date"/>
@@ -232,8 +232,8 @@ const AddMovie: React.FC = () => {
           </div>
         </div>
         <div className="buttons-container">
-          <button className="button save-btn" onClick={handleSave}>Save</button>
-          <button className="button close-btn" onClick={handleClose}>Close</button>
+          <button className="close-btn1" onClick={handleClose}>Close</button>
+          <button className="save-btn" onClick={handleSave}>Save</button>
         </div>
       </div>
     </div>
