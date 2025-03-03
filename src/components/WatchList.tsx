@@ -1,4 +1,6 @@
 import './Watchlist.css';
+import poster1 from "../assets/kgf2poster.jpeg";
+
 function WatchList() {
     const WatchLists = [
         {
@@ -53,7 +55,7 @@ function WatchList() {
 
                         <div className='watchlist' key={index}>
                             <div className='watchlist-img'>
-                                <img src="https://via.placeholder.com/100"></img>
+                                <img src={poster1} alt="Poster" />
                             </div>
                             <div className='watchlist-info'>
                                 <h4>{watchlist.title}</h4>

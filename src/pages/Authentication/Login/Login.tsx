@@ -3,11 +3,15 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import img1 from "../../../assets/login-64.png";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
-import { login } from "../../../services/apis/authService";
+import { loginUser } from "../../../state/actions/userAction";
+import { useDispatch } from "react-redux";
 
+// import { login } from "../../../services/apis/authService";
+import { toast } from "react-toastify";
 const Login = () => {
-  const navigate = useNavigate();
-  const [formData, setFormData] = useState({
+  const dispatch = useDispatch();
+
+  const [userFormData, setUserFormData] = useState({
     email: "",
     password: "",
     errors: {
@@ -17,8 +21,7 @@ const Login = () => {
   });
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [message, setMessage] = useState<{ text: string; type: "success" | "error" } | null>(null);
-
+  const navigate = useNavigate();
   const validateEmail = (email: string) => {
     if (!email) return "Email is required";
     const emailRegex = /\S+@\S+\.\S+/;
@@ -40,7 +43,7 @@ const Login = () => {
     if (field === "email") error = validateEmail(value);
     if (field === "password") error = validatePassword(value);
 
-    setFormData((prev) => ({
+    setUserFormData((prev) => ({
       ...prev, // Keep the existing state
       [field]: value,// Update only the specific field (email or password)
       errors: { ...prev.errors, [field]: error }, // Keep existing errors and update only the error for the current field
@@ -50,41 +53,58 @@ const Login = () => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    const emailError = validateEmail(formData.email);
-    const passwordError = validatePassword(formData.password);
+    const emailError = validateEmail(userFormData.email);
+    const passwordError = validatePassword(userFormData.password);
 
     if (emailError || passwordError) {
-      setFormData((prev) => ({
+      setUserFormData((prev) => ({
         ...prev,
         errors: { email: emailError, password: passwordError },
       }));
-      setMessage(null);
     } else {
       try {
-        const data = await login(formData.email, formData.password);
-        console.log("User logged in:", data);
-        setMessage({ text: "Successfully logged in!", type: "success" });
-        navigate("/home");
+        dispatch<any>(loginUser(userFormData, navigate));
+        // setMessage({ text: "Successfully logged in!", type: "success" });
+        toast.success("Successfully logged in!");
+        return navigate("/home");
       } catch (err) {
         console.log(err);
-        setMessage({ text: "Incorrect Email or Password!", type: "error" });
+        toast.error("Incorrect Email or Password!");
       }
     }
   };
+
+
+  // const handleSubmit = async (event: React.FormEvent) => {
+  //   event.preventDefault();
+
+  //   const emailError = validateEmail(userFormData.email);
+  //   const passwordError = validatePassword(userFormData.password);
+
+  //   if (emailError || passwordError) {
+  //     setUserFormData((prev) => ({
+  //       ...prev,
+  //       errors: { email: emailError, password: passwordError },
+  //     }));
+  //     setMessage(null);
+  //   } else {
+  //     try {
+  //       const data = await login(userFormData.email, userFormData.password);
+  //       console.log("User logged in:", data);
+  //       setMessage({ text: "Successfully logged in!", type: "success" });
+  //     } catch (err) {
+  //       console.log(err);
+  //       setMessage({ text: "Incorrect Email or Password!", type: "error" });
+  //     }
+  //   }
+  // };
 
   return (
     <div className="container">
       <div className="welcome-overlay">
         <div className="login-container">
-          
-          {message && (
-            <div className={`message ${message.type === "success" ? "success-msg" : "error-msg"}`}>
-              {message.text}
-            </div>
-          )}
-
           <div className="login-logo">
-            <img src={img1} alt="Login"/>
+            <img src={img1} alt="Login" />
           </div>
           <h2>Login</h2>
           <form onSubmit={handleSubmit}>
@@ -92,18 +112,19 @@ const Login = () => {
               <label>Email</label>
               <input
                 type="email"
-                value={formData.email}
+                value={userFormData.email}
                 onChange={(e) => handleChange("email", e.target.value)}
                 placeholder="Enter your email"
+                autoComplete="off"
               />
-              {formData.errors.email && <span className="error">{formData.errors.email}</span>}
+              {userFormData.errors.email && <span className="error">{userFormData.errors.email}</span>}
             </div>
             <div className="input-group">
               <label>Password</label>
               <div className="password-container">
                 <input
                   type={showPassword ? "text" : "password"}
-                  value={formData.password}
+                  value={userFormData.password}
                   onChange={(e) => handleChange("password", e.target.value)}
                   placeholder="Enter your password"
                 />
@@ -111,7 +132,7 @@ const Login = () => {
                   {showPassword ? <FaEyeSlash color="white" /> : <FaEye color="white" />}
                 </span>
               </div>
-              {formData.errors.password && <span className="error">{formData.errors.password}</span>}
+              {userFormData.errors.password && <span className="error">{userFormData.errors.password}</span>}
             </div>
             <button type="submit" className="login-btn">Login</button>
             <p className="forgot-link">

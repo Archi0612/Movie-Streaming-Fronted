@@ -159,7 +159,7 @@ textarea {
 }
 
 /* BUTTON STYLING */
-.add-btn, .remove-btn, .close-btn {
+.season-add-btn,.episode-add-btn, .remove-btn, .close-btn2 {
     padding: 8px 12px;
     border: none;
     border-radius: 5px;
@@ -171,12 +171,22 @@ textarea {
     transition: 0.3s;
 }
 
-.add-btn {
+.season-add-btn{
+    position: relative;
+    left: 60%;
+    background: #28a745;
+    color: white;
+}
+.episode-add-btn {
     background: #28a745;
     color: white;
 }
 
-.add-btn:hover {
+.season-add-btn:hover {
+    background: #218838;
+}
+
+.episode-add-btn:hover{
     background: #218838;
 }
 
@@ -188,16 +198,23 @@ textarea {
 .remove-btn:hover {
     background: #c82333;
 }
-.close-btn {
+.close-btn2 {
     background: grey;
     color: white;
+    
   }
   
-  .close-btn:hover {
+  .close-btn2:hover {
     background: #666;
   }
   ::-webkit-calendar-picker-indicator  {
     filter: invert(1);
+  }
+  .episode-number{
+    margin-bottom: 11px;
+  }
+  .episode-label{
+    margin-top: 3px;
   }
 /* RESPONSIVE DESIGN */
 @media (max-width: 768px) {
@@ -209,4 +226,32 @@ textarea {
         flex-direction: column;
         gap: 10px;
     }
+}
+
+@media (max-width:480px){
+    
+    .season-add-btn{
+        left: 10%;
+        padding: 2px 5px;
+        
+    }
+    .season-heading-container{
+        left: 20%;
+        margin-top: 5px;
+    }
+    .season-header{
+        position: relative;
+        font-size: 16px;
+        right: 16%;
+    }
+}
+.season-heading-container{
+    position: relative;
+    left: 23%;
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 50%;
 }

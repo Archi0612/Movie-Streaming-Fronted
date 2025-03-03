@@ -1,0 +1,123 @@
+/* Modal overlay background */
+.subscription-selection-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    /* Dark transparent background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+
+
+/* Modal container */
+.subscription-selection-container {
+    background: #1e1e1e;
+    color: white;
+    padding: 20px;
+    border-radius: 12px;
+    width: 75rem;
+    height: 35rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3)
+}
+
+.subscription-card {
+    background: white;
+    padding: 10px;
+    width: 20rem;
+    height: 20rem;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.subscription-options {
+    width: 70rem;
+    height: 20rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.subscription-card:hover {
+    transform: scale(1.05);
+}
+
+.subscription-card h3 {
+    margin-bottom: 10px;
+    background: linear-gradient(45deg, #0073e6, #0059b3, #00131f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 900;
+}
+
+
+.subscription-card p {
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+    width: 10rem;
+    text-align: center;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+
+}
+
+.subscription-card button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background: #007bff;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.subscription-card button:hover {
+    background: #0056b3;
+}
+
+.cancelSubscribe {
+    margin-top: 10px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background: #007bff;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Apply hover effect to any subscription card */
+.subscription-card {
+    transition: all 0.3s ease-in-out;
+}
+
+/* When any subscription card is hovered, apply the border effect */
+.subscription-card:hover {
+    border: 4px solid #6a0dad;
+    /* Purple border */
+    box-shadow: 0px 4px 15px rgba(106, 13, 173, 0.6);
+    /* Glowing effect */
+    transform: scale(1.05);
+}

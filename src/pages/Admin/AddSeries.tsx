@@ -11,65 +11,61 @@ const genreOptions = [
   { value: "thriller", label: "Thriller" },
   { value: "sci-fi", label: "Sci-Fi" },
 ];
+const languageOptions = [
+  { value: "hindi", label: "Hindi" },
+  { value: "english", label: "English" },
+  { value: "gujarati", label: "Gujarati" },
+  { value: "tamil", label: "Tamil" },
+  { value: "telugu", label: "Telugu" },
+  { value: "malayalam", label: "Malayalam" },
+  { value: "kannada", label: "Kannada" },
+];
+const fetchCastOptions = async (inputValue: string) => {
+  return [
+    { value: "actor1", label: "Leonardo DiCaprio" },
+    { value: "actor2", label: "Joseph Gordon-Levitt" },
+    { value: "actor3", label: "Elliot Page" },
+  ].filter((i) => i.label.toLowerCase().includes(inputValue.toLowerCase()));
+};
 
-const fetchCastOptions = (inputValue: string): Promise<{ value: string; label: string }[]> => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(
-          [
-            { value: "actor1", label: "Leonardo DiCaprio" },
-            { value: "actor2", label: "Joseph Gordon-Levitt" },
-            { value: "actor3", label: "Elliot Page" },
-          ].filter((i) => i.label.toLowerCase().includes(inputValue.toLowerCase()))
-        );
-      }, 500);
-    });
-  };
+const fetchDirectorOptions = async (inputValue: string) => {
+  return [
+    { value: "director1", label: "Christopher Nolan" },
+    { value: "director2", label: "Quentin Tarantino" },
+  ].filter((i) => i.label.toLowerCase().includes(inputValue.toLowerCase()));
+};
 
-  const fetchDirectorOptions = (inputValue: string): Promise<{ value: string; label: string }[]> => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(
-          [
-            { value: "director1", label: "Christopher Nolan" },
-            { value: "director2", label: "Quentin Tarantino" },
-          ].filter((i) => i.label.toLowerCase().includes(inputValue.toLowerCase()))
-        );
-      }, 500);
-    });
-  };
+interface Episode {
+  title: string;
+  description: string;
+  duration: string;
+  episodeNumber: number;
+  episodeUrl: string;
+  releaseDate: string;
+}
+
+interface Season {
+  seasonNumber: number;
+  episodes: Episode[];
+}
+
+interface Series {
+  title: string;
+  description: string;
+  genres: { value: string; label: string }[];
+  releaseDate: string;
+  rating: string;
+  cast: { value: string; label: string }[];
+  director: { value: string; label: string } | null;
+  languages: { value: string; label: string }[];
+  poster: string;
+  trailerUrl: string;
+  availableForStreaming: boolean;
+  seasons: Season[];
+}
 
 const AddSeries: React.FC = () => {
   const navigate = useNavigate();
-
-  interface Episode {
-    title: string;
-    description: string;
-    duration: string;
-    episodeNumber: number;
-    episodeUrl: string;
-    releaseDate: string;
-  }
-
-  interface Season {
-    seasonNumber: number;
-    episodes: Episode[];
-  }
-
-  interface Series {
-    title: string;
-    description: string;
-    genres: { value: string; label: string }[];
-    releaseDate: string;
-    rating: string;
-    cast: { value: string; label: string }[];
-    director: { value: string; label: string } | null;
-    poster: string;
-    trailerUrl: string;
-    availableForStreaming: boolean;
-    seasons: Season[];
-  }
-
   const [series, setSeries] = useState<Series>({
     title: "",
     description: "",
@@ -78,15 +74,14 @@ const AddSeries: React.FC = () => {
     rating: "",
     cast: [],
     director: null,
+    languages: [],
     poster: "",
     trailerUrl: "",
     availableForStreaming: false,
     seasons: [],
   });
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value, type, checked } = e.target as HTMLInputElement;
     setSeries((prev) => ({ ...prev, [name]: type === "checkbox" ? checked : value }));
   };
@@ -98,41 +93,35 @@ const AddSeries: React.FC = () => {
     }));
   };
 
-interface Episode {
-    title: string;
-    description: string;
-    duration: string;
-    episodeNumber: number;
-    episodeUrl: string;
-}
-
-interface Season {
-    seasonNumber: number;
-    episodes: Episode[];
-}
-
-const addEpisode = (seasonIndex: number) => {
+  const addEpisode = (seasonIndex: number) => {
     setSeries((prev) => {
-        const updatedSeasons: Season[] = [...prev.seasons];
-        updatedSeasons[seasonIndex].episodes.push({
+      const updatedSeasons = [...prev.seasons];
+      updatedSeasons[seasonIndex] = {
+        ...updatedSeasons[seasonIndex],
+        episodes: [
+          ...updatedSeasons[seasonIndex].episodes,
+          {
             title: "",
             description: "",
             duration: "",
             episodeNumber: updatedSeasons[seasonIndex].episodes.length + 1,
             episodeUrl: "",
             releaseDate: "",
-            
-        });
-        return { ...prev, seasons: updatedSeasons };
+          },
+        ],
+      };
+      return { ...prev, seasons: updatedSeasons };
     });
-};
-const updateEpisode = (seasonIndex: number, episodeIndex: number, field: keyof Episode, value: any) => {
+  };
+
+  const updateEpisode = (seasonIndex: number, episodeIndex: number, field: keyof Episode, value: any) => {
     setSeries((prev) => {
       const updatedSeasons = [...prev.seasons];
       (updatedSeasons[seasonIndex].episodes[episodeIndex][field] as any) = value;
       return { ...prev, seasons: updatedSeasons };
     });
   };
+
   const handleSave = () => {
     console.log("Series saved:", series);
   };
@@ -140,14 +129,14 @@ const updateEpisode = (seasonIndex: number, episodeIndex: number, field: keyof E
   return (
     <div className="container1">
       <div className="add-series-container">
-        <h2>Add Series</h2>
+      <h2>Add Series</h2>
         <div className="fields-container">
           <div className="fields1">
             <label>Title</label>
-            <input type="text" name="title" value={series.title} onChange={handleChange} placeholder="Enter series title" />
+            <input type="text" name="title" value={series.title} onChange={handleChange} placeholder="Enter series title" autoComplete="off"/>
 
             <label>Description</label>
-            <textarea name="description" value={series.description} onChange={handleChange} placeholder="Enter series details" />
+            <textarea name="description" value={series.description} onChange={handleChange} placeholder="Enter series details" autoComplete="off"/>
 
             <label>Genres</label>
             <Select isMulti options={genreOptions} onChange={(selected) => setSeries({ ...series, genres: selected as { value: string; label: string }[] })} styles={{
@@ -165,7 +154,11 @@ const updateEpisode = (seasonIndex: number, episodeIndex: number, field: keyof E
                     ...provided,
                     backgroundColor: "#6da3d6",
                     color: "white"
-                })
+                }),
+                input: (provided) => ({
+                  ...provided,
+                  color: "white"
+              })
               }} />
 
             <label>Release Date</label>
@@ -197,7 +190,11 @@ const updateEpisode = (seasonIndex: number, episodeIndex: number, field: keyof E
                     ...provided,
                     backgroundColor: "#6da3d6",
                     color: "white"
-                })
+                }),
+                input: (provided) => ({
+                  ...provided,
+                  color: "white"
+              })
               }}
             />
             <label>Director</label>
@@ -222,7 +219,39 @@ const updateEpisode = (seasonIndex: number, episodeIndex: number, field: keyof E
                     ...provided,
                     backgroundColor: "#6da3d6",
                     color: "white"
-                })
+                }),
+                input: (provided) => ({
+                  ...provided,
+                  color: "white"
+              })
+              }}
+            />
+            <label>Language</label>
+            <Select
+              options={languageOptions}
+              value={series.languages}
+              onChange={(selected: any) => setSeries((prev) => ({ ...prev, languages: selected }))}
+              placeholder="Select languages"
+              className="select"
+              styles={{
+                control: (provided) => ({
+                  ...provided,
+                  backgroundColor: "rgba(93, 94, 95, 0.3)",
+                  border: "none",
+                }),
+                option: (provided) => ({
+                  ...provided,
+                  backgroundColor: "#333",
+                  color: "white",
+                }),
+                singleValue: (provided) => ({
+                  ...provided,
+                  color: "white", // ✅ Ensures selected text is white
+                }),
+                input: (provided) => ({
+                  ...provided,
+                  color: "white",
+                }),
               }}
             />
             <label>Poster</label>
@@ -232,28 +261,28 @@ const updateEpisode = (seasonIndex: number, episodeIndex: number, field: keyof E
             <input type="file" name="trailerUrl" value={series.trailerUrl} onChange={handleChange} />
           </div>
         </div>
-
+        <div className="season-heading-container">
         <h3 className="season-header">Seasons</h3>
+        <button className="season-add-btn" onClick={addSeason}>Add Season</button>
+        </div>
         <div className="seasons-container">
           {series.seasons.map((season, seasonIndex) => (
             <div key={seasonIndex} className="season">
-              <div className="season-header">
+              <div className="episode-header">
                 <h4>Season {season.seasonNumber}</h4>
-                <button className="add-btn" onClick={() => addEpisode(seasonIndex)}>Add Episode</button>
+                <button className="episode-add-btn" onClick={() => addEpisode(seasonIndex)}>Add Episode</button>
               </div>
               <div className="episodes-container">
                 {season.episodes.map((episode, episodeIndex) => (
                   <div key={episodeIndex} className="episode-container">
-                    <div className="episode-header">
-                      <h5>Episode {episode.episodeNumber}</h5>
-                    </div>
-                    <label>Title</label>
-                    <input type="text" placeholder="Episode title" onChange={(e) => updateEpisode(seasonIndex, episodeIndex, "title", e.target.value)} />
-                    <label>Description</label>
-                    <textarea placeholder="Episode description" onChange={(e) => updateEpisode(seasonIndex, episodeIndex, "description", e.target.value)} />
-                    <label>Duration</label>
-                    <input type="number" placeholder="Duration in minutes" onChange={(e) => updateEpisode(seasonIndex, episodeIndex, "duration", e.target.value)}/>
-                    <label>Episode</label>
+                    <h5 className="episode-number">Episode {episode.episodeNumber}</h5>
+                    <label className="episode-label">Title</label>
+                    <input type="text" placeholder="Episode title" onChange={(e) => updateEpisode(seasonIndex, episodeIndex, "title", e.target.value)} autoComplete="off"/>
+                    <label className="episode-label">Description</label>
+                    <textarea placeholder="Episode description" onChange={(e) => updateEpisode(seasonIndex, episodeIndex, "description", e.target.value)} autoComplete="off"/>
+                    <label className="episode-label">Duration</label>
+                    <input type="number" placeholder="Duration in minutes" onChange={(e) => updateEpisode(seasonIndex, episodeIndex, "duration", e.target.value)} min="0"/>
+                    <label className="episode-label">Episode</label>
                     <input type="file" placeholder="Enter episode URL" onChange={(e) => updateEpisode(seasonIndex, episodeIndex, "episodeUrl", e.target.value)} />
                   </div>
                 ))}
@@ -262,9 +291,9 @@ const updateEpisode = (seasonIndex: number, episodeIndex: number, field: keyof E
           ))}
         </div>
         <div className="buttons-container">
-          <button className="add-btn" onClick={addSeason}>Add Season</button>
+          <button className="close-btn2" onClick={() => navigate("/admin-dashboard-series")}>Close</button>
+          
           <button className="save-btn" onClick={handleSave}>Save</button>
-          <button className="close-btn" onClick={() => navigate("/admin-dashboard-series")}>Close</button>
         </div>
       </div>
     </div>

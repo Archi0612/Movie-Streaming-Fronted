@@ -17,7 +17,12 @@ import AddMovie from "../pages/Admin/AddMovie";
 import AdminDashboardSeries from "../pages/Admin/AdminDashboardSeries";
 import AddSeries from "../pages/Admin/AddSeries";
 import HeroSection from "../components/HeroSection";
+import Success from "../pages/Success/Success";
+import Cancel from "../pages/Cancel/Cancel";
 
+import { Bounce, ToastContainer } from "react-toastify";
+import GenrePage from "../pages/GenrePage";
+import Search from "../pages/Search";
 const AppRoute: React.FC = () => {
   return (
     <BrowserRouter>
@@ -28,20 +33,33 @@ const AppRoute: React.FC = () => {
           <Route path="/signup" element={<Signup />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/otp" element={<OtpCode/>}/>
+          <Route path="/otp" element={<OtpCode />} />
         </Route>
         <Route element={<MainLayout />}>
-          <Route path="/home" element={<Home />} />
+          <Route path="/home" element={<HeroSection />} />
+          <Route path="/search" element={<Search/>}/>
           <Route path="/profile-page" element={<ProfilePage />} />
           <Route path="/contact-us" element={<ContactUs />} />
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
+          <Route path="/movies" element={<Home />} />
+          <Route path="/feedback" element={<Feedback />} />
+          <Route path="/add-movie" element={<AddMovie />} />
+          <Route path="/admin-dashboard-series" element={<AdminDashboardSeries />} />
+          <Route path="/add-series" element={<AddSeries />} />
+          <Route path="/success" element={<Success />} />
+          <Route path="/cancel" element={<Cancel />} />
+
+
           <Route path="/admin-dashboard" element={<AdminDashboard/>}/>
           <Route path="/movies" element={<HeroSection/>}/> 
+          <Route path="/genres" element={<GenrePage/>}/>
           <Route path="/feedback" element={<Feedback/>}/>
           <Route path="/add-movie" element={<AddMovie/>}/> 
           <Route path="/admin-dashboard-series" element={<AdminDashboardSeries/>}/>
           <Route path="/add-series" element={<AddSeries/>} />
         </Route>
       </Routes>
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="dark" transition={Bounce} />
     </BrowserRouter>
   );
 };

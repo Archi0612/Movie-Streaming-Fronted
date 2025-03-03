@@ -11,7 +11,15 @@ const genreOptions = [
   { value: "thriller", label: "Thriller" },
   { value: "sci-fi", label: "Sci-Fi" },
 ];
-
+const languageOptions = [
+  { value: "hindi", label: "Hindi" },
+  { value: "english", label: "English" },
+  { value: "gujarati", label: "Gujarati" },
+  { value: "tamil", label: "Tamil" },
+  { value: "telugu", label: "Telugu" },
+  { value: "malayalam", label: "Malayalam" },
+  { value: "kannada", label: "Kannada" },
+];
 const fetchCastOptions = (inputValue: string): Promise<{ value: string; label: string }[]> => {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -54,6 +62,7 @@ const AddMovie: React.FC = () => {
     trailerUrl: "",
     movieUrl: "",
     availableForStreaming: false,
+    languages:[]
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -79,10 +88,10 @@ const AddMovie: React.FC = () => {
         <div className="fields-container">
           <div className="fields1">
             <label>Title</label>
-            <input type="text" name="title" value={movie.title} onChange={handleChange} placeholder="Enter movie title" />
+            <input type="text" name="title" value={movie.title} onChange={handleChange} placeholder="Enter movie title" autoComplete="off" />
 
             <label>Description</label>
-            <textarea name="description" value={movie.description} onChange={handleChange} placeholder="Enter movie details" />
+            <textarea name="description" value={movie.description} onChange={handleChange} placeholder="Enter movie details"className="text-desc" autoComplete="off" />
 
             <label>Release Date</label>
             <input type="date" name="releaseDate" value={movie.releaseDate} onChange={handleChange}  placeholder="Enter movie release date"/>
@@ -111,12 +120,16 @@ const AddMovie: React.FC = () => {
                     ...provided,
                     backgroundColor: "#6da3d6",
                     color: "white"
+                }),
+                input: (provided) => ({
+                    ...provided,
+                    color: "white"
                 })
               }}
             />
 
             <label>Duration (minutes)</label>
-            <input type="number" name="duration" value={movie.duration} onChange={handleChange} placeholder="Enter duration"/>
+            <input type="number" name="duration" value={movie.duration} onChange={handleChange} placeholder="Enter duration" min="0"/>
           </div>
 
           <div className="fields2">
@@ -131,6 +144,7 @@ const AddMovie: React.FC = () => {
               onChange={(selected:any) => setMovie((prev) => ({ ...prev, cast: selected }))}
               placeholder="Select movie cast"
               styles={{
+                
                 control: (provided) => ({
                   ...provided,
                   backgroundColor: "rgba(93, 94, 95, 0.3)",
@@ -144,6 +158,10 @@ const AddMovie: React.FC = () => {
                 multiValue: (provided) => ({
                     ...provided,
                     backgroundColor: "#6da3d6",
+                    color: "white"
+                }),
+                input: (provided) => ({
+                    ...provided,
                     color: "white"
                 })
               }}
@@ -171,10 +189,41 @@ const AddMovie: React.FC = () => {
                     ...provided,
                     backgroundColor: "#6da3d6",
                     color: "white"
+                }),
+                input: (provided) => ({
+                    ...provided,
+                    color: "white"
                 })
               }}
             />
-
+            <label>Language</label>
+            <Select
+              options={languageOptions}
+              value={movie.languages}
+              onChange={(selected: any) => setMovie((prev) => ({ ...prev, languages: selected }))}
+              placeholder="Select languages"
+              className="select"
+              styles={{
+                control: (provided) => ({
+                  ...provided,
+                  backgroundColor: "rgba(93, 94, 95, 0.3)",
+                  border: "none",
+                }),
+                option: (provided) => ({
+                  ...provided,
+                  backgroundColor: "#333",
+                  color: "white",
+                }),
+                singleValue: (provided) => ({
+                  ...provided,
+                  color: "white", // ✅ Ensures selected text is white
+                }),
+                input: (provided) => ({
+                  ...provided,
+                  color: "white",
+                }),
+              }}
+            />
             <label>Poster</label>
             <input type="file" name="poster" value={movie.poster} onChange={handleChange} />
 
@@ -183,8 +232,8 @@ const AddMovie: React.FC = () => {
           </div>
         </div>
         <div className="buttons-container">
-          <button className="button save-btn" onClick={handleSave}>Save</button>
-          <button className="button close-btn" onClick={handleClose}>Close</button>
+          <button className="close-btn1" onClick={handleClose}>Close</button>
+          <button className="save-btn" onClick={handleSave}>Save</button>
         </div>
       </div>
     </div>
