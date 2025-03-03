@@ -112,7 +112,13 @@
         color: #ffffff !important;
     }
 
-   
+    /* .movie-title {
+        font-size: 1.7rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        text-align: left;
+    } */
+
     /* Swiper Navigation */
     .swiper-button-next,
 .swiper-button-prev {
@@ -164,12 +170,21 @@
 
     @media (max-width: 768px) {
         .swiper-button-next, .swiper-button-prev {
-            font-size: 16px;
+            font-size: 18px !important;
+        }
+        .hero-section{
+            padding-left: 2px;
+        }
+        .movie-slider-container{
+            margin-left: 2px;
+        }
+        .movie-lists,.movie-category{
+            margin-left: 2px !important;
         }
 
         .swiper-button-next::after,
         .swiper-button-prev::after {
-            font-size: 16px !important;
+            font-size: 18px !important;
         }
         .swiper-button-prev::after{
             top:50%;
@@ -192,12 +207,12 @@
 
     @media (max-width: 480px) {
         .swiper-button-next, .swiper-button-prev {
-            font-size: 14px;
+            font-size: 18px !important;
         }
 
         .swiper-button-next::after,
         .swiper-button-prev::after {
-            font-size: 14px !important; 
+            font-size: 18px !important; 
         }
 
         .movie-category-swiper .swiper-slide {
