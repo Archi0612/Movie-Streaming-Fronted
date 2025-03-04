@@ -1,5 +1,5 @@
 import StripeCheckout from 'react-stripe-checkout'
-import { payment } from '../state/actions/paymentAction';
+import { payment } from '../redux/actions/paymentAction';
 import { useDispatch, useSelector } from 'react-redux'
 
 export default function Checkout({ subscriptionType, total }: any) {

@@ -1,5 +1,6 @@
 .footer-container {
     background-color: var(--background-color);
+    margin-bottom: 1rem;
   }
   
   .footer-content {
@@ -23,7 +24,7 @@
   .footer-title {
     color: var(--primary-color);
     margin-bottom: 1.75rem;
-    font-size: 1.9rem;
+    font-size: 2.2rem;
     font-weight: 600;
     
 
