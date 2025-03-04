@@ -2,26 +2,24 @@
 .gen-container{
     background-color: var(--background-color);
     min-height: 100vh;
+    /* margin-left: 150px; */
 }
 .gen-container h2{
-    padding-top: 1.2rem;
-}
-.gen-container h2:hover{
-    text-shadow: 0.1rem 0.1rem 0.5rem var( --secondary-color);
+    padding-top: 10px;
 }
 .genres-container {
-    margin: 0 1.2rem 0 10rem;
+    margin-left: 100px;
     display: grid;
-    grid-template-columns: repeat(4,minmax(0rem,1fr));
-    gap: 2rem;
-    padding: 1.5rem;
+    grid-template-columns: repeat(5,minmax(200px,1fr));
+    gap: 15px;
+    /* padding: 10px; */
+    padding: 2rem 3rem;
     justify-content: center;
     /* background-color: var(--background-color); */
   }
-
-@media (max-width: 1025px) {
+  @media (max-width: 1025px) {
     .genres-container {
-        grid-template-columns: repeat(3, minmax(0rem, 1fr));
+        grid-template-columns: repeat(3, minmax(200px, 1fr));
         padding: 2rem;
     }
 }
@@ -29,36 +27,43 @@
 /* For tablets (768px) */
 @media (max-width: 768px) {
     .genres-container {
-        grid-template-columns: repeat(2, minmax(12rem, 1fr));
-        /* padding: 1.5rem; */
-        margin: 0;
+        grid-template-columns: repeat(3, minmax(180px, 1fr));
+        padding: 1.5rem;
     }
 }
 
 /* For large phones (480px) */
 @media (max-width: 480px) {
     .genres-container {
-        grid-template-columns: repeat(1, minmax(10rem, 1fr));
-        /* padding: 1rem 0.5rem; */
-        margin: 1rem;
+        grid-template-columns: repeat(1, minmax(150px, 1fr));
+        padding: 1rem;
+        margin-left: 80px;
     }
 
     .genre-card {
-        /* width: 100%; */
-        object-fit: cover;
+        width: 100%;
         height: 160px;
+    }
+
+    .genre-title {
+        font-size: 16px;
     }
 }
 
 /* For small phones (368px) */
 @media (max-width: 368px) {
     .genres-container {
-        grid-template-columns: repeat(1, minmax(0, 1fr));
-        /* padding: 0.rem; */
+        grid-template-columns: repeat(1, minmax(150px, 1fr));
+        padding: 0.8rem;
+        margin-left: 70px;
     }
 
     .genre-card {
         width: 100%;
+        height: 140px;
     }
 
+    .genre-title {
+        font-size: 14px;
+    }
 }

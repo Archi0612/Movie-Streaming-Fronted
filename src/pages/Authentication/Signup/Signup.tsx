@@ -8,11 +8,7 @@ import { FaEye, FaEyeSlash, FaEdit } from "react-icons/fa";
 import { generateOTP } from "../../../services/apis/authService";
 import { Errors, UserFormData, OtpState } from "../../../interfaces/movie.interface";
 import { useDispatch } from "react-redux";
-<<<<<<< HEAD
 import { registerUser } from "../../../redux/slices/user/userSlice";
-=======
-import { registerUser } from "../../../redux/actions/userAction";
->>>>>>> 9526a8c94b6d1a98338de3a30a403784be2b3312
 
 
 const Signup: React.FC = () => {

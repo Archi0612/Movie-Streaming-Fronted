@@ -37,7 +37,7 @@ export const loginUser = createAsyncThunk<AuthResponse, Pick<User, "email" | "pa
     async (userFormData, { rejectWithValue }) => {
         try {
             const config = { headers: { "Content-Type": "application/json" }, withCredentials: true };
-            console.log(userFormData, "here is the user data")
+            console.log(userFormData, "here is the user data in user slice")
             const response = await axios.post<AuthResponse>(`${API_BASE_URL}/auth/login`, userFormData, config);
 
             localStorage.setItem("currentUser", JSON.stringify(response.data.userData));

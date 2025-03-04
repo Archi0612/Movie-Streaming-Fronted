@@ -14,12 +14,8 @@
   padding-top: 2rem;
   z-index: 1000;
 }
-<<<<<<< HEAD
 
 .bottom-nav {
-=======
-.bottom-nav, .sparks-popup {
->>>>>>> 9526a8c94b6d1a98338de3a30a403784be2b3312
   display: none;
 }
 
@@ -31,14 +27,14 @@
 .sidebar-list {
   list-style: none;
   padding: 0;
-  width: 8rem;
+  width: 7.5vw;
 }
 
 .sidebar-logo {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* padding: 15px 0; */
+  padding: 15px 0;
 }
 
 .logo-1 {
@@ -46,7 +42,7 @@
   width: 3rem;
   height: auto;
   top: 1.5rem;
-  left: 1.5rem;
+  left: 2.1rem;
 }
 
 .sidebar li {
@@ -70,7 +66,7 @@
 }
 
 .Link-text {
-  margin-left: 0.4rem;
+  margin-left: 10px;
 }
 
 @media (max-width:1080px) {
