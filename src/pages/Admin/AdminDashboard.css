@@ -4,7 +4,7 @@
     background-color: #021c2c;
   }
   .content {
-    margin-left: 260px;
+    margin-left: 140px;
     padding: 20px;
     flex-grow: 1;
   }
@@ -180,5 +180,10 @@
     --ag-row-hover-color:#0059b3;
     --ag-row-spacing: 5px;
   }
-  
+  @media screen  and (max-width:480px) {
+    .content{
+      margin-left: 0px;
+    }
+    
+  }
   

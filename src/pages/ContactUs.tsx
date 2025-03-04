@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './ContactUs.css';
 import { FaFacebook, FaXTwitter, FaSquareInstagram, FaYoutube } from "react-icons/fa6";
+import {toast} from "react-toastify"
 
 const ContactUs: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -19,8 +20,8 @@ const ContactUs: React.FC = () => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(formData);
-        alert('Message sent successfully!');
+        toast.success("Thanks! We'll respond shortly");  
+    
     };
 
     const [activeQuestion, setActiveQuestion] = useState<number | null>(null);

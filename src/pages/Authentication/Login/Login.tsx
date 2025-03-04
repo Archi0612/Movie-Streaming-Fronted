@@ -3,7 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import img1 from "../../../assets/login-64.png";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
+<<<<<<< HEAD
 import { loginUser } from "../../../redux/slices/user/userSlice";
+=======
+import { loginUser } from "../../../redux/actions/userAction";
+>>>>>>> 9526a8c94b6d1a98338de3a30a403784be2b3312
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 const Login = () => {
