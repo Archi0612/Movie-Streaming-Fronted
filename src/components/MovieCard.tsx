@@ -18,7 +18,7 @@ const MovieCard = ({ title, posterPath, overview, releaseDate, voteAverage, lang
     } else if (index + 0.5 < rating) {
       return <FaStarHalfAlt key={index} className="star"  />;
     } else {
-      return <FaStar key={index} className="star-gray" />;
+      return <FaStar key={index} size={23} className="star-gray" />;
     }
   });
 
