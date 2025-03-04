@@ -78,7 +78,7 @@ input:disabled{
 .edit-icon{
   width: 3rem;
   padding: 0.3rem;
-  background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+  background: none;
   border: var(--primary-color);
   border-radius: 0.2rem;
   color: var(--text-color);
@@ -86,12 +86,10 @@ input:disabled{
   position: relative;
 }
 .edit-icon:hover{
-  /* background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)); */
   background: none;
   size: 20px;
-  /* color: var(--text-color); */
   color: var(--primary-color);
-  box-shadow: 0 6px 30px var(--hover-shadow);
+  text-shadow: 0 6px 30px var(--hover-shadow);
 }
 .error {
   color: rgb(231, 55, 55);
