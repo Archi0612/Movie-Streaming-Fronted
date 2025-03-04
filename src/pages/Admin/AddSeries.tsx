@@ -136,7 +136,7 @@ const AddSeries: React.FC = () => {
             <input type="text" name="title" value={series.title} onChange={handleChange} placeholder="Enter series title" autoComplete="off"/>
 
             <label>Description</label>
-            <textarea name="description" value={series.description} onChange={handleChange} placeholder="Enter series details" autoComplete="off" className="text-area"/>
+            <textarea name="description" value={series.description} onChange={handleChange} placeholder="Enter series details" autoComplete="off"/>
 
             <label>Genres</label>
             <Select isMulti options={genreOptions} onChange={(selected) => setSeries({ ...series, genres: selected as { value: string; label: string }[] })} styles={{
@@ -279,7 +279,7 @@ const AddSeries: React.FC = () => {
                     <label className="episode-label">Title</label>
                     <input type="text" placeholder="Episode title" onChange={(e) => updateEpisode(seasonIndex, episodeIndex, "title", e.target.value)} autoComplete="off"/>
                     <label className="episode-label">Description</label>
-                    <textarea placeholder="Episode description" onChange={(e) => updateEpisode(seasonIndex, episodeIndex, "description", e.target.value)} autoComplete="off" className="text-area"/>
+                    <textarea placeholder="Episode description" onChange={(e) => updateEpisode(seasonIndex, episodeIndex, "description", e.target.value)} autoComplete="off"/>
                     <label className="episode-label">Duration</label>
                     <input type="number" placeholder="Duration in minutes" onChange={(e) => updateEpisode(seasonIndex, episodeIndex, "duration", e.target.value)} min="0"/>
                     <label className="episode-label">Episode</label>

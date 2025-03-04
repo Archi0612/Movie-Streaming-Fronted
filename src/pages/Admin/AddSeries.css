@@ -216,10 +216,6 @@ textarea {
   .episode-label{
     margin-top: 3px;
   }
-  .text-area{
-    resize: none;
-    height:120px !important;
-  }
 /* RESPONSIVE DESIGN */
 @media (max-width: 768px) {
     .fields-container {

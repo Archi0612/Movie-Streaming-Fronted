@@ -6,7 +6,6 @@ import Shimmer from "../components/shimmerUI/Shimmer";
 import MoviesGrid from "../components/MoviesGrid";
 import { GoSearch } from "react-icons/go";
 const Search: React.FC = () => {
-
     const [trendingMovies, setTrendingMovies] = useState<Movie[]>([]);
     const[isLoading,setIsLoading]=useState(true);
       useEffect(() => {
@@ -24,8 +23,6 @@ const Search: React.FC = () => {
         };
         fetchMovies();
       }, []);
-
-
     
   return (
     <>
@@ -36,11 +33,19 @@ const Search: React.FC = () => {
         {/* <Sidebar/> */}
       <div className="search-bar">
         <GoSearch className="search-icon" size="30px" color="#fff"/>
-        <input type="text" placeholder="Movies, shows and more" />
+        <input  type="text" placeholder="Movies, shows and more" />
       </div>
       </div>
      
       <MoviesGrid movies={trendingMovies} title="Trending in India" />
+      {/* <div className="trending-grid">
+        {trendingMovies.map((movie, index) => (
+          <div key={index} className="movie-card">
+            <img src={movie.image} alt={movie.title} />
+            <p>{movie.title}</p>
+          </div>
+        ))}
+      </div> */}
     </div>
     )}
     </>

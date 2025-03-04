@@ -53,18 +53,10 @@ const Sidebar: React.FC = () => {
         onMouseLeave={() => setIsExpanded(false)}
       >
         <div className="sidebar-logo">
-          <img src={logo} className="logo-1" onClick={() => handleItemClick("/home")} 
-          onMouseEnter={() => setIsExpanded(true)}
-          onMouseLeave={() => setIsExpanded(false)}
-          />
+          <img src={logo} className="logo-1" onClick={() => handleItemClick("/home")} />
         </div>
 
-
-        <ul className={`sidebar-list ${isExpanded ? "expanded" : ""}` }
-         onMouseEnter={() => setIsExpanded(true)}
-         onMouseLeave={() => setIsExpanded(false)}
-         >
-          
+        <ul className={`sidebar-list ${isExpanded ? "expanded" : ""}`}>
           {menuItems.map((item) => {
             const IconComponent = item.icon;
             return (
@@ -73,7 +65,7 @@ const Sidebar: React.FC = () => {
                 onClick={() => handleItemClick(item.path)}
                 className={activeItem === item.path ? "active" : ""}
               >
-                <IconComponent size={24} />
+                <IconComponent size={20} />
                 {isExpanded && <span className="Link-text">{item.name}</span>}
               </li>
             );
