@@ -1,6 +1,5 @@
 .main-watchlist {
     height: 51vh;
-    width: 43vw;
     background-color: #001f3f;
     border-radius: 10px;
     display: flex;
@@ -29,7 +28,7 @@
     overflow-x: hidden;
     /* Prevent unnecessary horizontal scroll */
     scroll-behavior: smooth;
-    max-height: 43vh;
+    max-height: 50vh;
     /* Ensure scrolling works within this height */
 }
 
@@ -47,6 +46,11 @@
     /* Ensures each item takes full container width */
     min-height: 80px;
     /* Ensures proper spacing */
+}
+
+.watchlist-headingh3 {
+    font-size: 1.3rem;
+    color: var(--text-color);
 }
 
 .watchlist-img {
@@ -85,4 +89,39 @@
 .watchlist-button button:hover {
     background-color: #0056b3;
     transform: scale(1.05);
+}
+
+@media screen and (max-width: 768px) {
+    .main-watchlist {
+        width: 20rem;
+    }
+
+    .watchlist {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .watchlist-info {
+        font-size: 12px;
+        width: 10rem;
+    }
+}
+
+
+@media screen and (max-width: 860px) {
+    .main-watchlist {
+        width: 22rem;
+    }
+
+    .watchlist {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .watchlist-info {
+        font-size: 12px;
+        width: 10rem;
+    }
 }

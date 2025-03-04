@@ -1,4 +1,4 @@
-import "./Cancel.css";
+import "./paymentCancel.css";
 
 const Cancel = () => {
     return (

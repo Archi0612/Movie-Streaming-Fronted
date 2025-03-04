@@ -4,16 +4,18 @@ html {
 
 .profilepagecontainer {
     width: 100vw;
-    height: 100vh;
+    height: auto;
     background-color: #00131f;
     border: none;
 }
 
+.userLogo {
+    height: 20rem;
+}
+
+
 .internalProfilePage {
-    flex-grow: 1;
     margin-left: 6vw;
-    width: 94vw;
-    height: 100vh;
     background-color: #00131f;
     display: flex;
     flex-direction: column;
@@ -36,36 +38,32 @@ html {
     width: 89vw;
     height: 40vh;
     flex-wrap: wrap;
-    margin: 4rem 0;
+    margin: 2rem 0;
 }
 
-.profile-card {
-    border: 1px solid grey;
-}
-
-.sec-profilecard {
-    height: 65%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    color: white;
-    padding: 10px;
-}
 
 .heading {
     display: flex;
     flex-direction: row;
-    width: 35vw;
+    width: 48vw;
     justify-content: space-between;
     margin-top: 6px;
-    margin-left: 15px;
+    /* margin-left: 15px; */
 }
 
-.heading h3 {
-    color: white;
+.heading-personalinfo {
+    font-size: 1.3rem;
+    color: var(--text-color);
 }
 
-.edit-btn {
+.edit-subscribe {
+    display: flex;
+    width: 11rem;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.editProfile-btn {
     padding: 8px 15px;
     background-color: #007bff;
     color: white;
@@ -76,12 +74,13 @@ html {
     transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
-.edit-btn :hover {
+.editProfile-btn:hover {
     background-color: #0056b3;
     transform: scale(1.05);
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.4);
 }
 
-.subscribe-btn {
+.subscribeProfile-btn {
     padding: 8px 15px;
     background-color: #007bff;
     color: white;
@@ -92,86 +91,56 @@ html {
     transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
-.subscribe-btn :hover {
+.subscribeProfile-btn:hover {
     background-color: #0056b3;
     transform: scale(1.05);
+    box-shadow: 0px 4px 10px rgba(0, 123, 255, 0.4);
 }
 
 .primaryContainer {
     width: 25vw;
-    height: 30%;
+    min-height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: white;
-    font-size: 1rem;
-    font-weight: bold;
-    color: black;
-    position: relative;
 }
-
-.img-username {
-    width: 16vw;
-    height: 16vh;
-    min-height: auto;
-    min-width: auto;
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-
-.img-username img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
 
 .profile-section {
-    width: 40vw;
+    width: 51vw;
     border-radius: 1rem;
     padding: 0.625rem;
     background-color: #003366;
 }
 
-.profile-info {
+.profileInfo-container {
     display: flex;
-    flex-direction: row;
     justify-content: flex-start;
-    align-items: flex-start;
-    /* Ensures labels and details align */
-    margin-top: 0.625rem;
-    gap: 1rem;
-    /* Adds space between titles and details */
+    align-items: center;
+    margin-left: 1rem;
+    height: 20rem;
 }
 
-.profile-titles {
-    display: flex;
-    flex-direction: column;
-    width: 15vw;
-}
-
-.profile-titles label {
-    margin: 0.625rem 0;
-    font-weight: 100;
-    color: darkgray;
-}
-
-.profile-details {
-    display: flex;
-    flex-direction: column;
-    font-weight: bold;
-    width: 40vw;
-}
-
-.profile-details span {
-    margin: 0.625rem 0;
+.profile-table {
+    width: 30rem;
+    border-collapse: collapse;
     color: white;
 }
 
+.profile-table th,
+.profile-table td {
+    padding: 10px;
+    font-size: 20px;
+}
 
+.profile-table th {
+    text-align: left;
+    font-weight: bold;
+    color: white;
+}
+
+.profile-table td {
+    text-align: left;
+}
 
 .profilepage-content {
     display: flex;
@@ -181,19 +150,22 @@ html {
     width: 89vw;
     height: 55vh;
     flex-wrap: wrap;
+    border-bottom: 2px solid grey;
 }
 
 .profilepage-watchlist,
 .profilepage-likedContent {
-    width: 43vw;
+    width: auto;
     height: 55vh;
     border-radius: 1rem;
 }
 
+/* /////////////////////////////////////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 768px) {
     .profilepagecontainer {
         position: relative;
         top: 0;
+        width: auto;
         transform: none;
         padding: 1rem;
     }
@@ -205,17 +177,24 @@ html {
         width: 100%;
     }
 
-    .profile-card {
-        width: 90%;
-        height: auto;
-        margin-bottom: 1rem;
-
-    }
-
     .profile-section {
-        width: 90%;
+        width: 22rem;
         padding: 1rem;
     }
+
+    .profileInfo-container {
+        margin-left: 0px;
+    }
+
+    .profile-table {
+        width: 18rem;
+    }
+
+    .profile-table th,
+    .profile-table td {
+        font-size: 15px;
+    }
+
 
     .profile-info {
         flex-direction: column;
@@ -229,20 +208,73 @@ html {
     }
 
     .profilepage-content {
+        display: flex;
         flex-direction: column;
         align-items: center;
         width: 100%;
         height: auto;
+        flex-wrap: nowrap;
+
     }
 
     .profilepage-watchlist,
     .profilepage-likedContent {
-        width: 90%;
         height: auto;
+        width: auto;
         margin-bottom: 1rem;
     }
 
+    .editProfile-btn,
+    .subscribeProfile-btn {
+        font-size: 10px;
+    }
+
+
+    .heading {
+        width: 20rem
+    }
+
+    .heading-personalinfo {
+        font-size: 16px;
+        align-content: center;
+    }
+
+    .internalProfilePage {
+        margin-left: 0.5px;
+    }
+
+    .userLogo {
+        height: 10rem;
+        margin-bottom: 1rem;
+    }
+
+    .edit-subscribe {
+        width: 9rem;
+    }
+
+
 }
+
+
+@media screen and (max-width: 860px) {
+
+    .userLogo {
+        height: 17rem;
+    }
+
+    .profile-section {
+        max-height: 26rem;
+    }
+
+    .profileCard-information {
+        height: auto;
+    }
+}
+
+
+
+/* /////////////////////////////////////////////////////////////////////////////////////////////////// */
+
 
 .modal-overlay {
     position: fixed;
@@ -258,7 +290,7 @@ html {
 }
 
 .modal1 {
-    background-color:  rgba(26,26,45);
+    background-color: rgba(26, 26, 45);
     width: 40%;
     max-width: 500px;
     padding: 2rem;
@@ -286,6 +318,7 @@ html {
     margin-top: 0.8rem;
     color: #333;
 }
+
 .country-label {
     display: block !important;
 }
@@ -303,14 +336,16 @@ html {
 
 /* Style dropdown menu */
 .country-select option {
-    max-height: 30px; /* Adjust this based on font size */
+    max-height: 30px;
+    /* Adjust this based on font size */
 }
 
 /* Limit dropdown height and enable scrolling */
 .country-select:focus {
     overflow-y: auto !important;
     height: auto !important;
-    max-height: 100px !important; /* Adjust to show ~7 items */
+    max-height: 100px !important;
+    /* Adjust to show ~7 items */
 }
 
 
@@ -353,7 +388,7 @@ html {
 
 .modal-buttons button:first-child:hover {
     background: rgba(128, 128, 128, 0.438);
-    
+
 }
 
 
@@ -404,9 +439,9 @@ html {
 .modal1 select:focus {
     outline: none;
     border: 2px solid #007bff;
-<<<<<<< HEAD
-    
+
 }
+
 .modal1 select {
     color: white !important;
     background: rgba(93, 94, 95, 0.3) !important;
@@ -415,8 +450,10 @@ html {
 }
 
 .modal1 select option {
-    color: white !important; /* Ensures text color stays white */
-    background: rgba(30, 30, 30, 0.8) !important; /* Darker background */
+    color: white !important;
+    /* Ensures text color stays white */
+    background: rgba(30, 30, 30, 0.8) !important;
+    /* Darker background */
 }
 
 /* 
@@ -514,7 +551,3 @@ css for subscription modal  */
 .subscription-card button:hover {
     background: #0056b3;
 }
-=======
-
-}
->>>>>>> d0392f8d88bb521c598f45cb1c09439ae8d72f82
