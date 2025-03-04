@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: column;
     height: 51vh;
-    width: 43vw;
     background-color: #001f3f;
     border-radius: 10px;
 }
@@ -68,6 +67,11 @@
     width: 25vw;
 }
 
+.likedList-headingh3 {
+    font-size: 1.3rem;
+    color: var(--text-color);
+}
+
 .likedlist-button {
     display: flex;
     align-items: center;
@@ -89,4 +93,40 @@
 .likedlist-button button:hover {
     background-color: #0056b3;
     transform: scale(1.05);
+}
+
+@media screen and (max-width: 768px) {
+    .main-likedlist {
+        width: 20rem;
+    }
+
+    .likedlist {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .likedlist-info {
+        font-size: 12px;
+        width: 10rem;
+    }
+}
+
+
+
+@media screen and (max-width: 860px) {
+    .main-likedlist {
+        width: 22rem;
+    }
+
+    .likedlist {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .likedlist-info {
+        font-size: 12px;
+        width: 10rem;
+    }
 }

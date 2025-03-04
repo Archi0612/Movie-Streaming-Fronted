@@ -3,10 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import img1 from "../../../assets/login-64.png";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
+<<<<<<< HEAD
+import { loginUser } from "../../../redux/slices/user/userSlice";
+=======
 import { loginUser } from "../../../redux/actions/userAction";
+>>>>>>> 9526a8c94b6d1a98338de3a30a403784be2b3312
 import { useDispatch } from "react-redux";
-
-// import { login } from "../../../services/apis/authService";
 import { toast } from "react-toastify";
 const Login = () => {
   const dispatch = useDispatch();
@@ -63,41 +65,16 @@ const Login = () => {
       }));
     } else {
       try {
-        dispatch<any>(loginUser(userFormData, navigate));
-        // setMessage({ text: "Successfully logged in!", type: "success" });
+        const resultAction = await dispatch<any>(loginUser(userFormData)).unwrap();
+        console.log(resultAction, "Login successful!");
         toast.success("Successfully logged in!");
-        return navigate("/home");
+        navigate("/home");
       } catch (err) {
-        console.log(err);
+        console.error("Login failed:", err);
         toast.error("Incorrect Email or Password!");
       }
     }
   };
-
-
-  // const handleSubmit = async (event: React.FormEvent) => {
-  //   event.preventDefault();
-
-  //   const emailError = validateEmail(userFormData.email);
-  //   const passwordError = validatePassword(userFormData.password);
-
-  //   if (emailError || passwordError) {
-  //     setUserFormData((prev) => ({
-  //       ...prev,
-  //       errors: { email: emailError, password: passwordError },
-  //     }));
-  //     setMessage(null);
-  //   } else {
-  //     try {
-  //       const data = await login(userFormData.email, userFormData.password);
-  //       console.log("User logged in:", data);
-  //       setMessage({ text: "Successfully logged in!", type: "success" });
-  //     } catch (err) {
-  //       console.log(err);
-  //       setMessage({ text: "Incorrect Email or Password!", type: "error" });
-  //     }
-  //   }
-  // };
 
   return (
     <div className="container">
@@ -152,3 +129,30 @@ const Login = () => {
 };
 
 export default Login;
+
+
+
+
+// const handleSubmit = async (event: React.FormEvent) => {
+//   event.preventDefault();
+
+//   const emailError = validateEmail(userFormData.email);
+//   const passwordError = validatePassword(userFormData.password);
+
+//   if (emailError || passwordError) {
+//     setUserFormData((prev) => ({
+//       ...prev,
+//       errors: { email: emailError, password: passwordError },
+//     }));
+//     setMessage(null);
+//   } else {
+//     try {
+//       const data = await login(userFormData.email, userFormData.password);
+//       console.log("User logged in:", data);
+//       setMessage({ text: "Successfully logged in!", type: "success" });
+//     } catch (err) {
+//       console.log(err);
+//       setMessage({ text: "Incorrect Email or Password!", type: "error" });
+//     }
+//   }
+// };

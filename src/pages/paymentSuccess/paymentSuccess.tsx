@@ -1,5 +1,5 @@
 // import { useSearchParams } from "react-router-dom";
-import './Success.css'
+import './paymentSuccess.css'
 import successSvg from '../../assets/success-svgrepo-com.svg';
 
 const Success = () => {

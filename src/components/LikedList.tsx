@@ -48,7 +48,7 @@ function Likedlist() {
         <>
             <div className="main-likedlist">
                 <div className='likedlist-heading'>
-                    <h4>Liked Content</h4>
+                    <h3 className='likedList-headingh3'>Liked Content</h3>
                 </div>
                 <div className='likedlist-content'>
                     {Likedlists.map((likedlist, index) => (

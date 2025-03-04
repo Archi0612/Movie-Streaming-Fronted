@@ -1,32 +1,27 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import { loginUserReducer, registerUserReducer } from './reducers/userReducer';
+import { configureStore } from "@reduxjs/toolkit";
+import userReducer from "./slices/user/userSlice";
+import { UserState } from "../interfaces/movie.interface";
 
-import { paymentReducer } from './reducers/paymentReducer';
+const storedUser = localStorage.getItem("currentUser");
+const storedToken = localStorage.getItem("authToken");
 
-// Define the root reducer
-const rootReducer = {
-    registerUser: registerUserReducer,
-    loginUser: loginUserReducer,
-    payment: paymentReducer,
+const preloadedState = {
+    user: {
+        currentUser: storedUser ? JSON.parse(storedUser) : null,
+        isAuthenticated: !!storedToken,
+        loading: false,
+        success: false,
+        error: undefined,
+    } as UserState,
 };
 
-// Create the store
 export const store = configureStore({
-    reducer: rootReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware(), // No need to manually add thunk
+    reducer: {
+        user: userReducer,
+    },
+    preloadedState, // <-- Load from localStorage
     devTools: true,
 });
 
-// Define RootState type (helps with useSelector)
 export type RootState = ReturnType<typeof store.getState>;
-
-// Define App Dispatch type (helps with useDispatch)
 export type AppDispatch = typeof store.dispatch;
-
-// Define a generic Thunk type for async actions
-export type AppThunk<ReturnType = void> = ThunkAction<
-    ReturnType,
-    RootState,
-    unknown,
-    Action<string>
->;
