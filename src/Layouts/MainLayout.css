@@ -5,15 +5,7 @@
   }
   .content1{
     flex-grow: 1;
-    margin-left: 15rem !important;
+    margin-left: 150px !important;
     overflow-y: auto;
-    /* height: 100vh; */
-    width: 100%;
-  }
-
-  @media (max-width:785px){
-    .content1{
-      margin-left: 20rem;
-    }
-    
+    height: 100vh;
   }
