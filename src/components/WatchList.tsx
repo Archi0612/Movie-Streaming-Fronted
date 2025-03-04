@@ -48,7 +48,7 @@ function WatchList() {
         <>
             <div className="main-watchlist">
                 <div className='watchlist-heading'>
-                    <h4>Watchlist</h4>
+                    <h3 className='watchlist-headingh3'>Watchlist</h3>
                 </div>
                 <div className='watchlist-content'>
                     {WatchLists.map((watchlist, index) => (

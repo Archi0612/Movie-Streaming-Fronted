@@ -34,6 +34,7 @@ const ForgotPassword:React.FC = () => {
         console.log("Email send:", data?.data?.message);
         toast.success("Email sent successfully!");
         return data;
+        
       }catch(err:unknown){
         if (err instanceof Error) {
           console.log("Error sending email:", err.message);
@@ -118,6 +119,7 @@ const ForgotPassword:React.FC = () => {
                 value={email}
                 onChange={handleEmailChange}
                 placeholder="Enter your email"
+                autoComplete="off"
               />
               {error && <span className="error">{error}</span>}
             </div>

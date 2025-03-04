@@ -1,9 +1,8 @@
+/* Keep Sidebar Styling Same for Desktop */
 .sidebar {
   position: fixed;
   left: 0;
   top: 0;
-  padding-left: 1.2rem;
-  /* max-width: fit-content; */
   height: 100vh;
   background: rgba(var(--primary-color), 0.7);
   transition: 0.3s ease;
@@ -16,15 +15,19 @@
   z-index: 1000;
 }
 
+.bottom-nav {
+  display: none;
+}
+
 .sidebar.expanded {
   width: 45%;
-  background: linear-gradient(to right, var(--background-color), rgba(0, 0, 0, 0)); 
+  background: linear-gradient(to right, var(--hover-shadow), rgba(0, 0, 0, 0));
 }
 
 .sidebar-list {
   list-style: none;
   padding: 0;
-  width: 8vw;
+  width: 7.5vw;
 }
 
 .sidebar-logo {
@@ -51,7 +54,7 @@
   transition: background 0.3s ease;
   margin-top: 1rem;
   color: var(--text-color);
-  font-weight: 800;
+  font-weight: 500;
 }
 
 .sidebar li:hover {
@@ -62,16 +65,102 @@
   color: var(--primary-color);
 }
 
-.icon {
-  font-size: 3rem;
-  margin-right: 2rem;
+.Link-text {
+  margin-left: 10px;
 }
 
-.sidebar span {
-  white-space: nowrap;
-  opacity: 1;
-  transition: opacity 0.3s ease;
+@media (max-width:1080px) {
+  .logo-1{
+    width: 1.8rem;
+    margin-left: 0;
+  }
 }
-.Link-text{
-  margin-left: 10px;
+/* Mobile / Tablet Bottom Navigation */
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+    /* Hide Sidebar on Small Screens */
+  }
+
+  .bottom-nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 12px 0;
+    z-index: 1000;
+  }
+
+  .bottom-nav li {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  .bottom-nav li.active {
+    color: var(--primary-color);
+  }
+
+  .bottom-nav li:hover {
+    color: var(--hover-shadow);
+  }
+
+  .bottom-nav svg {
+    font-size: 24px;
+  }
+
+  /* Sparks Popup */
+  .sparks-popup {
+    position: fixed;
+    bottom: 55px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(50deg, var(--hover-shadow), var(--background-color));
+    padding: 0.5rem;
+    border-radius: 5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.3rem;
+    z-index: 1001;
+  }
+
+  .sparks-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    /* font-size: 0.8rem; */
+    cursor: pointer;
+  }
+
+  .sparks-option:hover {
+    color: var(--primary-color);
+  }
+
+  .sparks-option svg {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 641px) {
+
+  .sparks-option {
+    font-size: 0.6rem;
+  }
+
+  .sparks-option svg {
+    font-size: 1rem;
+  }
+
+  .logo-1 {
+    width: 1rem;
+  }
 }

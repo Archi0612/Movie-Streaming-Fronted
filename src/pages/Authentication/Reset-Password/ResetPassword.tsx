@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import './ResetPassword.css';
 import img2 from "../../../assets/resetlogo.png"
@@ -96,7 +96,6 @@ const ResetPassword: React.FC = () => {
       }
     }
   };
-
   return (
     <div className="container">
       {/* <Header minimal /> */}

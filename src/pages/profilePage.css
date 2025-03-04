@@ -4,16 +4,18 @@ html {
 
 .profilepagecontainer {
     width: 100vw;
-    height: 100vh;
+    height: auto;
     background-color: #00131f;
     border: none;
 }
 
+.userLogo {
+    height: 20rem;
+}
+
+
 .internalProfilePage {
-    flex-grow: 1;
     margin-left: 6vw;
-    width: 94vw;
-    height: 100vh;
     background-color: #00131f;
     display: flex;
     flex-direction: column;
@@ -36,36 +38,32 @@ html {
     width: 89vw;
     height: 40vh;
     flex-wrap: wrap;
-    margin: 4rem 0;
+    margin: 2rem 0;
 }
 
-.profile-card {
-    border: 1px solid grey;
-}
-
-.sec-profilecard {
-    height: 65%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    color: white;
-    padding: 10px;
-}
 
 .heading {
     display: flex;
     flex-direction: row;
-    width: 35vw;
+    width: 48vw;
     justify-content: space-between;
     margin-top: 6px;
-    margin-left: 15px;
+    /* margin-left: 15px; */
 }
 
-.heading h3 {
-    color: white;
+.heading-personalinfo {
+    font-size: 1.3rem;
+    color: var(--text-color);
 }
 
-.edit-btn {
+.edit-subscribe {
+    display: flex;
+    width: 11rem;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.editProfile-btn {
     padding: 8px 15px;
     background-color: #007bff;
     color: white;
@@ -76,12 +74,13 @@ html {
     transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
-.edit-btn :hover {
+.editProfile-btn:hover {
     background-color: #0056b3;
     transform: scale(1.05);
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.4);
 }
 
-.subscribe-btn {
+.subscribeProfile-btn {
     padding: 8px 15px;
     background-color: #007bff;
     color: white;
@@ -92,86 +91,56 @@ html {
     transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
-.subscribe-btn :hover {
+.subscribeProfile-btn:hover {
     background-color: #0056b3;
     transform: scale(1.05);
+    box-shadow: 0px 4px 10px rgba(0, 123, 255, 0.4);
 }
 
 .primaryContainer {
     width: 25vw;
-    height: 30%;
+    min-height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: white;
-    font-size: 1rem;
-    font-weight: bold;
-    color: black;
-    position: relative;
 }
-
-.img-username {
-    width: 16vw;
-    height: 16vh;
-    min-height: auto;
-    min-width: auto;
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-
-.img-username img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
 
 .profile-section {
-    width: 40vw;
+    width: 51vw;
     border-radius: 1rem;
     padding: 0.625rem;
     background-color: #003366;
 }
 
-.profile-info {
+.profileInfo-container {
     display: flex;
-    flex-direction: row;
     justify-content: flex-start;
-    align-items: flex-start;
-    /* Ensures labels and details align */
-    margin-top: 0.625rem;
-    gap: 1rem;
-    /* Adds space between titles and details */
+    align-items: center;
+    margin-left: 1rem;
+    height: 20rem;
 }
 
-.profile-titles {
-    display: flex;
-    flex-direction: column;
-    width: 15vw;
-}
-
-.profile-titles label {
-    margin: 0.625rem 0;
-    font-weight: 100;
-    color: darkgray;
-}
-
-.profile-details {
-    display: flex;
-    flex-direction: column;
-    font-weight: bold;
-    width: 40vw;
-}
-
-.profile-details span {
-    margin: 0.625rem 0;
+.profile-table {
+    width: 30rem;
+    border-collapse: collapse;
     color: white;
 }
 
+.profile-table th,
+.profile-table td {
+    padding: 10px;
+    font-size: 20px;
+}
 
+.profile-table th {
+    text-align: left;
+    font-weight: bold;
+    color: white;
+}
+
+.profile-table td {
+    text-align: left;
+}
 
 .profilepage-content {
     display: flex;
@@ -181,19 +150,22 @@ html {
     width: 89vw;
     height: 55vh;
     flex-wrap: wrap;
+    border-bottom: 2px solid grey;
 }
 
 .profilepage-watchlist,
 .profilepage-likedContent {
-    width: 43vw;
+    width: auto;
     height: 55vh;
     border-radius: 1rem;
 }
 
+/* /////////////////////////////////////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 768px) {
     .profilepagecontainer {
         position: relative;
         top: 0;
+        width: auto;
         transform: none;
         padding: 1rem;
     }
@@ -205,17 +177,24 @@ html {
         width: 100%;
     }
 
-    .profile-card {
-        width: 90%;
-        height: auto;
-        margin-bottom: 1rem;
-
-    }
-
     .profile-section {
-        width: 90%;
+        width: 22rem;
         padding: 1rem;
     }
+
+    .profileInfo-container {
+        margin-left: 0px;
+    }
+
+    .profile-table {
+        width: 18rem;
+    }
+
+    .profile-table th,
+    .profile-table td {
+        font-size: 15px;
+    }
+
 
     .profile-info {
         flex-direction: column;
@@ -229,20 +208,73 @@ html {
     }
 
     .profilepage-content {
+        display: flex;
         flex-direction: column;
         align-items: center;
         width: 100%;
         height: auto;
+        flex-wrap: nowrap;
+
     }
 
     .profilepage-watchlist,
     .profilepage-likedContent {
-        width: 90%;
         height: auto;
+        width: auto;
         margin-bottom: 1rem;
     }
 
+    .editProfile-btn,
+    .subscribeProfile-btn {
+        font-size: 10px;
+    }
+
+
+    .heading {
+        width: 20rem
+    }
+
+    .heading-personalinfo {
+        font-size: 16px;
+        align-content: center;
+    }
+
+    .internalProfilePage {
+        margin-left: 0.5px;
+    }
+
+    .userLogo {
+        height: 10rem;
+        margin-bottom: 1rem;
+    }
+
+    .edit-subscribe {
+        width: 9rem;
+    }
+
+
 }
+
+
+@media screen and (max-width: 860px) {
+
+    .userLogo {
+        height: 17rem;
+    }
+
+    .profile-section {
+        max-height: 26rem;
+    }
+
+    .profileCard-information {
+        height: auto;
+    }
+}
+
+
+
+/* /////////////////////////////////////////////////////////////////////////////////////////////////// */
+
 
 .modal-overlay {
     position: fixed;
@@ -257,8 +289,8 @@ html {
     z-index: 1000;
 }
 
-.modal {
-    background: white;
+.modal1 {
+    background-color: rgba(26, 26, 45);
     width: 40%;
     max-width: 500px;
     padding: 2rem;
@@ -270,37 +302,58 @@ html {
     animation: fadeIn 0.3s ease-in-out;
 }
 
-.modal h2 {
+.modal1 h2 {
     color: #333;
     text-align: center;
     margin-bottom: 1rem;
 }
 
-.modal form {
+.modal1 form {
     display: flex;
     flex-direction: column;
 }
 
-.modal label {
+.modal1 label {
     font-weight: bold;
     margin-top: 0.8rem;
     color: #333;
 }
 
-.modal input,
-.modal select {
-    padding: 0.75rem;
-    margin-top: 0.3rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 1rem;
-    width: 100%;
+.country-label {
+    display: block !important;
 }
+
+.country {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 5px !important;
+}
+
+.country-select {
+    width: 100%;
+    padding: 8px;
+}
+
+/* Style dropdown menu */
+.country-select option {
+    max-height: 30px;
+    /* Adjust this based on font size */
+}
+
+/* Limit dropdown height and enable scrolling */
+.country-select:focus {
+    overflow-y: auto !important;
+    height: auto !important;
+    max-height: 100px !important;
+    /* Adjust to show ~7 items */
+}
+
 
 .modal-buttons {
     display: flex;
     justify-content: space-between;
     margin-top: 1.5rem;
+    gap: 5px;
 }
 
 .modal-buttons button {
@@ -314,24 +367,29 @@ html {
     font-weight: bold;
 }
 
-.modal-buttons button:first-child {
+.modal-buttons button:last-child {
     background: #007bff;
     color: white;
     margin-right: 0.5rem;
 }
 
-.modal-buttons button:first-child:hover {
-    color: var(--primary-color);
+.modal-buttons button:last-child:hover {
+    color: white;
     font-weight: 600;
-    border: 2px solid black;
+    /* border: 2px solid #0059b3; */
+    background-color: #0059b3;
     box-shadow: 0.2rem 0.2rem 1rem var(--background-color);
 }
 
-.modal-buttons button:last-child {
-    background: white;
-    color: black;
+.modal-buttons button:first-child {
+    background: gray;
+    color: rgb(255, 255, 255);
 }
 
+.modal-buttons button:first-child:hover {
+    background: rgba(128, 128, 128, 0.438);
+
+}
 
 
 .close-btn {
@@ -352,7 +410,7 @@ html {
     }
 }
 
-.modal label {
+.modal1 label {
     display: block;
     font-size: 1rem;
     font-weight: bold;
@@ -360,30 +418,136 @@ html {
     margin-top: 10px;
 }
 
-.modal input,
-.modal select {
+.modal1 input,
+.modal1 select {
     width: 100%;
     padding: 10px;
     margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
     font-size: 1rem;
-    background-color: white;
-    color: black;
+    color: #fff;
+    border-radius: 5px;
+    background: rgba(93, 94, 95, 0.3);
 }
 
-.modal select {
-    background-color: white;
-    color: black;
+
+
+.modal1 input::placeholder {
+    color: #fff;
 }
 
-.modal input::placeholder {
-    color: gray;
-}
-
-.modal input:focus,
-.modal select:focus {
+.modal1 input:focus,
+.modal1 select:focus {
     outline: none;
     border: 2px solid #007bff;
 
+}
+
+.modal1 select {
+    color: white !important;
+    background: rgba(93, 94, 95, 0.3) !important;
+    border-radius: 5px;
+    border: 1px solid #007bff;
+}
+
+.modal1 select option {
+    color: white !important;
+    /* Ensures text color stays white */
+    background: rgba(30, 30, 30, 0.8) !important;
+    /* Darker background */
+}
+
+/* 
+css for subscription modal  */
+
+
+/* Modal Overlay */
+.subscriptionModal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.subscriptionModal {
+    width: 60rem;
+    height: 40rem;
+    background-color: #0073e6;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.subscription-modal {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 60%;
+    max-width: 700px;
+    text-align: center;
+}
+
+.subscription-options {
+    width: 55rem;
+    height: 20rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.subscription-card {
+    flex: 1;
+    background: white;
+    padding: 10px;
+    max-width: 12 rem;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.subscription-card:hover {
+    transform: scale(1.05);
+}
+
+.subscription-card h3 {
+    margin-bottom: 10px;
+    background: linear-gradient(45deg, #0073e6, #0059b3, #00131f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 900;
+}
+
+
+.subscription-card p {
+    font-size: 12px;
+    font-weight: bold;
+    color: black
+}
+
+.subscription-card button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background: #007bff;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.subscription-card button:hover {
+    background: #0056b3;
 }

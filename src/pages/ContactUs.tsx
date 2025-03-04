@@ -97,7 +97,9 @@ const ContactUs: React.FC = () => {
                                     onChange={handleChange}
                                     required
                                     rows={4}
-                                    className="form-input"
+                                    // className="form-input"
+                                    className="form-textarea"
+
                                 />
                             </div>
                             <div className='btn-submit'>

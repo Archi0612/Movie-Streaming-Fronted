@@ -78,7 +78,7 @@ export interface UserFormData {
   name: string;
   password: string;
   confirmPassword: string;
-  phoneNumber: string;
+  contactNo: string;
   showPassword: boolean;
   showConfirmPassword: boolean;
   numberOTP?: number;
@@ -122,6 +122,7 @@ export interface UserState {
   success?: boolean;
   error?: string;
   currentUser?: User | null;
+  isAuthenticated: boolean
 }
 
 // Define API Response Types

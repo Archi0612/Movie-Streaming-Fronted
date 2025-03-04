@@ -3,10 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import img1 from "../../../assets/login-64.png";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
-import { loginUser } from "../../../redux/slices/userSlice";
+import { loginUser } from "../../../redux/slices/user/userSlice";
 import { useDispatch } from "react-redux";
-
-// import { login } from "../../../services/apis/authService";
 import { toast } from "react-toastify";
 const Login = () => {
   const dispatch = useDispatch();
@@ -63,49 +61,16 @@ const Login = () => {
       }));
     } else {
       try {
-        const response = await dispatch<any>(loginUser(userFormData))
-          .unwrap()
-          .then(() => {
-            toast.success("Successfully logged in!");
-            navigate("/home");
-          })
-          .catch((err: any) => {
-            console.log(err);
-            toast.error("Incorrect Email or Password!");
-          });
-
-        console.log(response, "here is the respose of dispatch from login")
+        const resultAction = await dispatch<any>(loginUser(userFormData)).unwrap();
+        console.log(resultAction, "Login successful!");
+        toast.success("Successfully logged in!");
+        navigate("/home");
       } catch (err) {
-        console.log(err);
+        console.error("Login failed:", err);
         toast.error("Incorrect Email or Password!");
       }
     }
   };
-
-
-  // const handleSubmit = async (event: React.FormEvent) => {
-  //   event.preventDefault();
-
-  //   const emailError = validateEmail(userFormData.email);
-  //   const passwordError = validatePassword(userFormData.password);
-
-  //   if (emailError || passwordError) {
-  //     setUserFormData((prev) => ({
-  //       ...prev,
-  //       errors: { email: emailError, password: passwordError },
-  //     }));
-  //     setMessage(null);
-  //   } else {
-  //     try {
-  //       const data = await login(userFormData.email, userFormData.password);
-  //       console.log("User logged in:", data);
-  //       setMessage({ text: "Successfully logged in!", type: "success" });
-  //     } catch (err) {
-  //       console.log(err);
-  //       setMessage({ text: "Incorrect Email or Password!", type: "error" });
-  //     }
-  //   }
-  // };
 
   return (
     <div className="container">
@@ -123,6 +88,7 @@ const Login = () => {
                 value={userFormData.email}
                 onChange={(e) => handleChange("email", e.target.value)}
                 placeholder="Enter your email"
+                autoComplete="off"
               />
               {userFormData.errors.email && <span className="error">{userFormData.errors.email}</span>}
             </div>
@@ -159,3 +125,30 @@ const Login = () => {
 };
 
 export default Login;
+
+
+
+
+// const handleSubmit = async (event: React.FormEvent) => {
+//   event.preventDefault();
+
+//   const emailError = validateEmail(userFormData.email);
+//   const passwordError = validatePassword(userFormData.password);
+
+//   if (emailError || passwordError) {
+//     setUserFormData((prev) => ({
+//       ...prev,
+//       errors: { email: emailError, password: passwordError },
+//     }));
+//     setMessage(null);
+//   } else {
+//     try {
+//       const data = await login(userFormData.email, userFormData.password);
+//       console.log("User logged in:", data);
+//       setMessage({ text: "Successfully logged in!", type: "success" });
+//     } catch (err) {
+//       console.log(err);
+//       setMessage({ text: "Incorrect Email or Password!", type: "error" });
+//     }
+//   }
+// };

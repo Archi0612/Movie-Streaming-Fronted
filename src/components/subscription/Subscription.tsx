@@ -40,7 +40,7 @@ const SubscriptionSelection: React.FC<SubscriptionProps> = ({ isOpen, onClose })
 
     const userData: UserData = {
         name: "Priyanshu1",
-        email: "p12@gmail.com",
+        email: "A12@gmail.com",
         phone: "1234567890",
         country: "India",
         dob: "22-08-2001",
@@ -74,25 +74,27 @@ const SubscriptionSelection: React.FC<SubscriptionProps> = ({ isOpen, onClose })
             console.log("Step-2: API response received");
             console.log(response, 'This is the response from the server');
             if (response.status === 409) {
+                console.log(response.data, "response code of 409");
                 console.log("Step-3: Existing subscription detected");
                 const data: StripeRedirect = response.data as StripeRedirect;
                 if (data?.redirectUrl) {
                     console.log("Step-4: Redirecting to Stripe portal");
                     window.location.href = data.redirectUrl;
                 }
-            } else {
-                console.log("Step-5: Creating a new checkout session");
-
-                const session: CheckoutSession = response.data as CheckoutSession;
-                const stripe = await stripePromise;
-
-                if (stripe) {
-                    const { error } = await stripe.redirectToCheckout({
-                        sessionId: session.id, // Ensure `session.id` exists
-                    });
-                    console.log(error, "at line 93 subs.ts");
-                }
+                return
             }
+            console.log("Step-5: Creating a new checkout session");
+            const session: CheckoutSession = response.data as CheckoutSession;
+            const stripe = await stripePromise;
+
+            if (stripe) {
+
+                const { error } = await stripe.redirectToCheckout({
+                    sessionId: session.id, // Ensure `session.id` exists
+                });
+                console.log(error, "at line 93 subs.ts");
+            }
+
         } catch (error: unknown) {
             console.error("Error:", error);
         } finally {

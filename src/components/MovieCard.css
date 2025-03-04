@@ -1,5 +1,8 @@
 .movie-card {
   position: relative;
+  width: 240px;
+  height: 350px;
+  /* Set a fixed height for the movie card */
   max-width: 16rem;
   border-radius: 0.5rem;
   overflow: hidden;
@@ -16,7 +19,8 @@
 /* 🖼 Poster Image */
 .movie-card img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  /* Ensure the image takes up the full height of the movie card */
   object-fit: cover;
   border-radius: 0.5rem;
 }
@@ -35,6 +39,8 @@
   transform: translateY(10px);
   transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
   text-align: left;
+  height: 100%;
+  /* Ensure the hover content takes up the full height of the movie card */
 }
 
 .movie-card:hover .movie-hover {
@@ -45,17 +51,16 @@
 /* 🎬 Movie Title */
 .movie-title {
   color: #fff;
-  font-size: 1.0rem;
+  font-size: 1.4rem;
   font-weight: bold;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.3rem;
+  margin-top: 0.2rem;
 }
 
 /* ⭐ Rating */
 .movie-rating {
-  /* display: flex; */
   gap: 2px;
   margin-bottom: 0.5rem;
-
   justify-content: left;
 }
 
@@ -66,20 +71,20 @@
   gap: 0.6rem;
   margin-bottom: 0.5rem;
   flex-direction: row;
-
-  
+  flex-wrap: wrap;
 }
 
 .movie-details1 li {
-  list-style: none; /* Remove bullet points */
+  list-style: none;
+  /* Remove bullet points */
   background: rgba(255, 255, 255, 0.1);
   padding: 4px 10px;
   border-radius: 10px;
   text-align: center;
-  white-space: nowrap; /* Prevents breaking into multiple lines */
- font-size: 10px;
+  white-space: nowrap;
+  /* Prevents breaking into multiple lines */
+  font-size: 11px;
 }
-
 
 /* 📝 Overview */
 .movie-overview {
@@ -90,11 +95,12 @@
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   display: -webkit-box;
-  margin-bottom: auto; /* Pushes buttons to the bottom */
+  margin-bottom: auto;
+  /* Pushes buttons to the bottom */
 }
-
 
 /* 🎬 Buttons (Always at the Bottom, Centered) */
 .movie-buttons {
@@ -135,4 +141,182 @@
 
 .star-gray {
   color: #aaafb6 !important;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .movie-card {
+    width: 180px;
+    height: 245px;
+  }
+
+  .movie-title {
+    font-size: 1rem !important;
+  }
+
+  .movie-rating svg {
+    font-size: 0.8rem;
+  }
+
+  .movie-details1 {
+    gap: 0.3rem;
+  }
+
+  .movie-details1 li {
+    font-size: 9px;
+  }
+
+  .movie-overview {
+    font-size: 0.70rem;
+  }
+
+  .movie-buttons {
+    gap: 0.5rem;
+  }
+
+  .movie-button {
+    padding: 0.4rem;
+    font-size: 0.8rem;
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  .movie-rating svg {
+    font-size: 16px !important;
+    /* Reduce size */
+  }
+}
+
+/* Small Tablets */
+@media (max-width: 768px) {
+  .movie-card {
+    width: 150px;
+    height: 210px;
+  }
+
+  .movie-title {
+    font-size: 1rem;
+  }
+
+  .movie-rating {
+    font-size: 0.2rem;
+  }
+
+  .movie-rating svg {
+    font-size: 0.6rem;
+  }
+
+  .movie-details1 {
+    gap: 0.3rem;
+  }
+
+  .movie-details1 li {
+    font-size: 8px;
+  }
+
+  .movie-overview {
+    font-size: 0.60rem;
+  }
+
+  .movie-buttons {
+    gap: 0.4rem;
+    margin-top: 0.4rem;
+  }
+
+  .movie-button {
+    padding: 0.3rem;
+    font-size: 0.7rem;
+    width: 26px !important;
+    height: 26px !important;
+  }
+
+  .movie-rating svg {
+    font-size: 14px !important;
+    /* Further reduce */
+  }
+}
+
+/* Mobile View */
+@media (max-width: 480px) {
+  .movie-card {
+    width: 120px;
+    height: 150px;
+  }
+
+  .movie-hover {
+    padding: 0.5rem;
+  }
+
+  .movie-title {
+    font-size: 0.7rem !important;
+  }
+
+  .movie-rating {
+    margin-bottom: 0.3rem;
+  }
+
+  .movie-rating svg {
+    font-size: 0.6rem;
+  }
+
+  .movie-details1 li {
+    font-size: 7px;
+  }
+
+  .movie-details1 {
+    gap: 0.2rem;
+  }
+
+  .movie-overview {
+    font-size: 0.45rem;
+  }
+
+  .movie-buttons {
+    gap: 0.3rem;
+  }
+
+  .movie-button {
+    padding: 0.2rem;
+    font-size: 0.6rem;
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  .movie-rating svg {
+    font-size: 12px !important;
+    /* Smallest size for mobile */
+  }
+}
+
+/* Extra Small Mobile View */
+@media (max-width: 400px) {
+  .movie-card {
+    width: 100px;
+    height: 130px;
+  }
+
+  .movie-title {
+    font-size: 0.6rem;
+  }
+
+  .movie-rating svg {
+    font-size: 0.5rem;
+  }
+
+  .movie-details1 li {
+    font-size: 6px;
+  }
+
+  .movie-overview {
+    font-size: 0.5rem;
+  }
+
+  .movie-buttons {
+    gap: 0.2rem;
+  }
+
+  .movie-button {
+    padding: 0.1rem;
+    font-size: 0.5rem;
+  }
 }

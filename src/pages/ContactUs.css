@@ -33,6 +33,13 @@
     min-height:300px;
     margin: 16px;
     }
+
+    input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: white !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
     .contact-info {
     display: flex;
     justify-content: flex-end; 
@@ -59,16 +66,21 @@
     margin-bottom: 20px;
     font-size: 18px;
     text-align: justify;
+    color: #f1f1f1;
     }
     
     .form-group {
     margin-bottom: 15px;
     }
-    .form-group textarea{
+    .form-group .form-textarea {
     color: #f1f1f1;
     resize: none; 
     overflow-y: auto;
     height: 100px;
+    background-color: #022135;
+    border: 1px solid #075081;
+    border-radius: 5px;
+    font-size: 18px;
     }
     label {
     display: block;
@@ -80,13 +92,13 @@
     width: 100%;
     padding: 10px;
     border-radius: 5px;
-    font-size: 14px;
+    font-size: 18px;
     background-color: #022135;
     border: 1px solid #075081;
     }
 
     .form-input:focus, 
-    textarea:focus {
+   .form-group .form-textarea:focus {
     outline: none;
     border: 1px solid #1287d4; 
     background-color: #022135;
@@ -115,6 +127,7 @@
     .contact-info p {
     font-size: 16px;
     margin-bottom: 10px;
+    color: #f1f1f1;
     }
     .social-links {
     display: flex;
@@ -154,6 +167,9 @@
     border-radius: 5px;
     
     }
+    .faq-question p{
+      color: #f1f1f1;
+    }
     .faq-answer {
     margin-bottom: 10px;
     margin-top: 2px;
@@ -162,6 +178,9 @@
     background-color: #03304a; 
     padding: 10px;
     border-radius: 5px;
+    }
+    .faq-answer p{
+      color: #f1f1f1;
     }
     .faq-icon {
     transition: transform 0.3s ease;

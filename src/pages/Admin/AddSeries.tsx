@@ -133,10 +133,10 @@ const AddSeries: React.FC = () => {
         <div className="fields-container">
           <div className="fields1">
             <label>Title</label>
-            <input type="text" name="title" value={series.title} onChange={handleChange} placeholder="Enter series title" />
+            <input type="text" name="title" value={series.title} onChange={handleChange} placeholder="Enter series title" autoComplete="off"/>
 
             <label>Description</label>
-            <textarea name="description" value={series.description} onChange={handleChange} placeholder="Enter series details" />
+            <textarea name="description" value={series.description} onChange={handleChange} placeholder="Enter series details" autoComplete="off"/>
 
             <label>Genres</label>
             <Select isMulti options={genreOptions} onChange={(selected) => setSeries({ ...series, genres: selected as { value: string; label: string }[] })} styles={{
@@ -261,23 +261,25 @@ const AddSeries: React.FC = () => {
             <input type="file" name="trailerUrl" value={series.trailerUrl} onChange={handleChange} />
           </div>
         </div>
-
+        <div className="season-heading-container">
         <h3 className="season-header">Seasons</h3>
+        <button className="season-add-btn" onClick={addSeason}>Add Season</button>
+        </div>
         <div className="seasons-container">
           {series.seasons.map((season, seasonIndex) => (
             <div key={seasonIndex} className="season">
-              <div className="season-header">
+              <div className="episode-header">
                 <h4>Season {season.seasonNumber}</h4>
-                <button className="add-btn" onClick={() => addEpisode(seasonIndex)}>Add Episode</button>
+                <button className="episode-add-btn" onClick={() => addEpisode(seasonIndex)}>Add Episode</button>
               </div>
               <div className="episodes-container">
                 {season.episodes.map((episode, episodeIndex) => (
                   <div key={episodeIndex} className="episode-container">
                     <h5 className="episode-number">Episode {episode.episodeNumber}</h5>
                     <label className="episode-label">Title</label>
-                    <input type="text" placeholder="Episode title" onChange={(e) => updateEpisode(seasonIndex, episodeIndex, "title", e.target.value)} />
+                    <input type="text" placeholder="Episode title" onChange={(e) => updateEpisode(seasonIndex, episodeIndex, "title", e.target.value)} autoComplete="off"/>
                     <label className="episode-label">Description</label>
-                    <textarea placeholder="Episode description" onChange={(e) => updateEpisode(seasonIndex, episodeIndex, "description", e.target.value)} />
+                    <textarea placeholder="Episode description" onChange={(e) => updateEpisode(seasonIndex, episodeIndex, "description", e.target.value)} autoComplete="off"/>
                     <label className="episode-label">Duration</label>
                     <input type="number" placeholder="Duration in minutes" onChange={(e) => updateEpisode(seasonIndex, episodeIndex, "duration", e.target.value)} min="0"/>
                     <label className="episode-label">Episode</label>
@@ -289,9 +291,9 @@ const AddSeries: React.FC = () => {
           ))}
         </div>
         <div className="buttons-container">
-          <button className="add-btn" onClick={addSeason}>Add Season</button>
+          <button className="close-btn2" onClick={() => navigate("/admin-dashboard-series")}>Close</button>
+          
           <button className="save-btn" onClick={handleSave}>Save</button>
-          <button className="close-btn1" onClick={() => navigate("/admin-dashboard-series")}>Close</button>
         </div>
       </div>
     </div>

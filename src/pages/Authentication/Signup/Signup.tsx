@@ -1,15 +1,14 @@
 import React, { useState, useRef } from "react";
 import { toast } from "react-toastify"
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Signup.css";
 import img from "../../../assets/avatar.png";
 import { FaEye, FaEyeSlash, FaEdit } from "react-icons/fa";
 import { generateOTP } from "../../../services/apis/authService";
 import { Errors, UserFormData, OtpState } from "../../../interfaces/movie.interface";
 import { useDispatch } from "react-redux";
-import { registerUser } from "../../../redux/slices/userSlice";
+import { registerUser } from "../../../redux/slices/user/userSlice";
 
 
 const Signup: React.FC = () => {
@@ -151,6 +150,30 @@ const Signup: React.FC = () => {
         return { ...prevState, resendTimer: prevState.resendTimer - 1 };
       });
     }, 1000);
+
+    //call SendOTP api
+    try {
+      //it will return the user data to the backend
+      // const userData = {formData};
+      const data = generateOTP(userFormData);
+      console.log("OTP send to the user mail:", data);
+      return data;
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        // If it's an Axios error, check for response data
+        throw new Error(err.response?.data?.message || "Something went wrong");
+      } else {
+        // Generic error handling
+        throw new Error("An unknown error occurred");
+      }
+    }
+
+
+
+
+
+
+
   };
 
   return (
@@ -176,6 +199,7 @@ const Signup: React.FC = () => {
                 onChange={handleChange}
                 placeholder="Enter your name"
                 disabled={!otpState.isEditable}
+                autoComplete="off"
               />
               {errors.name && <span className="error">{errors.name}</span>}
             </div>
@@ -188,6 +212,7 @@ const Signup: React.FC = () => {
                 onChange={handleChange}
                 placeholder="Enter your email"
                 disabled={!otpState.isEditable}
+                autoComplete="off"
               />
               {errors.email && <span className="error">{errors.email}</span>}
             </div>
@@ -200,6 +225,7 @@ const Signup: React.FC = () => {
                 onChange={handleChange}
                 placeholder="Enter your phone number"
                 disabled={!otpState.isEditable}
+                autoComplete="off"
               />
               {errors.phoneNumber && <span className="error">{errors.phoneNumber}</span>}
             </div>

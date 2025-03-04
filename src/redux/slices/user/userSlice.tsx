@@ -1,12 +1,19 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-import { User, UserState, AuthResponse } from '../../interfaces/movie.interface';
+import { User, UserState, AuthResponse } from '../../../interfaces/movie.interface';
 
 const API_BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
+const storedToken = localStorage.getItem("authToken");
+// const currentUser = localStorage.getItem("currentUser");
+// const parsedCurrentUser = currentUser ? JSON.parse(currentUser) as User : null;
+
 const initialState: UserState = {
+    currentUser: null,
+    isAuthenticated: !!storedToken,
     loading: false,
-    currentUser: JSON.parse(localStorage.getItem("currentUser") || "null"),
+    success: false,
+    error: undefined,
 };
 
 // Async Thunks
@@ -27,15 +34,17 @@ export const registerUser = createAsyncThunk<AuthResponse, Omit<User, "id" | "to
 
 export const loginUser = createAsyncThunk<AuthResponse, Pick<User, "email" | "password">, { rejectValue: string }>(
     "user/login",
-    async (user, { rejectWithValue }) => {
+    async (userFormData, { rejectWithValue }) => {
         try {
             const config = { headers: { "Content-Type": "application/json" }, withCredentials: true };
-            const response = await axios.post<AuthResponse>(`${API_BASE_URL}/auth/login`, user, config);
-            // console.log(response.data.userData, "here is the response from login user");
+            console.log(userFormData, "here is the user data")
+            const response = await axios.post<AuthResponse>(`${API_BASE_URL}/auth/login`, userFormData, config);
 
             localStorage.setItem("currentUser", JSON.stringify(response.data.userData));
             localStorage.setItem("authToken", response.data.token);
+
             return response.data;
+
         } catch (err: any) {
             return rejectWithValue(err.response?.data?.message || "An error occurred");
         }
@@ -52,7 +61,20 @@ export const logoutUser = createAsyncThunk("user/logout", async () => {
 const userSlice = createSlice({
     name: "user",
     initialState,
-    reducers: {},
+    reducers: {
+        login: (state, action: PayloadAction<User>) => {
+            state.currentUser = action.payload;
+            state.isAuthenticated = true;
+            state.success = true;
+            state.error = undefined;
+        },
+        logout: (state) => {
+            state.currentUser = null;
+            state.isAuthenticated = false;
+            state.success = false;
+            state.error = undefined;
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(registerUser.pending, (state) => {
@@ -74,6 +96,9 @@ const userSlice = createSlice({
                 state.loading = false;
                 state.success = true;
                 state.currentUser = action.payload.userData;
+                state.error = undefined;
+                state.isAuthenticated = true;
+
             })
             .addCase(loginUser.rejected, (state, action) => {
                 state.loading = false;

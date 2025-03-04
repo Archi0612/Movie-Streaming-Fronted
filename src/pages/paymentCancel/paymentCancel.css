@@ -29,7 +29,7 @@ h1 {
     font-weight: bold;
 }
 
-p {
+.para p {
     color: #555;
     margin: 0.5rem 0;
 }
