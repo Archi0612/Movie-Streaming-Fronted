@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import img1 from "../../../assets/login-64.png";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
-import { loginUser } from "../../../state/actions/userAction";
+import { loginUser } from "../../../redux/actions/userAction";
 import { useDispatch } from "react-redux";
 
 // import { login } from "../../../services/apis/authService";
