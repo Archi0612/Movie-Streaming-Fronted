@@ -61,7 +61,7 @@
   color: #d1d5db;
   display: flex;
   gap: 0.6rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   flex-direction: row;
   flex-wrap: wrap;
 }
@@ -73,18 +73,19 @@
   border-radius: 10px;
   text-align: left;
   white-space: nowrap; /* Prevents breaking into multiple lines */
-  font-size: 11px;
+  font-size: 0.9rem;
 }
 
 /* 📝 Overview */
 .movie-overview {
   color: var(--text-color);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 500;
   text-align: left;
   line-height: 1.5;
   overflow: hidden;
   text-overflow: ellipsis;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   display: -webkit-box;
   /* margin-bottom: auto; Pushes buttons to the bottom */
@@ -95,8 +96,7 @@
   position: absolute;
   display: flex;
   gap: 0.75rem;
-  margin-left: 1.2rem;
-  bottom: 2rem;
+  bottom: 1.4rem;
 }
 
 .movie-button {
@@ -138,12 +138,6 @@
   color: #94a3b7 !important;
 }
 
-
-@media (max-width: 1250px){
-    .movie-card{
-      width: 10rem;
-    }
-}
 /* Responsive Design */
 @media (max-width: 1024px) {
   .movie-card {
@@ -168,7 +162,8 @@
   }
 
   .movie-overview {
-    font-size: 0.70rem;
+    font-size: 0.50rem;
+    -webkit-line-clamp: 3;
   }
 
   .movie-buttons {
@@ -216,6 +211,7 @@
 
   .movie-overview {
     font-size: 0.60rem !important;
+    -webkit-line-clamp: 3;
   }
 
   .movie-buttons {
@@ -303,7 +299,8 @@
   }
 
   .movie-overview {
-    font-size: 0.45rem !important;
+    font-size: 0.7rem !important;
+    -webkit-line-clamp: 3;
   }
 
   .movie-buttons {
