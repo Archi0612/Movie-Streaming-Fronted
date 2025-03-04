@@ -1,11 +1,14 @@
 .contact-page {
-    padding: 38px 12px;
-    background-color: var(--background-color);
-    min-height: 100vh;
-    }
+  padding: 20px 12px;
+  background-color: var(--background-color);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+
+}
     .contact-container {
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 25px 45px 0px 45px; /* Top 0px | Right 40px | Bottom 0px | Left 30px */
     }
     .contact-header {
     font-size: 36px;
@@ -199,6 +202,9 @@ input:-webkit-autofill:focus {
     flex-direction: column;
     gap: 20px;
     }
+   .contact-container{
+    margin: 6px 8px 0px 8px; /* Top 0px | Right 40px | Bottom 0px | Left 30px */
+   }
     .contact-form,
     .contact-info {
     max-width: 100%;
