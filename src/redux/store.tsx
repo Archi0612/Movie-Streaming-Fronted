@@ -2,12 +2,12 @@ import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./slices/user/userSlice";
 import { UserState } from "../interfaces/movie.interface";
 
-const storedUser = localStorage.getItem("currentUser");
+// const storedUser = localStorage.getItem("currentUser");
 const storedToken = localStorage.getItem("authToken");
 
 const preloadedState = {
     user: {
-        currentUser: storedUser ? JSON.parse(storedUser) : null,
+        currentUser: null,
         isAuthenticated: !!storedToken,
         loading: false,
         success: false,

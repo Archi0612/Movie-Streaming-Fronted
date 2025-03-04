@@ -24,6 +24,11 @@ const HeroSection: React.FC = () => {
     };
     fetchMovies();
   }, []);
+  const movieCategories = [
+    { key: "trending", title: "Trending Movies" },
+    { key: "popular", title: "Popular Movies" },
+    { key: "upcoming", title: "Upcoming Movies" },
+  ];
 
   return (
     <div className="hero-section">
@@ -38,7 +43,7 @@ const HeroSection: React.FC = () => {
         >
           <SwiperSlide>
             <div className="video-overlay">
-            <iframe width="1930" height="1050" src="https://www.youtube.com/embed/XXuLWW3H3jY?autoplay=1&mute=1" title="Avatar 3: Fire and Ash (2025) - First Trailer | James Cameron" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+            <iframe width="1930" height="950" src="https://www.youtube.com/embed/XXuLWW3H3jY?autoplay=1&mute=1" title="Avatar 3: Fire and Ash (2025) - First Trailer | James Cameron" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
             </div>
           </SwiperSlide>
         </Swiper>
@@ -54,108 +59,42 @@ const HeroSection: React.FC = () => {
       </div>
 
       <div className="movie-lists">
-      <div className="movie-category">
-  <h3>Trending Movies</h3>
-  <Swiper
-    slidesPerView={7}
-    spaceBetween={20}
-    navigation={true}
-    modules={[Navigation]}
-    className="movie-category-swiper"
-    breakpoints={{
-      1400: { slidesPerView: 7 }, // Large screens (desktop)
-      1200: { slidesPerView: 6 },
-      1050: { slidesPerView: 5 },
-      768: { slidesPerView: 4 },  // Tablets
-      640: { slidesPerView: 4 },  // Small tablets
-      480: { slidesPerView: 3 },  // Phones
-      400: { slidesPerView: 3 }  // Very small screens
-    }}
-  >
-    {movies.trending.map((movie) => (
-      <SwiperSlide key={movie.id}>
-        <MovieCard 
-          title={movie.title}
-          posterPath={movie.poster_path}
-          overview={movie.overview}
-          releaseDate={movie.release_date}
-          voteAverage={movie.vote_average}
-          language={movie.original_language}
-          genres_id={movie.genre_ids}
-        />
-      </SwiperSlide>
-    ))}
-  </Swiper>
-</div>
-
-<div className="movie-category">
-  <h3>Popular Movies</h3>
-  <Swiper
-    slidesPerView={7}
-    spaceBetween={20}
-    navigation={true}
-    modules={[Navigation]}
-    className="movie-category-swiper"
-    breakpoints={{
-      1400: { slidesPerView: 7 }, // Large screens (desktop)
-      1200: { slidesPerView: 6 },
-      1050: { slidesPerView: 5 },
-      768: { slidesPerView: 4 },  // Tablets
-      640: { slidesPerView: 4 },  // Small tablets
-      480: { slidesPerView: 3 },  // Phones
-      400: { slidesPerView: 3 }   // Very small screens
-    }}
-  >
-    {movies.popular.map((movie) => (
-      <SwiperSlide key={movie.id}>
-        <MovieCard 
-          title={movie.title}
-          posterPath={movie.poster_path}
-          overview={movie.overview}
-          releaseDate={movie.release_date}
-          voteAverage={movie.vote_average}
-          language={movie.original_language}
-          genres_id={movie.genre_ids}
-        />
-      </SwiperSlide>
-    ))}
-  </Swiper>
-</div>
- 
-<div className="movie-category">
-  <h3>Upcoming Movies</h3>
-  <Swiper
-    slidesPerView={7}
-    spaceBetween={20}
-    navigation={true}
-    modules={[Navigation]}
-    className="movie-category-swiper"
-    breakpoints={{
-      1400: { slidesPerView: 7 }, // Large screens (desktop)
-      1200: { slidesPerView: 6 },
-      1050: { slidesPerView: 5 },
-      768: { slidesPerView: 4 },  // Tablets
-      640: { slidesPerView: 4 },  // Small tablets
-      480: { slidesPerView: 3 },  // Phones
-      400: { slidesPerView: 3 }   // Very small screens
-    }}
-  >
-    {movies.upcoming.map((movie) => (
-      <SwiperSlide key={movie.id}>
-        <MovieCard 
-          title={movie.title}
-          posterPath={movie.poster_path}
-          overview={movie.overview}
-          releaseDate={movie.release_date}
-          voteAverage={movie.vote_average}
-          language={movie.original_language}
-          genres_id={movie.genre_ids}
-        />
-      </SwiperSlide>
-    ))}
-  </Swiper>
-</div>
-
+        {movieCategories.map(({ key, title }) => (
+          <div className="movie-category" key={key}>
+            <h3>{title}</h3>
+            <Swiper
+              slidesPerView={6}
+              spaceBetween={20}
+              navigation={true}
+              modules={[Navigation]}
+              className="movie-category-swiper"
+              breakpoints={{
+                1400: { slidesPerView: 6},
+                1200: { slidesPerView: 5 },
+                1050: { slidesPerView: 4 },
+                768: { slidesPerView: 4 },
+                640: { slidesPerView: 3 },
+                480: { slidesPerView: 3 },
+                400: { slidesPerView: 2 },
+                300:{slidesPerView:1}
+              }}
+            >
+              {movies[key as keyof typeof movies].map((movie) => (
+                <SwiperSlide key={movie.id}>
+                  <MovieCard
+                    title={movie.title}
+                    posterPath={movie.poster_path}
+                    overview={movie.overview}
+                    releaseDate={movie.release_date}
+                    voteAverage={movie.vote_average}
+                    language={movie.original_language}
+                    genres_id={movie.genre_ids}
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        ))}
       </div>
     </div>
   );
