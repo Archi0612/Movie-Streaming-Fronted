@@ -5,11 +5,25 @@ import AsyncSelect from "react-select/async";
 import "./AddMovie.css";
 
 const genreOptions = [
-  { value: "action", label: "Action" },
-  { value: "drama", label: "Drama" },
-  { value: "comedy", label: "Comedy" },
-  { value: "thriller", label: "Thriller" },
-  { value: "sci-fi", label: "Sci-Fi" },
+  { value: "28", label: "Action" },
+  { value: "18", label: "Drama" },
+  { value: "35", label: "Comedy" },
+  { value: "53", label: "Thriller" },
+  { value: "878", label: "Sci-Fi" },
+  {value:"10749",label:"Romance"},
+  {value:"10751",label:"Family"},
+  {value:"10752",label:"War"},
+  {value:"12",label:"Adv."},
+  {value:"16",label:"Anim."},
+  {value:"80",label:"Crime"},
+  {value:"99",label:"Doc."},
+  {value:"14",label:"Fantasy"},
+  {value:"36",label:"History"},
+  {value:"27",label:"Horror"},
+  {value:"10402",label:"Music"},
+  {value:"9648",label:"Myst."},
+  {value:"37",label:"Western"},
+
 ];
 const languageOptions = [
   { value: "hindi", label: "Hindi" },
@@ -49,7 +63,21 @@ const fetchDirectorOptions = (inputValue: string): Promise<{ value: string; labe
 
 const AddMovie: React.FC = () => {
   const navigate = useNavigate();
-  const [movie, setMovie] = useState({
+  const [movie, setMovie] = useState<{
+    title: string;
+    description: string;
+    releaseDate: string;
+    genres: { value: string; label: string }[];
+    duration: string;
+    rating: string;
+    cast: { value: string; label: string }[];
+    director: { value: string; label: string }[];
+    poster: File | null;
+    trailerUrl: File | null;
+    movieUrl: string;
+    availableForStreaming: boolean;
+    languages: { value: string; label: string }[];
+  }>({
     title: "",
     description: "",
     releaseDate: "",
@@ -57,25 +85,59 @@ const AddMovie: React.FC = () => {
     duration: "",
     rating: "",
     cast: [],
-    director: null,
-    poster: "",
-    trailerUrl: "",
+    director: [],
+    poster: null,
+    trailerUrl: null,
     movieUrl: "",
     availableForStreaming: false,
     languages:[]
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value, type, checked } = e.target as HTMLInputElement;
-    setMovie((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
+    const { name, value, type, checked,files } = e.target as HTMLInputElement;
+    if(type === "file" && files){
+      setMovie((prev) => ({
+        ...prev,
+        [name]: files[0],
+      }));
+    }
+    else{
+      setMovie((prev) => ({
+        ...prev,
+        [name]: type === "checkbox" ? checked : value,
+      }));
+    }
   };
 
   const handleSave = () => {
-    console.log("Movie saved:", movie);
+   const formData=new FormData();
+   formData.append("title:",movie.title)
+   formData.append("description:",movie.description)
+   formData.append("releaseDate:",movie.releaseDate)
+   formData.append("duration:",movie.duration)
+   formData.append("rating:",movie.rating)
+   formData.append("availableForStreaming:",String(movie.availableForStreaming))
+   movie.genres.forEach((genre)=>formData.append("genres:",genre.value))
+   if (Array.isArray(movie.languages)) {
+    movie.languages.forEach((lang) => formData.append("languages:", lang.value));
+  } else {
+    console.error("movie.languages is not an array");
+  }
+   movie.cast.forEach((cast)=>formData.append("cast:",cast.value))
+   movie.director.forEach((director)=>formData.append("director:",director.value))
+   if(movie.poster){
+    formData.append("poster:",movie.poster)
+   }
+   if(movie.trailerUrl){
+    formData.append("trailerUrl:",movie.trailerUrl)
+   }
+   console.log("Form Data Entries",formData.entries())
+   for(let pair of formData.entries()){
+    console.log(pair[0],pair[1])
+   }
+    //API call to save movie
   };
+
 
   const handleClose = () => {
     navigate("/admin-dashboard");
@@ -198,6 +260,7 @@ const AddMovie: React.FC = () => {
             />
             <label>Language</label>
             <Select
+              isMulti
               options={languageOptions}
               value={movie.languages}
               onChange={(selected: any) => setMovie((prev) => ({ ...prev, languages: selected }))}
@@ -214,10 +277,11 @@ const AddMovie: React.FC = () => {
                   backgroundColor: "#333",
                   color: "white",
                 }),
-                singleValue: (provided) => ({
+                multiValue: (provided) => ({
                   ...provided,
-                  color: "white", // ✅ Ensures selected text is white
-                }),
+                  backgroundColor: "#6da3d6",
+                  color: "white"
+              }),
                 input: (provided) => ({
                   ...provided,
                   color: "white",
@@ -225,10 +289,10 @@ const AddMovie: React.FC = () => {
               }}
             />
             <label>Poster</label>
-            <input type="file" name="poster" value={movie.poster} onChange={handleChange} />
+            <input type="file" name="poster" onChange={handleChange} />
 
             <label>Trailer</label>
-            <input type="file" name="trailerUrl" value={movie.trailerUrl} onChange={handleChange} />
+            <input type="file" name="trailerUrl"onChange={handleChange} />
           </div>
         </div>
         <div className="buttons-container">
