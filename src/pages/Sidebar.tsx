@@ -53,7 +53,10 @@ const Sidebar: React.FC = () => {
         onMouseLeave={() => setIsExpanded(false)}
       >
         <div className="sidebar-logo">
-          <img src={logo} className="logo-1" onClick={() => handleItemClick("/home")} />
+          <img src={logo} className="logo-1" onClick={() => handleItemClick("/home")} 
+          onMouseEnter={() => setIsExpanded(true)}
+          onMouseLeave={() => setIsExpanded(false)}
+          />
         </div>
 
         <ul className={`sidebar-list ${isExpanded ? "expanded" : ""}` }
