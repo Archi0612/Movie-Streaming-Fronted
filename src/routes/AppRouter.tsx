@@ -37,7 +37,7 @@ const AppRoute: React.FC = () => {
         </Route>
         <Route element={<MainLayout />}>
           <Route path="/home" element={<HeroSection />} />
-          <Route path="/search" element={<Search/>}/>
+          <Route path="/search" element={<Search />} />
           <Route path="/profile-page" element={<ProfilePage />} />
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/admin-dashboard" element={<AdminDashboard />} />

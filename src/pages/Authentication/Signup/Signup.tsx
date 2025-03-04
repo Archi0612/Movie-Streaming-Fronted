@@ -8,11 +8,7 @@ import { FaEye, FaEyeSlash, FaEdit } from "react-icons/fa";
 import { generateOTP } from "../../../services/apis/authService";
 import { Errors, UserFormData, OtpState } from "../../../interfaces/movie.interface";
 import { useDispatch } from "react-redux";
-<<<<<<< HEAD
 import { registerUser } from "../../../redux/slices/user/userSlice";
-=======
-import { registerUser } from "../../../redux/actions/userAction";
->>>>>>> 9526a8c94b6d1a98338de3a30a403784be2b3312
 
 
 const Signup: React.FC = () => {
@@ -23,7 +19,7 @@ const Signup: React.FC = () => {
     name: "",
     password: "",
     confirmPassword: "",
-    phoneNumber: "",
+    contactNo: "",
     showPassword: false,
     showConfirmPassword: false,
   });
@@ -85,7 +81,7 @@ const Signup: React.FC = () => {
     const nameError = validateName(userFormData.name);
     const passwordError = validatePassword(userFormData.password);
     const confirmPasswordError = validateConfirmPassword(userFormData.confirmPassword, userFormData.password);
-    const phoneNumberError = validatePhoneNumber(userFormData.phoneNumber);
+    const phoneNumberError = validatePhoneNumber(userFormData.contactNo);
 
     if (emailError || nameError || passwordError || confirmPasswordError || phoneNumberError) {
       setErrors({ email: emailError, name: nameError, password: passwordError, confirmPassword: confirmPasswordError, phoneNumber: phoneNumberError });
@@ -155,7 +151,6 @@ const Signup: React.FC = () => {
       });
     }, 1000);
 
-    //call SendOTP api
     try {
       //it will return the user data to the backend
       // const userData = {formData};

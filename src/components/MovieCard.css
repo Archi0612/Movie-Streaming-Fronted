@@ -1,7 +1,8 @@
 .movie-card {
   position: relative;
   width: 15rem;
-  height: auto; /* Set a fixed height for the movie card */
+  height: auto;
+  /* Set a fixed height for the movie card */
   max-width: 16rem;
   border-radius: 0.5rem;
   overflow: hidden;
@@ -74,7 +75,8 @@
   padding: 4px 10px;
   border-radius: 10px;
   text-align: left;
-  white-space: nowrap; /* Prevents breaking into multiple lines */
+  white-space: nowrap;
+  /* Prevents breaking into multiple lines */
   font-size: 0.9rem;
 }
 
@@ -125,6 +127,7 @@
   color: black;
   border-color: white;
 }
+
 /* ⭐ Rating */
 .movie-rating {
   gap: 2px;
@@ -188,7 +191,7 @@
 
 /* Small Tablets */
 @media (max-width: 768px) {
-.movie-card {
+  .movie-card {
     width: 10rem;
     /* height: 210px; */
   }
@@ -231,7 +234,8 @@
   }
 
   .movie-rating svg {
-    font-size: 14px !important; /* Further reduce */
+    font-size: 14px !important;
+    /* Further reduce */
   }
 }
 
@@ -253,11 +257,14 @@
   .movie-details1 li {
     font-size: 5px;
   }
-  .movie-details1{
+
+  .movie-details1 {
     margin-bottom: 0.2rem;
   }
-.movie-card p{
-  font-size: 0.4rem !important;}
+
+  .movie-card p {
+    font-size: 0.4rem !important;
+  }
 
   .movie-overview {
     font-size: 0.4rem;
