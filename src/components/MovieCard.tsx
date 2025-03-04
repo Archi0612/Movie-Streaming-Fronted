@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Play, Info, Plus } from 'lucide-react';
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { MovieCardProps } from '../interfaces/movie.interface';
@@ -18,7 +18,7 @@ const MovieCard = ({ title, posterPath, overview, releaseDate, voteAverage, lang
     } else if (index + 0.5 < rating) {
       return <FaStarHalfAlt key={index} className="star"  />;
     } else {
-      return <FaStar key={index} size={23} className="star-gray" />;
+      return <FaStar key={index} className="star-gray" />;
     }
   });
 

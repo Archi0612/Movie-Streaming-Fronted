@@ -63,20 +63,20 @@ const HeroSection: React.FC = () => {
           <div className="movie-category" key={key}>
             <h3>{title}</h3>
             <Swiper
-              slidesPerView={7}
+              slidesPerView={6}
               spaceBetween={20}
               navigation={true}
               modules={[Navigation]}
               className="movie-category-swiper"
               breakpoints={{
-                1400: { slidesPerView: 7 },
-                1200: { slidesPerView: 6 },
-                1050: { slidesPerView: 5 },
+                1400: { slidesPerView: 6},
+                1200: { slidesPerView: 5 },
+                1050: { slidesPerView: 4 },
                 768: { slidesPerView: 4 },
-                640: { slidesPerView: 4 },
+                640: { slidesPerView: 3 },
                 480: { slidesPerView: 3 },
-                400: { slidesPerView: 3 },
-                300:{slidesPerView:3}
+                400: { slidesPerView: 2 },
+                300:{slidesPerView:1}
               }}
             >
               {movies[key as keyof typeof movies].map((movie) => (

@@ -1,6 +1,6 @@
 .footer-container {
     background-color: var(--background-color);
-    margin-bottom: 1rem;
+    padding-bottom: 1.3rem;
   }
   
   .footer-content {
@@ -106,7 +106,8 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 0.5rem;
-        padding: 1rem 0;
+        /* padding: 5rem 0; */
+        margin-bottom: 2rem;
     }
 
     .footer-section {
