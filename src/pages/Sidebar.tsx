@@ -67,7 +67,7 @@ const Sidebar: React.FC = () => {
                 onClick={() => handleItemClick(item.path)}
                 className={activeItem === item.path ? "active" : ""}
               >
-                <IconComponent size={20} />
+                <IconComponent size={24} />
                 {isExpanded && <span className="Link-text">{item.name}</span>}
               </li>
             );
