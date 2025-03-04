@@ -168,7 +168,7 @@
   }
 
   .movie-overview {
-    font-size: 0.70rem;
+    font-size: 0.70rem !important;
   }
 
   .movie-buttons {
