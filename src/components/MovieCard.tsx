@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Play, Info, Plus } from 'lucide-react';
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { MovieCardProps } from '../interfaces/movie.interface';

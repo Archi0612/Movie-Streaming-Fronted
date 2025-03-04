@@ -5,7 +5,7 @@
         align-items: center;
         width: 100%;
         min-height: 100vh; /* Ensures full viewport height */
-        background-color: rgb(4, 14, 27);
+        background-color: var(--background-color);
         color: white;
         padding-left: 100px;
         gap: 20px; /* Adds spacing between sections */
@@ -187,10 +187,11 @@
             font-size: 18px !important;
         }
         .swiper-button-prev::after{
-            top:50%;
+     
+            top:50% !important;
         }
         .swiper-button-next::after{
-            top:50%;
+            top:50% !important;
         }
 
         .movie-category-swiper .swiper-slide {
@@ -233,6 +234,7 @@
     /* Movie Categories & Lists */
     .movie-category, .movie-lists {
         width: -webkit-fill-available;
+        background-color: var(--background-color);
         display: flex;
         flex-direction: column;
         align-items: start;
@@ -244,6 +246,7 @@
         z-index: 2;
         margin-left: 14px;
         margin-right: 2px;
+        margin-bottom: 5px;
     }
 
     .movie-category {
