@@ -5,11 +5,25 @@ import AsyncSelect from "react-select/async";
 import "./AddSeries.css";
 
 const genreOptions = [
-  { value: "action", label: "Action" },
-  { value: "drama", label: "Drama" },
-  { value: "comedy", label: "Comedy" },
-  { value: "thriller", label: "Thriller" },
-  { value: "sci-fi", label: "Sci-Fi" },
+  { value: "28", label: "Action" },
+  { value: "18", label: "Drama" },
+  { value: "35", label: "Comedy" },
+  { value: "53", label: "Thriller" },
+  { value: "878", label: "Sci-Fi" },
+  {value:"10749",label:"Romance"},
+  {value:"10751",label:"Family"},
+  {value:"10752",label:"War"},
+  {value:"12",label:"Adv."},
+  {value:"16",label:"Anim."},
+  {value:"80",label:"Crime"},
+  {value:"99",label:"Doc."},
+  {value:"14",label:"Fantasy"},
+  {value:"36",label:"History"},
+  {value:"27",label:"Horror"},
+  {value:"10402",label:"Music"},
+  {value:"9648",label:"Myst."},
+  {value:"37",label:"Western"},
+
 ];
 const languageOptions = [
   { value: "hindi", label: "Hindi" },
@@ -40,7 +54,7 @@ interface Episode {
   description: string;
   duration: string;
   episodeNumber: number;
-  episodeUrl: string;
+  episodeUrl: string | File;
   releaseDate: string;
 }
 
@@ -56,7 +70,7 @@ interface Series {
   releaseDate: string;
   rating: string;
   cast: { value: string; label: string }[];
-  director: { value: string; label: string } | null;
+  director: { value: string; label: string }[];
   languages: { value: string; label: string }[];
   poster: string;
   trailerUrl: string;
@@ -73,7 +87,7 @@ const AddSeries: React.FC = () => {
     releaseDate: "",
     rating: "",
     cast: [],
-    director: null,
+    director: [],
     languages: [],
     poster: "",
     trailerUrl: "",
@@ -82,8 +96,39 @@ const AddSeries: React.FC = () => {
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value, type, checked } = e.target as HTMLInputElement;
-    setSeries((prev) => ({ ...prev, [name]: type === "checkbox" ? checked : value }));
+    const { name, value, type, checked,files } = e.target as HTMLInputElement;
+    if (files) {
+      if (name.startsWith("episodeUrl")) {
+        // Extract season and episode index from name
+        const match = name.match(/episodeUrl-(\d+)-(\d+)/);
+        if (match) {
+          const seasonIndex = parseInt(match[1]);
+          const episodeIndex = parseInt(match[2]);
+  
+          setSeries((prev) => {
+            const updatedSeasons = [...prev.seasons];
+            const updatedEpisodes = [...updatedSeasons[seasonIndex].episodes];
+  
+            updatedEpisodes[episodeIndex] = {
+              ...updatedEpisodes[episodeIndex],
+              episodeUrl: files[0], // Store full file object
+            };
+  
+            updatedSeasons[seasonIndex] = {
+              ...updatedSeasons[seasonIndex],
+              episodes: updatedEpisodes,
+            };
+  
+            return { ...prev, seasons: updatedSeasons };
+          });
+        }
+      } else {
+        setSeries((prev) => ({ ...prev, [name]: files[0] })); // Store file object for poster and trailer
+      }
+    }
+    else{
+      setSeries((prev) => ({ ...prev, [name]: type === "checkbox" ? checked : value }));
+    }
   };
 
   const addSeason = () => {
@@ -96,22 +141,25 @@ const AddSeries: React.FC = () => {
   const addEpisode = (seasonIndex: number) => {
     setSeries((prev) => {
       const updatedSeasons = [...prev.seasons];
+
+      // Add a new episode without pre-assigning episodeNumber
       updatedSeasons[seasonIndex] = {
-        ...updatedSeasons[seasonIndex],
-        episodes: [
-          ...updatedSeasons[seasonIndex].episodes,
-          {
-            title: "",
-            description: "",
-            duration: "",
-            episodeNumber: updatedSeasons[seasonIndex].episodes.length + 1,
-            episodeUrl: "",
-            releaseDate: "",
-          },
-        ],
+          ...updatedSeasons[seasonIndex],
+          episodes: [
+              ...updatedSeasons[seasonIndex].episodes,
+              {
+                  title: "",
+                  description: "",
+                  duration: "",
+                  episodeNumber:0, // User will enter this manually
+                  episodeUrl: "",
+                  releaseDate: "",
+              },
+          ],
       };
+
       return { ...prev, seasons: updatedSeasons };
-    });
+  });
   };
 
   const updateEpisode = (seasonIndex: number, episodeIndex: number, field: keyof Episode, value: any) => {
@@ -123,7 +171,40 @@ const AddSeries: React.FC = () => {
   };
 
   const handleSave = () => {
-    console.log("Series saved:", series);
+    const formData=new FormData();
+    formData.append("title",series.title);
+    formData.append("description",series.description);
+    formData.append("releaseDate",series.releaseDate);
+    formData.append("rating",series.rating);
+    formData.append("availableForStreaming",String(series.availableForStreaming));
+    series.genres.forEach((genre)=>formData.append(`genres`,genre.value))
+    series.languages.forEach((lang)=>formData.append(`languages`,lang.value))
+    series.cast.forEach((actor)=>formData.append(`cast`,actor.value))
+    series.director.forEach((director)=>formData.append(`director`,director.value))
+    if(series.poster){
+      formData.append("poster",series.poster);
+    }
+    if(series.trailerUrl){
+      formData.append("trailerUrl",series.trailerUrl);
+    }
+    // series.seasons.forEach((season,seasonIndex)=>{
+    //   formData.append(`seasons[${seasonIndex}][seasonNumber]`,String(season.seasonNumber));
+    //   season.episodes.forEach((episode,episodeIndex)=>{
+    //     formData.append(`seasons[${seasonIndex}][episodes][${episodeIndex}][title]`,episode.title);
+    //     formData.append(`seasons[${seasonIndex}][episodes][${episodeIndex}][description]`,episode.description);
+    //     formData.append(`seasons[${seasonIndex}][episodes][${episodeIndex}][duration]`,episode.duration);
+    //     formData.append(`seasons[${seasonIndex}][episodes][${episodeIndex}][episodeNumber]`,String(episode.episodeNumber));
+    //     formData.append(`seasons[${seasonIndex}][episodes][${episodeIndex}][episodeUrl]`,episode.episodeUrl);
+    //     formData.append(`seasons[${seasonIndex}][episodes][${episodeIndex}][releaseDate]`,episode.releaseDate);
+    //     if(episode.episodeUrl){
+    //       formData.append(`seasons[${seasonIndex}][episodes][${episodeIndex}][episodeUrl]`,episode.episodeUrl);
+    //     }
+    //   })
+    // })
+    console.log("FormData Entries")
+    for(let [key,value] of formData.entries()){
+      console.log(`${key}:`,value);
+    }
   };
 
   return (
@@ -228,6 +309,7 @@ const AddSeries: React.FC = () => {
             />
             <label>Language</label>
             <Select
+              isMulti
               options={languageOptions}
               value={series.languages}
               onChange={(selected: any) => setSeries((prev) => ({ ...prev, languages: selected }))}
@@ -244,10 +326,11 @@ const AddSeries: React.FC = () => {
                   backgroundColor: "#333",
                   color: "white",
                 }),
-                singleValue: (provided) => ({
+                multiValue: (provided) => ({
                   ...provided,
-                  color: "white", // ✅ Ensures selected text is white
-                }),
+                  backgroundColor: "#6da3d6",
+                  color: "white"
+              }),
                 input: (provided) => ({
                   ...provided,
                   color: "white",
@@ -255,10 +338,10 @@ const AddSeries: React.FC = () => {
               }}
             />
             <label>Poster</label>
-            <input type="file" name="poster" value={series.poster} onChange={handleChange} />
+            <input type="file" name="poster" onChange={handleChange} />
 
             <label>Trailer</label>
-            <input type="file" name="trailerUrl" value={series.trailerUrl} onChange={handleChange} />
+            <input type="file" name="trailerUrl" onChange={handleChange} />
           </div>
         </div>
         <div className="season-heading-container">
@@ -283,7 +366,7 @@ const AddSeries: React.FC = () => {
                     <label className="episode-label">Duration</label>
                     <input type="number" placeholder="Duration in minutes" onChange={(e) => updateEpisode(seasonIndex, episodeIndex, "duration", e.target.value)} min="0"/>
                     <label className="episode-label">Episode</label>
-                    <input type="file" placeholder="Enter episode URL" onChange={(e) => updateEpisode(seasonIndex, episodeIndex, "episodeUrl", e.target.value)} />
+                    <input type="file" placeholder="Enter episode URL"  name={`episodeUrl-${seasonIndex}-${episodeIndex}`} onChange={(e) => updateEpisode(seasonIndex, episodeIndex, "episodeUrl", e.target.value)} />
                   </div>
                 ))}
               </div>
