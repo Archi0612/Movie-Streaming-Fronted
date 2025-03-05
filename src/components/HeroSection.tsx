@@ -73,10 +73,10 @@ const HeroSection: React.FC = () => {
                 1200: { slidesPerView: 5 },
                 1050: { slidesPerView: 4 },
                 768: { slidesPerView: 4 },
-                640: { slidesPerView: 3 },
+                640: { slidesPerView: 4 },
                 480: { slidesPerView: 3 },
-                400: { slidesPerView: 2 },
-                300:{slidesPerView:1}
+                400: { slidesPerView: 3 },
+                300:{slidesPerView:2}
               }}
             >
               {movies[key as keyof typeof movies].map((movie) => (
