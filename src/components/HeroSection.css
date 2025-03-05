@@ -5,7 +5,7 @@
         align-items: center;
         width: 100%;
         min-height: 100vh; /* Ensures full viewport height */
-        background-color: var(--background-color);
+        background-color: rgb(4, 14, 27);
         color: white;
         padding-left: 100px;
         gap: 20px; /* Adds spacing between sections */
@@ -112,13 +112,7 @@
         color: #ffffff !important;
     }
 
-    /* .movie-title {
-        font-size: 1.7rem;
-        font-weight: bold;
-        margin-bottom: 0.5rem;
-        text-align: left;
-    } */
-
+   
     /* Swiper Navigation */
     .swiper-button-next,
 .swiper-button-prev {
@@ -170,28 +164,18 @@
 
     @media (max-width: 768px) {
         .swiper-button-next, .swiper-button-prev {
-            font-size: 18px !important;
-        }
-        .hero-section{
-            padding-left: 2px;
-        }
-        .movie-slider-container{
-            margin-left: 2px;
-        }
-        .movie-lists,.movie-category{
-            margin-left: 2px !important;
+            font-size: 16px;
         }
 
         .swiper-button-next::after,
         .swiper-button-prev::after {
-            font-size: 18px !important;
+            font-size: 16px !important;
         }
         .swiper-button-prev::after{
-     
-            top:50% !important;
+            top:50%;
         }
         .swiper-button-next::after{
-            top:50% !important;
+            top:50%;
         }
 
         .movie-category-swiper .swiper-slide {
@@ -208,12 +192,12 @@
 
     @media (max-width: 480px) {
         .swiper-button-next, .swiper-button-prev {
-            font-size: 18px !important;
+            font-size: 14px;
         }
 
         .swiper-button-next::after,
         .swiper-button-prev::after {
-            font-size: 18px !important; 
+            font-size: 14px !important; 
         }
 
         .movie-category-swiper .swiper-slide {
@@ -234,7 +218,6 @@
     /* Movie Categories & Lists */
     .movie-category, .movie-lists {
         width: -webkit-fill-available;
-        background-color: var(--background-color);
         display: flex;
         flex-direction: column;
         align-items: start;
@@ -246,7 +229,6 @@
         z-index: 2;
         margin-left: 14px;
         margin-right: 2px;
-        margin-bottom: 5px;
     }
 
     .movie-category {

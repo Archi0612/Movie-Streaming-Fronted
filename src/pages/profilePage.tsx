@@ -6,9 +6,9 @@ import './profilePage.css';
 import { getNames } from "country-list";
 import SubscriptionSelection from '../components/subscription/Subscription';
 import ReactModal from 'react-modal';
-import { useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
-import { FaBell, FaEdit, FaSubscript } from 'react-icons/fa';
+// import { useSelector } from 'react-redux';
+// import { RootState } from '../redux/store';
+import { FaEdit } from 'react-icons/fa';
 
 ReactModal.setAppElement('#root'); // Ensure accessibility compliance
 

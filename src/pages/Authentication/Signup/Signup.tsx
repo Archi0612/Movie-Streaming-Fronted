@@ -19,7 +19,7 @@ const Signup: React.FC = () => {
     name: "",
     password: "",
     confirmPassword: "",
-    phoneNumber: "",
+    contactNo: "",
     showPassword: false,
     showConfirmPassword: false,
   });
@@ -81,7 +81,7 @@ const Signup: React.FC = () => {
     const nameError = validateName(userFormData.name);
     const passwordError = validatePassword(userFormData.password);
     const confirmPasswordError = validateConfirmPassword(userFormData.confirmPassword, userFormData.password);
-    const phoneNumberError = validatePhoneNumber(userFormData.phoneNumber);
+    const phoneNumberError = validatePhoneNumber(userFormData.contactNo);
 
     if (emailError || nameError || passwordError || confirmPasswordError || phoneNumberError) {
       setErrors({ email: emailError, name: nameError, password: passwordError, confirmPassword: confirmPasswordError, phoneNumber: phoneNumberError });
@@ -151,7 +151,6 @@ const Signup: React.FC = () => {
       });
     }, 1000);
 
-    //call SendOTP api
     try {
       //it will return the user data to the backend
       // const userData = {formData};

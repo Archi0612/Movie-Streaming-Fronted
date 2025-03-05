@@ -7,7 +7,7 @@
     font-size: 2rem;
     font-weight: bold;
     color: var(--primary-color);
-    margin-bottom: 1.3rem;
+    margin: 1.3rem 0rem;
     text-align: start;
   }
   
@@ -16,7 +16,7 @@
     flex-wrap: wrap;
     /* display: grid; */
     grid-template-columns: repeat(3, 1fr);
-    justify-content: center;
+    /* justify-content: center; */
     gap: 2rem;
   }
   
