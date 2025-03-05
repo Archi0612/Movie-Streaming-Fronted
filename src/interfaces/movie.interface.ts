@@ -91,7 +91,7 @@ export interface Errors {
   name: string;
   password: string;
   confirmPassword: string;
-  phoneNumber: string;
+  contactNo: string;
 }
 
 export interface OtpState {
@@ -113,7 +113,7 @@ export interface User {
   email: string;
   password: string;
   token: string;
-  numberOTP?: number;
+  otp?: number;
 }
 
 // Define State Interface

@@ -210,14 +210,14 @@ const AddSeries: React.FC = () => {
   return (
     <div className="container1">
       <div className="add-series-container">
-      <h2>Add Series</h2>
+      <h2 className="admin-h2">Add Series</h2>
         <div className="fields-container">
           <div className="fields1">
             <label>Title</label>
             <input type="text" name="title" value={series.title} onChange={handleChange} placeholder="Enter series title" autoComplete="off"/>
 
             <label>Description</label>
-            <textarea name="description" value={series.description} onChange={handleChange} placeholder="Enter series details" autoComplete="off"/>
+            <textarea name="description" value={series.description} onChange={handleChange} placeholder="Enter series details" autoComplete="off" className="text-desc1"/>
 
             <label>Genres</label>
             <Select isMulti options={genreOptions} onChange={(selected) => setSeries({ ...series, genres: selected as { value: string; label: string }[] })} styles={{
@@ -344,7 +344,7 @@ const AddSeries: React.FC = () => {
             <input type="file" name="trailerUrl" onChange={handleChange} />
           </div>
         </div>
-        <div className="season-heading-container">
+        {/* <div className="season-heading-container">
         <h3 className="season-header">Seasons</h3>
         <button className="season-add-btn" onClick={addSeason}>Add Season</button>
         </div>
@@ -372,7 +372,7 @@ const AddSeries: React.FC = () => {
               </div>
             </div>
           ))}
-        </div>
+        </div> */}
         <div className="buttons-container">
           <button className="close-btn2" onClick={() => navigate("/admin-dashboard-series")}>Close</button>
           

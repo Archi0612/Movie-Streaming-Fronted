@@ -29,7 +29,7 @@ const Signup: React.FC = () => {
     name: "",
     password: "",
     confirmPassword: "",
-    phoneNumber: "",
+    contactNo: "",
   });
 
   const [otpState, setOtpState] = useState<OtpState>({
@@ -45,7 +45,7 @@ const Signup: React.FC = () => {
   const validateName = (name: string) => (!name ? "Name is required" : /^[A-Za-z\s]+$/.test(name) ? "" : "Please enter alphabets only");
   const validatePassword = (password: string) => (!password ? "Password is required" : password.length >= 6 ? "" : "Password must be at least 6 characters");
   const validateConfirmPassword = (confirmPassword: string, password: string) => (confirmPassword === password ? "" : "Passwords must match");
-  const validatePhoneNumber = (phoneNumber: string) => (!phoneNumber ? "Phone number is required" : /^\d{10}$/.test(phoneNumber) ? "" : "Phone number must be 10 digits");
+  const validatePhoneNumber = (contactNo: string) => (!contactNo ? "Phone number is required" : /^\d{10}$/.test(contactNo) ? "" : "Phone number must be 10 digits");
 
   const togglePasswordVisibility = () => setUserFormData((prevState) => ({ ...prevState, showPassword: !prevState.showPassword }));
   const toggleConfirmPasswordVisibility = () => setUserFormData((prevState) => ({ ...prevState, showConfirmPassword: !prevState.showConfirmPassword }));
@@ -57,7 +57,7 @@ const Signup: React.FC = () => {
       name === "name" ? validateName(value) :
         name === "password" ? validatePassword(value) :
           name === "confirmPassword" ? validateConfirmPassword(value, userFormData.password) :
-            name === "phoneNumber" ? validatePhoneNumber(value) : "";
+            name === "contactNo" ? validatePhoneNumber(value) : "";
     setUserFormData((prevState) => ({ ...prevState, [name]: value }));
     setErrors((prevErrors) => ({ ...prevErrors, [name]: error }));
   };
@@ -84,7 +84,7 @@ const Signup: React.FC = () => {
     const phoneNumberError = validatePhoneNumber(userFormData.contactNo);
 
     if (emailError || nameError || passwordError || confirmPasswordError || phoneNumberError) {
-      setErrors({ email: emailError, name: nameError, password: passwordError, confirmPassword: confirmPasswordError, phoneNumber: phoneNumberError });
+      setErrors({ email: emailError, name: nameError, password: passwordError, confirmPassword: confirmPasswordError, contactNo: phoneNumberError });
     } else {
       console.log("OTP sent to:", userFormData.email);
       setOtpState((prevState) => ({
@@ -119,8 +119,9 @@ const Signup: React.FC = () => {
     if (enteredOtp.length === 6) {
       console.log("OTP Verified:", enteredOtp);
       try {
-        dispatch<any>(registerUser({ ...userFormData, numberOTP: parseInt(enteredOtp) }));
+        dispatch<any>(registerUser({ ...userFormData, otp: parseInt(enteredOtp) }));
         navigate("/login");
+        toast.success("User register successfully")
 
       } catch (error) {
         console.error("Signup failed", error);
@@ -219,14 +220,14 @@ const Signup: React.FC = () => {
               <label>Contact Number</label>
               <input
                 type="text"
-                name="phoneNumber"
+                name="contactNo"
                 value={userFormData.contactNo}
                 onChange={handleChange}
                 placeholder="Enter your phone number"
                 disabled={!otpState.isEditable}
                 autoComplete="off"
               />
-              {errors.phoneNumber && <span className="error">{errors.phoneNumber}</span>}
+              {errors.contactNo && <span className="error">{errors.contactNo}</span>}
             </div>
             <div className="input-group">
               <label>Password</label>

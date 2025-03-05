@@ -22,14 +22,6 @@
     flex-direction: column;
     align-items: center;
 }
-
-h2 {
-    text-align: center;
-    font-size: 30px;
-    margin-bottom: 20px;
-    color: var(--primary-color);
-}
-
 .fields-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -255,3 +247,7 @@ textarea {
     margin-bottom: 20px;
     width: 50%;
 }
+.text-desc1{
+    resize: none;
+    height:110px !important;
+  }
