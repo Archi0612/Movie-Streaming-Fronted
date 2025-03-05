@@ -1,98 +1,83 @@
 /* src/styles/GenreCard.css */
 .genre-card {
-    position: relative;
-    width: 350px;
-    height: 190px;
-    cursor: pointer;
-    overflow: hidden;
-    border-radius: 10px;
-    transition: transform 0.3s ease-in-out;
-    /* display: flex;
-    align-items: center;
-    justify-content: center; */
-  }
-  
-  .genre-card:hover {
-    transform: scale(1.05);
-  }
-  
-  .genre-image {
-    width: 100%;
-    height: 100%; 
-    object-fit: cover;
-    transition: transform 0.3s ease-in-out;
-    /* filter: brightness(70%); */
-  }
-  
-  .genre-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.2);
-    transition: background 0.3s ease-in-out;
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
-  }
-  
-  .genre-title {
-    color: white;
-    font-size: 20px;
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-  @media (max-width: 1024px) {
-    .genre-card {
-        width: 255px;
-        height: 170px;
-    }
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 1rem;
+  transition: transform 0.3s ease-in-out;
+  /* height: 15rem; */
+}
 
-    .genre-title {
-        font-size: 18px;
-    }
+.genre-card:hover {
+  transform: scale(1.05);
+}
+
+.genre-image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease-in-out;
+  /* filter: brightness(70%); */
+}
+
+.genre-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease-in-out;
+}
+
+.genre-title {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+@media (max-width: 1025px) {
+  .genre-card {
+      width: 12rem;
+      height: 7.8rem;
+  }
+
+  .genre-title {
+      font-size: 18px;
+  }
 }
 
 /* Tablets (768px) */
 @media (max-width: 880px) {
-    .genre-card {
-        width: 222px;
-        height: 160px;
-    }
-
-    .genre-title {
-        font-size: 16px;
-    }
-}
-@media (max-width:768px){
-  .genre-card{
-    width: 210px;
-    height: 140px;
+  .genre-card {
+      width: 12rem;
+      height: 8rem;
   }
+
+  .genre-title {
+      font-size: 16px;
+  }
+}
+@media (max-width:785px){
+.genre-card{
+  width: 100%; 
+  height: auto;
+}
 }
 
 /* Large Phones (480px) */
 @media (max-width: 480px) {
-    .genre-card {
-        width: 100%;
-        height: 140px;
-    }
+  .genre-card {
+      width: 100%; 
+      /* height: 5rem;  */
+  }
 
-    .genre-title {
-        font-size: 14px;
-    }
 }
 
 /* Small Phones (368px) */
 @media (max-width: 368px) {
-    .genre-card {
-        width: 100%;
-        height: 120px;
-    }
-
-    .genre-title {
-        font-size: 12px;
-    }
+  .genre-card {
+      width: 20rem;
+      height: 120px;
+  }
 }
-  
