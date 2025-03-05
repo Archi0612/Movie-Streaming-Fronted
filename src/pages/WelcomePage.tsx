@@ -8,15 +8,12 @@ const WelcomePage: React.FC = () => {
   const navigate = useNavigate();
 
   const currentUser = useSelector((state: RootState) => state.user.currentUser);
-  console.log(currentUser, 'here is the current user');
-
   if (currentUser) {
     navigate("/home");
 
   }
 
   const handleGetStarted = () => {
-    console.log("Get Started clicked");
     navigate("/home");
   };
 

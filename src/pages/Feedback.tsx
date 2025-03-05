@@ -51,7 +51,7 @@ const Feedback: React.FC = () => {
     <div className="page-container">
       <div className="feedback-container">
         <form className="feedback-form" onSubmit={handleSubmit}>
-          <h2 className="feedback-title">Give Your Feedback</h2>
+          <h2 className="auth-heading">Give Your Feedback</h2>
           <p className="feedback-description">
             Your opinion matters! Help us improve by sharing your thoughts.
           </p>

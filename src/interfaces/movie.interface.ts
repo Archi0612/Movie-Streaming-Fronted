@@ -113,7 +113,7 @@ export interface User {
   email: string;
   password: string;
   token: string;
-  numberOTP?: number;
+  otp?: number;
 }
 
 // Define State Interface
@@ -129,4 +129,6 @@ export interface UserState {
 export interface AuthResponse {
   token: string;
   userData: User;
+  message?: string|string[];
 }
+

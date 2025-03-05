@@ -1,3 +1,8 @@
+/* **** IMP NOTE ****
+*Input-text css is come from the signup page css
+*/
+
+
 .container {
   background-image: url("../../../assets/background.jpg");
 }
@@ -12,11 +17,6 @@
   background: rgba(0, 19, 31, 0.6);
 }
 
-h2 {
-  text-align: center;
-  color: #FFFFFF;
-  margin-bottom: 20px;
-}
 
 .login-container {
   background-color: rgba(26, 26, 45, 0.8);
@@ -43,21 +43,7 @@ label {
   color: var(--text-color);
 }
 
-input {
-  width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #555;
-  background-color: #222;
-  color: #fff;
-  font-size: 14px;
-  transition: border-color 0.3s ease-in-out;
-}
 
-input:focus {
-  border-color: #457EE8;
-  outline: none;
-}
 
 .login-btn {
   width: 100%;
@@ -136,7 +122,7 @@ input:focus {
   position: relative;
 }
 
-.password-container input {
+.input-text {
   width: 100%;
   padding-right: 40px;
   /* Space for the eye icon */
@@ -301,7 +287,7 @@ input:focus {
   }
 
   input {
-    font-size: 8px;
+    font-size: 1rem;
     padding: 6px;
   }
 

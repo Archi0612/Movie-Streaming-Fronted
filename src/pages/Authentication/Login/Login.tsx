@@ -6,8 +6,9 @@ import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { loginUser } from "../../../redux/slices/user/userSlice";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import { AppDispatch } from "../../../redux/store";
 const Login = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const [userFormData, setUserFormData] = useState({
     email: "",
@@ -61,7 +62,7 @@ const Login = () => {
       }));
     } else {
       try {
-        const resultAction = await dispatch<any>(loginUser(userFormData)).unwrap();
+        const resultAction = await dispatch(loginUser(userFormData)).unwrap();
         console.log(resultAction, "Login successful!");
         toast.success("Successfully logged in!");
         navigate("/home");
@@ -79,7 +80,7 @@ const Login = () => {
           <div className="login-logo">
             <img src={img1} alt="Login" />
           </div>
-          <h2>Login</h2>
+          <h2 className="auth-heading">Login</h2>
           <form onSubmit={handleSubmit}>
             <div className="input-group">
               <label>Email</label>
@@ -89,6 +90,7 @@ const Login = () => {
                 onChange={(e) => handleChange("email", e.target.value)}
                 placeholder="Enter your email"
                 autoComplete="off"
+                className="input-text"
               />
               {userFormData.errors.email && <span className="error">{userFormData.errors.email}</span>}
             </div>
@@ -100,6 +102,7 @@ const Login = () => {
                   value={userFormData.password}
                   onChange={(e) => handleChange("password", e.target.value)}
                   placeholder="Enter your password"
+                   className="input-text"
                 />
                 <span className="toggle-icon" onClick={togglePasswordVisibility}>
                   {showPassword ? <FaEyeSlash color="white" /> : <FaEye color="white" />}
