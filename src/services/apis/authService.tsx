@@ -6,7 +6,6 @@ export const login = async (email: string, password: string) => {
     try {
         //axios always convert data into json format
         const result = await API.post("/auth/login", { email, password });
-        console.log("login data:", result);
         return result;
 
     } catch (err: unknown) {
@@ -27,14 +26,12 @@ export const generateOTP = async (userData: {
     password: string;
 }) => {
     try {
-        console.log(userData);
         const result = await API.post("/auth/generateOTP", {
             email: userData.email,
             contactNo: userData.contactNo,
             name: userData.name,
             password: userData.password
         });
-        console.log("send otp data:", result);
         return result;
     } catch (err: unknown) {
         if (axios.isAxiosError(err)) {
@@ -54,7 +51,6 @@ export const signup = async (userData: {
     numberOTP: number;
 }) => {
     try {
-        console.log("1", userData);
         const result = await API.post("auth/signup", {
             email: userData.email,
             contactNo: userData.phoneNumber,
@@ -62,7 +58,6 @@ export const signup = async (userData: {
             password: userData.password,
             otp: userData.numberOTP
         });
-        console.log("Sign up result:", result);
         return result;
     } catch (err: unknown) {
         if (axios.isAxiosError(err)) {
@@ -81,7 +76,6 @@ export const sendMailResetPassword = async (email: string) => {
             email: email,
             // password: userData.password
         });
-        console.log("Forgot password result:", result.data.message);
         return result;
     } catch (err: unknown) {
         if (axios.isAxiosError(err)) {
@@ -98,7 +92,6 @@ export const resetPassword = async (password: string, token: string) => {
             password: password,
             token: token
         });
-        console.log("Forgot password result:", result.data.message);
         return result;
     } catch (err: unknown) {
         if (axios.isAxiosError(err)) {

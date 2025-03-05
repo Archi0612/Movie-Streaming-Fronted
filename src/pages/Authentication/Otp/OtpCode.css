@@ -1,4 +1,4 @@
-.container{
+/* .container{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,15 +13,15 @@
     width: 100%;
     height: 100%;
     background: rgba(0, 19, 31, 0.6);
-  }
+  } 
   h2 {
     text-align: center;
     color: #FFFFFF;
     margin-bottom: 20px;
-  }
-  .otp-container {
+  }*/
+
+  /* .otp-container {
     background-color: rgba(26,26,45,0.8);
-    box-shadow: 0px 2px 5px var(--hover-shadow);
     padding: 20px;
     border-radius: 8px;
     width: 400px;
@@ -29,28 +29,30 @@
     flex-direction: column;
     justify-content: flex-start;
     box-sizing: border-box;
-  }
-  .img-container{
+  } */
+  /* .img-container{
     display: flex;
     justify-content: center;
     margin-bottom: 10px;
-  }
+  } 
   .otp-logo{
     width: 80px;
     height: 80px;
   }
-  .otp-input-group{
+    */
+  /* .otp-input-group{
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 15px;
-  }
-  label {
+    gap: 1vw;
+    margin-top: 1rem;
+  } */
+  /* label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
-  }
+  } */
   .otp-input {
     width: 30px !important;
     padding: 10px;
@@ -105,7 +107,7 @@
   
   .password-container input {
     width: 100%;
-    padding-right: 40px; /* Space for the eye icon */
+    padding-right: 40px; 
   }
   
   .toggle-icon {
@@ -177,7 +179,7 @@
     .reset-container {
       width: 275px; 
       min-height: 300px;
-      /* padding: 12px;  */
+     padding: 12px;  
       padding-top: 4px;
       padding-bottom: 4px;
     }
@@ -208,4 +210,4 @@
       width: 60px;
       height: 60px;
     }
-  }
+   } 

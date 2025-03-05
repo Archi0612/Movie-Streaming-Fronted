@@ -91,7 +91,7 @@ export interface Errors {
   name: string;
   password: string;
   confirmPassword: string;
-  contactNo: string;
+  phoneNumber: string;
 }
 
 export interface OtpState {
@@ -129,4 +129,6 @@ export interface UserState {
 export interface AuthResponse {
   token: string;
   userData: User;
+  message?: string|string[];
 }
+
