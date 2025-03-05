@@ -220,7 +220,7 @@ const Signup: React.FC = () => {
               <input
                 type="text"
                 name="phoneNumber"
-                value={userFormData.phoneNumber}
+                value={userFormData.contactNo}
                 onChange={handleChange}
                 placeholder="Enter your phone number"
                 disabled={!otpState.isEditable}

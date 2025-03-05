@@ -78,7 +78,7 @@ export interface UserFormData {
   name: string;
   password: string;
   confirmPassword: string;
-  phoneNumber: string;
+  contactNo: string;
   showPassword: boolean;
   showConfirmPassword: boolean;
   numberOTP?: number;
