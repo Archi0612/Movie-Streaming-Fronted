@@ -113,7 +113,7 @@ export interface User {
   email: string;
   password: string;
   token: string;
-  numberOTP?: number;
+  otp?: number;
 }
 
 // Define State Interface

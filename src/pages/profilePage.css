@@ -36,7 +36,6 @@ html {
     flex-direction: row;
     justify-content: space-evenly;
     width: 89vw;
-    height: 40vh;
     flex-wrap: wrap;
     margin: 2rem 0;
 }

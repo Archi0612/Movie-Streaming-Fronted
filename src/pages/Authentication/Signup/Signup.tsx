@@ -119,8 +119,10 @@ const Signup: React.FC = () => {
     if (enteredOtp.length === 6) {
       console.log("OTP Verified:", enteredOtp);
       try {
-        dispatch<any>(registerUser({ ...userFormData, numberOTP: parseInt(enteredOtp) }));
-        navigate("/login");
+        const signup = dispatch<any>(registerUser({ ...userFormData, otp: parseInt(enteredOtp) }));
+        if (signup) {
+          navigate("/login");
+        }
 
       } catch (error) {
         console.error("Signup failed", error);
@@ -166,13 +168,6 @@ const Signup: React.FC = () => {
         throw new Error("An unknown error occurred");
       }
     }
-
-
-
-
-
-
-
   };
 
   return (
@@ -219,7 +214,7 @@ const Signup: React.FC = () => {
               <label>Contact Number</label>
               <input
                 type="text"
-                name="phoneNumber"
+                name="contactNo"
                 value={userFormData.contactNo}
                 onChange={handleChange}
                 placeholder="Enter your phone number"

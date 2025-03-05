@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { User, UserState, AuthResponse } from '../../../interfaces/movie.interface';
+import api from "../../../services/api";
+import { getCookie } from "../../../utils/constants";
 
 const API_BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
@@ -16,18 +18,18 @@ const initialState: UserState = {
     error: undefined,
 };
 
-// Async Thunks
-export const registerUser = createAsyncThunk<AuthResponse, Omit<User, "id" | "token">, { rejectValue: string }>(
-    "user/register",
+export const registerUser = createAsyncThunk<AuthResponse, Omit<User, 'id' | 'token'>, { rejectValue: string }>(
+    'user/register',
     async (user, { rejectWithValue }) => {
         try {
-            const config = { headers: { "Content-Type": "application/json" }, withCredentials: true };
-            const response = await axios.post<AuthResponse>(`${API_BASE_URL}/auth/signup`, user, config);
-
-            localStorage.setItem("authToken", response.data.token);
-            return response.data;
-        } catch (err: any) {
-            return rejectWithValue(err.response?.data?.message || "An error occurred");
+            const response = await api.post<AuthResponse>('/auth/signup', user);
+            return response.data; // Return the response data (AuthResponse)
+        } catch (err: unknown) {
+            if (axios.isAxiosError(err)) {
+                return rejectWithValue(err.response?.data?.message || 'Something went wrong');
+            } else {
+                return rejectWithValue('An unknown error occurred');
+            }
         }
     }
 );
@@ -37,14 +39,13 @@ export const loginUser = createAsyncThunk<AuthResponse, Pick<User, "email" | "pa
     async (userFormData, { rejectWithValue }) => {
         try {
             const config = { headers: { "Content-Type": "application/json" }, withCredentials: true };
-            console.log(userFormData, "here is the user data in user slice")
             const response = await axios.post<AuthResponse>(`${API_BASE_URL}/auth/login`, userFormData, config);
-
+            console.log(response, "this is the response");
+            const token = getCookie('token');
+            console.log(token, "This is the cookie token");
             localStorage.setItem("currentUser", JSON.stringify(response.data.userData));
-            localStorage.setItem("authToken", response.data.token);
-
+            // localStorage.setItem("authToken", response.data.token);
             return response.data;
-
         } catch (err: any) {
             return rejectWithValue(err.response?.data?.message || "An error occurred");
         }

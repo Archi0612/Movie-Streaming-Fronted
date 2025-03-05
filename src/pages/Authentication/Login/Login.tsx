@@ -61,8 +61,7 @@ const Login = () => {
       }));
     } else {
       try {
-        const resultAction = await dispatch<any>(loginUser(userFormData)).unwrap();
-        console.log(resultAction, "Login successful!");
+        await dispatch<any>(loginUser(userFormData)).unwrap();
         toast.success("Successfully logged in!");
         navigate("/home");
       } catch (err) {

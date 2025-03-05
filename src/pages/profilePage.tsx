@@ -4,7 +4,7 @@ import WatchList from '../components/WatchList';
 import userIcon from '../assets/user_logo.png';
 import './profilePage.css';
 import { getNames } from "country-list";
-import SubscriptionSelection from '../components/subscription/Subscription';
+import SubscriptionModal from '../components/subscription/Subscription';
 import ReactModal from 'react-modal';
 // import { useSelector } from 'react-redux';
 // import { RootState } from '../redux/store';
@@ -38,8 +38,6 @@ export default function ProfilePage() {
         // to update the profile info we need to setup an api call here 
 
     };
-
-
 
     return (
         <>
@@ -168,7 +166,7 @@ export default function ProfilePage() {
             {/* Subscription Component */}
 
             {isSubscribeOpen && (
-                < SubscriptionSelection isOpen={isSubscribeOpen} onClose={() => setIsSubscribeOpen(false)} />
+                < SubscriptionModal isOpen={isSubscribeOpen} onClose={() => setIsSubscribeOpen(false)} />
             )}
 
 
