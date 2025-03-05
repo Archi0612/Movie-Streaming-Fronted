@@ -23,14 +23,14 @@ export const login = async (email: string, password: string) => {
 export const generateOTP = async (userData: {
     name: string;
     email: string;
-    phoneNumber: string;
+    contactNo: string;
     password: string;
 }) => {
     try {
         console.log(userData);
         const result = await API.post("/auth/generateOTP", {
             email: userData.email,
-            contactNo: userData.phoneNumber,
+            contactNo: userData.contactNo,
             name: userData.name,
             password: userData.password
         });
