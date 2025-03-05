@@ -20,13 +20,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
-.add-episode-container  h2{
+/* .add-episode-container  h2{
     text-align: center;
     font-size: 30px;
     margin-bottom: 20px;
     color: var(--primary-color);
-}
+} */
 label {
     font-weight: bold;
 }
@@ -77,10 +78,10 @@ textarea {
 }
 
 .season-header {
-    display: flex;
+    /* display: flex;
     justify-content: space-between;
-    align-items: center;
-    font-size: 18px;
+    align-items: center; */
+    font-size: 25px !important;
     font-weight: bold;
     color: var(--primary-color);
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
@@ -187,6 +188,7 @@ textarea {
 }
 .series-selection-2{
     display: flex;
+    margin-top: 19px;
     
 }
 .series-selection-2 input{
@@ -194,4 +196,52 @@ textarea {
 }
 .series-selection-2  button{
     width: 20%;
+}
+.series-selection-2 input::placeholder{
+    color:rgb(185, 183, 183) !important;
+}
+@media screen and (max-width:820px){
+    .series-selection{
+        display: flex;
+        flex-direction: column;
+        justify-content: left;
+        align-items:start;
+    }
+    .series-selection-1{
+        width: 100%;
+    }
+    .custom-control{
+        width: 100% !important;
+    }
+    .series-selection-2{
+        width: 100%;
+    }   
+}
+@media screen and (max-width:480px){
+    .season-save-btn{
+        padding: 7px 14px;
+    }
+    .season-close-btn{
+        padding: 7px 14px;
+    }
+    .episode-add-btn{
+        padding: 4px 8px;
+    }
+    .episode-label{
+        font-size: 12px;
+    }
+}
+@media screen and (max-width:360px){
+    .episode-add-btn{
+        padding: 3.5px 5px;
+    }
+    .episode-header h4{
+        font-size: 14px;
+    }
+}
+.custom-control{
+    background-color: rgba(93, 94, 95, 0.3) !important;
+     width: 300px;
+         border: none;
+         color: white
 }

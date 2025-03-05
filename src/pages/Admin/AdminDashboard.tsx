@@ -10,6 +10,8 @@ import "./AdminDashboard.css";
 import poster1 from "../../assets/kgf2poster.jpeg";
 import poster2 from "../../assets/salar.jpeg";
 import { useNavigate } from "react-router-dom";
+import EditMovieModal from "./EditMovieModal";
+import DeleteConfirmationModal from "../../components/DeleteConfirmationModal";
 
 // Register AG Grid Modules
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
@@ -53,7 +55,43 @@ const AdminDashboard: React.FC = () => {
       director: "Prashant Neel",
     },
   ]);
+  const[selectedMovie,setSelectedMovie]=useState<Movie | null>(null);
+  const[isEditModalOpen,setIsEditModalOpen]=useState(false)
+  const[isDeleteModelOpen,setIsDeleteModelOpen]=useState(false)
+
   const navigate=useNavigate();
+
+  const handleEdit=(movie:Movie)=>{
+    setSelectedMovie(movie);
+    setIsEditModalOpen(true);
+  }
+  
+  const handleDelete=()=>{
+    setIsDeleteModelOpen(false)
+  }
+
+  const handleSaveChanges = async (updatedMovie: Movie) => {
+    try {
+      // // Simulate API call with Promise.all
+      // await Promise.all([
+      //   fetch(`https://api.example.com/movies/${updatedMovie.id}`, {
+      //     method: "PUT",
+      //     headers: { "Content-Type": "application/json" },
+      //     body: JSON.stringify(updatedMovie),
+      //   }),
+      // ]);
+
+      // // Update movie list in UI
+      // setMovies((prevMovies) =>
+      //   prevMovies.map((m) => (m.id === updatedMovie.id ? updatedMovie : m))
+      // );
+      
+      setIsEditModalOpen(false);
+    } catch (error) {
+      console.error("Failed to update movie", error);
+    }
+  };
+
   const columnDefs: ColDef<Movie>[] = [
     { headerName: "Poster", field: "img", cellRenderer: (params: any) => <img src={params.value} alt="poster" className="poster-img" />, flex: 2, sortable: false },
     { headerName: "Title", field: "title", flex: 2 },
@@ -64,10 +102,10 @@ const AdminDashboard: React.FC = () => {
     {
       headerName: "Action",
       field: "action",
-      cellRenderer: () => (
+      cellRenderer: (params:any) => (
         <div className="action-buttons">
-          <button className="edit-btn"><MdEdit size={15} /></button>
-          <button className="delete-btn"><MdDelete size={15} /></button>
+          <button className="edit-btn" onClick={() => handleEdit(params.data)}><MdEdit size={15} /></button>
+          <button className="delete-btn" onClick={()=>setIsDeleteModelOpen(true)}><MdDelete size={15} /></button>
         </div>
       ),
       flex: 1,
@@ -109,6 +147,18 @@ const AdminDashboard: React.FC = () => {
           </div>
         </div>
       </div>
+      {
+        
+      isEditModalOpen && selectedMovie &&(
+        <EditMovieModal movie={selectedMovie} onClose={()=>setIsEditModalOpen(false)} onSave={handleSaveChanges}/>
+      )}
+      {
+        isDeleteModelOpen &&(
+          <DeleteConfirmationModal  isOpen={isDeleteModelOpen}
+          onClose={() => setIsDeleteModelOpen(false)}
+          onConfirm={handleDelete}/>
+        )
+      }
     </div>
   );
 };

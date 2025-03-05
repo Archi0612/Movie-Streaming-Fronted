@@ -120,6 +120,7 @@ const ForgotPassword:React.FC = () => {
                 onChange={handleEmailChange}
                 placeholder="Enter your email"
                 autoComplete="off"
+                className='input-text'
               />
               {error && <span className="error">{error}</span>}
             </div>

@@ -6,7 +6,6 @@ import { HeaderProps } from "../interfaces/movie.interface";
 const Header: React.FC<HeaderProps> = ({ showFullHeader, showOnlyLogo }) => {
   const navigate = useNavigate();
   const handleSignIn = () => {
-    console.log("Sign in button");
     navigate("login");
   };
   const handleLogoClick = () => {

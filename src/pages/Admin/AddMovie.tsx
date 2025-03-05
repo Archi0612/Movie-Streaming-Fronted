@@ -146,7 +146,7 @@ const AddMovie: React.FC = () => {
   return (
     <div className="container1">
       <div className="add-movie-container">
-        <h2>Add Movie</h2>
+        <h2 className="admin-h2">Add Movie</h2>
         <div className="fields-container">
           <div className="fields1">
             <label>Title</label>

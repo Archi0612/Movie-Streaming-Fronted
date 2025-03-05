@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import './ResetPassword.css';
 import img2 from "../../../assets/resetlogo.png"
@@ -12,7 +12,6 @@ const ResetPassword: React.FC = () => {
   const navigate=useNavigate();
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token");
-  console.log("token:", token);
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
   const [errors, setErrors] = useState({
@@ -68,7 +67,7 @@ const ResetPassword: React.FC = () => {
   const hidePasswordOnBlur = () => {
     setShowPassword(false);
   };
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async(event: React.FormEvent) => {
     event.preventDefault();
     const newPasswordError = validateNewPassword(newPassword);
     const confirmNewPasswordError = validateConfirmNewPassword(newPassword, confirmNewPassword);
@@ -81,17 +80,13 @@ const ResetPassword: React.FC = () => {
     } else {
       // Add your password reset API call here
       try{
-        const result = resetPassword(newPassword, token as string);
-        console.log("New pass from reset password:",result);
-        toast.success("Password reset successfully");
-        return navigate('/login');
-        // return result;
+        const result = await resetPassword(newPassword, token as string);
+        toast.success(result.data.message);
+        navigate('/login');
+        return result;
       }catch(err){
         if (err instanceof Error) {
-          console.log('Error resetting password:', err.message);
-          toast.error("error in resetting password");
-        } else {
-          console.log('Error resetting password:', err);
+          toast.error(err.message);
         }
       }
     }
@@ -105,7 +100,7 @@ const ResetPassword: React.FC = () => {
       <div className='img-container'>
     <img src={img2} alt="" className='reset-logo' />
     </div>
-      <h2>Reset Password</h2>
+      <h2 className='auth-title'>Reset Password</h2>
       <form onSubmit={handleSubmit}>
          <div className="input-group">
           <label>Password</label>
@@ -116,6 +111,7 @@ const ResetPassword: React.FC = () => {
               onBlur={hidePasswordOnBlur}
               onChange={handleNewPasswordChange}
               placeholder="Enter your password"
+              className='input-text'
             />
             <span className="toggle-icon" onClick={togglePasswordVisibility}>
               {showPassword ? <FaEyeSlash color='white'/> : <FaEye color='white'/>}
@@ -130,6 +126,7 @@ const ResetPassword: React.FC = () => {
             value={confirmNewPassword}
             onChange={handleConfirmNewPasswordChange}
             placeholder='Confirm your password'
+            className='input-text'
              />
              <span className='toggle-icon' onClick={toggleConfirmPasswordVisibility}>
               {showConfirmPassword ? <FaEyeSlash color='white'/>: <FaEye color='white'/> }
