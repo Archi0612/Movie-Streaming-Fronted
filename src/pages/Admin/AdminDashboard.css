@@ -58,6 +58,9 @@
     cursor: pointer !important;
     border-radius: 5px !important;
     border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .action-buttons .edit-btn:hover{
     background-color: #188ad6;

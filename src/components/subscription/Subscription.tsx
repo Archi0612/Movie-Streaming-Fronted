@@ -53,7 +53,7 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
     const userData: UserData = {
         ID: 123,
         name: "Priyanshu1",
-        email: "v3@gmail.com",
+        email: "l6@gmail.com",
         phone: "1234567890",
         country: "India",
         countryCode: "+91",
@@ -233,10 +233,10 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
                         >
                             Cancel
                         </button>
-                    </div>
-                </div>
-            </div>
-        </Elements>
+                    </div >
+                </div >
+            </div >
+        </Elements >
     );
 };
 

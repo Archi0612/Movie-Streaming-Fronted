@@ -1,7 +1,7 @@
 .movie-card {
   position: relative;
-  /* width: 15rem; */
-  /* height: auto; Set a fixed height for the movie card */
+  width: 15rem;
+   height: auto; /* Set a fixed height for the movie card */
   max-width: 16rem;
   border-radius: 0.5rem;
   overflow: hidden;
@@ -61,7 +61,7 @@
   color: #d1d5db;
   display: flex;
   gap: 0.6rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
   flex-direction: row;
   flex-wrap: wrap;
 }
@@ -96,8 +96,10 @@
   position: absolute;
   display: flex;
   gap: 0.75rem;
-  bottom: 0.7rem;
+  margin-left: 1.2rem;
+  bottom: 1.5rem;
 }
+
 
 .movie-button {
   display: flex;
@@ -139,6 +141,12 @@
 }
 
 /* Responsive Design */
+
+@media (max-width: 1250px){
+  .movie-card{
+    width: 10rem;
+  }
+}
 @media (max-width: 1024px) {
   .movie-card {
     width: 10rem;
@@ -210,20 +218,15 @@
   }
 
   .movie-overview {
-    font-size: 0.60rem !important;
+    font-size: 0.5rem !important;
     -webkit-line-clamp: 3;
-  }
-
-  .movie-buttons {
-    gap: 0.4rem;
-    margin-top: 0.4rem;
   }
 
   .movie-button {
     padding: 0.3rem;
     font-size: 0.7rem;
-    width: 26px !important;
-    height: 26px !important;
+    /* width: 26px !important; */
+    /* height: 26px !important; */
   }
 
   .movie-rating svg {
@@ -260,7 +263,8 @@
   }
 
   .movie-buttons {
-    gap: 0.1rem;
+    padding: 0.3rem;
+    gap: 0.5rem;
   }
 
   .movie-button {
@@ -304,7 +308,7 @@
   }
 
   .movie-buttons {
-    gap: 0.3rem;
+    gap: 0.5rem;
   }
 
   .movie-button {

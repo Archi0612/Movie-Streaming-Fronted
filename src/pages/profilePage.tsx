@@ -9,6 +9,8 @@ import ReactModal from 'react-modal';
 // import { useSelector } from 'react-redux';
 // import { RootState } from '../redux/store';
 import { FaEdit } from 'react-icons/fa';
+import { FiLogOut } from "react-icons/fi";
+
 
 ReactModal.setAppElement('#root'); // Ensure accessibility compliance
 
@@ -61,6 +63,9 @@ export default function ProfilePage() {
                                     </button>
                                     <button className='subscribeProfile-btn' onClick={() => setIsSubscribeOpen(true)} >
                                         Subscribe
+                                    </button>
+                                    <button className='subscribeProfile-btn' >
+                                        <FiLogOut />
                                     </button>
                                 </div>
                             </div>

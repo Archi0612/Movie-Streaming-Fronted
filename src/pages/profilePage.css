@@ -44,10 +44,9 @@ html {
 .heading {
     display: flex;
     flex-direction: row;
-    width: 48vw;
+    width: 34rem;
     justify-content: space-between;
     margin-top: 6px;
-    /* margin-left: 15px; */
 }
 
 .heading-personalinfo {
@@ -59,7 +58,7 @@ html {
 
 .edit-subscribe {
     display: flex;
-    width: 11rem;
+    width: 14rem;
     flex-direction: row;
     justify-content: space-between;
 }
@@ -89,6 +88,7 @@ html {
     border-radius: 5px;
     cursor: pointer;
     font-size: 14px;
+    font-weight: bold;
     transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
@@ -162,7 +162,7 @@ html {
 }
 
 /* /////////////////////////////////////////////////////////////////////////////////////////////////// */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 785px) {
     .profilepagecontainer {
         position: relative;
         top: 0;
@@ -181,6 +181,9 @@ html {
     .profile-section {
         width: 20rem;
         padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .profileInfo-container {
@@ -225,14 +228,22 @@ html {
         margin-bottom: 1rem;
     }
 
-    .editProfile-btn,
-    .subscribeProfile-btn {
+    .editProfile-btn {
         font-size: 10px;
+    }
+
+    .subscribeProfile-btn {
+        font-size: 12px;
+        font-weight: bold;
     }
 
 
     .heading {
-        width: 18rem
+        width: 15rem;
+        display: flex;
+        flex-direction: column;
+        height: 4.5rem;
+        align-items: center;
     }
 
     .ProfileHeading {
@@ -241,7 +252,7 @@ html {
     }
 
     .heading-personalinfo {
-        font-size: 15px;
+        font-size: 0.8rem;
         align-content: center;
     }
 
@@ -255,17 +266,17 @@ html {
     }
 
     .edit-subscribe {
-        width: 9rem;
+        width: 15rem;
     }
 
 
 }
 
 
-@media screen and (max-width: 860px) {
+@media screen and (min-width:786px) and (max-width: 860px) {
 
     .userLogo {
-        height: 10rem;
+        height: 9rem;
     }
 
     .profile-section {
@@ -279,6 +290,21 @@ html {
     .ProfileHeading {
         font-size: 1.7rem;
     }
+
+    .heading-personalinfo {
+        width: 8rem;
+        font-size: 1.1rem;
+    }
+
+    .heading {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .edit-subscribe {
+        width: 15rem;
+    }
+
 }
 
 /* /////////////////////////////////////////////////////////////////////////////////////////////////// */
@@ -299,7 +325,7 @@ html {
 
 .modal1 {
     background-color: rgba(26, 26, 45);
-    width: 40%;
+    width: 60%;
     max-width: 500px;
     padding: 2rem;
     border-radius: 12px;
@@ -361,7 +387,7 @@ html {
     display: flex;
     justify-content: space-between;
     margin-top: 1.5rem;
-    gap: 5px;
+    gap: 10px;
 }
 
 .modal-buttons button {
@@ -412,9 +438,12 @@ html {
 }
 
 @media screen and (max-width: 768px) {
-    .modal {
-        width: 90%;
-        padding: 1.5rem;
+    .modal1 {
+        width: 80%
+    }
+
+    .modal1 h2 {
+        font-size: 22px;
     }
 }
 
@@ -435,6 +464,10 @@ html {
     color: #fff;
     border-radius: 5px;
     background: rgba(93, 94, 95, 0.3);
+}
+
+.modal1 label {
+    font-size: 1rem;
 }
 
 
@@ -463,6 +496,16 @@ html {
     background: rgba(30, 30, 30, 0.8) !important;
     /* Darker background */
 }
+
+@media (max-width: 480px) {
+
+    .modal1 input,
+    .modal1 select,
+    .modal1 label {
+        font-size: 0.8rem !important;
+    }
+}
+
 
 /* 
 css for subscription modal  */
