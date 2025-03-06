@@ -129,4 +129,6 @@ export interface UserState {
 export interface AuthResponse {
   token: string;
   userData: User;
+  message?: string|string[];
 }
+
