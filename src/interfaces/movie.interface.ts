@@ -114,6 +114,7 @@ export interface User {
   password: string;
   token: string;
   otp?: number;
+  role: string;
 }
 
 // Define State Interface

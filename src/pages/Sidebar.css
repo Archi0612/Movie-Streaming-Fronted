@@ -4,7 +4,7 @@
   left: 0;
   top: 0;
   height: 100vh;
-  background: rgba(var(--primary-color), 0.7);
+  /* background: rgba(var(--primary-color), 0.7); */
   transition: 0.3s ease;
   overflow: hidden;
   display: flex;
@@ -15,7 +15,7 @@
   z-index: 1000;
 }
 
-.bottom-nav {
+.bottom-nav, .sparks-popup {
   display: none;
 }
 
@@ -27,7 +27,7 @@
 .sidebar-list {
   list-style: none;
   padding: 0;
-  width: 7.5vw;
+  width: 8rem;
 }
 
 .sidebar-logo {
@@ -42,7 +42,7 @@
   width: 3rem;
   height: auto;
   top: 1.5rem;
-  left: 2.1rem;
+  left: 1.5rem;
 }
 
 .sidebar li {

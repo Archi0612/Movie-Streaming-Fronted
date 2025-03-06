@@ -2,17 +2,18 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { User, UserState, AuthResponse } from "../../../interfaces/movie.interface";
 import API from "../../../services/api";
+import { getCookie } from "../../../utils/constants";
 
 // Get stored authentication token from local storage
-const storedToken = localStorage.getItem("authToken");
-
-// Define initial state for user authentication
+const storedToken = getCookie('token');
+const user = localStorage.getItem("currentUser");
+const parsedUser = user ? JSON.parse(user) as User : null;
 const initialState: UserState = {
-    currentUser: null, // Stores logged-in user details
-    isAuthenticated: !!storedToken, // Check if a token exists for authentication
-    loading: false, // Indicates if an API request is in progress
-    success: false, // Stores success status of API calls
-    error: undefined, // Stores error messages, if any
+    currentUser: parsedUser,
+    isAuthenticated: !!storedToken,
+    loading: false,
+    success: false,
+    error: undefined,
 };
 
 // ✅ **AsyncThunk for Registering a User**
@@ -48,10 +49,15 @@ export const loginUser = createAsyncThunk<
     async (userFormData, { rejectWithValue }) => {
         try {
             const response = await API.post<AuthResponse>('/auth/login', userFormData);
+            console.log("Full API Response:", response.data); // Debug entire response
 
+            
+            console.log("User Data (before storing):", response.data.userData);
+            const responseUser = JSON.stringify(response.data.userData);
+            console.log("Response User:", responseUser);
             // Store user details & authentication token in local storage
             localStorage.setItem("currentUser", JSON.stringify(response.data.userData));
-            localStorage.setItem("authToken", response.data.token);
+            console.log("Response from loginapi", response);
 
             return response.data;
         } catch (err: unknown) {
@@ -115,6 +121,7 @@ const userSlice = createSlice({
                 state.error = undefined;
             })
             .addCase(loginUser.fulfilled, (state, action: PayloadAction<AuthResponse>) => {
+                console.log("Redux State Update:", action.payload.userData); // Debugging log
                 state.loading = false;
                 state.success = true;
                 state.currentUser = action.payload.userData;

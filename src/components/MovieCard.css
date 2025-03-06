@@ -1,7 +1,7 @@
 .movie-card {
   position: relative;
   width: 15rem;
-   height: auto; /* Set a fixed height for the movie card */
+  height: auto; /* Set a fixed height for the movie card */
   max-width: 16rem;
   border-radius: 0.5rem;
   overflow: hidden;
@@ -55,7 +55,6 @@
   text-align: left;
 }
 
-
 /* 📅 Movie Details (Now in ONE ROW) */
 .movie-details1 {
   color: #d1d5db;
@@ -85,7 +84,7 @@
   line-height: 1.5;
   overflow: hidden;
   text-overflow: ellipsis;
-  -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   display: -webkit-box;
   /* margin-bottom: auto; Pushes buttons to the bottom */
@@ -99,7 +98,6 @@
   margin-left: 1.2rem;
   bottom: 1.5rem;
 }
-
 
 .movie-button {
   display: flex;
@@ -142,8 +140,8 @@
 
 /* Responsive Design */
 
-@media (max-width: 1250px){
-  .movie-card{
+@media (max-width: 1250px) {
+  .movie-card {
     width: 10rem;
   }
 }
@@ -170,8 +168,8 @@
   }
 
   .movie-overview {
-    font-size: 0.70rem;
-    -webkit-line-clamp: 3;
+    font-size: 0.7rem;
+    line-clamp: 3;
   }
 
   .movie-buttons {
@@ -192,7 +190,7 @@
 
 /* Small Tablets */
 @media (max-width: 768px) {
-.movie-card {
+  .movie-card {
     width: 10rem;
     /* height: 210px; */
   }
@@ -219,7 +217,7 @@
 
   .movie-overview {
     font-size: 0.5rem !important;
-    -webkit-line-clamp: 3;
+    line-clamp: 3;
   }
 
   .movie-button {
@@ -236,11 +234,6 @@
 
 /* Extra Small Mobile View */
 @media (max-width: 545px) {
-  .movie-card {
-    /* width: 8rem; */
-    /* height: 140px; */
-  }
-
   .movie-title {
     font-size: 0.4rem;
   }
@@ -252,11 +245,12 @@
   .movie-details1 li {
     font-size: 5px;
   }
-  .movie-details1{
+  .movie-details1 {
     margin-bottom: 0.2rem;
   }
-.movie-card p{
-  font-size: 0.4rem !important;}
+  .movie-card p {
+    font-size: 0.4rem !important;
+  }
 
   .movie-overview {
     font-size: 0.4rem;
@@ -277,10 +271,6 @@
 
 /* Mobile View */
 @media (max-width: 480px) {
-  /* .movie-card {
-    height: 9rem;
-  } */
-
   .movie-hover {
     padding: 0.35rem;
   }
@@ -288,9 +278,9 @@
   .movie-title {
     font-size: 0.7rem !important;
   }
- .movie-rating{
-  margin-bottom: 0.3rem;
- }
+  .movie-rating {
+    margin-bottom: 0.3rem;
+  }
   .movie-rating svg {
     font-size: 0.6rem;
   }
@@ -298,13 +288,13 @@
   .movie-details1 li {
     font-size: 7px;
   }
-  .movie-details1{
-    gap:0.2rem;
+  .movie-details1 {
+    gap: 0.2rem;
   }
 
   .movie-overview {
     font-size: 0.7rem !important;
-    -webkit-line-clamp: 3;
+    line-clamp: 3;
   }
 
   .movie-buttons {
