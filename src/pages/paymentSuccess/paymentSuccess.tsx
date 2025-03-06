@@ -1,30 +1,41 @@
-// import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import './paymentSuccess.css'
-import successSvg from '../../assets/success-svgrepo-com.svg';
+import axios from "axios";
+import { useEffect, useState } from "react";
 
-const Success = () => {
-    // const [searchParams] = useSearchParams();
-    // const sessionId = searchParams.get("session_id");
+export const Success = () => {
+    const [searchParams] = useSearchParams();
+    const sessionId = searchParams.get("session_id");
+    const [status, setStatus] = useState("Verifying...");
+
+    useEffect(() => {
+        if (sessionId) {
+            verifyPayment(sessionId);
+        }
+    }, [sessionId]);
+
+    const verifyPayment = async (sessionId: string) => {
+        try {
+            const response = await axios.get(`http://localhost:7777/stripe/verifyPayment?session_id=${sessionId}`);
+            if (response.data.success) {
+                setStatus("Payment Successful! 🎉");
+
+            } else {
+                setStatus("Payment verification failed.");
+            }
+        } catch (error) {
+            console.error("Error verifying payment:", error);
+            setStatus("Error verifying payment.");
+        }
+    };
 
     return (
-        <div className="success-container">
-            <div className="success-box">
-                <img src={successSvg} alt="Success" className="success-icon" />
-                <h1 style={{ color: 'white' }}>Payment Successful 🎉</h1>
-                <p style={{ color: 'white' }}>Thank you for subscribing!</p>
-
-                {/* {sessionId && (
-                    <div className="session-box">
-                        <strong>Session ID:</strong> {sessionId}
-                    </div>
-                )} */}
-
-                <a href="/home" className="sucesshome-button">
-                    Go back to Home
-                </a>
-            </div>
+        <div>
+            <h1>{status}</h1>
         </div>
     );
 };
 
-export default Success;
+
+
+

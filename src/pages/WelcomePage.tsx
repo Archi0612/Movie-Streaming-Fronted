@@ -1,8 +1,6 @@
 import React from "react";
 import "./WelcomePage.css";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
 
 const WelcomePage: React.FC = () => {
   const navigate = useNavigate();

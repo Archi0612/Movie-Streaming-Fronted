@@ -54,7 +54,7 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
     const userData: UserData = {
         ID: 123,
         name: "Priyanshu1",
-        email: "U6@gmail.com",
+        email: "zCfdf6@gmail.com",
         phone: "1234567890",
         country: "India",
         countryCode: "+91",
@@ -107,6 +107,7 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
                 const { error } = await stripe.redirectToCheckout({
                     sessionId: response.data.id
                 });
+                console.log(error, "Line 111");
                 if (error) {
                     alert("There was an error processing your subscription. Please try again.");
                 }
