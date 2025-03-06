@@ -102,6 +102,9 @@
   background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)) ;
 }
 @media(max-width: 768px) {
+  .footer-container {
+    margin-bottom: 3rem;
+  }
   .footer-content {
       display: grid;
       grid-template-columns: 1fr 1fr;
