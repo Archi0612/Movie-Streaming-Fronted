@@ -44,7 +44,7 @@ export default function ProfilePage() {
             <div className='profilepagecontainer'>
                 <div className='internalProfilePage'>
                     <div className='profilepage-heading'>
-                        <h1>Profile Page</h1>
+                        <h1 className='ProfileHeading'>Profile Page</h1>
                     </div>
                     <div className='profileCard-information'>
                         <div className='primaryContainer'>

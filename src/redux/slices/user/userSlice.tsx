@@ -2,17 +2,21 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { User, UserState, AuthResponse } from "../../../interfaces/movie.interface";
 import API from "../../../services/api";
+import { getCookie } from "../../../utils/constants";
+
 
 // Get stored authentication token from local storage
-const storedToken = localStorage.getItem("authToken");
+const storedToken = getCookie('token');
+const user = localStorage.getItem("currentUser");
+const parsedUser = user ? JSON.parse(user) as User : null;
 
-// Define initial state for user authentication
+// Define initial state for user authentication 
 const initialState: UserState = {
-    currentUser: null, // Stores logged-in user details
-    isAuthenticated: !!storedToken, // Check if a token exists for authentication
-    loading: false, // Indicates if an API request is in progress
-    success: false, // Stores success status of API calls
-    error: undefined, // Stores error messages, if any
+    currentUser: parsedUser,
+    isAuthenticated: !!storedToken,
+    loading: false,
+    success: false,
+    error: undefined,
 };
 
 // ✅ **AsyncThunk for Registering a User**

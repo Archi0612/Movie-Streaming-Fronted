@@ -53,7 +53,7 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
     const userData: UserData = {
         ID: 123,
         name: "Priyanshu1",
-        email: "A3@gmail.com",
+        email: "v3@gmail.com",
         phone: "1234567890",
         country: "India",
         countryCode: "+91",

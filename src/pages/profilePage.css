@@ -10,7 +10,7 @@ html {
 }
 
 .userLogo {
-    height: 20rem;
+    height: 18rem;
 }
 
 
@@ -53,6 +53,8 @@ html {
 .heading-personalinfo {
     font-size: 1.3rem;
     color: var(--text-color);
+    margin-left: 1.5rem;
+    align-content: center;
 }
 
 .edit-subscribe {
@@ -116,7 +118,7 @@ html {
     justify-content: flex-start;
     align-items: center;
     margin-left: 1rem;
-    height: 20rem;
+    height: 17rem;
 }
 
 .profile-table {
@@ -128,7 +130,7 @@ html {
 .profile-table th,
 .profile-table td {
     padding: 10px;
-    font-size: 20px;
+    font-size: 16px;
 }
 
 .profile-table th {
@@ -145,8 +147,8 @@ html {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-evenly;
-    width: 89vw;
+    justify-content: space-around;
+    width: 91vw;
     height: 55vh;
     flex-wrap: wrap;
     border-bottom: 2px solid grey;
@@ -177,7 +179,7 @@ html {
     }
 
     .profile-section {
-        width: 22rem;
+        width: 20rem;
         padding: 1rem;
     }
 
@@ -191,7 +193,7 @@ html {
 
     .profile-table th,
     .profile-table td {
-        font-size: 15px;
+        font-size: 14px;
     }
 
 
@@ -230,11 +232,16 @@ html {
 
 
     .heading {
-        width: 20rem
+        width: 18rem
+    }
+
+    .ProfileHeading {
+        font-size: 1.5rem;
+        font-weight: 500;
     }
 
     .heading-personalinfo {
-        font-size: 16px;
+        font-size: 15px;
         align-content: center;
     }
 
@@ -258,7 +265,7 @@ html {
 @media screen and (max-width: 860px) {
 
     .userLogo {
-        height: 17rem;
+        height: 10rem;
     }
 
     .profile-section {
@@ -268,9 +275,11 @@ html {
     .profileCard-information {
         height: auto;
     }
+
+    .ProfileHeading {
+        font-size: 1.7rem;
+    }
 }
-
-
 
 /* /////////////////////////////////////////////////////////////////////////////////////////////////// */
 
