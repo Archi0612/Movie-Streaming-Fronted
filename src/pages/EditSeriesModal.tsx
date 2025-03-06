@@ -57,7 +57,7 @@ const EditSeriesModal: React.FC<EditSeriesModalProps> = ({ isOpen, series, onClo
             <input type="date" name="releaseDate" value={series.releaseDate || ""} onChange={onChange} />
 
             <label>Rating</label>
-            <input type="number" name="rating" value={series.rating} onChange={onChange} step="0.1" min="0.0" placeholder="Enter series rating" />
+            <input type="number" name="rating" value={series.rating} onChange={onChange} step="0.1" min="0.0" max="10.0" placeholder="Enter series rating" />
 
             <label>Genres</label>
             <Select
