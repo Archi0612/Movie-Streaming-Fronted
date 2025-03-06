@@ -33,14 +33,9 @@ const publishKey: string = import.meta.env.VITE_STRIPE_PUBLISH_KEY!;
 const stripePromise: Promise<Stripe | null> = loadStripe(publishKey);
 
 const SubscriptionSelection: React.FC<SubscriptionProps> = ({ isOpen, onClose }) => {
-    console.log("Entered in Subscription component");
-
     const [loading, setLoading] = useState<boolean>(false);
     const[billingCycle,setBillingCycle]=useState<"monthly" | "yearly">("monthly");
     const selectedPlanRef = useRef<"monthly" | "yearly" | null>(null);
-    // const handleToggle=()=>{
-    //     setBillingCycle((prev)=>prev==="monthly"?"yearly":"monthly");
-    // }
     const userData: UserData = {
         name: "Priyanshu1",
         email: "p6@gmail.com",
@@ -99,12 +94,16 @@ const SubscriptionSelection: React.FC<SubscriptionProps> = ({ isOpen, onClose })
             setLoading(false);
         }
     };
-
+    const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (e.target === e.currentTarget) {
+          onClose();
+        }
+      };
     if (!isOpen) return null;
 
     return (
         <Elements stripe={stripePromise}>
-            <div className="subscription-selection-overlay">
+            <div className="subscription-selection-overlay" onClick={handleOverlayClick}>
                 <div className="subscription-selection-container">
                     <h2 style={{ color: "white" }}>Choose Your Subscription</h2>
                     <div className="toggle-container" onClick={() => setBillingCycle(billingCycle === "monthly" ? "yearly" : "monthly")}>
@@ -153,7 +152,7 @@ const SubscriptionSelection: React.FC<SubscriptionProps> = ({ isOpen, onClose })
                                 <li className="subscription-card-li">Stream on 4 Devices Simultaneously</li>
                                 <li className="subscription-card-li">Create a Private Watch Party with Friends</li>
                             </ul>
-                            <button disabled={loading} onClick={() => handleSubscription("yearly")}>
+                            <button disabled={loading} onClick={() => handleSubscription("monthly")}>
                                 Select
                             </button>
                         </div>
@@ -185,7 +184,7 @@ const SubscriptionSelection: React.FC<SubscriptionProps> = ({ isOpen, onClose })
                                 <li className="subscription-card-li">Stream on 2 Devices Simultaneously</li>
                                 <li className="subscription-card-li">Create a Private Watch Party with Friends</li>
                             </ul>
-                            <button disabled={loading} onClick={() => handleSubscription("monthly")}>
+                            <button disabled={loading} onClick={() => handleSubscription("yearly")}>
                                 Select
                             </button>
                         </div>

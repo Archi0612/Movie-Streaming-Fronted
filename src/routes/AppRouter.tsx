@@ -24,6 +24,7 @@ import { Bounce, ToastContainer } from "react-toastify";
 import GenrePage from "../pages/GenrePage";
 import Search from "../pages/Search";
 import AddEpisode from "../pages/Admin/AddEpisode";
+import UserDashboard from "../pages/Admin/UserDashboard";
 const AppRoute: React.FC = () => {
   return (
     <BrowserRouter>
@@ -59,6 +60,7 @@ const AppRoute: React.FC = () => {
           <Route path="/admin-dashboard-series" element={<AdminDashboardSeries/>}/>
           <Route path="/add-series" element={<AddSeries/>} />
           <Route path="/add-episode" element={<AddEpisode/>}/>
+          <Route path="/admin-dashboard-user" element={<UserDashboard/>}/>
         </Route>
       </Routes>
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="dark" transition={Bounce} />

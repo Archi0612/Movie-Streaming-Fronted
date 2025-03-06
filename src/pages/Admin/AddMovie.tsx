@@ -190,7 +190,7 @@ const AddMovie: React.FC = () => {
               }}
             />
 
-            <label>Duration (minutes)</label>
+            <label>Duration (Seconds)</label>
             <input type="number" name="duration" value={movie.duration} onChange={handleChange} placeholder="Enter duration" min="0"/>
           </div>
 

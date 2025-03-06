@@ -2,24 +2,22 @@
 .gen-container{
     background-color: var(--background-color);
     min-height: 100vh;
-    /* margin-left: 150px; */
 }
-.gen-container h2{
+/* .gen-container h2{
     padding-top: 10px;
-}
+    margin: 0 20px;
+} */
 .genres-container {
     margin-left: 100px;
-    display: grid;
-    grid-template-columns: repeat(5,minmax(200px,1fr));
+    display: flex;
     gap: 15px;
-    /* padding: 10px; */
     padding: 2rem 3rem;
-    justify-content: center;
-    /* background-color: var(--background-color); */
+    justify-content: start;
+    align-items: center;
+    flex-wrap: wrap;
   }
   @media (max-width: 1025px) {
     .genres-container {
-        grid-template-columns: repeat(3, minmax(200px, 1fr));
         padding: 2rem;
     }
 }
@@ -27,7 +25,6 @@
 /* For tablets (768px) */
 @media (max-width: 768px) {
     .genres-container {
-        grid-template-columns: repeat(3, minmax(180px, 1fr));
         padding: 1.5rem;
     }
 }
@@ -35,9 +32,8 @@
 /* For large phones (480px) */
 @media (max-width: 480px) {
     .genres-container {
-        grid-template-columns: repeat(1, minmax(150px, 1fr));
         padding: 1rem;
-        margin-left: 80px;
+        margin: 0 20px;
     }
 
     .genre-card {
@@ -53,9 +49,8 @@
 /* For small phones (368px) */
 @media (max-width: 368px) {
     .genres-container {
-        grid-template-columns: repeat(1, minmax(150px, 1fr));
         padding: 0.8rem;
-        margin-left: 70px;
+        margin:0 20px ;
     }
 
     .genre-card {
@@ -66,4 +61,13 @@
     .genre-title {
         font-size: 14px;
     }
+}
+.genre-h2 h2{
+    color: #0073e6;
+    font-size: 2rem;
+}
+.genre-h2{
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
 }

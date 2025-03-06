@@ -174,11 +174,11 @@
   }
   
 .ag-theme-quartz {  
-    --ag-foreground-color:white;
-    --ag-header-background-color: rgba(54, 54, 77, 0.3);
-    --ag-background-color:#4f8ac5;
-    --ag-row-hover-color:#0059b3;
+    /* --ag-foreground-color:white; */
+    --ag-header-background-color: rgba(25, 100, 150, 0.295);
+    /* --ag-background-color:#003366 */
+    --ag-background-color:white;
+    --ag-row-hover-color:#95b6da;
     --ag-row-spacing: 5px;
   }
-  
   

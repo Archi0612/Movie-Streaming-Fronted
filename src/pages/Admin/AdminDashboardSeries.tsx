@@ -10,6 +10,7 @@ import "./AdminDashboard.css";
 import poster1 from "../../assets/kgf2poster.jpeg";
 import poster2 from "../../assets/salar.jpeg";
 import { useNavigate } from "react-router-dom";
+import DeleteConfirmationModal from "../../components/DeleteConfirmationModal"
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
 
@@ -28,7 +29,7 @@ interface Series {
 }
 
 const AdminDashboardSeries:React.FC = () => {
-    const [movies, setMovies] = useState<Series[]>([
+    const [series, setSeries] = useState<Series[]>([
         {
           id: 1,
           img: poster1,
@@ -50,9 +51,10 @@ const AdminDashboardSeries:React.FC = () => {
           director: "Prashant Neel",
         },
       ]);
+      const[isDeleteModelOpen,setIsDeleteModelOpen]=useState(false);
       const navigate=useNavigate();
       const columnDefs: ColDef<Series>[] = [
-        { headerName: "Poster", field: "img", cellRenderer: (params: any) => <img src={params.value} alt="poster" className="poster-img" />, flex: 2, sortable: false },
+        { headerName: "Poster", field: "img", cellRenderer: (params: any) => <img src={params.value} alt="poster" className="poster-img" />, flex: 2, sortable: false,filter:false },
         { headerName: "Title", field: "title", flex: 2 },
         { headerName: "Description", field: "description", flex: 3 },
         { headerName: "Rating", field: "rating", flex: 1 },
@@ -64,7 +66,7 @@ const AdminDashboardSeries:React.FC = () => {
           cellRenderer: () => (
             <div className="action-buttons">
               <button className="edit-btn"><MdEdit size={15} /></button>
-              <button className="delete-btn"><MdDelete size={15} /></button>
+              <button className="delete-btn" onClick={()=>setIsDeleteModelOpen(true)}><MdDelete size={15} /></button>
             </div>
           ),
           flex: 1,
@@ -75,10 +77,14 @@ const AdminDashboardSeries:React.FC = () => {
       const handleClick=()=>{
         navigate("/add-series");
       }
+      const handleDelete=()=>{
+        setIsDeleteModelOpen(false)
+      }
   return (
     <div className="admin-container">
           <div className="content">
             <div className="content-card">
+              <h2 className="dashboard-h2">Manage Series</h2>
               <div className="add-btn-container">
                 <button className="add-movie-btn" onClick={handleClick}>
                   <MdAdd size={20} />
@@ -86,25 +92,34 @@ const AdminDashboardSeries:React.FC = () => {
               </div>
               <div className="ag-theme-quartz" style={{ height: '500px', width: '100%' }}>
                 <AgGridReact
-                rowStyle={{color:"white"}}
-                  rowData={movies}
+                
+                // rowStyle={{color:"white"}}
+                  rowData={series}
                   columnDefs={columnDefs}
                   pagination={true} 
                   paginationPageSize={10}
-                  domLayout="normal"
+                  // domLayout="normal"
                   rowHeight={60} 
                   headerHeight={60}
                   defaultColDef={{
                     flex: 1,
                     minWidth: 100,
                     filter: true, 
-                    floatingFilter: true, 
-                    sortable: true 
+                    floatingFilter: false, 
+                    sortable: true ,
+                    headerStyle: { fontWeight: "bold", fontSize: "15px", textAlign: "center" }
                   }}
                 />
               </div>
             </div>
           </div>
+          {
+        isDeleteModelOpen &&(
+          <DeleteConfirmationModal  isOpen={isDeleteModelOpen}
+          onClose={() => setIsDeleteModelOpen(false)}
+          onConfirm={handleDelete}/>
+        )
+      }
         </div>
   )
 }

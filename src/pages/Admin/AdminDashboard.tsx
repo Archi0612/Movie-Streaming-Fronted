@@ -93,7 +93,7 @@ const AdminDashboard: React.FC = () => {
   };
 
   const columnDefs: ColDef<Movie>[] = [
-    { headerName: "Poster", field: "img", cellRenderer: (params: any) => <img src={params.value} alt="poster" className="poster-img" />, flex: 2, sortable: false },
+    { headerName: "Poster", field: "img", cellRenderer: (params: any) => <img src={params.value} alt="poster" className="poster-img" />, flex: 2, sortable: false,filter:false },
     { headerName: "Title", field: "title", flex: 2 },
     { headerName: "Description", field: "description", flex: 3 },
     { headerName: "Rating", field: "rating", flex: 1 },
@@ -121,6 +121,7 @@ const AdminDashboard: React.FC = () => {
       
       <div className="content">
         <div className="content-card">
+          <h2 className="dashboard-h2">Manage Movies</h2>
           <div className="add-btn-container">
             <button className="add-movie-btn" onClick={handleClick}>
               <MdAdd size={20} />
@@ -140,8 +141,9 @@ const AdminDashboard: React.FC = () => {
                 flex: 1,
                 minWidth: 100,
                 filter: true, 
-                floatingFilter: true, 
-                sortable: true 
+                floatingFilter: false, 
+                sortable: true,
+                headerStyle: { fontWeight: "bold", fontSize: "15px", textAlign: "center" }
               }}
             />
           </div>

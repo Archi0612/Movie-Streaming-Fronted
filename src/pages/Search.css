@@ -1,6 +1,6 @@
 .search-page {
     padding: 20px;
-    background-color: #121212;
+    background-color: var(--background-color);
     color: white;
   }
 

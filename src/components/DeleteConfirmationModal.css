@@ -47,12 +47,12 @@
 }
 
 .cancel-btn {
-    background: grey;
+    background: #0073e6;
     color: white;
 }
 
 .cancel-btn:hover {
-    background: #666;
+    background: #0059b3;
 }
 
 .confirm-btn {
