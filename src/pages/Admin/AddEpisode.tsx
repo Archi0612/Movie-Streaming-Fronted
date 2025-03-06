@@ -8,7 +8,7 @@ interface Episode {
     description: string;
     duration: string;
     episodeNumber: number;
-    episodeUrl: string | File;
+    episode: string | File;
     releaseDate: string;
   }
   
@@ -17,9 +17,9 @@ interface Episode {
     episodes: Episode[];
   }
   const seriesOptions = [
-    { value: 'series1', label: 'Series 1' },
-    { value: 'series2', label: 'Series 2' },
-    { value: 'series3', label: 'Series 3' }
+    { value: '1', label: 'Special Ops' },
+    { value: '2', label: 'Scam 1992' },
+    { value: '3', label: 'Mirzapur' }
 ];
 const AddEpisode:React.FC = () => {
     const[seasons,setSeasons]=useState<Season[]>([]);
@@ -34,20 +34,22 @@ const AddEpisode:React.FC = () => {
     }
     
   const addEpisode = (seasonIndex: number) => {
-    setSeasons((prev) => {
-        const updatedSeasons = [...prev];
-        updatedSeasons[seasonIndex].episodes = [
-            ...updatedSeasons[seasonIndex].episodes, // Keep previous episodes
-            {
-                title: "",
-                description: "",
-                duration: "",
-                episodeNumber: updatedSeasons[seasonIndex].episodes.length, // Auto-increment episode number
-                episodeUrl: "",
-                releaseDate: "",
-            }
-        ];
-        return updatedSeasons;
+    setSeasons((prevSeasons) => {
+      const updatedSeasons = [...prevSeasons];
+      const newEpisodeNumber = updatedSeasons[seasonIndex].episodes.length + 1; // Increment episode number
+      const newEpisode: Episode = {
+        title: '',
+        description: '',
+        duration: '',
+        episodeNumber: newEpisodeNumber,
+        episode: '',
+        releaseDate: '',
+      };
+      updatedSeasons[seasonIndex] = {
+        ...updatedSeasons[seasonIndex],
+        episodes: [...updatedSeasons[seasonIndex].episodes, newEpisode],
+      };
+      return updatedSeasons;
     });
     };
     const updateEpisode = (seasonIndex: number, episodeIndex: number, field: keyof Episode, value: any) => {
@@ -60,18 +62,49 @@ const AddEpisode:React.FC = () => {
           return updatedSeasons;
         });
       };
-    const handleSave=()=>{
-        console.log("Seasons Data:",seasons)
-    }
+      const handleSave = () => {
+        const formDataArray: FormData[] = [];
+    
+        seasons.forEach((season) => {
+            season.episodes.forEach((episode) => {
+                const formData = new FormData();
+                if (selectedSeries) {
+                    formData.append("series", selectedSeries.value);
+                }
+                formData.append("seasonNumber", season.seasonNumber.toString());
+                formData.append("title", episode.title);
+                formData.append("description", episode.description);
+                formData.append("duration", episode.duration);
+                formData.append("episodeNumber", episode.episodeNumber.toString());
+                formData.append("releaseDate", episode.releaseDate);
+                if (episode.episode instanceof File) {
+                    formData.append("episode", episode.episode);
+                }
+                
+                formDataArray.push(formData);
+            });
+        });
+    
+        // Log each formData object to check its contents
+        formDataArray.forEach((formData, index) => {
+            console.log(`FormData for Episode ${index + 1}:`);
+            for (let [key, value] of formData.entries()) {
+                console.log(`${key}:`, value);
+            }
+        });
+    
+        console.log("FormData array:", formDataArray);
+    };
+    
     const handleCancel=()=>{
         navigate("/admin-dashboard-series")
     }    
   return (
     <div className='add-episode'>
     <div className='add-episode-container'>
-        <div className="season-heading-container">
+        {/* <div className="season-heading-container"> */}
         <h2 className="season-header">Seasons</h2>
-        </div>
+        {/* </div> */}
         <div className='series-selection'>
             <div className='series-selection-1'>
             <label>Select Series:</label>
@@ -79,14 +112,19 @@ const AddEpisode:React.FC = () => {
     options={seriesOptions}
     onChange={setSelectedSeries}
     placeholder="Select Series..."
+    className='select-1'
+    classNames={{
+      control:()=>"custom-control",
+    }}
     styles={{
-        control: (provided) => ({
-            ...provided,
-            backgroundColor: "rgba(93, 94, 95, 0.3)",
-            width: "300px",
-            border: "none",
-            color: "white",
-        }),
+      
+        // control: (provided) => ({
+        //     ...provided,
+        //     backgroundColor: "rgba(93, 94, 95, 0.3)",
+        //     width: "300px",
+        //     border: "none",
+        //     color: "white",
+        // }),
         singleValue: (provided) => ({
             ...provided,
             color: "white", // Selected option color
@@ -95,6 +133,8 @@ const AddEpisode:React.FC = () => {
             ...provided,
             color: "white", // Placeholder color
         }),
+
+
         option: (provided, state) => ({
             ...provided,
             backgroundColor: state.isSelected ? "#6da3d6" : "#333",
@@ -136,8 +176,12 @@ const AddEpisode:React.FC = () => {
                     <input type="number" placeholder="Duration in minutes" onChange={(e) => updateEpisode(seasonIndex, episodeIndex, "duration", e.target.value)} min="0"/>
                     <label className='episode-label'>Episode Number</label>
                     <input type="number" min={"1"} placeholder='Episode number' onChange={(e)=>updateEpisode(seasonIndex,episodeIndex,"episodeNumber",e.target.value)} />
+
+                    <label className='episode-label'>Release Date</label>
+                    <input type="date" placeholder='Release Date' onChange={(e)=>updateEpisode(seasonIndex,episodeIndex,"releaseDate",e.target.value)} />
+
                     <label className="episode-label">Episode</label>
-                    <input type="file" placeholder="Enter episode URL" onChange={(e) => updateEpisode(seasonIndex, episodeIndex, "episodeUrl", e.target.files?.[0])} />
+                    <input type="file" placeholder="Enter episode URL" onChange={(e) => updateEpisode(seasonIndex, episodeIndex, "episode", e.target.files?.[0])} />
                   </div>
                 ))}
               </div>
