@@ -1,25 +1,28 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-import { User, UserState, AuthResponse } from "../../../interfaces/movie.interface";
+import { User, UserState, AuthResponse, UserDetails } from "../../../interfaces/movie.interface";
 import API from "../../../services/api";
-import { getCookie } from "../../../utils/constants";
+import { deleteCookie, getCookie } from "../../../utils/constants";
+import { useDispatch } from "react-redux";
 
 
-// Get stored authentication token from local storage
+// const dispatch = useDispatch<AppDispatch>();
+
+
 const storedToken = getCookie('token');
 const user = localStorage.getItem("currentUser");
 const parsedUser = user ? JSON.parse(user) as User : null;
-
-// Define initial state for user authentication 
 const initialState: UserState = {
     currentUser: parsedUser,
     isAuthenticated: !!storedToken,
     loading: false,
     success: false,
     error: undefined,
+    detailsLoading: false,
+    detailsError: undefined,
+    userDetails: undefined
 };
 
-// ✅ **AsyncThunk for Registering a User**
 export const registerUser = createAsyncThunk<
     AuthResponse, // Expected return type from API
     Omit<User, "id" | "token">, // Input type (User object without id & token)
@@ -29,7 +32,7 @@ export const registerUser = createAsyncThunk<
     async (user, { rejectWithValue }) => {
         try {
             const response = await API.post<AuthResponse>('/auth/signup', user);
-
+ 
             // Store auth token in local storage after successful registration
             // localStorage.setItem("authToken", response.data.token);
             return response.data;
@@ -42,7 +45,6 @@ export const registerUser = createAsyncThunk<
     }
 );
 
-// ✅ **AsyncThunk for Logging in a User**
 export const loginUser = createAsyncThunk<
     AuthResponse,
     Pick<User, "email" | "password">,
@@ -52,10 +54,11 @@ export const loginUser = createAsyncThunk<
     async (userFormData, { rejectWithValue }) => {
         try {
             const response = await API.post<AuthResponse>('/auth/login', userFormData);
-
             // Store user details & authentication token in local storage
             localStorage.setItem("currentUser", JSON.stringify(response.data.userData));
-            // localStorage.setItem("authToken", response.data.token);
+            if (response.data.userData.id) {
+                // dispatch(fetchUserDetails(response.data.userData.id));
+            }
             return response.data;
         } catch (err: unknown) {
             if (axios.isAxiosError(err)) {
@@ -66,15 +69,52 @@ export const loginUser = createAsyncThunk<
     }
 );
 
-// ✅ **AsyncThunk for Logging out a User**
+
+//Api to get detail info of the user
+export const fetchUserDetails = createAsyncThunk<
+    UserDetails, // The expected return type (detailed user info)
+    string | number, // User ID as input parameter
+    { rejectValue: string }
+>(
+    "user/fetchDetails",
+    async (userId, { rejectWithValue }) => {
+        try {
+            const token = getCookie('token');
+
+            // Make API call to get user details
+            const response = await API.get<UserDetails>(`/users/${userId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            console.log(response, "response fo whole user in user details")
+
+            return response.data;
+        } catch (err: unknown) {
+            if (axios.isAxiosError(err)) {
+                return rejectWithValue(err.response?.data?.message || "Failed to fetch user details");
+            }
+            return rejectWithValue("An unknown error occurred while fetching user details");
+        }
+    }
+);
+
+
 export const logoutUser = createAsyncThunk("user/logout", async () => {
     // Remove user data from local storage on logout
-    localStorage.removeItem("currentUser");
-    localStorage.removeItem("authToken");
-    return null;
+    try {
+        localStorage.removeItem("currentUser");
+        deleteCookie('token');
+        return null;
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            return (error.response?.data?.message || "Logout Failed");
+        }
+    }
+
 });
 
-// ✅ **Create the Redux Slice for User Authentication**
 const userSlice = createSlice({
     name: "user",
     initialState,
@@ -93,6 +133,8 @@ const userSlice = createSlice({
             state.isAuthenticated = false;
             state.success = false;
             state.error = undefined;
+            localStorage.removeItem("currentUser");
+            deleteCookie('token');
         },
     },
     extraReducers: (builder) => {
@@ -128,17 +170,44 @@ const userSlice = createSlice({
                 state.error = action.payload;
             })
 
+            .addCase(fetchUserDetails.pending, (state) => {
+                state.loading = true;
+                state.detailsError = undefined;
+            })
+            .addCase(fetchUserDetails.fulfilled, (state, action: PayloadAction<UserDetails>) => {
+                state.detailsLoading = false;
+                state.userDetails = action.payload;
+                // No need to change isAuthenticated here as it's already set by login
+            })
+            .addCase(fetchUserDetails.rejected, (state, action) => {
+                state.detailsLoading = false;
+                state.detailsError = action.payload;
+                // Note: We don't change isAuthenticated on error as the user is still logged in
+            })
+
             // ✅ **Logout User Cases**
+            .addCase(logoutUser.pending, (state) => {
+                state.loading = true;
+            })
+
             .addCase(logoutUser.fulfilled, (state) => {
                 state.currentUser = null;
                 state.isAuthenticated = false;
-            });
+                state.loading = false;
+                state.success = false;
+                state.error = undefined;
+            })
+
+            .addCase(logoutUser.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload as string;
+                state.currentUser = null;
+                state.isAuthenticated = false;
+            })
     },
 });
 
-// ✅ **Export Actions & Reducer**
 export const { login, logout } = userSlice.actions;
 export default userSlice.reducer;
 
-// ✅ **AppDispatch Type (Fix for TypeScript Dispatch Error)**
 export type AppDispatch = typeof import("../../store").store.dispatch;

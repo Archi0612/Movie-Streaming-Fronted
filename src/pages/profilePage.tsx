@@ -6,10 +6,15 @@ import './profilePage.css';
 import { getNames } from "country-list";
 import SubscriptionModal from '../components/subscription/Subscription';
 import ReactModal from 'react-modal';
-// import { useSelector } from 'react-redux';
-// import { RootState } from '../redux/store';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
 import { FaEdit } from 'react-icons/fa';
 import { FiLogOut } from "react-icons/fi";
+import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
+import { AppDispatch } from '../redux/store';
+
 
 
 ReactModal.setAppElement('#root'); // Ensure accessibility compliance
@@ -17,6 +22,10 @@ ReactModal.setAppElement('#root'); // Ensure accessibility compliance
 export default function ProfilePage() {
     const [isOpen, setIsOpen] = useState(false);
     const [isSubscribeOpen, setIsSubscribeOpen] = useState(false);
+    const dispatch = useDispatch<AppDispatch>();
+    const navigate = useNavigate();
+
+
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -27,7 +36,8 @@ export default function ProfilePage() {
     });
     const countries = getNames().sort();
 
-    // const currentUser = useSelector((state: RootState) => state.user.currentUser);
+    const loggedUser = useSelector((state: RootState) => state.user.currentUser);
+    console.log(loggedUser)
 
     // Handle input changes for Edit Profile form
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -40,6 +50,17 @@ export default function ProfilePage() {
         // to update the profile info we need to setup an api call here 
 
     };
+
+    const logoutUser = async () => {
+        console.log("logout button clicked")
+        try {
+            await dispatch({ type: 'user/logout' });
+            navigate("/login");
+            toast.success("Logout Success");
+        } catch (error) {
+            toast.error("Logout Error");
+        }
+    }
 
     return (
         <>
@@ -64,7 +85,7 @@ export default function ProfilePage() {
                                     <button className='subscribeProfile-btn' onClick={() => setIsSubscribeOpen(true)} >
                                         Subscribe
                                     </button>
-                                    <button className='subscribeProfile-btn' >
+                                    <button className='subscribeProfile-btn' onClick={() => logoutUser()} >
                                         <FiLogOut />
                                     </button>
                                 </div>
@@ -74,7 +95,7 @@ export default function ProfilePage() {
                                     <tbody>
                                         <tr>
                                             <th>Full Name</th>
-                                            <td>User</td>
+                                            <td>{loggedUser.name}</td>
                                         </tr>
                                         <tr>
                                             <th>Date Of Birth</th>
@@ -86,15 +107,15 @@ export default function ProfilePage() {
                                         </tr>
                                         <tr>
                                             <th>Phone Number</th>
-                                            <td>487y5387586238</td>
+                                            <td>{loggedUser.contactNo}</td>
                                         </tr>
                                         <tr>
                                             <th>Email</th>
-                                            <td>Priyanshu@gmail.com</td>
+                                            <td>{loggedUser.email}</td>
                                         </tr>
                                         <tr>
                                             <th>Country</th>
-                                            <td>India</td>
+                                            <td>india</td>
                                         </tr>
                                     </tbody>
                                 </table>

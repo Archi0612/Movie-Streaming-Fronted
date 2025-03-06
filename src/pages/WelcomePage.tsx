@@ -7,14 +7,9 @@ import { RootState } from '../redux/store';
 const WelcomePage: React.FC = () => {
   const navigate = useNavigate();
 
-  const currentUser = useSelector((state: RootState) => state.user.currentUser);
-  if (currentUser) {
-    navigate("/home");
-
-  }
 
   const handleGetStarted = () => {
-    navigate("/home");
+    navigate("/signup");
   };
 
   return (

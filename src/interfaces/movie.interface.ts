@@ -118,17 +118,32 @@ export interface User {
 
 // Define State Interface
 export interface UserState {
+  currentUser: User | null;
+  isAuthenticated: boolean;
   loading: boolean;
-  success?: boolean;
+  success: boolean;
   error?: string;
-  currentUser?: User | null;
-  isAuthenticated: boolean
+  detailsLoading?: boolean;
+  detailsError?: string;
+  userDetails?: UserDetails;
 }
 
 // Define API Response Types
 export interface AuthResponse {
   token: string;
   userData: User;
-  message?: string|string[];
+  message?: string | string[];
 }
 
+// this interface is for the whole user profile 
+export interface UserDetails {
+  id: string | number;
+  name: string;
+  email: string;
+  profilePicture?: string;
+  contactNo: string;
+  dateOfBirth: string;
+  gender: string;
+  role: string;
+  // add info about watchlist and subscription and like content
+}
