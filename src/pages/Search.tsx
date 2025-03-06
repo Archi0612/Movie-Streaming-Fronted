@@ -38,14 +38,6 @@ const Search: React.FC = () => {
       </div>
      
       <MoviesGrid movies={trendingMovies} title="Trending in India" />
-      {/* <div className="trending-grid">
-        {trendingMovies.map((movie, index) => (
-          <div key={index} className="movie-card">
-            <img src={movie.image} alt={movie.title} />
-            <p>{movie.title}</p>
-          </div>
-        ))}
-      </div> */}
     </div>
     )}
     </>

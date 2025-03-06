@@ -88,6 +88,7 @@ html {
     border-radius: 5px;
     cursor: pointer;
     font-size: 14px;
+    font-weight: bold;
     transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
@@ -224,9 +225,14 @@ html {
         margin-bottom: 1rem;
     }
 
-    .editProfile-btn,
-    .subscribeProfile-btn {
+    .editProfile-btn
+    {
         font-size: 10px;
+    } 
+    
+    .subscribeProfile-btn {
+        font-size: 12px;
+        font-weight: bold;
     }
 
 
@@ -291,7 +297,7 @@ html {
 
 .modal1 {
     background-color: rgba(26, 26, 45);
-    width: 40%;
+    width: 60%;
     max-width: 500px;
     padding: 2rem;
     border-radius: 12px;
@@ -353,7 +359,7 @@ html {
     display: flex;
     justify-content: space-between;
     margin-top: 1.5rem;
-    gap: 5px;
+    gap: 10px;
 }
 
 .modal-buttons button {
@@ -404,10 +410,12 @@ html {
 }
 
 @media screen and (max-width: 768px) {
-    .modal {
-        width: 90%;
-        padding: 1.5rem;
-    }
+  .modal1{
+    width:80%
+  }
+  .modal1 h2{
+    font-size: 22px;
+  }
 }
 
 .modal1 label {
@@ -427,6 +435,9 @@ html {
     color: #fff;
     border-radius: 5px;
     background: rgba(93, 94, 95, 0.3);
+}
+.modal1 label{
+    font-size: 1rem;
 }
 
 
