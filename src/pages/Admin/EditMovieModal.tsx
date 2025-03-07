@@ -3,6 +3,7 @@ import Select from "react-select";
 import AsyncSelect from "react-select/async";
 import "./EditMovieModal.css";
 import { MdClose } from "react-icons/md";
+import { Movie } from "../../interfaces/movie.interface";
 
 interface EditMovieModalProps {
   movie: any;
@@ -58,6 +59,38 @@ const EditMovieModal: React.FC<EditMovieModalProps> = ({ movie, onClose, onSave 
   
 
   const handleSave = () => {
+    const formData=new FormData()
+    formData.append("title",updatedMovie.title)
+    formData.append("description",updatedMovie.description)
+    formData.append("releaseDate", updatedMovie.releaseDate);
+  formData.append("duration", updatedMovie.duration.toString());
+  formData.append("rating", updatedMovie.rating.toString());
+
+  // Append multi-select fields as comma-separated values
+  if (Array.isArray(updatedMovie.genres)) {
+    updatedMovie.genres.forEach((genre: { value: string; label: string }) => formData.append("genres", genre.value));
+  }
+
+  if (Array.isArray(updatedMovie.languages)) {
+    updatedMovie.languages.forEach((lang: { value: string; label: string }) => formData.append("languages", lang.value));
+  }
+
+  if (Array.isArray(updatedMovie.cast)) {
+    updatedMovie.cast.forEach((cast: { value: string; label: string }) => formData.append("cast", cast.value));
+  }
+
+  if (Array.isArray(updatedMovie.director)) {
+    updatedMovie.director.forEach((director: { value: string; label: string }) => formData.append("director", director.value));
+  }
+  if (updatedMovie.poster) {
+    formData.append("poster", updatedMovie.poster);
+  }
+  if (updatedMovie.trailerUrl) {
+    formData.append("trailerUrl", updatedMovie.trailerUrl);
+  }
+  for(let pair of formData.entries()){
+    console.log(pair[0],pair[1])
+   }
     onSave(updatedMovie);
   };
 
@@ -110,7 +143,7 @@ const EditMovieModal: React.FC<EditMovieModalProps> = ({ movie, onClose, onSave 
             })
           }}
           />
-        <label>Duration (minutes)</label>
+        <label>Duration (Seconds)</label>
         <input type="number" name="duration" value={updatedMovie.duration} onChange={handleChange} min="0" />
         </div>
         <div className="fields-right">

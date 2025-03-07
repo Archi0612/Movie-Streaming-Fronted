@@ -1,8 +1,8 @@
 .search-page {
-  padding: 1.5rem;
-  background-color: #121212;
-  color: white;
-}
+    padding: 20px;
+    background-color: var(--background-color);
+    color: white;
+  }
 
 .search-container {
   display: flex;

@@ -12,8 +12,6 @@ import { deleteCookie, getCookie } from "../../../utils/constants";
 const storedToken = getCookie('token');
 
 const user = localStorage.getItem("currentUser");
-console.log("Stored User:", localStorage.getItem("currentUser"));
-
 const parsedUser = user && user !== "undefined" ? JSON.parse(user) as User : null;
 
 const initialState: UserState = {
@@ -61,14 +59,14 @@ export const loginUser = createAsyncThunk<
             console.log("Response from login api:", response);
 
             console.log("Full API response:", response);
-console.log("API response data:", response.data);
+            console.log("API response data:", response.data);
 
             
             // Store user details & authentication token in local storage
-            localStorage.setItem("currentUser", JSON.stringify(response.data.userData));
+            localStorage.setItem("currentUser", JSON.stringify(response.data.data.userData));
 
 
-            if (response.data.userData.id) {
+            if (response.data.data.userData.id) {
                 // dispatch(fetchUserDetails(response.data.userData.id));
             }
             return response.data;
@@ -80,7 +78,6 @@ console.log("API response data:", response.data);
         }
     }
 );
-
 
 //Api to get detail info of the user
 export const fetchUserDetails = createAsyncThunk<
@@ -159,7 +156,7 @@ const userSlice = createSlice({
             .addCase(registerUser.fulfilled, (state, action: PayloadAction<AuthResponse>) => {
                 state.loading = false;
                 state.success = true;
-                state.currentUser = action.payload.userData;
+                state.currentUser = action.payload.data.userData;
             })
             .addCase(registerUser.rejected, (state, action) => {
                 state.loading = false;
@@ -175,7 +172,7 @@ const userSlice = createSlice({
                 state.loading = false;
                 state.success = true;
                 console.log("Action payload in fulfilled:", action.payload);
-                state.currentUser = action.payload.userData;
+                state.currentUser = action.payload.data.userData;
                 state.isAuthenticated = true;
             })
             .addCase(loginUser.rejected, (state, action) => {

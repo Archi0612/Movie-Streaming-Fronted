@@ -36,9 +36,7 @@ export default function ProfilePage() {
     });
     const countries = getNames().sort();
 
-    const loggedUser = useSelector((state: RootState) => state.user.currentUser);
-    console.log(loggedUser)
-
+    const loggedUser = useSelector((state: RootState) => state.user.currentUser) ?? {};
     // Handle input changes for Edit Profile form
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -52,13 +50,14 @@ export default function ProfilePage() {
     };
 
     const logoutUser = async () => {
-        console.log("logout button clicked")
         try {
             await dispatch({ type: 'user/logout' });
             navigate("/login");
             toast.success("Logout Success");
-        } catch (error) {
-            toast.error("Logout Error");
+        } catch (error:unknown) {
+            if (error instanceof Error) {
+                toast.error(error.message);
+            }
         }
     }
 
@@ -95,7 +94,7 @@ export default function ProfilePage() {
                                     <tbody>
                                         <tr>
                                             <th>Full Name</th>
-                                            <td>{loggedUser.name}</td>
+                                            <td>{loggedUser.name.toUpperCase()}</td>
                                         </tr>
                                         <tr>
                                             <th>Date Of Birth</th>
@@ -103,7 +102,7 @@ export default function ProfilePage() {
                                         </tr>
                                         <tr>
                                             <th>Gender</th>
-                                            <td>Male</td>
+                                            <td>{loggedUser.gender || "NA" }</td>
                                         </tr>
                                         <tr>
                                             <th>Phone Number</th>

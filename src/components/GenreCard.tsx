@@ -1,22 +1,17 @@
-// src/components/GenreCard.tsx
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import "./GenreCard.css";
 
 interface GenreCardProps {
   genre: string;
   image: string;
+  onClick: () => void; // Accept onClick as a prop
 }
 
-const GenreCard: React.FC<GenreCardProps> = ({ genre, image }) => {
-  const navigate = useNavigate();
-
+const GenreCard: React.FC<GenreCardProps> = ({ genre, image, onClick }) => {
   return (
-    <div className="genre-card" onClick={() => navigate(`/genre/${genre.toLowerCase()}`)}>
+    <div className="genre-card" onClick={onClick}>
       <img src={image} alt={genre} className="genre-image" />
-      <div className="genre-overlay">
-        {/* <h3 className="genre-title">{genre}</h3> */}
-      </div>
+      <p className="genre-name">{genre}</p>
     </div>
   );
 };

@@ -3,7 +3,7 @@ import './paymentSuccess.css'
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-  const paymentSuccess = () => {
+export const PaymentSuccess = () => {
     const [searchParams] = useSearchParams();
     const sessionId = searchParams.get("session_id");
     const [status, setStatus] = useState("Verifying...");
@@ -35,7 +35,7 @@ import { useEffect, useState } from "react";
         </div>
     );
 };
-export default paymentSuccess
+
 
 
 

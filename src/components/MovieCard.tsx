@@ -8,7 +8,7 @@ import './MovieCard.css';
 const MovieCard = ({ title, posterPath, overview, releaseDate, voteAverage, language, genres_id }: MovieCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  const imageUrl = `https://image.tmdb.org/t/p/w500${posterPath}`;
+  const imageUrl = posterPath;
 
   // ⭐ Star Ratings Logic
   const stars = Array.from({ length: 5 }, (_, index) => {

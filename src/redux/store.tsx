@@ -7,6 +7,7 @@ export const store = configureStore({
     reducer: {
         user: userReducer,
     },
+    // preloadedState,
     devTools: true, // Enable Redux DevTools
 });
 

@@ -4,7 +4,7 @@ import { Elements } from '@stripe/react-stripe-js';
 import axios from 'axios';
 import "./Subscription.css";
 import { loadStripe, Stripe } from '@stripe/stripe-js';
-import { redirect } from 'react-router-dom';
+// import { redirect } from 'react-router-dom';
 
 // Define subscription types and pricing
 interface SubscriptionPlan {
@@ -54,7 +54,7 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
     const userData: UserData = {
         ID: 123,
         name: "Priyanshu1",
-        email: "zCfdf6@gmail.com",
+        email: "archi1@gmail.com",
         phone: "1234567890",
         country: "India",
         countryCode: "+91",
@@ -89,7 +89,7 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
                 user: userData, // UserData means the object in which we will store detail of user 
             };
             console.log("Subscription Payload:", subscriptionPayload);
-            const response = await axios.post<any>(
+            const response = await axios.post(
                 "http://localhost:7777/stripe/membersubscription",
                 subscriptionPayload
             );

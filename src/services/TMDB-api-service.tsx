@@ -1,7 +1,7 @@
 import axios from "axios";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_KEY = import.meta.env.VITE_API_KEY;
-
+import API from "../services/api"
 // import { BASE_URL } from "../utils/constants";
 // import { API_KEY } from "../utils/constants";
 
@@ -58,3 +58,12 @@ export const fetchTrendingMovies = async () => {
   //   const data = await response.json();
   //   return data.results.find((video: any) => video.type === 'Trailer');
   // };
+  export const getMoviesByGenre = async (genreId: number) => {
+    try {
+      const response = await API.get(`movie/getMoviesByGenre/${genreId}`);
+      return response.data; // Return the response data
+    } catch (error) {
+      console.error("Error fetching movies by genre:", error);
+      return null; // Handle errors gracefully
+    }
+  };
