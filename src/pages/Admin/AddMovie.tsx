@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import AsyncSelect from "react-select/async";
 import "./AddMovie.css";
+import { addMovie, searchCastByName, searchDirectorByName } from "../../services/apis/adminService";
+import { toast } from "react-toastify";
 
 const genreOptions = [
   { value: "28", label: "Action" },
@@ -34,31 +36,30 @@ const languageOptions = [
   { value: "malayalam", label: "Malayalam" },
   { value: "kannada", label: "Kannada" },
 ];
-const fetchCastOptions = (inputValue: string): Promise<{ value: string; label: string }[]> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(
-        [
-          { value: "actor1", label: "Leonardo DiCaprio" },
-          { value: "actor2", label: "Joseph Gordon-Levitt" },
-          { value: "actor3", label: "Elliot Page" },
-        ].filter((i) => i.label.toLowerCase().includes(inputValue.toLowerCase()))
-      );
-    }, 500);
-  });
+const fetchCastOptions = async(inputValue: string): Promise<{ value: string; label: string }[]> => {
+    try {
+      const results=await searchCastByName(inputValue.trim());
+      return results.map((cast:{_id:string;name:string})=>({
+        value:cast._id,
+        label:cast.name
+      }))
+    } catch (error) {
+      console.error("Error fetching cast:", error);
+    return [];
+    }
 };
 
-const fetchDirectorOptions = (inputValue: string): Promise<{ value: string; label: string }[]> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(
-        [
-          { value: "director1", label: "Christopher Nolan" },
-          { value: "director2", label: "Quentin Tarantino" },
-        ].filter((i) => i.label.toLowerCase().includes(inputValue.toLowerCase()))
-      );
-    }, 500);
-  });
+const fetchDirectorOptions = async(inputValue: string): Promise<{ value: string; label: string }[]> => {
+  try {
+    const results=await searchDirectorByName(inputValue.trim());
+    return results.map((director:{_id:string;name:string})=>({
+      value:director._id,
+      label:director.name
+    }))
+  } catch (error) {
+    console.error("Error fetching director:", error);
+  return [];
+  }
 };
 
 const AddMovie: React.FC = () => {
@@ -74,8 +75,7 @@ const AddMovie: React.FC = () => {
     director: { value: string; label: string }[];
     poster: File | null;
     trailerUrl: File | null;
-    movieUrl: string;
-    availableForStreaming: boolean;
+    movieUrl: File | null;
     languages: { value: string; label: string }[];
   }>({
     title: "",
@@ -88,8 +88,7 @@ const AddMovie: React.FC = () => {
     director: [],
     poster: null,
     trailerUrl: null,
-    movieUrl: "",
-    availableForStreaming: false,
+    movieUrl: null,
     languages:[]
   });
 
@@ -109,33 +108,42 @@ const AddMovie: React.FC = () => {
     }
   };
 
-  const handleSave = () => {
+  const handleSave = async() => {
    const formData=new FormData();
-   formData.append("title:",movie.title)
-   formData.append("description:",movie.description)
-   formData.append("releaseDate:",movie.releaseDate)
-   formData.append("duration:",movie.duration)
-   formData.append("rating:",movie.rating)
-   formData.append("availableForStreaming:",String(movie.availableForStreaming))
-   movie.genres.forEach((genre)=>formData.append("genres:",genre.value))
+   formData.append("title",movie.title)
+   formData.append("description",movie.description)
+   formData.append("releaseDate",movie.releaseDate)
+   formData.append("duration",movie.duration)
+   formData.append("rating",movie.rating)
+
+   movie.genres.forEach((genre)=>formData.append("genres",genre.value))
    if (Array.isArray(movie.languages)) {
-    movie.languages.forEach((lang) => formData.append("languages:", lang.value));
+    movie.languages.forEach((lang) => formData.append("languages", lang.value));
   } else {
     console.error("movie.languages is not an array");
   }
-   movie.cast.forEach((cast)=>formData.append("cast:",cast.value))
-   movie.director.forEach((director)=>formData.append("director:",director.value))
+   movie.cast.forEach((cast)=>formData.append("casts",cast.value))
+   movie.director.forEach((director)=>formData.append("directors",director.value))
    if(movie.poster){
-    formData.append("poster:",movie.poster)
+    formData.append("poster",movie.poster)
    }
    if(movie.trailerUrl){
-    formData.append("trailerUrl:",movie.trailerUrl)
+    formData.append("trailer",movie.trailerUrl)
+   }
+   if(movie.movieUrl){
+    formData.append("movie",movie.movieUrl)
    }
    console.log("Form Data Entries",formData.entries())
    for(let pair of formData.entries()){
     console.log(pair[0],pair[1])
    }
     //API call to save movie
+    try {
+      const response=await addMovie(formData)
+      toast.success(response.data.data.message)
+    } catch (error) {
+      toast.error("Error in Adding Movie")
+    }
   };
 
 
@@ -192,17 +200,17 @@ const AddMovie: React.FC = () => {
 
             <label>Duration (Seconds)</label>
             <input type="number" name="duration" value={movie.duration} onChange={handleChange} placeholder="Enter duration" min="0"/>
+            <label>Rating</label>
+            <input type="number" name="rating" value={movie.rating} onChange={handleChange} step="0.1" min="0.0" placeholder="Enter movie rating"/>
           </div>
 
           <div className="fields2">
-            <label>Rating</label>
-            <input type="number" name="rating" value={movie.rating} onChange={handleChange} step="0.1" min="0.0" placeholder="Enter movie rating"/>
 
             <label>Cast</label>
             <AsyncSelect
               isMulti
               loadOptions={fetchCastOptions}
-              defaultOptions
+              defaultOptions={true}
               onChange={(selected:any) => setMovie((prev) => ({ ...prev, cast: selected }))}
               placeholder="Select movie cast"
               styles={{
@@ -293,6 +301,8 @@ const AddMovie: React.FC = () => {
 
             <label>Trailer</label>
             <input type="file" name="trailerUrl"onChange={handleChange} />
+            <label>Movie</label>
+            <input type="file" name="movieUrl"onChange={handleChange} />
           </div>
         </div>
         <div className="buttons-container">

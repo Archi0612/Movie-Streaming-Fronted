@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { User, UserState, AuthResponse } from "../../../interfaces/movie.interface";
-import API from "../../../services/api";
+import {api} from "../../../services/api";
 
 // Get stored authentication token from local storage
 const storedToken = localStorage.getItem("authToken");
@@ -10,21 +10,21 @@ const storedToken = localStorage.getItem("authToken");
 const initialState: UserState = {
     currentUser: null, // Stores logged-in user details
     isAuthenticated: !!storedToken, // Check if a token exists for authentication
-    loading: false, // Indicates if an API request is in progress
-    success: false, // Stores success status of API calls
+    loading: false, // Indicates if an api request is in progress
+    success: false, // Stores success status of api calls
     error: undefined, // Stores error messages, if any
 };
 
 // ✅ **AsyncThunk for Registering a User**
 export const registerUser = createAsyncThunk<
-    AuthResponse, // Expected return type from API
+    AuthResponse, // Expected return type from api
     Omit<User, "id" | "token">, // Input type (User object without id & token)
     { rejectValue: string } // Type for rejected errors
 >(
     "user/register",
     async (user, { rejectWithValue }) => {
         try {
-            const response = await API.post<AuthResponse>('/auth/signup', user);
+            const response = await api.post<AuthResponse>('/auth/signup', user);
 
             // Store auth token in local storage after successful registration
             // localStorage.setItem("authToken", response.data.token);
@@ -47,7 +47,7 @@ export const loginUser = createAsyncThunk<
     "user/login",
     async (userFormData, { rejectWithValue }) => {
         try {
-            const response = await API.post<AuthResponse>('/auth/login', userFormData);
+            const response = await api.post<AuthResponse>('/auth/login', userFormData);
 
             // Store user details & authentication token in local storage
             localStorage.setItem("currentUser", JSON.stringify(response.data.userData));
@@ -76,7 +76,7 @@ const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
-        // Manually log in a user (without API call)
+        // Manually log in a user (without api call)
         login: (state, action: PayloadAction<User>) => {
             state.currentUser = action.payload;
             state.isAuthenticated = true;
