@@ -4,6 +4,7 @@ import { Elements } from '@stripe/react-stripe-js';
 import axios from 'axios';
 import "./Subscription.css";
 import { loadStripe, Stripe } from '@stripe/stripe-js';
+import { toast } from 'react-toastify';
 // import { redirect } from 'react-router-dom';
 
 // Define subscription types and pricing
@@ -112,8 +113,11 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
                     alert("There was an error processing your subscription. Please try again.");
                 }
             }
-        } catch (error) {
-            alert("An error occurred while processing your subscription.");
+        } catch (error:unknown) {
+            if(error){
+                toast.error("An error occurred while processing your subscription.");
+            }
+         
         } finally {
             setLoading(false);
         }

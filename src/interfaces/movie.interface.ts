@@ -1,5 +1,7 @@
 // src/interfaces/movie.interface.ts
-
+export interface SidebarProps {
+  userRole?: string; // Optional prop to determine if user is admin
+}
 export interface Movie {
   id: number;
   title: string;

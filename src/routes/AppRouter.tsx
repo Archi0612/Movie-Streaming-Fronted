@@ -23,6 +23,7 @@ import ContactUs from "../pages/ContactUs";
 import Feedback from "../pages/Feedback";
 import AddMovie from "../pages/Admin/AddMovie";
 import AdminDashboardSeries from "../pages/Admin/AdminDashboardSeries";
+import UserDashboard from "../pages/Admin/UserDashboard";
 import AddSeries from "../pages/Admin/AddSeries";
 import HeroSection from "../components/HeroSection";
 
@@ -35,6 +36,7 @@ import { PaymentSuccess } from "../pages/paymentSuccess/PaymentSuccess";
 
 // Protected Route component that checks if user is authenticated
 const ProtectedRoute: React.FC = () => {
+  
   const { isAuthenticated } = useSelector((state: RootState) => state.user);
   const location = useLocation();
 
@@ -75,7 +77,7 @@ const PublicOnlyRoute: React.FC = () => {
   return <Outlet />;
 };
 
-import UserDashboard from "../pages/Admin/UserDashboard";
+
 const AppRoute: React.FC = () => {
   const { isAuthenticated } = useSelector((state: RootState) => state.user);
 
@@ -111,15 +113,15 @@ const AppRoute: React.FC = () => {
 
           {/* Admin Routes - requires admin role */}
           <Route element={<AdminRoute />}>
-            <Route path="/admin-dashboard" element={<AdminDashboard />} />
+            <Route path="/admin-dashboard-movies" element={<AdminDashboard />} />
             <Route
               path="/admin-dashboard-series"
               element={<AdminDashboardSeries />}
             />
-            <Route path="/add-movie" element={<AddMovie />} />
+            <Route path="/add-movies" element={<AddMovie />} />
             <Route path="/add-series" element={<AddSeries />} />
             <Route path="/add-episode" element={<AddEpisode />} />
-            <Route path="/admin-dashboard-user" element={<UserDashboard/>}/>
+            <Route path="/user-dashboard" element={<UserDashboard/>}/>
           </Route>
         </Route>
 
