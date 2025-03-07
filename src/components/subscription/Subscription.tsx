@@ -4,7 +4,7 @@ import { Elements } from '@stripe/react-stripe-js';
 import axios from 'axios';
 import "./Subscription.css";
 import { loadStripe, Stripe } from '@stripe/stripe-js';
-import { toast } from 'react-toastify';
+// import { redirect } from 'react-router-dom';
 
 // Define subscription types and pricing
 interface SubscriptionPlan {
@@ -54,7 +54,7 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
     const userData: UserData = {
         ID: 123,
         name: "Priyanshu1",
-        email: "zCfdf6@gmail.com",
+        email: "archi1@gmail.com",
         phone: "1234567890",
         country: "India",
         countryCode: "+91",
@@ -112,11 +112,8 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
                     alert("There was an error processing your subscription. Please try again.");
                 }
             }
-        } catch (error:unknown) {
-            if(axios.isAxiosError(error)){
-                toast.success("There was an error processing your subscription. Please try again.");
-                throw new Error(error.message);
-            }
+        } catch (error) {
+            alert("An error occurred while processing your subscription.");
         } finally {
             setLoading(false);
         }

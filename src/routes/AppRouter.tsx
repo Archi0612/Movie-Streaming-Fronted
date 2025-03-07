@@ -31,7 +31,7 @@ import { Bounce, ToastContainer } from "react-toastify";
 import GenrePage from "../pages/GenrePage";
 import Search from "../pages/Search";
 import AddEpisode from "../pages/Admin/AddEpisode";
-import { PaymentSuccess } from "../pages/paymentSuccess/paymentSuccess";
+import { PaymentSuccess } from "../pages/paymentSuccess/PaymentSuccess";
 
 // Protected Route component that checks if user is authenticated
 const ProtectedRoute: React.FC = () => {
@@ -75,6 +75,7 @@ const PublicOnlyRoute: React.FC = () => {
   return <Outlet />;
 };
 
+import UserDashboard from "../pages/Admin/UserDashboard";
 const AppRoute: React.FC = () => {
   const { isAuthenticated } = useSelector((state: RootState) => state.user);
 
@@ -118,6 +119,7 @@ const AppRoute: React.FC = () => {
             <Route path="/add-movie" element={<AddMovie />} />
             <Route path="/add-series" element={<AddSeries />} />
             <Route path="/add-episode" element={<AddEpisode />} />
+            <Route path="/admin-dashboard-user" element={<UserDashboard/>}/>
           </Route>
         </Route>
 
