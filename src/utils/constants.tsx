@@ -1,6 +1,6 @@
 export const genreMap: { [key: number]: string } = {
   28: "Action",
-  12: "Adv." , // Adventure -> Adv.
+  12: "Adv.", // Adventure -> Adv.
   16: "Anim.", // Animation -> Anim.
   35: "Comedy",
   80: "Crime",
@@ -19,3 +19,15 @@ export const genreMap: { [key: number]: string } = {
   10752: "War",
   37: "Western",
 };
+
+export const getCookie = (name: string) => {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop()?.split(';').shift() || null;
+  return null;
+
+}
+
+export const deleteCookie = (name: string) => {
+  document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+}

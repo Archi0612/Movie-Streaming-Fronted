@@ -382,4 +382,377 @@
     .subscription-card-li{
         font-size: 0.85rem;
     }
+}/* Modal overlay background */
+.subscription-selection-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* Modal container */
+.subscription-selection-container {
+    background: #31353b;
+    color: white;
+    padding: 20px;
+    border-radius: 12px;
+    width: 75rem;
+    max-height: 90vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Subscription options container */
+.subscription-options {
+    width: 70rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap; 
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+/* Individual subscription card */
+.subscription-card {
+    flex: 1;
+    background: rgba(26, 26, 45, 0.8);
+    padding: 10px;
+    width: 20rem;
+    height: 25rem;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.subscription-card:hover {
+    transform: scale(1.05);
+}
+
+.subscription-card-h2 {
+    font-size: 1.7rem;
+    font-weight: bold;
+}
+
+.subscription-card-h3 {
+    margin-bottom: 10px;
+    background: linear-gradient(45deg, #0073e6, #0059b3, #00131f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 900;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+/* List styling */
+.subscription-card-ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.subscription-card-li {
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.subscription-card-li::before {
+    content: '✔️';
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* Add X mark for specific plans */
+.subscription-card:nth-child(1) .subscription-card-li:nth-child(4)::before,
+.subscription-card:nth-child(1) .subscription-card-li:nth-child(5)::before,
+.subscription-card:nth-child(1) .subscription-card-li:nth-child(6)::before,
+.subscription-card:nth-child(2) .subscription-card-li:nth-child(6)::before {
+    content: '❌';
+    color: red;
+}
+
+/* Button styles */
+.subscription-card button {
+    margin-top: 16px;
+    width: 100%;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    background: #007bff;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.subscription-card button:hover {
+    background: #0056b3;
+}
+
+/* Cancel button */
+.cancelbutton {
+    margin-top: 40px;
+}
+
+.cancelSubscribe {
+    margin-top: 50px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background: #007bff;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Toggle Switch */
+.toggle-container {
+    display: flex;
+    position: relative;
+    width: 200px;
+    height: 40px;
+    background: black;
+    border-radius: 20px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+    user-select: none;
+    margin-top: 1.5rem;
+}
+
+.toggle-slider {
+    position: absolute;
+    width: 47%;
+    height: 80%;
+    background: white;
+    border-radius: 20px;
+    transition: transform 0.3s ease;
+    z-index: 1;
+}
+
+.toggle-slider.right {
+    transform: translateX(100%);
+}
+
+.toggle-container span {
+    flex: 1;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    transition: color 0.3s ease;
+    z-index: 2;
+}
+
+.toggle-container .active {
+    color: black;
+}
+
+/* RESPONSIVE STYLES */
+
+/* For tablets and smaller screens (max-width: 1024px) */
+@media screen and (max-width: 1024px) {
+    .subscription-selection-container {
+        width: 90%;
+        height: auto;
+        padding: 15px;
+    }
+
+    .subscription-options {
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .subscription-card {
+        width: 90%;
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+    .subscription-card-h3 {
+        font-size: 2rem;
+    }
+
+    .subscription-card button {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+/* For mobile screens (max-width: 768px) */
+@media screen and (max-width: 769px) {
+    .subscription-selection-container {
+        width: 95%;
+        height: auto;
+        padding: 10px;
+    }
+
+    .subscription-options {
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+    }
+
+    .subscription-card {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .subscription-card h2 {
+        font-size: 1.5rem;
+    }
+
+    .subscription-card-h3 {
+        font-size: 1.8rem;
+    }
+
+    .subscription-card button {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+
+/* For very small screens (max-width: 480px) */
+@media screen and (max-width: 480px) {
+    .subscription-selection-container {
+        width: 95%;
+        height: auto;
+        padding: 10px;
+    }
+
+    .subscription-options {
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+    }
+
+    .subscription-card {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .subscription-card h2 {
+        font-size: 1.3rem;
+    }
+
+    .subscription-card-h3 {
+        font-size: 1.6rem;
+    }
+
+    .subscription-card-ul {
+        font-size: 0.9rem;
+    }
+
+    .subscription-card button {
+        font-size: 14px;
+        padding: 8px;
+    }
+    .cancelbutton {
+        margin-top: 10px;
+    }
+    
+    .cancelSubscribe {
+        margin-top: 20px;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        background: #007bff;
+        color: white;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    .subscription-card-li{
+        font-size: 0.9rem;
+    }
+}
+@media screen and (max-width:450px){
+    .subscription-selection-container {
+        width: 90%;
+        height: auto;
+        padding: 10px;
+    }
+    .subscription-options {
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+    }
+    .subscription-card {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .subscription-card h2 {
+        font-size: 1.6rem;
+    }
+
+    .subscription-card-h3 {
+        font-size: 1.7rem;
+    }
+
+    .subscription-card button {
+        font-size: 14px;
+        padding: 8px;
+    }
+    .cancelbutton {
+        margin-top: 10px;
+    }
+    
+    .cancelSubscribe {
+        margin-top: 20px;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        background: #007bff;
+        color: white;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    .subscription-card-li{
+        font-size: 0.9rem;
+    }
+}
+@media screen and (max-width:380px){
+    .subscription-card h2 {
+        font-size: 1.5rem;
+    }
+
+    .subscription-card-h3 {
+        font-size: 1.6rem;
+    }
+
+    .subscription-card button {
+        font-size: 14px;
+        padding: 8px;
+    }
+    .cancelbutton {
+        margin-top: 10px;
+    }
+    
+    .cancelSubscribe {
+        margin-top: 20px;
+        padding: 10px 15px
+    }
 }
