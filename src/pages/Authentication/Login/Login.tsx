@@ -62,7 +62,10 @@ const Login = () => {
       }));
     } else {
       try {
-         await dispatch(loginUser(userFormData)).unwrap();
+        //  await dispatch(loginUser(userFormData));
+        const response = await dispatch(loginUser(userFormData)).unwrap();
+        console.log("Login API response:", response);
+
         toast.success("Successfully logged in!");
         navigate("/home");
       } catch (err) {
@@ -127,30 +130,3 @@ const Login = () => {
 };
 
 export default Login;
-
-
-
-
-// const handleSubmit = async (event: React.FormEvent) => {
-//   event.preventDefault();
-
-//   const emailError = validateEmail(userFormData.email);
-//   const passwordError = validatePassword(userFormData.password);
-
-//   if (emailError || passwordError) {
-//     setUserFormData((prev) => ({
-//       ...prev,
-//       errors: { email: emailError, password: passwordError },
-//     }));
-//     setMessage(null);
-//   } else {
-//     try {
-//       const data = await login(userFormData.email, userFormData.password);
-//       console.log("User logged in:", data);
-//       setMessage({ text: "Successfully logged in!", type: "success" });
-//     } catch (err) {
-//       console.log(err);
-//       setMessage({ text: "Incorrect Email or Password!", type: "error" });
-//     }
-//   }
-// };

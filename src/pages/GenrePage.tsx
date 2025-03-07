@@ -50,7 +50,10 @@ const GenrePage: React.FC = () => {
   return (
     <div className="gen-container">
         <Sidebar />
+        <div className="genre-h2">
+
         <h2>Popular Genres</h2>
+        </div>
     <div className="genres-container">
       {genres.map((genre) => (
         <GenreCard key={genre} genre={genre} image={genreImages[genre]} />

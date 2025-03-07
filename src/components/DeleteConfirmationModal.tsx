@@ -9,9 +9,13 @@ interface DeleteConfirmationModalProps {
 
 const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({ isOpen, onClose, onConfirm }) => {
   if (!isOpen) return null;
-
+  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
   return (
-    <div className="delete-modal-overlay">
+    <div className="delete-modal-overlay" onClick={handleOverlayClick}>
       <div className="delete-modal-content">
         <SlClose color="red" size={"50"}/>
         <h2 className="delete-modal-h2">Are you sure?</h2>
