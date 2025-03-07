@@ -1,5 +1,12 @@
 import { useState, useEffect } from "react";
-import { FaHome, FaFilm, FaTv, FaEnvelope, FaSearch, FaUsers } from "react-icons/fa";
+import {
+  FaHome,
+  FaFilm,
+  FaTv,
+  FaEnvelope,
+  FaSearch,
+  FaUsers,
+} from "react-icons/fa";
 import { BiCategory } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
 import { MdDashboard, MdMovie, MdTv } from "react-icons/md";
@@ -31,16 +38,16 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole = "user" }) => {
     { name: "Contact", icon: FaEnvelope, path: "/contact-us" },
     { name: "My Space", icon: CgProfile, path: "/profile-page" },
   ];
-
   // Admin-specific menu items
-  const adminMenuItems = [
+  const adminMenuItems= [
     { name: "Home", icon: FaHome, path: "/home" },
-    { 
-      name: "Admin", 
-      icon: MdDashboard, 
+    {
+      name: "Admin",
+      icon: MdDashboard,
       path: "/admin-dashboard-movies",
-      isAdminMenu: true
+      isAdminMenu: true,
     },
+    // { name: "Search", icon: FaSearch, path: "/search" },
     { name: "Movies", icon: FaFilm, path: "/movies" },
     { name: "Series", icon: FaTv, path: "/series" },
     { name: "Genres", icon: BiCategory, path: "/genres" },
@@ -51,7 +58,11 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole = "user" }) => {
   // Admin submenu items
   const adminSubmenuItems = [
     { name: "User Dashboard", icon: FaUsers, path: "/user-dashboard" },
-    { name: "Movies Dashboard", icon: MdMovie, path: "/admin-dashboard-movies" },
+    {
+      name: "Movies Dashboard",
+      icon: MdMovie,
+      path: "/admin-dashboard-movies",
+    },
     { name: "Series Dashboard", icon: MdTv, path: "/admin-dashboard-series" },
   ];
 
@@ -108,7 +119,9 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole = "user" }) => {
               <li
                 key={item.path}
                 onClick={() => handleItemClick(item.path)}
-                className={`${activeItem === item.path ? "active" : ""} ${item.isAdminMenu ? "admin-menu-item" : ""}`}
+                className={`${activeItem === item.path ? "active" : ""} ${
+                  item.isAdminMenu ? "admin-menu-item" : ""
+                }`}
                 onMouseEnter={() => {
                   if (item.isAdminMenu) {
                     setShowAdminSubmenu(true);
@@ -118,7 +131,9 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole = "user" }) => {
                   if (item.isAdminMenu) {
                     // Keep submenu visible when moving from main item to submenu
                     setTimeout(() => {
-                      const submenuHovered = document.querySelector('.admin-submenu:hover');
+                      const submenuHovered = document.querySelector(
+                        ".admin-submenu:hover"
+                      );
                       if (!submenuHovered) {
                         setShowAdminSubmenu(false);
                       }
@@ -128,10 +143,10 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole = "user" }) => {
               >
                 <IconComponent size={20} />
                 {isExpanded && <span className="Link-text">{item.name}</span>}
-                
+
                 {/* Show admin submenu when hovering over admin menu item */}
                 {item.isAdminMenu && showAdminSubmenu && isExpanded && (
-                  <div 
+                  <div
                     className="admin-submenu"
                     onMouseEnter={() => setShowAdminSubmenu(true)}
                     onMouseLeave={() => setShowAdminSubmenu(false)}
@@ -141,7 +156,9 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole = "user" }) => {
                       return (
                         <div
                           key={subItem.path}
-                          className={`admin-submenu-item ${activeItem === subItem.path ? "active" : ""}`}
+                          className={`admin-submenu-item ${
+                            activeItem === subItem.path ? "active" : ""
+                          }`}
                           onClick={(e) => {
                             e.stopPropagation();
                             handleItemClick(subItem.path);

@@ -33,6 +33,7 @@ import GenrePage from "../pages/GenrePage";
 import Search from "../pages/Search";
 import AddEpisode from "../pages/Admin/AddEpisode";
 import { PaymentSuccess } from "../pages/paymentSuccess/PaymentSuccess";
+import DetailsPage from "../pages/DetailsPage";
 
 // Protected Route component that checks if user is authenticated
 const ProtectedRoute: React.FC = () => {
@@ -54,7 +55,7 @@ const AdminRoute: React.FC = () => {
   const { isAuthenticated, currentUser } = useSelector(
     (state: RootState) => state.user
   );
-  console.log("CurrentUser", currentUser, "and role", currentUser?.role, isAuthenticated);
+  // console.log("CurrentUser", currentUser, "and role", currentUser?.role, isAuthenticated);
 
   if (!isAuthenticated || currentUser?.role !== "admin") {
     // Redirect to home if not admin
@@ -109,6 +110,7 @@ const AppRoute: React.FC = () => {
             <Route path="/profile-page" element={<ProfilePage />} />
             <Route path="/payment-success" element={<PaymentSuccess />} />
             <Route path="/payment-cancel" element={<PaymentCancel />} />
+            <Route path="/details" element={<DetailsPage />}/>
           </Route>
 
           {/* Admin Routes - requires admin role */}
