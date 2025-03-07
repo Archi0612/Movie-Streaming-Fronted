@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 const WelcomePage: React.FC = () => {
   const navigate = useNavigate();
+
+
   const handleGetStarted = () => {
     navigate("/signup");
   };

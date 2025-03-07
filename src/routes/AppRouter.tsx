@@ -25,12 +25,13 @@ import AddMovie from "../pages/Admin/AddMovie";
 import AdminDashboardSeries from "../pages/Admin/AdminDashboardSeries";
 import AddSeries from "../pages/Admin/AddSeries";
 import HeroSection from "../components/HeroSection";
-import PaymentSuccess from "../pages/paymentSuccess/paymentSuccess";
+
 import PaymentCancel from "../pages/paymentCancel/paymentCancel";
 import { Bounce, ToastContainer } from "react-toastify";
 import GenrePage from "../pages/GenrePage";
 import Search from "../pages/Search";
 import AddEpisode from "../pages/Admin/AddEpisode";
+import { PaymentSuccess } from "../pages/paymentSuccess/paymentSuccess";
 
 // Protected Route component that checks if user is authenticated
 const ProtectedRoute: React.FC = () => {

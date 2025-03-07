@@ -21,7 +21,7 @@
 
 .sidebar.expanded {
   width: 45%;
-  background: linear-gradient(to right, var(--hover-shadow), rgba(0, 0, 0, 0));
+  background: linear-gradient(to right, var(--background-color), rgba(0, 0, 0, 0));
 }
 
 .sidebar-list {

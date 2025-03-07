@@ -111,25 +111,52 @@ export interface User {
   id: string;
   name: string;
   email: string;
-  password: string;
-  token: string;
+  contactNo:string
+  password?: string;
+  token?: string;
   otp?: number;
   role: string;
 }
 
 // Define State Interface
 export interface UserState {
+  currentUser: User | null;
+  isAuthenticated: boolean;
   loading: boolean;
-  success?: boolean;
+  success: boolean;
   error?: string;
-  currentUser?: User | null;
-  isAuthenticated: boolean
+  detailsLoading?: boolean;
+  detailsError?: string;
+  userDetails?: UserDetails;
+}
+
+// export interface UserResponse{
+//   id: string;
+//   name: string;
+//   email: string;
+//   contactNo:string
+//   role: string;
+// }
+
+interface UserData {
+  userData: User;
 }
 
 // Define API Response Types
 export interface AuthResponse {
-  token: string;
-  userData: User;
-  message?: string|string[];
+  data: UserData;
+  message?: string | string[];
 }
 
+// this interface is for the whole user profile 
+export interface UserDetails {
+  id: string | number;
+  name: string;
+  email: string;
+  profilePicture?: string;
+  contactNo: string;
+  dateOfBirth: string;
+  gender: string;
+  role: string;
+  // add info about watchlist and subscription and like content
+}
