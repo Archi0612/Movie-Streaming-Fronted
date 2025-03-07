@@ -32,7 +32,7 @@ export const registerUser = createAsyncThunk<
     async (user, { rejectWithValue }) => {
         try {
             const response = await API.post<AuthResponse>('/auth/signup', user);
- 
+
             // Store auth token in local storage after successful registration
             // localStorage.setItem("authToken", response.data.token);
             return response.data;
@@ -55,7 +55,9 @@ export const loginUser = createAsyncThunk<
         try {
             const response = await API.post<AuthResponse>('/auth/login', userFormData);
             // Store user details & authentication token in local storage
-            localStorage.setItem("currentUser", JSON.stringify(response.data.userData));
+            if (response.data.userData) {
+                localStorage.setItem("currentUser", JSON.stringify(response.data.data.userData));
+            }
             if (response.data.userData.id) {
                 // dispatch(fetchUserDetails(response.data.userData.id));
             }

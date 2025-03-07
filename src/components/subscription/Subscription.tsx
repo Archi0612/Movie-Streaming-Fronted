@@ -4,7 +4,8 @@ import { Elements } from '@stripe/react-stripe-js';
 import axios from 'axios';
 import "./Subscription.css";
 import { loadStripe, Stripe } from '@stripe/stripe-js';
-import { redirect } from 'react-router-dom';
+// import { redirect } from 'react-router-dom';
+import { UserData } from '../../interfaces/movie.interface';
 
 // Define subscription types and pricing
 interface SubscriptionPlan {
@@ -13,14 +14,7 @@ interface SubscriptionPlan {
     price: number;
 }
 
-interface UserData {
-    ID: number;
-    name: string;
-    email: string;
-    phone: string;
-    country: string;
-    countryCode: string;
-}
+
 
 // Pricing configuration
 const SUBSCRIPTION_PRICES = {
@@ -52,9 +46,9 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
 }) => {
 
     const userData: UserData = {
-        ID: 123,
+        ID: "67c97b066725d0261a9e64f1",
         name: "Priyanshu1",
-        email: "zCfdf6@gmail.com",
+        email: "harshrupavatiya333@gmail.com",
         phone: "1234567890",
         country: "India",
         countryCode: "+91",
@@ -89,7 +83,7 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
                 user: userData, // UserData means the object in which we will store detail of user 
             };
             console.log("Subscription Payload:", subscriptionPayload);
-            const response = await axios.post<any>(
+            const response = await axios.post(
                 "http://localhost:7777/stripe/membersubscription",
                 subscriptionPayload
             );
@@ -107,7 +101,6 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
                 const { error } = await stripe.redirectToCheckout({
                     sessionId: response.data.id
                 });
-                console.log(error, "Line 111");
                 if (error) {
                     alert("There was an error processing your subscription. Please try again.");
                 }

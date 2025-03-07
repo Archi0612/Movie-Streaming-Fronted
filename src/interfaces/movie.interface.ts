@@ -111,11 +111,21 @@ export interface User {
   id: string;
   name: string;
   email: string;
-  password: string;
-  token: string;
+  contactNo?: string,
+  password?: string;
+  // token?: string;
   otp?: number;
+  role: string;
 }
 
+export interface UserData {
+  ID: string;
+  name: string;
+  email: string;
+  phone: string;
+  country: string;
+  countryCode: string;
+}
 // Define State Interface
 export interface UserState {
   currentUser: User | null;
@@ -128,10 +138,13 @@ export interface UserState {
   userDetails?: UserDetails;
 }
 
+export interface data {
+  userData: User;
+}
 // Define API Response Types
 export interface AuthResponse {
   token: string;
-  userData: User;
+  data: data;
   message?: string | string[];
 }
 

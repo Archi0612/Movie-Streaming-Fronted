@@ -15,8 +15,6 @@ import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import { AppDispatch } from '../redux/store';
 
-
-
 ReactModal.setAppElement('#root'); // Ensure accessibility compliance
 
 export default function ProfilePage() {
@@ -95,7 +93,7 @@ export default function ProfilePage() {
                                     <tbody>
                                         <tr>
                                             <th>Full Name</th>
-                                            <td>{loggedUser.name}</td>
+                                            <td>User</td>
                                         </tr>
                                         <tr>
                                             <th>Date Of Birth</th>
@@ -107,11 +105,11 @@ export default function ProfilePage() {
                                         </tr>
                                         <tr>
                                             <th>Phone Number</th>
-                                            <td>{loggedUser.contactNo}</td>
+                                            <td>47835y873</td>
                                         </tr>
                                         <tr>
                                             <th>Email</th>
-                                            <td>{loggedUser.email}</td>
+                                            <td>43rndiungi</td>
                                         </tr>
                                         <tr>
                                             <th>Country</th>
