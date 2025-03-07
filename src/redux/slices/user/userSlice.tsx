@@ -7,7 +7,16 @@ import { getCookie } from "../../../utils/constants";
 // Get stored authentication token from local storage
 const storedToken = getCookie('token');
 const user = localStorage.getItem("currentUser");
-const parsedUser = user ? JSON.parse(user) as User : null;
+
+
+const parsedUser = user && user !== "undefined" ? JSON.parse(user) as User : null;
+// let parsedUser: User | null = null;
+// try {
+//     parsedUser = user ? JSON.parse(user) as User : null;
+// } catch (error) {
+//     console.error("Error parsing currentUser from localStorage:", error);
+//     localStorage.removeItem("currentUser"); // Clear invalid data
+// }
 const initialState: UserState = {
     currentUser: parsedUser,
     isAuthenticated: !!storedToken,
