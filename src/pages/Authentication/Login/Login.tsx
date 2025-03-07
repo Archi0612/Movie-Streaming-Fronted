@@ -62,7 +62,11 @@ const Login = () => {
       }));
     } else {
       try {
-         await dispatch(loginUser(userFormData)).unwrap();
+        //  await dispatch(loginUser(userFormData));
+        const response = await dispatch(loginUser(userFormData));
+        console.log("Login API response:", response);
+
+
         toast.success("Successfully logged in!");
         navigate("/home");
       } catch (err) {

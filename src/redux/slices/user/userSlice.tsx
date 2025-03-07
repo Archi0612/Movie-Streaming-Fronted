@@ -3,15 +3,19 @@ import axios from "axios";
 import { User, UserState, AuthResponse, UserDetails } from "../../../interfaces/movie.interface";
 import API from "../../../services/api";
 import { deleteCookie, getCookie } from "../../../utils/constants";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 
 
 // const dispatch = useDispatch<AppDispatch>();
 
 
 const storedToken = getCookie('token');
+
 const user = localStorage.getItem("currentUser");
-const parsedUser = user ? JSON.parse(user) as User : null;
+console.log("Stored User:", localStorage.getItem("currentUser"));
+
+const parsedUser = user && user !== "undefined" ? JSON.parse(user) as User : null;
+
 const initialState: UserState = {
     currentUser: parsedUser,
     isAuthenticated: !!storedToken,
@@ -54,8 +58,16 @@ export const loginUser = createAsyncThunk<
     async (userFormData, { rejectWithValue }) => {
         try {
             const response = await API.post<AuthResponse>('/auth/login', userFormData);
+            console.log("Response from login api:", response);
+
+            console.log("Full API response:", response);
+console.log("API response data:", response.data);
+
+            
             // Store user details & authentication token in local storage
             localStorage.setItem("currentUser", JSON.stringify(response.data.userData));
+
+
             if (response.data.userData.id) {
                 // dispatch(fetchUserDetails(response.data.userData.id));
             }
@@ -162,6 +174,7 @@ const userSlice = createSlice({
             .addCase(loginUser.fulfilled, (state, action: PayloadAction<AuthResponse>) => {
                 state.loading = false;
                 state.success = true;
+                console.log("Action payload in fulfilled:", action.payload);
                 state.currentUser = action.payload.userData;
                 state.isAuthenticated = true;
             })

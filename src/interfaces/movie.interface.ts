@@ -114,11 +114,12 @@ export interface User {
   password: string;
   token: string;
   otp?: number;
+  role?:string;
 }
 
 // Define State Interface
 export interface UserState {
-  currentUser: User | null;
+  currentUser: User | null ;
   isAuthenticated: boolean;
   loading: boolean;
   success: boolean;
