@@ -52,7 +52,6 @@ function WatchList() {
                 </div>
                 <div className='watchlist-content'>
                     {WatchLists.map((watchlist, index) => (
-
                         <div className='watchlist' key={index}>
                             <div className='watchlist-img'>
                                 <img src={poster1} alt="Poster" />

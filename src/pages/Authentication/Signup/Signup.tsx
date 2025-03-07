@@ -16,6 +16,7 @@ import { AppDispatch } from "../../../redux/store";
 import { registerUser } from "../../../redux/slices/user/userSlice";
 
 const Signup: React.FC = () => {
+
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const [userFormData, setUserFormData] = useState<UserFormData>({
@@ -49,28 +50,28 @@ const Signup: React.FC = () => {
     !email
       ? "Email is required"
       : /\S+@\S+\.\S+/.test(email)
-      ? ""
-      : "Please enter a valid email";
+        ? ""
+        : "Please enter a valid email";
   const validateName = (name: string) =>
     !name
       ? "Name is required"
       : /^[A-Za-z\s]+$/.test(name)
-      ? ""
-      : "Please enter alphabets only";
+        ? ""
+        : "Please enter alphabets only";
   const validatePassword = (password: string) =>
     !password
       ? "Password is required"
       : password.length >= 6
-      ? ""
-      : "Password must be at least 6 characters";
+        ? ""
+        : "Password must be at least 6 characters";
   const validateConfirmPassword = (confirmPassword: string, password: string) =>
     confirmPassword === password ? "" : "Passwords must match";
   const validatePhoneNumber = (phoneNumber: string) =>
     !phoneNumber
       ? "Phone number is required"
       : /^\d{10}$/.test(phoneNumber)
-      ? ""
-      : "Phone number must be 10 digits";
+        ? ""
+        : "Phone number must be 10 digits";
 
   const togglePasswordVisibility = () =>
     setUserFormData((prevState) => ({
@@ -91,14 +92,14 @@ const Signup: React.FC = () => {
       name === "email"
         ? validateEmail(value)
         : name === "name"
-        ? validateName(value)
-        : name === "password"
-        ? validatePassword(value)
-        : name === "confirmPassword"
-        ? validateConfirmPassword(value, userFormData.password)
-        : name === "phoneNumber"
-        ? validatePhoneNumber(value)
-        : "";
+          ? validateName(value)
+          : name === "password"
+            ? validatePassword(value)
+            : name === "confirmPassword"
+              ? validateConfirmPassword(value, userFormData.password)
+              : name === "phoneNumber"
+                ? validatePhoneNumber(value)
+                : "";
     setUserFormData((prevState) => ({ ...prevState, [name]: value }));
     setErrors((prevErrors) => ({ ...prevErrors, [name]: error }));
   };

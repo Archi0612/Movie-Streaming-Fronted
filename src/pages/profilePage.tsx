@@ -4,17 +4,28 @@ import WatchList from '../components/WatchList';
 import userIcon from '../assets/user_logo.png';
 import './profilePage.css';
 import { getNames } from "country-list";
-import SubscriptionSelection from '../components/subscription/Subscription';
+import SubscriptionModal from '../components/subscription/Subscription';
 import ReactModal from 'react-modal';
-// import { useSelector } from 'react-redux';
-// import { RootState } from '../redux/store';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
 import { FaEdit } from 'react-icons/fa';
+import { FiLogOut } from "react-icons/fi";
+import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
+import { AppDispatch } from '../redux/store';
+
+
 
 ReactModal.setAppElement('#root'); // Ensure accessibility compliance
 
 export default function ProfilePage() {
     const [isOpen, setIsOpen] = useState(false);
     const [isSubscribeOpen, setIsSubscribeOpen] = useState(false);
+    const dispatch = useDispatch<AppDispatch>();
+    const navigate = useNavigate();
+
+
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -25,7 +36,8 @@ export default function ProfilePage() {
     });
     const countries = getNames().sort();
 
-    // const currentUser = useSelector((state: RootState) => state.user.currentUser);
+    const loggedUser = useSelector((state: RootState) => state.user.currentUser);
+    console.log(loggedUser)
 
     // Handle input changes for Edit Profile form
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -39,14 +51,23 @@ export default function ProfilePage() {
 
     };
 
-
+    const logoutUser = async () => {
+        console.log("logout button clicked")
+        try {
+            await dispatch({ type: 'user/logout' });
+            navigate("/login");
+            toast.success("Logout Success");
+        } catch (error) {
+            toast.error("Logout Error");
+        }
+    }
 
     return (
         <>
             <div className='profilepagecontainer'>
                 <div className='internalProfilePage'>
                     <div className='profilepage-heading'>
-                        <h1>Profile Page</h1>
+                        <h1 className='ProfileHeading'>Profile Page</h1>
                     </div>
                     <div className='profileCard-information'>
                         <div className='primaryContainer'>
@@ -64,6 +85,9 @@ export default function ProfilePage() {
                                     <button className='subscribeProfile-btn' onClick={() => setIsSubscribeOpen(true)} >
                                         Subscribe
                                     </button>
+                                    <button className='subscribeProfile-btn' onClick={() => logoutUser()} >
+                                        <FiLogOut />
+                                    </button>
                                 </div>
                             </div>
                             <div className="profileInfo-container">
@@ -71,7 +95,7 @@ export default function ProfilePage() {
                                     <tbody>
                                         <tr>
                                             <th>Full Name</th>
-                                            <td>User</td>
+                                            <td>{loggedUser.name}</td>
                                         </tr>
                                         <tr>
                                             <th>Date Of Birth</th>
@@ -83,15 +107,15 @@ export default function ProfilePage() {
                                         </tr>
                                         <tr>
                                             <th>Phone Number</th>
-                                            <td>487y5387586238</td>
+                                            <td>{loggedUser.contactNo}</td>
                                         </tr>
                                         <tr>
                                             <th>Email</th>
-                                            <td>Priyanshu@gmail.com</td>
+                                            <td>{loggedUser.email}</td>
                                         </tr>
                                         <tr>
                                             <th>Country</th>
-                                            <td>India</td>
+                                            <td>india</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -168,7 +192,7 @@ export default function ProfilePage() {
             {/* Subscription Component */}
 
             {isSubscribeOpen && (
-                < SubscriptionSelection isOpen={isSubscribeOpen} onClose={() => setIsSubscribeOpen(false)} />
+                < SubscriptionModal isOpen={isSubscribeOpen} onClose={() => setIsSubscribeOpen(false)} />
             )}
 
 
