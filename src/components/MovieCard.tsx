@@ -4,11 +4,14 @@ import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { MovieCardProps } from '../interfaces/movie.interface';
 import { genreMap } from '../utils/constants';
 import './MovieCard.css';
+import { useNavigate } from 'react-router-dom';
 
 const MovieCard = ({ title, posterPath, overview, releaseDate, voteAverage, language, genres_id }: MovieCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const imageUrl = `https://image.tmdb.org/t/p/w500${posterPath}`;
+    // 🎭 Genre Mapping
+  const genreNames = genres_id.map((id) => genreMap[id] || "Unknown").join(", ");
 
   // ⭐ Star Ratings Logic
   const stars = Array.from({ length: 5 }, (_, index) => {
@@ -21,15 +24,18 @@ const MovieCard = ({ title, posterPath, overview, releaseDate, voteAverage, lang
       return <FaStar key={index} className="star-gray" />;
     }
   });
+  const navigate = useNavigate();
+  const handleDetailPage = () =>{
+    navigate("/details");
+  }
 
-  // 🎭 Genre Mapping
-  const genreNames = genres_id.map((id) => genreMap[id] || "Unknown").join(", ");
 
   return (
     <div
       className="movie-card"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={handleDetailPage}
     >
       {/* Movie Poster */}
       <img src={imageUrl} alt={title} />
