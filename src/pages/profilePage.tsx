@@ -93,7 +93,7 @@ export default function ProfilePage() {
                                     <tbody>
                                         <tr>
                                             <th>Full Name</th>
-                                            <td>User</td>
+                                            <td>{loggedUser?.name}</td>
                                         </tr>
                                         <tr>
                                             <th>Date Of Birth</th>
@@ -105,11 +105,11 @@ export default function ProfilePage() {
                                         </tr>
                                         <tr>
                                             <th>Phone Number</th>
-                                            <td>47835y873</td>
+                                            <td>{loggedUser?.contactNo}</td>
                                         </tr>
                                         <tr>
                                             <th>Email</th>
-                                            <td>43rndiungi</td>
+                                            <td>{loggedUser?.email}</td>
                                         </tr>
                                         <tr>
                                             <th>Country</th>

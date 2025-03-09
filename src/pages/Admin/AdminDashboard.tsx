@@ -4,7 +4,7 @@ import { ClientSideRowModelModule } from "ag-grid-community";
 import { ModuleRegistry } from "ag-grid-community";
 import { ColDef } from "ag-grid-community";
 // import "ag-grid-community/styles/ag-grid.css"; 
-import "ag-grid-community/styles/ag-theme-quartz.css"; 
+import "ag-grid-community/styles/ag-theme-quartz.css";
 import { MdEdit, MdDelete, MdAdd } from "react-icons/md";
 import "./AdminDashboard.css";
 import poster1 from "../../assets/kgf2poster.jpeg";
@@ -55,18 +55,18 @@ const AdminDashboard: React.FC = () => {
       director: "Prashant Neel",
     },
   ]);
-  const[selectedMovie,setSelectedMovie]=useState<Movie | null>(null);
-  const[isEditModalOpen,setIsEditModalOpen]=useState(false)
-  const[isDeleteModelOpen,setIsDeleteModelOpen]=useState(false)
+  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  const [isDeleteModelOpen, setIsDeleteModelOpen] = useState(false)
 
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
-  const handleEdit=(movie:Movie)=>{
+  const handleEdit = (movie: Movie) => {
     setSelectedMovie(movie);
     setIsEditModalOpen(true);
   }
-  
-  const handleDelete=()=>{
+
+  const handleDelete = () => {
     setIsDeleteModelOpen(false)
   }
 
@@ -85,7 +85,7 @@ const AdminDashboard: React.FC = () => {
       // setMovies((prevMovies) =>
       //   prevMovies.map((m) => (m.id === updatedMovie.id ? updatedMovie : m))
       // );
-      
+
       setIsEditModalOpen(false);
     } catch (error) {
       console.error("Failed to update movie", error);
@@ -102,10 +102,10 @@ const AdminDashboard: React.FC = () => {
     {
       headerName: "Action",
       field: "action",
-      cellRenderer: (params:any) => (
+      cellRenderer: (params: any) => (
         <div className="action-buttons">
           <button className="edit-btn" onClick={() => handleEdit(params.data)}><MdEdit size={15} /></button>
-          <button className="delete-btn" onClick={()=>setIsDeleteModelOpen(true)}><MdDelete size={15} /></button>
+          <button className="delete-btn" onClick={() => setIsDeleteModelOpen(true)}><MdDelete size={15} /></button>
         </div>
       ),
       flex: 1,
@@ -113,12 +113,12 @@ const AdminDashboard: React.FC = () => {
       filter: false
     },
   ];
-  const handleClick=()=>{
+  const handleClick = () => {
     navigate("/add-movie");
   }
   return (
     <div className="admin-container">
-      
+
       <div className="content">
         <div className="content-card">
           <div className="add-btn-container">
@@ -128,35 +128,35 @@ const AdminDashboard: React.FC = () => {
           </div>
           <div className="ag-theme-quartz" style={{ height: '500px', width: '100%' }}>
             <AgGridReact
-            rowStyle={{color:"white"}}
+              rowStyle={{ color: "white" }}
               rowData={movies}
               columnDefs={columnDefs}
-              pagination={true} 
+              pagination={true}
               paginationPageSize={10}
               domLayout="normal"
-              rowHeight={60} 
+              rowHeight={60}
               headerHeight={60}
               defaultColDef={{
                 flex: 1,
                 minWidth: 100,
-                filter: true, 
-                floatingFilter: true, 
-                sortable: true 
+                filter: true,
+                floatingFilter: true,
+                sortable: true
               }}
             />
           </div>
         </div>
       </div>
       {
-        
-      isEditModalOpen && selectedMovie &&(
-        <EditMovieModal movie={selectedMovie} onClose={()=>setIsEditModalOpen(false)} onSave={handleSaveChanges}/>
-      )}
+
+        isEditModalOpen && selectedMovie && (
+          <EditMovieModal movie={selectedMovie} onClose={() => setIsEditModalOpen(false)} onSave={handleSaveChanges} />
+        )}
       {
-        isDeleteModelOpen &&(
-          <DeleteConfirmationModal  isOpen={isDeleteModelOpen}
-          onClose={() => setIsDeleteModelOpen(false)}
-          onConfirm={handleDelete}/>
+        isDeleteModelOpen && (
+          <DeleteConfirmationModal isOpen={isDeleteModelOpen}
+            onClose={() => setIsDeleteModelOpen(false)}
+            onConfirm={handleDelete} />
         )
       }
     </div>

@@ -2,6 +2,7 @@
 import React, { useState, useRef } from 'react';
 import { Elements } from '@stripe/react-stripe-js';
 import axios from 'axios';
+import { AxiosError } from "axios";
 import "./Subscription.css";
 import { loadStripe, Stripe } from '@stripe/stripe-js';
 // import { redirect } from 'react-router-dom';
@@ -13,8 +14,6 @@ interface SubscriptionPlan {
     tier: 'free' | 'basic' | 'premium';
     price: number;
 }
-
-
 
 // Pricing configuration
 const SUBSCRIPTION_PRICES = {
@@ -46,9 +45,9 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
 }) => {
 
     const userData: UserData = {
-        ID: "67c97b066725d0261a9e64f1",
-        name: "Priyanshu1",
-        email: "harshrupavatiya333@gmail.com",
+        ID: "67c7ddbcd98d535a6d2b83f3",
+        name: "dhruvit",
+        email: "dhruvit@gmail.com",
         phone: "1234567890",
         country: "India",
         countryCode: "+91",
@@ -58,59 +57,52 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
     const [loading, setLoading] = useState(false);
     const selectedPlanRef = useRef<SubscriptionPlan | null>(null);
 
-    const handleSubscription = async (tier: 'basic' | 'premium'): Promise<void> => {
-        // Construct the full subscription plan object
-        const plan: SubscriptionPlan = {
-            type: billingCycle,
-            tier: tier,
-            price: SUBSCRIPTION_PRICES[tier][billingCycle]
-        };
-        selectedPlanRef.current = plan;
 
-        // Validate plan selection
-        if (!plan.tier) {
-            alert("Please select a valid subscription plan.");
-            return;
-        }
-        setLoading(true);
+    const handleSubscription = async (tier: 'basic' | 'premium'): Promise<void> => {
         try {
-            // Prepare the payload for API call
-            const subscriptionPayload = {
-                selectedPlan: {
-                    type: plan.type,
-                    tier: plan.tier,
-                },
-                user: userData, // UserData means the object in which we will store detail of user 
+            const plan: SubscriptionPlan = {
+                type: billingCycle,
+                tier,
+                price: SUBSCRIPTION_PRICES[tier][billingCycle],
             };
-            console.log("Subscription Payload:", subscriptionPayload);
-            const response = await axios.post(
-                "http://localhost:7777/stripe/membersubscription",
-                subscriptionPayload
-            );
-            // Handle different response scenarios
-            if (response.status === 200) {
-                const { status, redirectUrl } = response.data;
-                if (status === "existing_subscription" && redirectUrl) {
-                    window.location.href = redirectUrl;
-                    return;
-                }
+            selectedPlanRef.current = plan;
+
+            if (!plan.tier) {
+                alert("Please select a valid subscription plan.");
+                return;
             }
-            // Initialize Stripe checkout
-            const stripe = await stripePromise;
-            if (stripe && response.data.id) {
-                const { error } = await stripe.redirectToCheckout({
-                    sessionId: response.data.id
-                });
-                if (error) {
-                    alert("There was an error processing your subscription. Please try again.");
+
+            setLoading(true);
+            const response = await axios.post<{ id: string; status?: string; redirectUrl?: string }>(
+                "http://localhost:7777/stripe/membersubscription",
+                {
+                    selectedPlan: { type: plan.type, tier: plan.tier },
+                    user: userData,
                 }
+            );
+
+            if (response.data.status === "existing_subscription" && response.data.redirectUrl) {
+                window.location.href = response.data.redirectUrl;
+                return;
+            }
+
+            const stripe = await stripePromise;
+            if (stripe) {
+                const { error } = await stripe.redirectToCheckout({ sessionId: response.data.id });
+                if (error) alert("There was an error processing your subscription.");
             }
         } catch (error) {
+            if (axios.isAxiosError(error)) {
+                console.error("Axios Error:", error.response?.data || error.message);
+            } else {
+                console.error("Unexpected Error:", error);
+            }
             alert("An error occurred while processing your subscription.");
         } finally {
             setLoading(false);
         }
     };
+
     if (!isOpen) return null;
 
     return (
@@ -212,3 +204,62 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
 };
 
 export default SubscriptionModal;
+
+
+
+
+
+
+// const handleSubscription = async (tier: 'basic' | 'premium'): Promise<void> => {
+//     // Construct the full subscription plan object
+//     const plan: SubscriptionPlan = {
+//         type: billingCycle,
+//         tier: tier,
+//         price: SUBSCRIPTION_PRICES[tier][billingCycle]
+//     };
+//     selectedPlanRef.current = plan;
+
+//     // Validate plan selection
+//     if (!plan.tier) {
+//         alert("Please select a valid subscription plan.");
+//         return;
+//     }
+//     setLoading(true);
+//     try {
+//         // Prepare the payload for API call
+//         const subscriptionPayload = {
+//             selectedPlan: {
+//                 type: plan.type,
+//                 tier: plan.tier,
+//             },
+//             user: userData, // UserData means the object in which we will store detail of user
+//         };
+//         console.log("Subscription Payload:", subscriptionPayload);
+//         const response = await axios.post(
+//             "http://localhost:7777/stripe/membersubscription",
+//             subscriptionPayload
+//         );
+//         // Handle different response scenarios
+//         if (response.status === 200) {
+//             const { status, redirectUrl } = response.data;
+//             if (status === "existing_subscription" && redirectUrl) {
+//                 window.location.href = redirectUrl;
+//                 return;
+//             }
+//         }
+//         // Initialize Stripe checkout
+//         const stripe = await stripePromise;
+//         if (stripe && response.data.id) {
+//             const { error } = await stripe.redirectToCheckout({
+//                 sessionId: response.data.id
+//             });
+//             if (error) {
+//                 alert("There was an error processing your subscription. Please try again.");
+//             }
+//         }
+//     } catch (error) {
+//         alert("An error occurred while processing your subscription.");
+//     } finally {
+//         setLoading(false);
+//     }
+// };

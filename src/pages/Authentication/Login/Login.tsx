@@ -62,7 +62,7 @@ const Login = () => {
       }));
     } else {
       try {
-         await dispatch(loginUser(userFormData)).unwrap();
+        const login = await dispatch(loginUser(userFormData)).unwrap();
         toast.success("Successfully logged in!");
         navigate("/home");
       } catch (err) {
@@ -101,7 +101,7 @@ const Login = () => {
                   value={userFormData.password}
                   onChange={(e) => handleChange("password", e.target.value)}
                   placeholder="Enter your password"
-                   className="input-text"
+                  className="input-text"
                 />
                 <span className="toggle-icon" onClick={togglePasswordVisibility}>
                   {showPassword ? <FaEyeSlash color="white" /> : <FaEye color="white" />}

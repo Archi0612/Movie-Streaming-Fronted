@@ -42,8 +42,17 @@
   outline: none;
 }
 
+
+.searchMovie-container {
+  display: flex;
+  height: 55rem;
+  width: 66rem;
+  margin-left: 4rem;
+}
+
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {
+
   /* Tablets */
   .search-bar {
     width: 90%;
@@ -62,10 +71,12 @@
 }
 
 @media (max-width: 480px) {
+
   /* Mobile Phones */
   .search-page {
     padding: 0.7rem;
   }
+
   .search-bar {
     width: 85%;
     /* padding: 5px; */

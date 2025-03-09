@@ -118,14 +118,7 @@ export interface User {
   role: string;
 }
 
-export interface UserData {
-  ID: string;
-  name: string;
-  email: string;
-  phone: string;
-  country: string;
-  countryCode: string;
-}
+
 // Define State Interface
 export interface UserState {
   currentUser: User | null;

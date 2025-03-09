@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { User, UserState, AuthResponse, UserDetails } from "../../../interfaces/movie.interface";
-import API from "../../../services/api";
+import api from "../../../services/api";
 import { deleteCookie, getCookie } from "../../../utils/constants";
 import { useDispatch } from "react-redux";
 
@@ -31,7 +31,7 @@ export const registerUser = createAsyncThunk<
     "user/register",
     async (user, { rejectWithValue }) => {
         try {
-            const response = await API.post<AuthResponse>('/auth/signup', user);
+            const response = await api.post<AuthResponse>('/auth/signup', user);
 
             // Store auth token in local storage after successful registration
             // localStorage.setItem("authToken", response.data.token);
@@ -53,12 +53,14 @@ export const loginUser = createAsyncThunk<
     "user/login",
     async (userFormData, { rejectWithValue }) => {
         try {
-            const response = await API.post<AuthResponse>('/auth/login', userFormData);
+            const response = await api.post<AuthResponse>('/auth/login', userFormData);
             // Store user details & authentication token in local storage
-            if (response.data.userData) {
+            if (response.data.data.userData) {
+                console.log(response.data.data.userData)
                 localStorage.setItem("currentUser", JSON.stringify(response.data.data.userData));
             }
-            if (response.data.userData.id) {
+            if (response.data.data.userData.id) {
+                console.log("ignore this console");
                 // dispatch(fetchUserDetails(response.data.userData.id));
             }
             return response.data;
@@ -84,7 +86,7 @@ export const fetchUserDetails = createAsyncThunk<
             const token = getCookie('token');
 
             // Make API call to get user details
-            const response = await API.get<UserDetails>(`/users/${userId}`, {
+            const response = await api.get<UserDetails>(`/users/${userId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -149,7 +151,7 @@ const userSlice = createSlice({
             .addCase(registerUser.fulfilled, (state, action: PayloadAction<AuthResponse>) => {
                 state.loading = false;
                 state.success = true;
-                state.currentUser = action.payload.userData;
+                state.currentUser = action.payload.data.userData;
             })
             .addCase(registerUser.rejected, (state, action) => {
                 state.loading = false;
@@ -164,7 +166,7 @@ const userSlice = createSlice({
             .addCase(loginUser.fulfilled, (state, action: PayloadAction<AuthResponse>) => {
                 state.loading = false;
                 state.success = true;
-                state.currentUser = action.payload.userData;
+                state.currentUser = action.payload.data.userData;
                 state.isAuthenticated = true;
             })
             .addCase(loginUser.rejected, (state, action) => {
