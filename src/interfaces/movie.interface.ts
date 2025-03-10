@@ -1,4 +1,5 @@
 // src/interfaces/movie.interface.ts
+import { Types } from "mongoose";
 
 export interface Movie {
   id: number;
@@ -84,8 +85,6 @@ export interface UserFormData {
   numberOTP?: number;
 }
 
-
-
 export interface Errors {
   email: string;
   name: string;
@@ -105,7 +104,6 @@ export interface LoginDetails {
   email: string;
   password: string;
 }
-
 
 export interface User {
   id: string;
@@ -153,3 +151,4 @@ export interface UserDetails {
   role: string;
   // add info about watchlist and subscription and like content
 }
+

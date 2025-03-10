@@ -14,6 +14,7 @@ import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import { AppDispatch } from '../redux/store';
+import api from '../services/api';
 
 ReactModal.setAppElement('#root'); // Ensure accessibility compliance
 
@@ -26,16 +27,17 @@ export default function ProfilePage() {
 
     const [formData, setFormData] = useState({
         name: "",
-        email: "",
         phone: "",
         country: "",
-        dob: "",
+        dateOfBirth: "",
         gender: ""
     });
+
     const countries = getNames().sort();
 
+    console.log(formData, "details")
+
     const loggedUser = useSelector((state: RootState) => state.user.currentUser);
-    console.log(loggedUser)
 
     // Handle input changes for Edit Profile form
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -50,14 +52,21 @@ export default function ProfilePage() {
     };
 
     const logoutUser = async () => {
-        console.log("logout button clicked")
         try {
-            await dispatch({ type: 'user/logout' });
+            dispatch({ type: 'user/logout' });
             navigate("/login");
             toast.success("Logout Success");
         } catch (error) {
             toast.error("Logout Error");
         }
+    }
+
+    const updateInfo = async () => {
+
+        const response = await api.put('/user/editProfile', formData);
+        const data = response.data();
+        console.log(data);
+
     }
 
     return (
@@ -150,7 +159,7 @@ export default function ProfilePage() {
                     <input type="text" name="name" value={formData.name} onChange={handleChange} autoComplete='off' required />
 
                     <label>Email:</label>
-                    <input type="email" name="email" value={formData.email} onChange={handleChange} autoComplete='off' required />
+                    <input type="email" placeholder={loggedUser?.email} name="email" value={formData.email} onChange={handleChange} autoComplete='off' disabled />
 
                     <label>Phone Number:</label>
                     <input type="tel" name="phone" value={formData.phone} onChange={handleChange} autoComplete='off' required />
@@ -167,20 +176,20 @@ export default function ProfilePage() {
                     </div>
 
                     <label>Date of Birth:</label>
-                    <input type="date" name="dob" value={formData.dob} onChange={handleChange} autoComplete='off' required />
+                    <input type="date" name="dob" value={formData.dateOfBirth} onChange={handleChange} autoComplete='off' required />
 
                     <label>Gender:</label>
                     <select name="gender" value={formData.gender} onChange={handleChange} required>
                         <option value="">Select Gender</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                        <option value="Other">Other</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="Other">other</option>
                     </select>
 
                     <div className="modal-buttons">
 
                         <button type="button" onClick={() => setIsOpen(false)}>Cancel</button>
-                        <button type="submit">Save</button>
+                        <button type="submit" onClick={updateInfo}>Save</button>
                     </div>
                 </form>
             </ReactModal>
@@ -190,7 +199,7 @@ export default function ProfilePage() {
             {/* Subscription Component */}
 
             {isSubscribeOpen && (
-                < SubscriptionModal isOpen={isSubscribeOpen} onClose={() => setIsSubscribeOpen(false)} />
+                < SubscriptionModal user={loggedUser} isOpen={isSubscribeOpen} onClose={() => setIsSubscribeOpen(false)} />
             )}
 
 
