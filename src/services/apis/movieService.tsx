@@ -1,5 +1,4 @@
-import API from "../api";
-
+import {api} from "../api"
 export const getMoviesByGenre = async (genreId: number) => {
     try {
       const response = await API.get(`movie/getMoviesByGenre/${genreId}`);

@@ -7,7 +7,14 @@ import { MdEdit, MdDelete, MdAdd } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import poster1 from "../../assets/kgf2poster.jpeg";
 import poster2 from "../../assets/salar.jpeg";
+<<<<<<< HEAD
 import EditSeriesModal from "../EditSeriesModal";
+=======
+import { useNavigate } from "react-router-dom";
+import DeleteConfirmationModal from "../../components/DeleteConfirmationModal";
+import EditSeriesModal from "../EditSeriesModal"; // Import modal component
+import "./AdminDashboard.css"
+>>>>>>> 4d01b9fdb7aeea3621b33e9c6f239ddf4f3d82ff
 
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
@@ -30,6 +37,7 @@ interface Series {
 
 
 const AdminDashboardSeries: React.FC = () => {
+<<<<<<< HEAD
   const [series, setSeries] = useState<Series[]>([
     {
       title: "Kgf Chapter 2",
@@ -57,6 +65,10 @@ const AdminDashboardSeries: React.FC = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedSeries, setSelectedSeries] = useState<Series | null>(null);
+=======
+  const [series, setSeries] = useState<Series[]>([]);
+  const [isDeleteModelOpen, setIsDeleteModelOpen] = useState(false);
+>>>>>>> 4d01b9fdb7aeea3621b33e9c6f239ddf4f3d82ff
   const navigate = useNavigate();
 
   const handleEdit = (series: Series) => {
@@ -112,13 +124,32 @@ const AdminDashboardSeries: React.FC = () => {
       filter: false,
     },
   ];
+<<<<<<< HEAD
 
+=======
+  const handleOpenSeries = () => {
+    navigate("/add-series");
+  };
+  const handleOpenEpisode=()=>{
+    navigate("/add-episode")
+  }
+
+  const handleDelete = () => {
+    setIsDeleteModelOpen(false);
+  };
+  
+>>>>>>> 4d01b9fdb7aeea3621b33e9c6f239ddf4f3d82ff
   return (
     <div className="admin-container">
       <div className="content">
         <div className="content-card">
           <div className="add-btn-container">
+<<<<<<< HEAD
             <button className="add-movie-btn" onClick={() => navigate("/add-series")}>
+=======
+            <button className="add-episode-btn" onClick={handleOpenEpisode}>Add Episode</button>
+            <button className="add-movie-btn" onClick={handleOpenSeries}>
+>>>>>>> 4d01b9fdb7aeea3621b33e9c6f239ddf4f3d82ff
               <MdAdd size={20} />
             </button>
           </div>

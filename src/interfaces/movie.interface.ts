@@ -1,4 +1,76 @@
+<<<<<<< HEAD
 // src/interfaces/movie.interface.ts
+=======
+// USER INTERFACES
+
+import { IconType } from "react-icons/lib";
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  contactNo: string;
+  password?: string;
+  token?: string;
+  otp?: number;
+  role: string;
+}
+
+// Define State Interface
+export interface UserState {
+  currentUser: User | null;
+  isAuthenticated: boolean;
+  loading: boolean;
+  success: boolean;
+  error?: string;
+  detailsLoading?: boolean;
+  detailsError?: string;
+  userDetails?: UserDetails;
+}
+
+// export interface UserResponse{
+//   id: string;
+//   name: string;
+//   email: string;
+//   contactNo:string
+//   role: string;
+// }
+
+interface UserData {
+  userData: User;
+}
+
+// Define API Response Types
+export interface AuthResponse {
+  data: UserData;
+  message?: string | string[];
+}
+
+// this interface is for the whole user profile
+export interface UserDetails {
+  id: string | number;
+  name: string;
+  email: string;
+  profilePicture?: string;
+  contactNo: string;
+  dateOfBirth: string;
+  gender: string;
+  role: string;
+  // add info about watchlist and subscription and like content
+}
+
+export interface SidebarProps {
+  userRole: string; // Optional prop to determine if user is admin
+}
+
+export interface MenuItem {
+  name: string;
+  icon: IconType;
+  path: string;
+  isAdminMenu: boolean; // Make it optional
+}
+
+>>>>>>> 4d01b9fdb7aeea3621b33e9c6f239ddf4f3d82ff
 export interface Movie {
   _id: string;
   title: string;
@@ -78,8 +150,6 @@ export interface UserFormData {
   numberOTP?: number;
 }
 
-
-
 export interface Errors {
   email: string;
   name: string;
@@ -99,6 +169,7 @@ export interface LoginDetails {
   email: string;
   password: string;
 }
+<<<<<<< HEAD
 
 
 export interface User {
@@ -154,3 +225,5 @@ export interface UserDetails {
   role: string;
   // add info about watchlist and subscription and like content
 }
+=======
+>>>>>>> 4d01b9fdb7aeea3621b33e9c6f239ddf4f3d82ff

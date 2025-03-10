@@ -15,6 +15,7 @@ export const fetchMoviesApi = async(page=1) => {
                 }
             }
         );
+        console.log("response from fetchmovies", response);
         return response.data.results;
     }catch(err){
         console.error("Error fetching TMDB api", err);
@@ -35,6 +36,7 @@ export const fetchTrendingMovies = async () => {
     const response = await fetch(
       `${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=${genreId}`
     );
+    console.log("response from fetchmoviesbygenres", response);
     return response.json();
   };
   

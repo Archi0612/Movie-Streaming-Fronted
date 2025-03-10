@@ -4,6 +4,7 @@ import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { Movie } from '../interfaces/movie.interface';
 import { genreMap } from '../utils/constants';
 import './MovieCard.css';
+import { useNavigate } from 'react-router-dom';
 const MovieCard: React.FC<{ movie: Movie }> = ({ movie }) => {
   const { title, poster, description, releaseDate, rating, languages, genres } = movie;
 
@@ -22,6 +23,10 @@ const MovieCard: React.FC<{ movie: Movie }> = ({ movie }) => {
       return <FaStar key={index} className="star-gray" />;
     }
   });
+  const navigate = useNavigate();
+  const handleDetailPage = () =>{
+    navigate("/details");
+  }
 
   // 🎭 Genre Mapping
   const genreNames = genres.map((id) => genreMap[id] || "Unknown").join(", ");
@@ -31,6 +36,7 @@ const MovieCard: React.FC<{ movie: Movie }> = ({ movie }) => {
       className="movie-card"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={handleDetailPage}
     >
       {/* Movie Poster */}
       <img src={imageUrl} alt={title} />

@@ -1,11 +1,11 @@
-import API from "../api";
+import {api} from "../api";
 import axios from "axios";
-// const API_BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
+// const api_BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
 export const login = async (email: string, password: string) => {
     try {
         //axios always convert data into json format
-        const result = await API.post("/auth/login", { email, password });
+        const result = await api.post("/auth/login", { email, password });
         return result;
 
     } catch (err: unknown) {
@@ -26,7 +26,7 @@ export const generateOTP = async (userData: {
     password: string;
 }) => {
     try {
-        const result = await API.post("/auth/generateOTP", {
+        const result = await api.post("/auth/generateOTP", {
             email: userData.email,
             contactNo: userData.contactNo,
             name: userData.name,
@@ -51,7 +51,7 @@ export const signup = async (userData: {
     numberOTP: number;
 }) => {
     try {
-        const result = await API.post("auth/signup", {
+        const result = await api.post("auth/signup", {
             email: userData.email,
             contactNo: userData.phoneNumber,
             name: userData.name,
@@ -72,7 +72,7 @@ export const signup = async (userData: {
 
 export const sendMailResetPassword = async (email: string) => {
     try {
-        const result = await API.post("auth/sendMailResetPassword", {
+        const result = await api.post("auth/sendMailResetPassword", {
             email: email,
             // password: userData.password
         });
@@ -88,7 +88,7 @@ export const sendMailResetPassword = async (email: string) => {
 
 export const resetPassword = async (password: string, token: string) => {
     try {
-        const result = await API.post("auth/resetPassword", {
+        const result = await api.post("auth/resetPassword", {
             password: password,
             token: token
         });

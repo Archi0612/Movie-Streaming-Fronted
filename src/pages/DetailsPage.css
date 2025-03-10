@@ -1,0 +1,384 @@
+/* Base styles and resets */
+.details-container {
+    /* position: absolute; */
+    width: 100%;
+    margin: 0 auto;
+    background-color: #121212;
+    color: #ffffff;
+    padding-left: 3rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+  
+  a {
+    color: #5799ef;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  h1, h2, h3 {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Header Styles */
+  .header-container {
+    position: relative;
+    width: 100%;
+  }
+  
+  .header-image-container {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    overflow: hidden;
+  }
+  
+  .header-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.7);
+  }
+  
+  .logo-container {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    z-index: 2;
+  }
+  
+  .movie-logo {
+    max-width: 150px;
+    height: auto;
+  }
+  
+  .navigation-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 10px 0;
+  }
+  
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #5a5a5a;
+    cursor: pointer;
+  }
+  
+  .dot.active {
+    background-color: #ffffff;
+  }
+  
+  /* Title Section */
+  .title-section {
+    padding: 10px 20px;
+  }
+  
+  .movie-title {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  
+  .movie-meta {
+    color: #aaaaaa;
+    font-size: 14px;
+  }
+  
+  .divider {
+    margin: 0 8px;
+  }
+  
+  /* Rating Container */
+  .rating-container {
+    padding: 0 20px;
+    margin-bottom: 20px;
+  }
+  
+  .star-rating {
+    display: flex;
+    align-items: center;
+  }
+  
+  .star {
+    color: #f5c518;
+    font-size: 24px;
+    margin-right: 4px;
+  }
+  
+  .rating-score {
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 4px;
+  }
+  
+  .total-votes {
+    color: #aaaaaa;
+    font-size: 14px;
+  }
+  
+  /* Main Content Layout */
+  .main-content {
+    display: flex;
+    gap: 24px;
+    padding: 0 20px 30px 20px;
+  }
+  
+  .left-content {
+    flex: 2;
+  }
+  
+  .right-content {
+    flex: 1;
+  }
+  
+  /* Description Section */
+  .description-section {
+    margin-bottom: 24px;
+  }
+  
+  .description-section h2,
+  .credits-section h3,
+  .gallery-section h2,
+  .reviews-section h2 {
+    color: #ffffff;
+    margin-bottom: 12px;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  
+  .description-section p {
+    color: #aaaaaa;
+    line-height: 1.5;
+    font-size: 15px;
+  }
+  
+  /* Credits Section */
+  .credits-section {
+    margin-bottom: 24px;
+  }
+  
+  .credits-section h3 {
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+  
+  .credits-section p {
+    color: #aaaaaa;
+    margin-bottom: 16px;
+    line-height: 1.4;
+  }
+  
+  .credits-section .person-link {
+    margin-right: 4px;
+  }
+  
+  .see-all {
+    color: #5799ef;
+    font-size: 14px;
+  }
+  
+  /* Gallery Section */
+  .gallery-section {
+    margin-bottom: 24px;
+  }
+  
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  
+  .gallery-item img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+  
+  .gallery-count {
+    display: flex;
+    justify-content: space-between;
+    color: #aaaaaa;
+    font-size: 14px;
+  }
+  
+  .view-all-btn {
+    background: none;
+    border: none;
+    color: #5799ef;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Reviews Section */
+  .reviews-section {
+    background-color: #1f1f1f;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 24px;
+  }
+  
+  .review-summary {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+  }
+  
+  .meter-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .positive {
+    background-color: #E6B91E;
+  }
+  
+  .meta-positive {
+    background-color: #66CC33;
+  }
+  
+  .meter-value {
+    font-size: 18px;
+    font-weight: bold;
+    color: #000000;
+  }
+  
+  .meter-label {
+    font-size: 14px;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 4px;
+  }
+  
+  .meter-count {
+    font-size: 12px;
+    color: #5799ef;
+    text-align: center;
+  }
+  
+  .featured-review {
+    background-color: #2a2a2a;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .review-text {
+    color: #cccccc;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  
+  .reviewer-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .reviewer-name {
+    color: #5799ef;
+    font-size: 14px;
+  }
+  
+  .stars {
+    color: #f5c518;
+    font-size: 14px;
+  }
+  
+  .review-actions {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .review-action-btn {
+    background-color: #2a2a2a;
+    border: none;
+    color: #ffffff;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .review-action-btn:hover {
+    background-color: #333333;
+  }
+  
+  /* Action Buttons */
+  .actions-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .action-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  
+  .share-button {
+    background-color: #0F79AF;
+    color: white;
+  }
+  
+  .watchlist-button {
+    background-color: #2a2a2a;
+    color: white;
+  }
+  
+  .share-button:hover, .watchlist-button:hover {
+    opacity: 0.9;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .main-content {
+      flex-direction: column;
+    }
+    
+    .gallery-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .header-image-container {
+      height: 240px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .gallery-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .movie-title {
+      font-size: 24px;
+    }
+    
+    .review-summary {
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+  }

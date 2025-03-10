@@ -23,6 +23,7 @@ import ContactUs from "../pages/ContactUs";
 import Feedback from "../pages/Feedback";
 import AddMovie from "../pages/Admin/AddMovie";
 import AdminDashboardSeries from "../pages/Admin/AdminDashboardSeries";
+import UserDashboard from "../pages/Admin/UserDashboard";
 import AddSeries from "../pages/Admin/AddSeries";
 import HeroSection from "../components/HeroSection";
 
@@ -31,11 +32,17 @@ import { Bounce, ToastContainer } from "react-toastify";
 import GenrePage from "../pages/GenrePage";
 import Search from "../pages/Search";
 import AddEpisode from "../pages/Admin/AddEpisode";
+<<<<<<< HEAD
 import GenreDetail from "../pages/GenreDetail";
 
+=======
+import { PaymentSuccess } from "../pages/paymentSuccess/PaymentSuccess";
+import DetailsPage from "../pages/DetailsPage";
+>>>>>>> 4d01b9fdb7aeea3621b33e9c6f239ddf4f3d82ff
 
 // Protected Route component that checks if user is authenticated
 const ProtectedRoute: React.FC = () => {
+  
   const { isAuthenticated } = useSelector((state: RootState) => state.user);
   const location = useLocation();
 
@@ -53,7 +60,7 @@ const AdminRoute: React.FC = () => {
   const { isAuthenticated, currentUser } = useSelector(
     (state: RootState) => state.user
   );
-  console.log("CurrentUser", currentUser, "and role", currentUser?.role, isAuthenticated);
+  // console.log("CurrentUser", currentUser, "and role", currentUser?.role, isAuthenticated);
 
   if (!isAuthenticated || currentUser?.role !== "admin") {
     // Redirect to home if not admin
@@ -76,8 +83,12 @@ const PublicOnlyRoute: React.FC = () => {
   return <Outlet />;
 };
 
+<<<<<<< HEAD
 import UserDashboard from "../pages/Admin/UserDashboard";
 import { PaymentSuccess } from "../pages/paymentSuccess/paymentSuccess";
+=======
+
+>>>>>>> 4d01b9fdb7aeea3621b33e9c6f239ddf4f3d82ff
 const AppRoute: React.FC = () => {
   const { isAuthenticated } = useSelector((state: RootState) => state.user);
 
@@ -110,19 +121,20 @@ const AppRoute: React.FC = () => {
             <Route path="/profile-page" element={<ProfilePage />} />
             <Route path="/payment-success" element={<PaymentSuccess />} />
             <Route path="/payment-cancel" element={<PaymentCancel />} />
+            <Route path="/details" element={<DetailsPage />}/>
           </Route>
 
           {/* Admin Routes - requires admin role */}
           <Route element={<AdminRoute />}>
-            <Route path="/admin-dashboard" element={<AdminDashboard />} />
+            <Route path="/admin-dashboard-movies" element={<AdminDashboard />} />
             <Route
               path="/admin-dashboard-series"
               element={<AdminDashboardSeries />}
             />
-            <Route path="/add-movie" element={<AddMovie />} />
+            <Route path="/add-movies" element={<AddMovie />} />
             <Route path="/add-series" element={<AddSeries />} />
             <Route path="/add-episode" element={<AddEpisode />} />
-            <Route path="/admin-dashboard-user" element={<UserDashboard/>}/>
+            <Route path="/user-dashboard" element={<UserDashboard/>}/>
           </Route>
         </Route>
 
