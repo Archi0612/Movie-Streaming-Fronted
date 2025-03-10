@@ -15,22 +15,21 @@ const Home: React.FC = () => {
   const [actionMovies, setActionMovies] = useState<Movie[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  const fetchMovies = async () => {
+    try {
+      setIsLoading(true);
+      const trending = await fetchTrendingMovies();
+      setTrendingMovies(trending.results.slice(0, 10));
+
+      const action = await fetchMoviesByGenre(28);
+      setActionMovies(action.results);
+    } catch (error) {
+      console.error("Error fetching movies:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
   useEffect(() => {
-    const fetchMovies = async () => {
-      try {
-        setIsLoading(true);
-        const trending = await fetchTrendingMovies();
-        setTrendingMovies(trending.results.slice(0, 10));
-
-        const action = await fetchMoviesByGenre(28);
-        setActionMovies(action.results);
-      } catch (error) {
-        console.error("Error fetching movies:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
     fetchMovies();
   }, []);
 

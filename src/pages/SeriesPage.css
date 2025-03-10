@@ -1,0 +1,9 @@
+.series-section{
+    min-height: 100vh;
+    width: 90%;
+    background: #000;
+}
+
+.series-slider{
+    height: 100rem;
+}

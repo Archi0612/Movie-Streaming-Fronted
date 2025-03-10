@@ -52,7 +52,7 @@ const HeroSection: React.FC = () => {
           <h2 className="movie-title">Movie Name</h2>
           <p className="movie-info">2025 | U/A 16+ | 1 Season | 7 Languages</p>
           <p className="movie-desc">
-            Roohi’s life turns topsy-turvy after an ‘accident’ during a medical check-up.
+            Roohi's life turns topsy-turvy after an ‘accident’ during a medical check-up.
           </p>
           <button className="watch-now">▶ Watch Now</button>
         </div>

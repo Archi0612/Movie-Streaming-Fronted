@@ -3,11 +3,11 @@
     padding: 1.5rem 2rem;
   }
   
-  .movies-title {
+  .all-movies-title {
     font-size: 2rem;
     font-weight: bold;
     color: var(--primary-color);
-    margin: 1.3rem 0rem;
+    margin-bottom: 1.2rem;
     text-align: start;
   }
   

@@ -9,7 +9,7 @@ const MoviesGrid: React.FC<MovieGridProps> = ({
 }: MovieGridProps) => {
   return (
     <div className="movies-grid">
-      <h2 className="movies-title">{title}</h2>
+      <h2 className="all-movies-title">{title}</h2>
       <div className="movies-container">
         {movies.map((movie) => (
           <MovieCard
