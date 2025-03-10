@@ -69,6 +69,64 @@
   margin-left: 10px;
 }
 
+
+/* Admin Menu Submenu Styles */
+.admin-menu-item {
+  position: relative;
+}
+
+.admin-submenu {
+  position: absolute;
+  left: 100%;
+  top: 0;
+  color: var(--text-color);
+  background-color: var(--background-color); /* Adjust to match your theme */
+  border-radius: 4px;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+  min-width: 180px;
+  z-index: 1000;
+  padding: 1rem 0;
+  /* margin-left: 0.5rem; */
+}
+
+.admin-submenu-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.admin-submenu-item:hover {
+  background-color: #34495e; /* Lighter shade for hover */
+}
+
+.admin-submenu-item.active {
+  color: black;
+  font-weight: 500;
+  background-color: #3498db; /* Highlight active item */
+}
+
+.admin-submenu-item span {
+  margin-left: 1rem;
+  white-space: nowrap;
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 768px) {
+  .admin-submenu {
+    position: static;
+    left: auto;
+    top: auto;
+    width: 100%;
+    margin-left: 0;
+    margin-top: 5px;
+    padding-left: 30px;
+    box-shadow: none;
+    border-left: 2px solid #3498db;
+  }
+}
+
 @media (max-width:1080px) {
   .logo-1{
     width: 1.8rem;

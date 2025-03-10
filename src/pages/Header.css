@@ -21,7 +21,6 @@
 
 /* Sign In Button */
 .sign-in-button {
-  width: 11vh;
   background-color: transparent;
   color: var(--primary-color);
   font-size: 1rem;

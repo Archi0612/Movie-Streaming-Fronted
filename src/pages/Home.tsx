@@ -42,7 +42,7 @@ const Home: React.FC = () => {
       (
         <div className="home-container">
         {/* sticky sidebar */}
-        <Sidebar />
+        {/* <Sidebar /> */}
         {/* Trending Movies */}
         <div className="section-container">
           <TrendingMovies movies={trendingMovies} />
