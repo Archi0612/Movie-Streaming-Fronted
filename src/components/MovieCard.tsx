@@ -1,21 +1,22 @@
 import { useState } from 'react';
 import { Play, Info, Plus } from 'lucide-react';
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
-import { MovieCardProps } from '../interfaces/movie.interface';
+import { Movie } from '../interfaces/movie.interface';
 import { genreMap } from '../utils/constants';
 import './MovieCard.css';
+const MovieCard: React.FC<{ movie: Movie }> = ({ movie }) => {
+  const { title, poster, description, releaseDate, rating, languages, genres } = movie;
 
-const MovieCard = ({ title, posterPath, overview, releaseDate, voteAverage, language, genres_id }: MovieCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  const imageUrl = posterPath;
+  const imageUrl = poster;
 
   // ⭐ Star Ratings Logic
   const stars = Array.from({ length: 5 }, (_, index) => {
-    const rating = voteAverage / 2;
-    if (index + 1 <= rating) {
+    const ratingStar = rating / 2;
+    if (index + 1 <= ratingStar) {
       return <FaStar key={index} className="star" />;
-    } else if (index + 0.5 < rating) {
+    } else if (index + 0.5 < ratingStar) {
       return <FaStarHalfAlt key={index} className="star" />;
     } else {
       return <FaStar key={index} className="star-gray" />;
@@ -23,7 +24,7 @@ const MovieCard = ({ title, posterPath, overview, releaseDate, voteAverage, lang
   });
 
   // 🎭 Genre Mapping
-  const genreNames = genres_id.map((id) => genreMap[id] || "Unknown").join(", ");
+  const genreNames = genres.map((id) => genreMap[id] || "Unknown").join(", ");
 
   return (
     <div
@@ -43,13 +44,13 @@ const MovieCard = ({ title, posterPath, overview, releaseDate, voteAverage, lang
             <div className="movie-rating">{stars}</div>
             <ul className="movie-details1">
               <li>{new Date(releaseDate).getFullYear()}</li>
-              <li>{language?.toUpperCase()}</li>
+              <li>{languages}</li>
               <li>{genreNames}</li>
             </ul>
 
 
             {/* Overview */}
-            <p className="movie-overview">{overview}</p>
+            <p className="movie-overview">{description}</p>
 
             {/* Buttons */}
             <div className="movie-buttons">

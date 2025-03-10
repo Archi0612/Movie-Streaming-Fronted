@@ -3,61 +3,74 @@ import "./HeroSection.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation } from "swiper/modules";
 import MovieCard from "../components/MovieCard";
-import { fetchTrendingMovies, fetchPopularMovies ,fetchUpcomingMovies} from "../services/TMDB-api-service";
+import { getPopularMovies, getLatestMovies, getTopRated } from "../services/apis/movieService";
 import { Movie } from "../interfaces/movie.interface";
 
 const HeroSection: React.FC = () => {
-  const [movies, setMovies] = useState<{ trending: Movie[]; popular: Movie[]; upcoming: Movie[] }>({ trending: [], popular: [], upcoming: [] });
+  const [movies, setMovies] = useState<{ pop: Movie[]; latest: Movie[]; topRated: Movie[] }>({
+    pop: [],
+    latest: [],
+    topRated: [],
+  });
 
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const [trendingResponse, popularResponse,upcomingResposne] = await Promise.all([
-          fetchTrendingMovies(),
-          fetchPopularMovies(),
-          fetchUpcomingMovies()
+        const [popularMoviesResponse, latestResponse, topRatedResponse] = await Promise.all([
+          getPopularMovies(),
+          getLatestMovies(),
+          getTopRated(),
         ]);
-        setMovies({ trending: trendingResponse.results, popular: popularResponse.results, upcoming:upcomingResposne.results });
+
+        setMovies({
+          pop: popularMoviesResponse.data.moviesList || [],
+          latest: latestResponse.data.moviesList || [],
+          topRated: topRatedResponse.data.moviesList || [],
+        });
       } catch (err) {
         console.error("Error fetching movies", err);
       }
     };
     fetchMovies();
   }, []);
+
   const movieCategories = [
-    { key: "trending", title: "Trending Movies" },
-    { key: "popular", title: "Popular Movies" },
-    { key: "upcoming", title: "Upcoming Movies" },
+    { key: "pop", title: "Popular Movies" },
+    { key: "latest", title: "Latest Movies" },
+    { key: "topRated", title: "Top Rated Movies" },
   ];
 
   return (
     <div className="hero-section">
+      {/* Main Movie Slider */}
       <div className="movie-slider-container">
-        <Swiper
-          slidesPerView={1}
-          spaceBetween={10}
-          freeMode={true}
-          navigation={true}
-          modules={[FreeMode, Navigation]}
-          className="main-movie-slider"
-        >
+        <Swiper slidesPerView={1} spaceBetween={10} freeMode={true} navigation={true} modules={[FreeMode, Navigation]} className="main-movie-slider">
           <SwiperSlide>
             <div className="video-overlay">
-            <iframe width="1930" height="950" src="https://www.youtube.com/embed/XXuLWW3H3jY?autoplay=1&mute=1" title="Avatar 3: Fire and Ash (2025) - First Trailer | James Cameron" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+              <iframe
+                width="1930"
+                height="950"
+                src="https://www.youtube.com/embed/XXuLWW3H3jY?autoplay=1&mute=1"
+                title="Avatar 3: Fire and Ash (2025) - First Trailer | James Cameron"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              ></iframe>
             </div>
           </SwiperSlide>
         </Swiper>
 
+        {/* Movie Details */}
         <div className="movie-details">
           <h2 className="movie-title">Movie Name</h2>
           <p className="movie-info">2025 | U/A 16+ | 1 Season | 7 Languages</p>
-          <p className="movie-desc">
-            Roohi’s life turns topsy-turvy after an ‘accident’ during a medical check-up.
-          </p>
+          <p className="movie-desc">Roohi’s life turns topsy-turvy after an ‘accident’ during a medical check-up.</p>
           <button className="watch-now">▶ Watch Now</button>
         </div>
       </div>
 
+      {/* Movie Categories */}
       <div className="movie-lists">
         {movieCategories.map(({ key, title }) => (
           <div className="movie-category" key={key}>
@@ -69,27 +82,19 @@ const HeroSection: React.FC = () => {
               modules={[Navigation]}
               className="movie-category-swiper"
               breakpoints={{
-                1400: { slidesPerView: 6},
+                1400: { slidesPerView: 6 },
                 1200: { slidesPerView: 5 },
                 1050: { slidesPerView: 4 },
                 768: { slidesPerView: 4 },
                 640: { slidesPerView: 4 },
                 480: { slidesPerView: 3 },
                 400: { slidesPerView: 3 },
-                300:{slidesPerView:2}
+                300: { slidesPerView: 2 },
               }}
             >
-              {movies[key as keyof typeof movies].map((movie) => (
-                <SwiperSlide key={movie.id}>
-                  <MovieCard
-                    title={movie.title}
-                    posterPath={movie.poster_path}
-                    overview={movie.overview}
-                    releaseDate={movie.release_date}
-                    voteAverage={movie.vote_average}
-                    language={movie.original_language}
-                    genres_id={movie.genre_ids}
-                  />
+              {movies[key as keyof typeof movies]?.map((movie, index) => (
+                <SwiperSlide key={movie._id || `${key}-${index}`}>
+                  <MovieCard movie={movie} />
                 </SwiperSlide>
               ))}
             </Swiper>

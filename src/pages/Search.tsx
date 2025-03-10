@@ -1,19 +1,19 @@
 import React,{useState,useEffect} from "react";
 import "./Search.css";
-import { fetchTrendingMovies } from "../services/TMDB-api-service";
+import { getPopularMovies } from "../services/apis/movieService"
 import { Movie } from "../interfaces/movie.interface";
 import Shimmer from "../components/shimmerUI/Shimmer";
 import MoviesGrid from "../components/MoviesGrid";
 import { GoSearch } from "react-icons/go";
 const Search: React.FC = () => {
-    const [trendingMovies, setTrendingMovies] = useState<Movie[]>([]);
+    const [popularMovies, setpopularMovies] = useState<Movie[]>([]);
     const[isLoading,setIsLoading]=useState(true);
       useEffect(() => {
         const fetchMovies = async () => {
           try {
             setIsLoading(true);
-            const trending=await fetchTrendingMovies();
-            setTrendingMovies(trending.results);
+            const popular=await getPopularMovies();
+            setpopularMovies(popular.data.moviesList);
           } catch (err) {
             console.error("Error fetching movies", err);
           }
@@ -37,7 +37,7 @@ const Search: React.FC = () => {
       </div>
       </div>
      
-      <MoviesGrid movies={trendingMovies} title="Trending in India" />
+      <MoviesGrid movies={popularMovies} title="Popular in India" />
     </div>
     )}
     </>

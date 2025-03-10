@@ -58,12 +58,16 @@ export const fetchTrendingMovies = async () => {
   //   const data = await response.json();
   //   return data.results.find((video: any) => video.type === 'Trailer');
   // };
-  export const getMoviesByGenre = async (genreId: number) => {
+  
+  export const getSearchMovies = async (query: string) => {
     try {
-      const response = await API.get(`movie/getMoviesByGenre/${genreId}`);
-      return response.data; // Return the response data
+      const response = await API.get(`/search`, {
+        params: { search: query },
+      });
+      return response.data; 
     } catch (error) {
-      console.error("Error fetching movies by genre:", error);
-      return null; // Handle errors gracefully
+      console.error("Error searching:", error);
+      return null;
     }
   };
+  
