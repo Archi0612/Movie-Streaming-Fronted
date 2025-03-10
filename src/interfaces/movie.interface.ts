@@ -1,5 +1,68 @@
 // src/interfaces/movie.interface.ts
-import { Types } from "mongoose";
+// USER INTERFACES
+
+import { IconType } from "react-icons/lib";
+
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  contactNo?: string,
+  password?: string;
+  // token?: string;
+  otp?: number;
+  role: string;
+}
+
+// Define State Interface
+export interface UserState {
+  currentUser: User | null;
+  isAuthenticated: boolean;
+  loading: boolean;
+  success: boolean;
+  error?: string;
+  detailsLoading?: boolean;
+  detailsError?: string;
+  userDetails?: UserDetails;
+}
+export interface UserData {
+  userData: User;
+}
+
+export interface data {
+  userData: User;
+}
+
+// Define API Response Types
+export interface AuthResponse {
+  data: UserData;
+  message?: string | string[];
+}
+
+// this interface is for the whole user profile
+export interface UserDetails {
+  id: string | number;
+  name: string;
+  email: string;
+  profilePicture?: string;
+  contactNo: string;
+  dateOfBirth: string;
+  gender: string;
+  role: string;
+  // add info about watchlist and subscription and like content
+}
+
+export interface SidebarProps {
+  userRole: string; // Optional prop to determine if user is admin
+}
+
+export interface MenuItem {
+  name: string;
+  icon: IconType;
+  path: string;
+  isAdminMenu: boolean; // Make it optional
+}
 
 export interface Movie {
   id: number;
@@ -105,33 +168,6 @@ export interface LoginDetails {
   password: string;
 }
 
-export interface User {
-  id: string;
-  name: string;
-  email: string;
-  contactNo?: string,
-  password?: string;
-  // token?: string;
-  otp?: number;
-  role: string;
-}
-
-
-// Define State Interface
-export interface UserState {
-  currentUser: User | null;
-  isAuthenticated: boolean;
-  loading: boolean;
-  success: boolean;
-  error?: string;
-  detailsLoading?: boolean;
-  detailsError?: string;
-  userDetails?: UserDetails;
-}
-
-export interface data {
-  userData: User;
-}
 // Define API Response Types
 export interface AuthResponse {
   token: string;
@@ -139,16 +175,4 @@ export interface AuthResponse {
   message?: string | string[];
 }
 
-// this interface is for the whole user profile 
-export interface UserDetails {
-  id: string | number;
-  name: string;
-  email: string;
-  profilePicture?: string;
-  contactNo: string;
-  dateOfBirth: string;
-  gender: string;
-  role: string;
-  // add info about watchlist and subscription and like content
-}
 

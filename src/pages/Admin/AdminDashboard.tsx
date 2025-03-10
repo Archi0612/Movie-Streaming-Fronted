@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AgGridReact } from "ag-grid-react";
 import { ClientSideRowModelModule } from "ag-grid-community";
 import { ModuleRegistry } from "ag-grid-community";
@@ -7,12 +7,11 @@ import { ColDef } from "ag-grid-community";
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import { MdEdit, MdDelete, MdAdd } from "react-icons/md";
 import "./AdminDashboard.css";
-import poster1 from "../../assets/kgf2poster.jpeg";
-import poster2 from "../../assets/salar.jpeg";
+import {toast} from "react-toastify"
 import { useNavigate } from "react-router-dom";
 import EditMovieModal from "./EditMovieModal";
 import DeleteConfirmationModal from "../../components/DeleteConfirmationModal";
-
+import { deleteMovie, listAllMovie } from "../../services/apis/adminService";
 // Register AG Grid Modules
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
@@ -20,44 +19,23 @@ ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
 // Movie Interface
 interface Movie {
-  id: number;
-  img: string;
+  id: string;
+  poster: string;
   title: string;
   description: string;
-  rating: string;
+  rating: number;
   duration: string;
-  cast: string;
-  director: string;
+  cast: {_id:string;name:string}[];
+  director: {_id:string;name:string}[];
   action?: string;
 }
 
 // AdminDashboard Component
 const AdminDashboard: React.FC = () => {
-  const [movies, setMovies] = useState<Movie[]>([
-    {
-      id: 1,
-      img: poster1,
-      title: "Kgf Chapter 2",
-      description: "In the blood-soaked Kolar Gold Fields, Rocky's name strikes fear into his foes...",
-      rating: "8.2",
-      duration: "2h 46min",
-      cast: "Yash, Shrinidhi Shetty, Sanjay Dutt, Ravena Tondon",
-      director: "Prashant Neel",
-    },
-    {
-      id: 2,
-      img: poster2,
-      title: "Salaar: Part 1 - Ceasefire",
-      description: "The fate of a violently contested kingdom hangs on the fraught bond...",
-      rating: "6.6",
-      duration: "2h 55min",
-      cast: "Prabhas, Shruti Hasan, Prithviraj Sukumaran, Sriya Reddy",
-      director: "Prashant Neel",
-    },
-  ]);
-  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
-  const [isDeleteModelOpen, setIsDeleteModelOpen] = useState(false)
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const[selectedMovie,setSelectedMovie]=useState<Movie | null>(null);
+  const[isEditModalOpen,setIsEditModalOpen]=useState(false)
+  const[isDeleteModelOpen,setIsDeleteModelOpen]=useState(false)
 
   const navigate = useNavigate();
 
@@ -65,10 +43,41 @@ const AdminDashboard: React.FC = () => {
     setSelectedMovie(movie);
     setIsEditModalOpen(true);
   }
-
-  const handleDelete = () => {
+  
+  const handleDelete=async()=>{
+    if(!selectedMovie) return;
+    try {
+      await deleteMovie(selectedMovie.id);
+      toast.success("Movie Deleted successfully");
+      fetchAllMovies();
+    } catch (error:any) {
+      toast.error(error.message || "Failed to delete movie")
+    }
     setIsDeleteModelOpen(false)
   }
+  const fetchAllMovies=async()=>{
+      try {
+        const response=await listAllMovie();
+        const formattedMovies = response.data.data.movies.map((movie: any) => ({
+          id: movie._id,
+          poster: movie.poster,
+          title: movie.title,
+          description: movie.description,
+          rating: movie.rating,
+          cast: movie.cast.map((c: any) => c.name).join(", "), // Convert array to string
+          director: movie.director.map((d: any) => d.name).join(", ") // Convert array to string
+        }));
+        setMovies(formattedMovies)
+        // setMovies(response.data.data.movies)
+        console.log(response.data.data.movies)
+  
+      } catch (error) {
+        toast.error("Error in fetching Movies")
+      }
+    }
+    useEffect(()=>{
+      fetchAllMovies();
+    },[])
 
   const handleSaveChanges = async (updatedMovie: Movie) => {
     try {
@@ -93,7 +102,7 @@ const AdminDashboard: React.FC = () => {
   };
 
   const columnDefs: ColDef<Movie>[] = [
-    { headerName: "Poster", field: "img", cellRenderer: (params: any) => <img src={params.value} alt="poster" className="poster-img" />, flex: 2, sortable: false },
+    { headerName: "Poster", field: "poster", cellRenderer: (params: any) => <img src={params.value} alt="poster" className="poster-img" />, flex: 2, sortable: false,filter:false },
     { headerName: "Title", field: "title", flex: 2 },
     { headerName: "Description", field: "description", flex: 3 },
     { headerName: "Rating", field: "rating", flex: 1 },
@@ -105,7 +114,7 @@ const AdminDashboard: React.FC = () => {
       cellRenderer: (params: any) => (
         <div className="action-buttons">
           <button className="edit-btn" onClick={() => handleEdit(params.data)}><MdEdit size={15} /></button>
-          <button className="delete-btn" onClick={() => setIsDeleteModelOpen(true)}><MdDelete size={15} /></button>
+          <button className="delete-btn" onClick={()=>{setSelectedMovie(params.data);setIsDeleteModelOpen(true)}}><MdDelete size={15} /></button>
         </div>
       ),
       flex: 1,
@@ -121,6 +130,7 @@ const AdminDashboard: React.FC = () => {
 
       <div className="content">
         <div className="content-card">
+          <h2 className="dashboard-h2">Manage Movies</h2>
           <div className="add-btn-container">
             <button className="add-movie-btn" onClick={handleClick}>
               <MdAdd size={20} />
@@ -139,9 +149,10 @@ const AdminDashboard: React.FC = () => {
               defaultColDef={{
                 flex: 1,
                 minWidth: 100,
-                filter: true,
-                floatingFilter: true,
-                sortable: true
+                filter: true, 
+                floatingFilter: false, 
+                sortable: true,
+                headerStyle: { fontWeight: "bold", fontSize: "15px", textAlign: "center" }
               }}
             />
           </div>

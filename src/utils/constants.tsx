@@ -20,7 +20,6 @@ export const genreMap: { [key: number]: string } = {
   37: "Western",
 };
 
-
 export const getCookie = (name: string) => {
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);

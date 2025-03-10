@@ -4,8 +4,7 @@ import { Elements } from '@stripe/react-stripe-js';
 import axios from 'axios';
 import "./Subscription.css";
 import { loadStripe, Stripe } from '@stripe/stripe-js';
-// import { redirect } from 'react-router-dom';
-import { User } from '../../interfaces/movie.interface';
+import { redirect } from 'react-router-dom';
 
 // Define subscription types and pricing
 interface SubscriptionPlan {
@@ -44,6 +43,15 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
     onClose,
 }) => {
 
+    const userData: UserData = {
+        ID: 123,
+        name: "Priyanshu1",
+        email: "zCfdf6@gmail.com",
+        phone: "1234567890",
+        country: "India",
+        countryCode: "+91",
+    };
+
     const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
     const [loading, setLoading] = useState(false);
     const selectedPlanRef = useRef<SubscriptionPlan | null>(null);
@@ -59,13 +67,23 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
 
             selectedPlanRef.current = plan;
 
+            // Validate plan selection
             if (!plan.tier) {
                 alert("Please select a valid subscription plan.");
                 return;
             }
-
             setLoading(true);
-            const response = await axios.post<{ id: string; status?: string; redirectUrl?: string }>(
+
+            // Prepare the payload for API call
+            const subscriptionPayload = {
+                selectedPlan: {
+                    type: plan.type,
+                    tier: plan.tier,
+                },
+                user: userData, // UserData means the object in which we will store detail of user 
+            };
+            console.log("Subscription Payload:", subscriptionPayload);
+            const response = await axios.post<any>(
                 "http://localhost:7777/stripe/membersubscription",
                 {
                     selectedPlan: { type: plan.type, tier: plan.tier },
@@ -84,11 +102,6 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
                 if (error) alert("There was an error processing your subscription.");
             }
         } catch (error) {
-            if (axios.isAxiosError(error)) {
-                console.error("Axios Error:", error.response?.data || error.message);
-            } else {
-                console.error("Unexpected Error:", error);
-            }
             alert("An error occurred while processing your subscription.");
         } finally {
             setLoading(false);

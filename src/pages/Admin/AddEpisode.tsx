@@ -172,7 +172,7 @@ const AddEpisode:React.FC = () => {
                     <input type="text" placeholder="Episode title" onChange={(e) => updateEpisode(seasonIndex, episodeIndex, "title", e.target.value)} autoComplete="off"/>
                     <label className="episode-label">Description</label>
                     <textarea placeholder="Episode description" onChange={(e) => updateEpisode(seasonIndex, episodeIndex, "description", e.target.value)} autoComplete="off" className="text-area"/>
-                    <label className="episode-label">Duration</label>
+                    <label className="episode-label">Duration (Seconds)</label>
                     <input type="number" placeholder="Duration in minutes" onChange={(e) => updateEpisode(seasonIndex, episodeIndex, "duration", e.target.value)} min="0"/>
                     <label className='episode-label'>Episode Number</label>
                     <input type="number" min={"1"} placeholder='Episode number' onChange={(e)=>updateEpisode(seasonIndex,episodeIndex,"episodeNumber",e.target.value)} />

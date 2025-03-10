@@ -179,8 +179,8 @@ const AddSeries: React.FC = () => {
     formData.append("availableForStreaming",String(series.availableForStreaming));
     series.genres.forEach((genre)=>formData.append(`genres`,genre.value))
     series.languages.forEach((lang)=>formData.append(`languages`,lang.value))
-    series.cast.forEach((actor)=>formData.append(`cast`,actor.value))
-    series.director.forEach((director)=>formData.append(`director`,director.value))
+    series.cast.forEach((actor)=>formData.append(`casts`,actor.value))
+    series.director.forEach((director)=>formData.append(`directors`,director.value))
     if(series.poster){
       formData.append("poster",series.poster);
     }

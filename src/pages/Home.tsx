@@ -7,7 +7,6 @@ import {
 } from "../services/TMDB-api-service";
 import { Movie } from "../interfaces/movie.interface";
 import "./Home.css"; // Import CSS
-import Sidebar from "./Sidebar";
 import Shimmer from "../components/shimmerUI/Shimmer";
 
 
@@ -42,7 +41,7 @@ const Home: React.FC = () => {
       (
         <div className="home-container">
         {/* sticky sidebar */}
-        <Sidebar />
+        {/* <Sidebar /> */}
         {/* Trending Movies */}
         <div className="section-container">
           <TrendingMovies movies={trendingMovies} />
