@@ -1,154 +1,153 @@
-/* Home Page Container */
-.home-container {
-  display: flex;
-  flex-direction: column;
-  background-color: var(--background-color);
-  min-height: 100vh;
+/* ===========================
+   Home Page Container
+   =========================== */
+   .home-container {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background-color);
+    min-height: 100vh;
+    overflow-x: hidden;
 }
-
-
-/* Content Layout */
-.content-container {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  margin-left: 16.25rem; /* 260px → 16.25rem */
-  padding: 2rem;
-}
-
-/* Swiper Section */
-.section-container {
-  width: 100%;
-  margin-left: 7rem; /* Adjust this if necessary */
-  margin-bottom: 1.25rem;
-  margin-top: 2rem;
-  overflow: hidden; /* Prevents any unexpected overflow issues */
-}
-
 .home-popular-movies {
-  color: #0079e6;
-  font-size: 2rem;
-  margin-top: 4px;
-  margin-bottom: 0.7rem;
-}
-/* Movies Grid */
-.grid-container {
-  width: 100%;
-  margin-left: 5rem; /* Match the left margin with .section-container */
-  padding: 1rem 2rem;
-  margin-top: 1.25rem; /* 20px → 1.25rem */
+    color: #0073e6 !important;
 }
 
-/* Fix Footer Issue */
-.footer {
-  margin-top: auto;
+/* ===========================
+   Section Container
+   =========================== */
+.section-container {
+    width: 100%;
+    padding-left: 116px;
+    position: relative;
+    overflow: hidden; /* ✅ Prevents unwanted overflow */
 }
 
-/* Loading Spinner */
-.loading-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-color: var(--background-color);
+/* ===========================
+   Swiper Styles
+   =========================== */
+.movie-category-slider {
+    width: calc(100% - 116px); /* ✅ Ensures it fits properly */
+    height: auto;
+    padding: 10px 0;
+    position: relative;
+    overflow: hidden; /* ✅ Prevents slides from overflowing */
 }
 
-.loading-spinner {
-  width: 4rem; /* 64px → 4rem */
-  height: 4rem;
-  border: 0.375rem solid rgba(255, 255, 255, 0.2); /* 6px → 0.375rem */
-  border-top-color: var(--primary-color);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
+/* Swiper Wrapper */
+.movie-category-slider .swiper-wrapper {
+    display: flex;
+    transition-timing-function: ease-in-out;
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+/* Swiper Slide (Movie Cards) */
+.movie-category-slider .swiper-slide {
+    flex: 0 0 220px !important; /* ✅ Fixed width */
+    width: 220px !important;
+    height: 350px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+    transition: transform 0.3s ease-in-out;
 }
 
-/* Section Titles */
-.section-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-  color: white;
-}
-/* Apply the same styles to Swiper */
-.mySwiper {
-  width: 100%;
-  height: 100%;
+/* Hover Effect */
+.movie-category-slider .swiper-slide:hover {
+    transform: scale(1.05);
 }
 
-/* Swiper slides */
-.mySwiper .swiper-slide {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  transition: transform 0.3s ease-in-out;
+/* ===========================
+   Swiper Navigation Buttons
+   =========================== */
+.movie-category-slider .swiper-button-prev,
+.movie-category-slider .swiper-button-next {
+    color: white;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    opacity: 1;
+    width: 40px;
+    height: 40px;
 }
 
-/* Swiper Navigation */
-.swiper-button-next,
-.swiper-button-prev {
-  display: flex;
-  color: #ffffff;
-  font-weight: bold;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 10;
-  transition: opacity 0.3s ease-in-out, font-size 0.3s ease-in-out;
+/* Navigation Button Position */
+.movie-category-slider .swiper-button-next {
+    right: 10px !important;
 }
 
-.swiper-button-next {
-  right: 10px;
+.movie-category-slider .swiper-button-prev {
+    left: 10px !important;
 }
 
-.swiper-button-prev {
-  left: 10px;
+/* ===========================
+   Movie Category Title
+   =========================== */
+.home-popular-movies {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--text-color);
+    text-align: left;
+    margin-left: 40px;
+    margin-bottom: 20px;
 }
 
-.swiper-button-next::after,
-.swiper-button-prev::after {
-  font-size: 30px;
+/* ===========================
+   Responsive Design
+   =========================== */
+@media (max-width: 1200px) {
+    .movie-category-slider .swiper-slide {
+        width: 200px !important;
+        height: 320px !important;
+    }
 }
 
-/* Adjust navigation buttons on smaller screens */
-@media (max-width: 1024px) {
-  .swiper-button-next,
-  .swiper-button-prev {
-      font-size: 24px !important;
-  }
+@media (max-width: 992px) {
+    .section-container {
+        padding-left: 80px;
+    }
 
-  .swiper-button-next::after,
-  .swiper-button-prev::after {
-      font-size: 24px !important;
-  }
+    .movie-category-slider {
+        width: calc(100% - 80px);
+    }
+
+    .movie-category-slider .swiper-slide {
+        width: 180px !important;
+        height: 290px !important;
+    }
 }
 
 @media (max-width: 768px) {
-  .swiper-button-next,
-  .swiper-button-prev {
-      font-size: 16px;
-  }
+    .section-container {
+        padding-left: 40px;
+    }
 
-  .swiper-button-next::after,
-  .swiper-button-prev::after {
-      font-size: 16px !important;
-  }
+    .movie-category-slider {
+        width: calc(100% - 40px);
+    }
+
+    .movie-category-slider .swiper-slide {
+        width: 160px !important;
+        height: 260px !important;
+        margin-right: 10px;
+    }
 }
 
-@media (max-width: 480px) {
-  .swiper-button-next,
-  .swiper-button-prev {
-      font-size: 14px;
-  }
+@media (max-width: 576px) {
+    .section-container {
+        padding-left: 20px;
+    }
 
-  .swiper-button-next::after,
-  .swiper-button-prev::after {
-      font-size: 14px !important;
-  }
+    .movie-category-slider {
+        width: calc(100% - 20px);
+    }
+
+    .movie-category-slider .swiper-slide {
+        width: 140px !important;
+        height: 230px !important;
+    }
+
+    .movie-category-slider .swiper-button-prev,
+    .movie-category-slider .swiper-button-next {
+        display: none; /* ✅ Hide navigation buttons on small screens */
+    }
 }

@@ -6,6 +6,8 @@ import MovieCard from "../components/MovieCard";
 import { getPopularMovies, getLatestMovies, getTopRated } from "../services/apis/movieService";
 import { Movie } from "../interfaces/movie.interface";
 
+
+
 const HeroSection: React.FC = () => {
   const [movies, setMovies] = useState<{ pop: Movie[]; latest: Movie[]; topRated: Movie[] }>({
     pop: [],
@@ -76,7 +78,7 @@ const HeroSection: React.FC = () => {
           <div className="movie-category" key={key}>
             <h3>{title}</h3>
             <Swiper
-              slidesPerView={6}
+              slidesPerView={"auto"}
               spaceBetween={20}
               navigation={true}
               modules={[Navigation]}
