@@ -34,7 +34,7 @@ export interface UserState {
 //   role: string;
 // }
 
-interface UserData {
+export interface UserData {
   userData: User;
 }
 

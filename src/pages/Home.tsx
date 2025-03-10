@@ -6,7 +6,6 @@ import MovieCard from "../components/MovieCard";
 import { getMoviesByGenre, getPopularMovies } from "../services/apis/movieService";
 import { Movie } from "../interfaces/movie.interface";
 import "./Home.css";
-// import Sidebar from "./Sidebar";
 import Shimmer from "../components/shimmerUI/Shimmer";
 
 const Home: React.FC = () => {
@@ -14,20 +13,6 @@ const Home: React.FC = () => {
   const [actionMovies, setActionMovies] = useState<Movie[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // const fetchMovies = async () => {
-  //   try {
-  //     setIsLoading(true);
-  //     const trending = await fetchTrendingMovies();
-  //     setTrendingMovies(trending.results.slice(0, 10));
-
-  //     const action = await fetchMoviesByGenre(28);
-  //     setActionMovies(action.results);
-  //   } catch (error) {
-  //     console.error("Error fetching movies:", error);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
   useEffect(() => {
     const fetchMovies = async () => {
       try {
@@ -56,9 +41,7 @@ const Home: React.FC = () => {
         <Shimmer />
       ) : (
         <div className="home-container">
-          {/* Sticky Sidebar */}
-          {/* <Sidebar /> */}
-
+        
           {/* Popular Movies - Swiper */}
           <div className="section-container">
           <h3 className="home-popular-movies">Popular Movies</h3>
@@ -84,7 +67,7 @@ const Home: React.FC = () => {
                 movie._id ? (
                   <SwiperSlide key={movie._id}>
               
-                    <MovieCard movie={movie}  />
+                    <MovieCard media={movie}  />
                   </SwiperSlide>
                 ) : null // Prevent rendering items without _id
               )}
@@ -94,7 +77,7 @@ const Home: React.FC = () => {
           {/* Action Movies - Grid */}
           <div className="home-grid-container">
   
-            <MoviesGrid movies={actionMovies} title="Action Movies" />
+            <MoviesGrid mediaList={actionMovies} title="Action Movies" />
           </div>
         </div>
       )}

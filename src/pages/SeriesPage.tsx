@@ -1,12 +1,30 @@
 import React, { useEffect, useState } from "react";
-import { fetchLatestSeriesApi } from "../services/apis/seriesService";
+import {
+  fetchLatestSeriesApi,
+  fetchPopularSeriesApi,
+  fetchtopRatedSeriesApi,
+} from "../services/apis/seriesService";
 import { SwiperSlide, Swiper } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
 import MovieCard from "../components/MovieCard";
 import { Series } from "../interfaces/series.interface";
+
 const SeriesPage: React.FC = () => {
-    const [series, setSeries] = useState<{ latest: Series[] }>({ latest: [] });
-    const seriesCategories = [{ key: "latest", title: "Latest Series" }];
+  const [series, setSeries] = useState<{
+    pop: Series[];
+    latest: Series[];
+    topRated: Series[];
+  }>({
+    pop: [],
+    latest: [],
+    topRated: [],
+  });
+
+  const seriesCategories = [
+    { key: "pop", title: "Popular Series" },
+    { key: "latest", title: "Latest Series" },
+    { key: "topRated", title: "Top Rated Series" },
+  ];
 
   const videoData = [
     {
@@ -25,14 +43,26 @@ const SeriesPage: React.FC = () => {
       url: "https://www.youtube.com/embed/Znsa4Deavgg?si=_SSagp7GeRpZIp99",
     },
   ];
-  const fetchLatestSeries = async () => {
+  const fetchSeries = async () => {
     try {
-      const responseOfSeries = await fetchLatestSeriesApi();
+      const [popularSeries, latestSeries, topRatedSeries] = await Promise.all([
+        fetchPopularSeriesApi(),
+        fetchLatestSeriesApi(),
+        fetchtopRatedSeriesApi(),
+      ]);
       console.log(
-        "response from seriesPage",
-        responseOfSeries?.seriesList
+        "Popularseries:",
+        popularSeries,
+        "latestSeries",
+        latestSeries,
+        "topratesSeries:",
+        topRatedSeries
       );
-        setSeries({ latest: responseOfSeries?.seriesList });
+      setSeries({
+        pop: popularSeries?.seriesList || [],
+        latest: latestSeries?.seriesList || [],
+        topRated: topRatedSeries?.seriesList || [],
+      });
     } catch (err: unknown) {
       if (err instanceof Error) {
         throw new Error(err.message);
@@ -40,7 +70,7 @@ const SeriesPage: React.FC = () => {
     }
   };
   useEffect(() => {
-    fetchLatestSeries();
+    fetchSeries();
   }, []);
 
   return (
@@ -82,16 +112,16 @@ const SeriesPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="series-lists">
+      {/* 🎭 Genres Grid */}
+      <div className="genres-grid">
         {seriesCategories.map(({ key, title }) => (
           <div className="series-category" key={key}>
             <h3>{title}</h3>
             <Swiper
-              slidesPerView={6}
+              slidesPerView={5}
               spaceBetween={20}
-              navigation={true}
+              navigation
               modules={[Navigation]}
-              className="movie-category-swiper"
               breakpoints={{
                 1400: { slidesPerView: 6 },
                 1200: { slidesPerView: 5 },
@@ -99,27 +129,26 @@ const SeriesPage: React.FC = () => {
                 768: { slidesPerView: 4 },
                 640: { slidesPerView: 4 },
                 480: { slidesPerView: 3 },
-                400: { slidesPerView: 3 },
                 300: { slidesPerView: 2 },
               }}
             >
-              {series[key as keyof typeof series].map((series) => (
-                <SwiperSlide key={series._id}>
-                  <MovieCard
-                    title={series.title}
-                    poster={series.poster}
-                    overview={series.description}
-                    releaseDate={series.releaseDate}
-                    voteAverage={series.rating}
-                    languages={series.languages}
-                    genres_id={series.genres}
-                  />
-                </SwiperSlide>
-              ))}
+              {series[key as keyof typeof series]?.length === 0 ? (
+                <p>No series available</p>
+              ) : (
+                series[key as keyof typeof series]?.map((series, index) => (
+                  <SwiperSlide key={series._id || `${key}-${index}`}>
+                    <MovieCard media={series} />
+                  </SwiperSlide>
+                ))
+              )}
             </Swiper>
           </div>
         ))}
       </div>
+
+      {/* 🎥 Latest & Popular Series
+            <MoviesGrid mediaList={series} title="Latest Series" />
+      <MoviesGrid mediaList={popularSeries} title="Popular Series" /> */}
     </div>
   );
 };

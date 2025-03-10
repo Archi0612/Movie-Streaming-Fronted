@@ -1,5 +1,5 @@
 export interface Series {
-    _id: number;
+    _id: string;
     title: string;
     poster: string;
     description: string;

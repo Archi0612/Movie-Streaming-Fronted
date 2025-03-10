@@ -1,7 +1,7 @@
 .movie-card {
   position: relative;
-  width: 15rem;
-  height: 22rem;/* Set a fixed height for the movie card */
+  width: 19rem;
+  height: 20rem;
   max-width: 16rem;
   border-radius: 0.5rem;
   overflow: hidden;
@@ -47,12 +47,12 @@
 }
 
 /* 🎬 Movie Title */
-.movie-title {
+.movies-title {
   color: #fff;
   font-size: 1.2rem;
   font-weight: bold;
-  margin-bottom: 0.7rem;
-  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+  margin-top: 0.7rem;
   text-align: left;
 }
 
@@ -73,13 +73,13 @@
   border-radius: 10px;
   text-align: left;
   white-space: nowrap; /* Prevents breaking into multiple lines */
-  font-size: 0.9rem;
+  font-size: 0.7rem;
 }
 
 /* 📝 Overview */
 .movie-overview {
   color: var(--text-color);
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 500;
   text-align: left;
   line-height: 1.5;
@@ -125,6 +125,7 @@
 }
 /* ⭐ Rating */
 .movie-rating {
+  /* font-size: 0.7rem; */
   gap: 2px;
   margin-bottom: 0.5rem;
   justify-content: left;
