@@ -14,14 +14,6 @@ interface SubscriptionPlan {
     price: number;
 }
 
-interface UserData {
-    ID: number;
-    name: string;
-    email: string;
-    phone: string;
-    country: string;
-    countryCode: string;
-}
 
 // Pricing configuration
 const SUBSCRIPTION_PRICES = {
@@ -52,15 +44,6 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
     onClose,
 }) => {
 
-    const userData: UserData = {
-        ID: 123,
-        name: "Priyanshu1",
-        email: "archi1@gmail.com",
-        phone: "1234567890",
-        country: "India",
-        countryCode: "+91",
-    };
-
     const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
     const [loading, setLoading] = useState(false);
     const selectedPlanRef = useRef<SubscriptionPlan | null>(null);
@@ -87,7 +70,6 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
                     type: plan.type,
                     tier: plan.tier,
                 },
-                user: userData, // UserData means the object in which we will store detail of user 
             };
             console.log("Subscription Payload:", subscriptionPayload);
             const response = await axios.post(
