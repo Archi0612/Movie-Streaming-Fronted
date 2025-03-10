@@ -82,6 +82,21 @@
    .delete-btn:hover{
     background-color: #e0412f;
   }
+
+  .add-episode-btn {
+    margin-bottom: 15px;
+    width: 60px;
+    height: 45px;
+    border:none;
+    color: white;
+    background-color: #0073e6;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bolder;
+  }
+  .add-episode-btn:hover{
+    background-color: #0059b3;
+  }
   
   /* Modal */
 .modal {

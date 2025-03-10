@@ -9,6 +9,7 @@ import poster2 from "../../assets/salar.jpeg";
 import { useNavigate } from "react-router-dom";
 import DeleteConfirmationModal from "../../components/DeleteConfirmationModal";
 import EditSeriesModal from "../EditSeriesModal"; // Import modal component
+import "./AdminDashboard.css"
 
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
@@ -28,30 +29,7 @@ interface Series {
 }
 
 const AdminDashboardSeries: React.FC = () => {
-  const [series, setSeries] = useState<Series[]>([
-    {
-      id: 1,
-      img: poster1,
-      title: "Kgf Chapter 2",
-      description:
-        "In the blood-soaked Kolar Gold Fields, Rocky's name strikes fear into his foes...",
-      rating: "8.2",
-      duration: "2h 46min",
-      cast: "Yash, Shrinidhi Shetty, Sanjay Dutt, Ravena Tondon",
-      director: "Prashant Neel",
-    },
-    {
-      id: 2,
-      img: poster2,
-      title: "Salaar: Part 1 - Ceasefire",
-      description:
-        "The fate of a violently contested kingdom hangs on the fraught bond...",
-      rating: "6.6",
-      duration: "2h 55min",
-      cast: "Prabhas, Shruti Hasan, Prithviraj Sukumaran, Sriya Reddy",
-      director: "Prashant Neel",
-    },
-  ]);
+  const [series, setSeries] = useState<Series[]>([]);
   const [isDeleteModelOpen, setIsDeleteModelOpen] = useState(false);
   const navigate = useNavigate();
   const columnDefs: ColDef<Series>[] = [
@@ -90,19 +68,25 @@ const AdminDashboardSeries: React.FC = () => {
       filter: false,
     },
   ];
-  const handleClick = () => {
+  const handleOpenSeries = () => {
     navigate("/add-series");
   };
+  const handleOpenEpisode=()=>{
+    navigate("/add-episode")
+  }
+
   const handleDelete = () => {
     setIsDeleteModelOpen(false);
   };
+  
   return (
     <div className="admin-container">
       <div className="content">
         <div className="content-card">
           <h2 className="dashboard-h2">Manage Series</h2>
           <div className="add-btn-container">
-            <button className="add-movie-btn" onClick={handleClick}>
+            <button className="add-episode-btn" onClick={handleOpenEpisode}>Add Episode</button>
+            <button className="add-movie-btn" onClick={handleOpenSeries}>
               <MdAdd size={20} />
             </button>
           </div>

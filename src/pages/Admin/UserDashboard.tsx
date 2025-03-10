@@ -1,68 +1,99 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AgGridReact } from "ag-grid-react";
 import { ColDef } from "ag-grid-community";
 import { ModuleRegistry, ClientSideRowModelModule,PaginationModule,TextFilterModule,NumberFilterModule } from "ag-grid-community";
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import "./AdminDashboard.css"; // Using the same styles as AdminDashboard
 import "./AdminDashboard.css"
+import { getAllUser, updateActiveToggle, updateRole } from "../../services/apis/adminService";
+import { toast } from "react-toastify";
 // Register AG Grid Modules
 ModuleRegistry.registerModules([ClientSideRowModelModule,PaginationModule,TextFilterModule,NumberFilterModule]);
-
+interface Subscription{
+  plan:string
+}
 interface User {
-  id: number;
+  _id: number;
   name: string;
   email: string;
-  contact: string;
+  contactNo: string;
+  subscription:Subscription;
   role: string;
   isActive: boolean;
 }
 
 const UserDashboard: React.FC = () => {
-  const [users, setUsers] = useState<User[]>([
-    { id: 1, name: "John Doe", email: "john@example.com", contact: "123-456-7890", role: "admin", isActive: true },
-    { id: 2, name: "Jane Smith", email: "jane@example.com", contact: "987-654-3210", role: "user", isActive: true },
-    { id: 3, name: "Alice Johnson", email: "alice@example.com", contact: "555-123-4567", role: "user", isActive: true },
-  ]);
+  const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
   const loggedInUserId=123   //here id is of logged in user from redux
-  // Toggle Active Status (Remove/Suspend User)
-  const handleActiveToggle = (id: number) => {
-    setUsers((prevUsers) =>
-      prevUsers.map((user) => (user.id === id ? { ...user, isActive: !user.isActive } : user))
-    );
 
-    // Here, you would call the backend API to remove/suspend the user
-    console.log(`User with ID ${id} is now ${users.find(u => u.id === id)?.isActive ? "Inactive" : "Active"}`);
-  };
-  const handleRoleChange = async (user: User, isChecked: boolean) => {
-    const updatedRole = isChecked ? "Admin" : "User";
-  
+  // Toggle Active Status (Remove/Suspend User)
+  const handleActiveToggle = async(user:User) => {
     try {
-      await fetch(`/api/users/${user.id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ role: updatedRole }),
-      });
-  
+      const response=await updateActiveToggle(user._id,!user.isActive)
+      setUsers((prevUsers) =>
+        prevUsers.map((u) =>
+          u._id === user._id ? { ...u, isActive: !u.isActive } : u
+        )
+      );
+      toast.success(response.data.message || `User ${!user.isActive ? "activated":"deactivated"} successfully`)
+    } catch (error: any) {
+      if (error.response && error.response.data.message) {
+        toast.error(error.response.data.message); // Show backend error message
+      } else {
+        toast.error("Error updating user status");
+      }
+      console.error("Error updating user status", error);
+    }
+  };
+
+  const handleRoleChange = async (user: User, isChecked: boolean) => {
+    const updatedRole = isChecked ? "admin" : "user";
+    console.log(user._id)
+    try {
+      const response=await updateRole(user._id,updatedRole)
       // Update UI immediately
       setUsers((prevUsers) =>
         prevUsers.map((u) =>
-          u.id === user.id ? { ...u, role: updatedRole } : u
+          u._id === user._id ? { ...u, role: updatedRole } : u
         )
       );
+      toast.success(response.data.message)
     } catch (error) {
+      toast.error("Error in updating role")
       console.error("Error updating role", error);
     }
   };
-  
+  const fetchUsers=async()=>{
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await getAllUser();
+      setUsers(response.data.data.userList);
+      console.log(response.data.data.userList)
+    } 
+    catch (err: any) {
+      setError(err.message);
+      toast.error("Error in fetching data")
+    } 
+    finally {
+      setLoading(false);
+    }
+  }
+  useEffect(()=>{
+    fetchUsers();
+  },[])
   const columnDefs: ColDef<User>[] = [
     { headerName: "Name", field: "name", flex: 2, filter: true, sortable: true },
     { headerName: "Email", field: "email", flex: 2, filter: true, sortable: true },
-    { headerName: "Contact", field: "contact", flex: 2, filter: true, sortable: true },
+    { headerName: "Contact", field: "contactNo", flex: 2, filter: true, sortable: true },
+    {headerName:"Subscription",field:"subscription.plan",valueGetter: (params:any) => params.data.subscription?.plan,flex:2,filter:true,sortable:true},
     {
         headerName: "Role",
         field: "role",
         cellRenderer: (params: any) => {
-          const isAdmin = params.value === "Admin";
+          const isAdmin = params.value === "admin";
           const isCurrentUser = params.data.id === loggedInUserId; // Logged-in admin ID
     
           return (
@@ -84,8 +115,8 @@ const UserDashboard: React.FC = () => {
       cellRenderer: (params: any) => (
         <input
           type="checkbox"
-          checked={params.value}
-          onChange={() => handleActiveToggle(params.data.id)}
+          checked={params.data.isActive}
+          onChange={() => handleActiveToggle(params.data)}
           className="active-checkbox"
         />
       ),
@@ -96,7 +127,7 @@ const UserDashboard: React.FC = () => {
   ];
   const pagination=true;
   const paginationPageSize=3;
-  const paginationPageSizeSelector=[10,20,50,100];
+  const paginationPageSizeSelector=[5,10,20,50,100];
 
   return (
     <div className="admin-container">

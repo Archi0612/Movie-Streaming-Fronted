@@ -2,20 +2,23 @@
     display: flex;
     justify-content: center;
     background-color: var(--background-color);
-    height: 100vh;
+    /* height: 100vh; */
+    min-height: 100vh;
+    height: auto;
     width: 100vw;
+    align-items: center;
+    padding: 20px;
+    overflow-y: auto;
 }
 .add-movie-container {
-    width: 70vw;
-    height: 86vh;
+    width: 80vw;
+    max-width: 1200px;
     margin: auto;
     padding: 20px;
-    /* background: #1e1e1e; */
     color: #ffffff;
     border-radius: 10px;
-    /* box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2); */
     background-color: rgba(26,26,45,0.8);
-  box-shadow: 0px 2px 5px var(--hover-shadow);
+    box-shadow: 0px 2px 5px var(--hover-shadow);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -70,8 +73,6 @@
     background-color: #51afdb;
     border: 2px solid #4da4df;
   }
-  
-  
   textarea {
     resize: vertical;
     height: 80px;
@@ -115,6 +116,6 @@
   }
   .text-desc{
     resize: none;
-    height:140px !important;
+    height:90px !important;
   }
   
