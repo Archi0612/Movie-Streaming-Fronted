@@ -1,7 +1,7 @@
 import {api} from "../api"
 export const getMoviesByGenre = async (genreId: number) => {
     try {
-      const response = await API.get(`movie/getMoviesByGenre/${genreId}`);
+      const response = await api.get(`movie/getMoviesByGenre/${genreId}`);
       return response.data; // Return the response data
     } catch (error) {
       console.error("Error fetching movies by genre:", error);
@@ -11,7 +11,7 @@ export const getMoviesByGenre = async (genreId: number) => {
 
   export const getPopularMovies=async()=>{
     try{
-      const response = await API.get(`movie/getPopularMovies`)
+      const response = await api.get(`movie/getPopularMovies`)
       console.log("movie popular response",response)
       return response.data;
 
@@ -23,7 +23,7 @@ export const getMoviesByGenre = async (genreId: number) => {
 
   export const getTopRated=async()=>{
     try{
-        const response=await API.get(`movie/getTopRatedMovies`)
+        const response=await api.get(`movie/getTopRatedMovies`)
         console.log("top rated",response)
         return response.data
     }
@@ -35,7 +35,7 @@ export const getMoviesByGenre = async (genreId: number) => {
 
   export const getLatestMovies=async()=>{
     try{
-        const response=await API.get(`movie/getLatestMovies`)
+        const response=await api.get(`movie/getLatestMovies`)
         console.log("latest movies",response)
         return response.data
     }

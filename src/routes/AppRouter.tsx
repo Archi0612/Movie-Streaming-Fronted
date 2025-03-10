@@ -32,13 +32,10 @@ import { Bounce, ToastContainer } from "react-toastify";
 import GenrePage from "../pages/GenrePage";
 import Search from "../pages/Search";
 import AddEpisode from "../pages/Admin/AddEpisode";
-<<<<<<< HEAD
 import GenreDetail from "../pages/GenreDetail";
 
-=======
-import { PaymentSuccess } from "../pages/paymentSuccess/PaymentSuccess";
 import DetailsPage from "../pages/DetailsPage";
->>>>>>> 4d01b9fdb7aeea3621b33e9c6f239ddf4f3d82ff
+import { PaymentSuccess } from "../pages/paymentSuccess/paymentSuccess";
 
 // Protected Route component that checks if user is authenticated
 const ProtectedRoute: React.FC = () => {
@@ -83,12 +80,6 @@ const PublicOnlyRoute: React.FC = () => {
   return <Outlet />;
 };
 
-<<<<<<< HEAD
-import UserDashboard from "../pages/Admin/UserDashboard";
-import { PaymentSuccess } from "../pages/paymentSuccess/paymentSuccess";
-=======
-
->>>>>>> 4d01b9fdb7aeea3621b33e9c6f239ddf4f3d82ff
 const AppRoute: React.FC = () => {
   const { isAuthenticated } = useSelector((state: RootState) => state.user);
 

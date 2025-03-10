@@ -1,7 +1,7 @@
 import axios from "axios";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_KEY = import.meta.env.VITE_API_KEY;
-import API from "../services/api"
+import {api} from "../services/api"
 // import { BASE_URL } from "../utils/constants";
 // import { API_KEY } from "../utils/constants";
 
@@ -63,7 +63,7 @@ export const fetchTrendingMovies = async () => {
   
   export const getSearchMovies = async (query: string) => {
     try {
-      const response = await API.get(`/search`, {
+      const response = await api.get(`/search`, {
         params: { search: query },
       });
       return response.data; 
