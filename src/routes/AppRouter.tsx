@@ -32,8 +32,9 @@ import { Bounce, ToastContainer } from "react-toastify";
 import GenrePage from "../pages/GenrePage";
 import Search from "../pages/Search";
 import AddEpisode from "../pages/Admin/AddEpisode";
-import { PaymentSuccess } from "../pages/paymentSuccess/PaymentSuccess";
+
 import DetailsPage from "../pages/DetailsPage";
+import { PaymentSuccess } from "../pages/paymentSuccess/paymentSuccess";
 
 // Protected Route component that checks if user is authenticated
 const ProtectedRoute: React.FC = () => {
