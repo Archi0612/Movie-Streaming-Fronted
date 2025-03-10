@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
+import {api} from "../../../services/api";
 import { User, UserState, AuthResponse, UserDetails } from "../../../interfaces/movie.interface";
-import API from "../../../services/api";
 import { deleteCookie, getCookie } from "../../../utils/constants";
 // import { useDispatch } from "react-redux";
 
@@ -26,15 +26,15 @@ const initialState: UserState = {
 };
 
 export const registerUser = createAsyncThunk<
-    AuthResponse, // Expected return type from API
+    AuthResponse, // Expected return type from api
     Omit<User, "id" | "token">, // Input type (User object without id & token)
     { rejectValue: string } // Type for rejected errors
 >(
     "user/register",
     async (user, { rejectWithValue }) => {
         try {
-            const response = await API.post<AuthResponse>('/auth/signup', user);
- 
+            const response = await api.post<AuthResponse>('/auth/signup', user);
+
             // Store auth token in local storage after successful registration
             // localStorage.setItem("authToken", response.data.token);
             return response.data;
@@ -55,7 +55,7 @@ export const loginUser = createAsyncThunk<
     "user/login",
     async (userFormData, { rejectWithValue }) => {
         try {
-            const response = await API.post<AuthResponse>('/auth/login', userFormData);
+            const response = await api.post<AuthResponse>('/auth/login', userFormData);
             console.log("Response from login api:", response);
 
             console.log("Full API response:", response);
@@ -91,7 +91,7 @@ export const fetchUserDetails = createAsyncThunk<
             const token = getCookie('token');
 
             // Make API call to get user details
-            const response = await API.get<UserDetails>(`/users/${userId}`, {
+            const response = await api.get<UserDetails>(`/users/${userId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -128,7 +128,7 @@ const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
-        // Manually log in a user (without API call)
+        // Manually log in a user (without api call)
         login: (state, action: PayloadAction<User>) => {
             state.currentUser = action.payload;
             state.isAuthenticated = true;

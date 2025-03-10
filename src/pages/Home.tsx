@@ -7,7 +7,6 @@ import {
 } from "../services/TMDB-api-service";
 import { Movie } from "../interfaces/movie.interface";
 import "./Home.css"; // Import CSS
-import Sidebar from "./Sidebar";
 import Shimmer from "../components/shimmerUI/Shimmer";
 
 
