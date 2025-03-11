@@ -1,42 +1,28 @@
-import { useSearchParams } from "react-router-dom";
-import './paymentSuccess.css'
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+import "./PaymentSuccess.css";
 
 export const PaymentSuccess = () => {
-    const [searchParams] = useSearchParams();
-    const sessionId = searchParams.get("session_id");
-    const [status, setStatus] = useState("Verifying...");
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (sessionId) {
-            verifyPayment(sessionId);
-        }
-    }, [sessionId]);
-
-    const verifyPayment = async (sessionId: string) => {
-        try {
-            console.log("sessionId: ", sessionId)
-            const response = await axios.get(`http://localhost:7777/stripe/verifyPayment?sessiond=${sessionId}`, {withCredentials: true});
-            if (response.data.success) {
-                setStatus("Payment Successful! 🎉");
-
-            } else {
-                setStatus("Payment verification failed.");
-            }
-        } catch (error) {
-            console.error("Error verifying payment:", error);
-            setStatus("Error verifying payment.");
-        }
-    };
+        setTimeout(() => setLoading(false));
+    }, []);
 
     return (
-        <div>
-            <h1>{status}</h1>
+        <div className="payment-success-container">
+            <div className="card">
+                {loading ? (
+                    <p className="loading-text">Processing payment...</p>
+                ) : (
+                    <>
+                        <h1>Thank You for Subscribing!</h1>
+                        <p>Welcome to <span className="brand-name">Filmster</span>. Enjoy unlimited movies and shows.</p>
+                        <button onClick={() => window.location.href = "/home"} className="home-button">
+                            Go to Home
+                        </button>
+                    </>
+                )}
+            </div>
         </div>
     );
 };
-
-
-
-

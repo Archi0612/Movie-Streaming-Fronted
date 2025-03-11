@@ -1,9 +1,8 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-import {api} from "../../../services/api";
-import { User, UserState, AuthResponse, UserDetails } from "../../../interfaces/movie.interface";
+import { User, UserState, AuthResponse } from "../../../interfaces/movie.interface";
+import { api } from "../../../services/api";
 import { deleteCookie, getCookie } from "../../../utils/constants";
-// import { useDispatch } from "react-redux";
 
 
 // const dispatch = useDispatch<AppDispatch>();
@@ -34,9 +33,6 @@ export const registerUser = createAsyncThunk<
     async (user, { rejectWithValue }) => {
         try {
             const response = await api.post<AuthResponse>('/auth/signup', user);
-
-            // Store auth token in local storage after successful registration
-            // localStorage.setItem("authToken", response.data.token);
             return response.data;
         } catch (err: unknown) {
             if (axios.isAxiosError(err)) {
@@ -56,17 +52,13 @@ export const loginUser = createAsyncThunk<
     async (userFormData, { rejectWithValue }) => {
         try {
             const response = await api.post<AuthResponse>('/auth/login', userFormData);
-            console.log("Response from login api:", response);
-
-            console.log("Full API response:", response);
-            console.log("API response data:", response.data);
-
-            
             // Store user details & authentication token in local storage
-            localStorage.setItem("currentUser", JSON.stringify(response.data.data.userData));
-
-
+            if (response.data.data.userData) {
+                console.log(response.data.data.userData)
+                localStorage.setItem("currentUser", JSON.stringify(response.data.data.userData));
+            }
             if (response.data.data.userData.id) {
+                console.log("ignore this console");
                 // dispatch(fetchUserDetails(response.data.userData.id));
             }
             return response.data;
@@ -78,37 +70,6 @@ export const loginUser = createAsyncThunk<
         }
     }
 );
-
-//Api to get detail info of the user
-export const fetchUserDetails = createAsyncThunk<
-    UserDetails, // The expected return type (detailed user info)
-    string | number, // User ID as input parameter
-    { rejectValue: string }
->(
-    "user/fetchDetails",
-    async (userId, { rejectWithValue }) => {
-        try {
-            const token = getCookie('token');
-
-            // Make API call to get user details
-            const response = await api.get<UserDetails>(`/users/${userId}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-
-            console.log(response, "response fo whole user in user details")
-
-            return response.data;
-        } catch (err: unknown) {
-            if (axios.isAxiosError(err)) {
-                return rejectWithValue(err.response?.data?.message || "Failed to fetch user details");
-            }
-            return rejectWithValue("An unknown error occurred while fetching user details");
-        }
-    }
-);
-
 
 export const logoutUser = createAsyncThunk("user/logout", async () => {
     // Remove user data from local storage on logout
@@ -171,28 +132,12 @@ const userSlice = createSlice({
             .addCase(loginUser.fulfilled, (state, action: PayloadAction<AuthResponse>) => {
                 state.loading = false;
                 state.success = true;
-                console.log("Action payload in fulfilled:", action.payload);
                 state.currentUser = action.payload.data.userData;
                 state.isAuthenticated = true;
             })
             .addCase(loginUser.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
-            })
-
-            .addCase(fetchUserDetails.pending, (state) => {
-                state.loading = true;
-                state.detailsError = undefined;
-            })
-            .addCase(fetchUserDetails.fulfilled, (state, action: PayloadAction<UserDetails>) => {
-                state.detailsLoading = false;
-                state.userDetails = action.payload;
-                // No need to change isAuthenticated here as it's already set by login
-            })
-            .addCase(fetchUserDetails.rejected, (state, action) => {
-                state.detailsLoading = false;
-                state.detailsError = action.payload;
-                // Note: We don't change isAuthenticated on error as the user is still logged in
             })
 
             // ✅ **Logout User Cases**

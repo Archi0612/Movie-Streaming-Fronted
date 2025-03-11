@@ -1,11 +1,8 @@
-
 import React, { useState, useRef } from 'react';
 import { Elements } from '@stripe/react-stripe-js';
 import axios from 'axios';
 import "./Subscription.css";
 import { loadStripe, Stripe } from '@stripe/stripe-js';
-import { toast } from 'react-toastify';
-// import { redirect } from 'react-router-dom';
 
 // Define subscription types and pricing
 interface SubscriptionPlan {
@@ -13,7 +10,6 @@ interface SubscriptionPlan {
     tier: 'free' | 'basic' | 'premium';
     price: number;
 }
-
 
 // Pricing configuration
 const SUBSCRIPTION_PRICES = {
@@ -48,22 +44,24 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
     const [loading, setLoading] = useState(false);
     const selectedPlanRef = useRef<SubscriptionPlan | null>(null);
 
-    const handleSubscription = async (tier: 'basic' | 'premium'): Promise<void> => {
-        // Construct the full subscription plan object
-        const plan: SubscriptionPlan = {
-            type: billingCycle,
-            tier: tier,
-            price: SUBSCRIPTION_PRICES[tier][billingCycle]
-        };
-        selectedPlanRef.current = plan;
 
-        // Validate plan selection
-        if (!plan.tier) {
-            alert("Please select a valid subscription plan.");
-            return;
-        }
-        setLoading(true);
+    const handleSubscription = async (tier: 'basic' | 'premium'): Promise<void> => {
         try {
+            const plan: SubscriptionPlan = {
+                type: billingCycle,
+                tier,
+                price: SUBSCRIPTION_PRICES[tier][billingCycle],
+            };
+
+            selectedPlanRef.current = plan;
+
+            // Validate plan selection
+            if (!plan.tier) {
+                alert("Please select a valid subscription plan.");
+                return;
+            }
+            setLoading(true);
+
             // Prepare the payload for API call
             const subscriptionPayload = {
                 selectedPlan: {
@@ -77,34 +75,24 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
                 subscriptionPayload,
                 {withCredentials: true}
             );
-            // Handle different response scenarios
-            if (response.status === 200) {
-                const { status, redirectUrl } = response.data;
-                if (status === "existing_subscription" && redirectUrl) {
-                    window.location.href = redirectUrl;
-                    return;
-                }
+
+            if (response.data.status === "existing_subscription" && response.data.redirectUrl) {
+                window.location.href = response.data.redirectUrl;
+                return;
             }
-            // Initialize Stripe checkout
+
             const stripe = await stripePromise;
-            if (stripe && response.data.id) {
-                const { error } = await stripe.redirectToCheckout({
-                    sessionId: response.data.id
-                });
-                console.log(error, "Line 111");
-                if (error) {
-                    alert("There was an error processing your subscription. Please try again.");
-                }
+            if (stripe) {
+                const { error } = await stripe.redirectToCheckout({ sessionId: response.data.id });
+                if (error) alert("There was an error processing your subscription.");
             }
-        } catch (error:unknown) {
-            if(error){
-                toast.error("An error occurred while processing your subscription.");
-            }
-         
+        } catch {
+            alert("An error occurred while processing your subscription.");
         } finally {
             setLoading(false);
         }
     };
+
     if (!isOpen) return null;
 
     return (

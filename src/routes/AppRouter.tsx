@@ -26,19 +26,17 @@ import AdminDashboardSeries from "../pages/Admin/AdminDashboardSeries";
 import UserDashboard from "../pages/Admin/UserDashboard";
 import AddSeries from "../pages/Admin/AddSeries";
 import HeroSection from "../components/HeroSection";
-
 import PaymentCancel from "../pages/paymentCancel/paymentCancel";
 import { Bounce, ToastContainer } from "react-toastify";
 import GenrePage from "../pages/GenrePage";
 import Search from "../pages/Search";
 import AddEpisode from "../pages/Admin/AddEpisode";
-// import { PaymentSuccess } from "../pages/paymentSuccess/PaymentSuccess";
 import DetailsPage from "../pages/DetailsPage";
 import { PaymentSuccess } from "../pages/paymentSuccess/paymentSuccess";
 
 // Protected Route component that checks if user is authenticated
 const ProtectedRoute: React.FC = () => {
-  
+
   const { isAuthenticated } = useSelector((state: RootState) => state.user);
   const location = useLocation();
 
@@ -111,7 +109,7 @@ const AppRoute: React.FC = () => {
             <Route path="/profile-page" element={<ProfilePage />} />
             <Route path="/payment-success" element={<PaymentSuccess />} />
             <Route path="/payment-cancel" element={<PaymentCancel />} />
-            <Route path="/details" element={<DetailsPage />}/>
+            <Route path="/details" element={<DetailsPage />} />
           </Route>
 
           {/* Admin Routes - requires admin role */}
@@ -124,7 +122,7 @@ const AppRoute: React.FC = () => {
             <Route path="/add-movies" element={<AddMovie />} />
             <Route path="/add-series" element={<AddSeries />} />
             <Route path="/add-episode" element={<AddEpisode />} />
-            <Route path="/user-dashboard" element={<UserDashboard/>}/>
+            <Route path="/user-dashboard" element={<UserDashboard />} />
           </Route>
         </Route>
 

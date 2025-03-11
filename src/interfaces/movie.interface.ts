@@ -1,14 +1,16 @@
+// src/interfaces/movie.interface.ts
 // USER INTERFACES
 
 import { IconType } from "react-icons/lib";
+
 
 export interface User {
   id: string;
   name: string;
   email: string;
-  contactNo: string;
+  contactNo?: string,
   password?: string;
-  token?: string;
+  // token?: string;
   otp?: number;
   role: string;
 }
@@ -24,16 +26,11 @@ export interface UserState {
   detailsError?: string;
   userDetails?: UserDetails;
 }
+export interface UserData {
+  userData: User;
+}
 
-// export interface UserResponse{
-//   id: string;
-//   name: string;
-//   email: string;
-//   contactNo:string
-//   role: string;
-// }
-
-interface UserData {
+export interface data {
   userData: User;
 }
 
@@ -84,7 +81,7 @@ export interface Movie {
 }
 
 export interface TrendingMoviesProps {
-  movies: Movie[];
+  movies: Movie;
 }
 
 export interface MovieGridProps {
@@ -170,3 +167,12 @@ export interface LoginDetails {
   email: string;
   password: string;
 }
+
+// Define API Response Types
+export interface AuthResponse {
+  token: string;
+  data: data;
+  message?: string | string[];
+}
+
+
