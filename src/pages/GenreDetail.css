@@ -79,11 +79,6 @@
 }
 
 /* Swiper Wrapper */
-.swiper-wrapper {
-    display: flex;
-    align-items: center;
-    height: auto !important; /* ✅ No unnecessary height */
-    gap:40px
-}
+
 
 /* Responsive Design */

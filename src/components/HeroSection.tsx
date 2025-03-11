@@ -6,9 +6,11 @@ import MovieCard from "../components/MovieCard";
 import {
   getPopularMovies,
   getLatestMovies,
-  getTopRated,
+  getTopRatedMovies,
 } from "../services/apis/movieService";
 import { Movie } from "../interfaces/movie.interface";
+
+
 
 const HeroSection: React.FC = () => {
   const [movies, setMovies] = useState<{
@@ -28,12 +30,11 @@ const HeroSection: React.FC = () => {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const [popularMoviesResponse, latestResponse, topRatedResponse] =
-          await Promise.all([
-            getLatestMovies(),
-            getTopRated(),
-            getPopularMovies(),
-          ]);
+        const [popularMoviesResponse, latestResponse, topRatedResponse] = await Promise.all([
+          getPopularMovies(),
+          getLatestMovies(),
+          getTopRatedMovies(),
+        ]);
 
         setMovies({
           latest: latestResponse.data.moviesList || [],
@@ -93,7 +94,7 @@ const HeroSection: React.FC = () => {
           <div className="movie-category" key={key}>
             <h3 className="movie-category-title">{title}</h3>
             <Swiper
-              slidesPerView={6}
+              slidesPerView={"auto"}
               spaceBetween={20}
               navigation={true}
               modules={[Navigation]}

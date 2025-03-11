@@ -1,7 +1,7 @@
 .movie-card {
   position: relative;
   width: 19rem;
-  height: 20rem;
+  height: 22rem;
   max-width: 16rem;
   border-radius: 0.5rem;
   overflow: hidden;
@@ -19,8 +19,8 @@
 /* 🖼 Poster Image */
 .movie-card img {
   width: 100%;
-  height: -webkit-fill-available;
-  object-fit: fill;
+  height:100%;
+  object-fit: cover;
   border-radius: 0.5rem;
 }
 
@@ -62,7 +62,7 @@
   display: flex;
   gap: 0.6rem;
   margin-bottom: 1rem;
-  flex-direction: row;
+
   flex-wrap: wrap;
 }
 
@@ -76,28 +76,34 @@
   font-size: 0.7rem;
 }
 
-/* 📝 Overview */
 .movie-overview {
   color: var(--text-color);
   font-size: 0.7rem;
   font-weight: 500;
   text-align: left;
-  line-height: 1.5;
+  line-height: 1.5; /* Adjust line spacing */
   overflow: hidden;
   text-overflow: ellipsis;
-  -webkit-box-orient: vertical;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
-  /* margin-bottom: auto; Pushes buttons to the bottom */
+  -webkit-line-clamp: 3; /* Limits to 3 lines */
+  line-clamp: 3; /* Limits to 3 lines */
+  -webkit-box-orient: vertical;
 }
+
 
 /* 🎬 Buttons (Always at the Bottom, Centered) */
 .movie-buttons {
   position: absolute;
   display: flex;
   gap: 0.75rem;
-  margin-left: 1.2rem;
+  justify-content: center;
+  align-items: center;
   bottom: 1.5rem;
+}
+.button-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .movie-button {
@@ -144,14 +150,52 @@
 
 @media (max-width: 1250px) {
   .movie-card {
-    width: 10rem;
+    width: 12rem;
+    height: 17rem;
   }
+  .movie-title {
+    font-size: 1.2rem !important;
+  }
+
+  .movie-rating svg {
+    font-size: 0.9rem;
+  }
+
+  .movie-details1 {
+    gap: 0.4rem;
+  }
+
+  .movie-details1 li {
+    font-size: 10px;
+  }
+
+  .movie-overview {
+    font-size: 0.8rem;
+    line-clamp: 3;
+  }
+
+  .movie-buttons {
+    gap: 0.6rem;
+  }
+
+  .movie-button {
+    padding: 0.4rem;
+    font-size: 0.8rem;
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  .movie-rating svg {
+    font-size: 16px !important; /* Reduce size */
+  }
+
 }
 @media (max-width: 1024px) {
   .movie-card {
-    width: 10rem;
-    height: auto;
+    width: 11rem;
+    height: 16rem; 
   }
+
 
   .movie-title {
     font-size: 0.8rem !important;
@@ -193,8 +237,11 @@
 /* Small Tablets */
 @media (max-width: 768px) {
   .movie-card {
-    width: 10rem;
-    /* height: 210px; */
+    width: 9rem;
+    height: 13rem;
+  }
+  .movie-hover{
+    padding: 0.4rem;
   }
 
   .movie-title {
@@ -245,17 +292,17 @@
   }
 
   .movie-details1 li {
-    font-size: 5px;
+    font-size: 6px;
   }
   .movie-details1 {
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.3rem;
   }
   .movie-card p {
-    font-size: 0.4rem !important;
+    font-size: 0.5rem !important;
   }
 
   .movie-overview {
-    font-size: 0.4rem;
+    font-size: 0.5rem;
   }
 
   .movie-buttons {
@@ -275,6 +322,10 @@
 @media (max-width: 480px) {
   .movie-hover {
     padding: 0.35rem;
+  }
+  .movie-card{
+    width: 8rem;
+    height: 12rem;
   }
 
   .movie-title {

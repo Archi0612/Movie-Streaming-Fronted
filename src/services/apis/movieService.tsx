@@ -21,7 +21,7 @@ export const getMoviesByGenre = async (genreId: number) => {
     }
   }
 
-  export const getTopRated=async()=>{
+  export const getTopRatedMovies=async()=>{
     try{
         const response=await api.get(`movie/getTopRatedMovies`)
         console.log("top rated",response)

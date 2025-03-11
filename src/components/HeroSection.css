@@ -8,9 +8,10 @@
         background-color: rgb(4, 14, 27);
         color: white;
         padding-left: 100px;
-        gap: 20px; /* Adds spacing between sections */
+        overflow: hidden;
+    
     }
-
+   
     /* Movie Slider Section */
     .movie-slider-container {
         width: -webkit-fill-available;
@@ -132,8 +133,8 @@
     z-index: 10;
     transition: opacity 0.3s ease-in-out, font-size 0.3s ease-in-out;
 }
-    .swiper-button-next {
-        right: 10px;
+    .swiper-button-next::after{
+        right: 14px;
     }
 
     .swiper-button-prev {
@@ -142,8 +143,11 @@
 
     .swiper-button-next::after,
     .swiper-button-prev::after {
-        font-size: 30px;
+        font-size: 35px !important;
+        position: relative;
+    
     }
+    
 
     /* Ensure visibility on small screens */
     @media (max-width: 1024px) {
@@ -210,6 +214,9 @@
             width: 160px;
             font-size: 13px;
         }
+        .swiper-button-next {
+            right: 7px !important;
+        }
 
         
     }
@@ -241,7 +248,8 @@
 
     /* Movie Categories & Lists */
     .movie-category, .movie-lists {
-        width: -webkit-fill-available;
+        width: 100%;
+        overflow: hidden;
         display: flex;
         flex-direction: column;
         align-items: start;
@@ -263,11 +271,12 @@
     /* Swiper styles */
     .movie-category-swiper {
         width: 100%;
+        min-width: 0; /* Prevents forced minimum width */
+        overflow: hidden !important; /* Ensures no extra spacing */
     }
+      
 
     .movie-category-swiper .swiper-slide {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: transform 0.3s ease-in-out;
+        flex: 0 0 auto; /* Prevents shrinking */
+        width: auto; /* Ensures it follows breakpoints */
     }
