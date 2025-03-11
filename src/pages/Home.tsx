@@ -20,11 +20,11 @@ const Home: React.FC = () => {
 
         // Fetch popular movies
         const popular = await getPopularMovies();
-        setPopularMovies(popular?.data?.moviesList || []); // Safe access with fallback
+        setPopularMovies(popular?.data?.moviesList || []); 
 
         // Fetch action movies
         const action = await getMoviesByGenre(28);
-        setActionMovies(action?.data?.moviesList || []); // Safe access with fallback
+        setActionMovies(action?.data?.moviesList || []); 
       } catch (error) {
         console.error("Error fetching movies:", error);
       } finally {
@@ -51,13 +51,14 @@ const Home: React.FC = () => {
   modules={[Navigation]}
   autoplay={false}
   loop={false}
-  className="movie-category-swiper" // ✅ Match class with GenreDetail
+  className="movie-category-swiper" 
   breakpoints={{
     1400: { slidesPerView: 6 },
     1200: { slidesPerView: 5 },
     1050: { slidesPerView: 4 },
     768: { slidesPerView: 4 },
     640: { slidesPerView: 4 },
+    550: { slidesPerView: 4},
     480: { slidesPerView: 3 },
     400: { slidesPerView: 3 },
     300: { slidesPerView: 2 },

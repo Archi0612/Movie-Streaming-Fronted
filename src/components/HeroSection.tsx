@@ -3,7 +3,7 @@ import "./HeroSection.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation } from "swiper/modules";
 import MovieCard from "../components/MovieCard";
-import { getPopularMovies, getLatestMovies, getTopRated } from "../services/apis/movieService";
+import { getPopularMovies, getLatestMovies, getTopRatedMovies } from "../services/apis/movieService";
 import { Movie } from "../interfaces/movie.interface";
 
 
@@ -21,7 +21,7 @@ const HeroSection: React.FC = () => {
         const [popularMoviesResponse, latestResponse, topRatedResponse] = await Promise.all([
           getPopularMovies(),
           getLatestMovies(),
-          getTopRated(),
+          getTopRatedMovies(),
         ]);
 
         setMovies({

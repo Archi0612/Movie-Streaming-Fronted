@@ -59,10 +59,12 @@ const MovieCard: React.FC<{ movie: Movie }> = ({ movie }) => {
             <p className="movie-overview">{description}</p>
 
             {/* Buttons */}
+            <div className='button-container'>
             <div className="movie-buttons">
               <button className="movie-button play"><Play /></button>
               <button className="movie-button"><Plus /></button>
               <button className="movie-button"><Info /></button>
+            </div>
             </div>
           </div>
         </div>

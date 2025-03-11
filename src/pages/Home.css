@@ -1,6 +1,4 @@
-/* ===========================
-   Home Page Container
-   =========================== */
+
    .home-container {
     display: flex;
     flex-direction: column;
@@ -12,34 +10,27 @@
     color: #0073e6 !important;
 }
 
-/* ===========================
-   Section Container
-   =========================== */
 .section-container {
     width: 100%;
     padding-left: 116px;
     position: relative;
-    overflow: hidden; /* ✅ Prevents unwanted overflow */
+    overflow: hidden; 
 }
 
-/* ===========================
-   Swiper Styles
-   =========================== */
 .movie-category-slider {
-    width: calc(100% - 116px); /* ✅ Ensures it fits properly */
+    width: calc(100% - 116px); 
     height: auto;
     padding: 10px 0;
     position: relative;
-    overflow: hidden; /* ✅ Prevents slides from overflowing */
+    overflow: hidden;
 }
 
-/* Swiper Wrapper */
+
 .movie-category-slider .swiper-wrapper {
     display: flex;
     transition-timing-function: ease-in-out;
 }
 
-/* Swiper Slide (Movie Cards) */
 .movie-category-slider .swiper-slide {
     flex: 0 0 220px !important; /* ✅ Fixed width */
     width: 220px !important;
@@ -51,14 +42,12 @@
     transition: transform 0.3s ease-in-out;
 }
 
-/* Hover Effect */
+
 .movie-category-slider .swiper-slide:hover {
     transform: scale(1.05);
 }
 
-/* ===========================
-   Swiper Navigation Buttons
-   =========================== */
+
 .movie-category-slider .swiper-button-prev,
 .movie-category-slider .swiper-button-next {
     color: white;
@@ -70,7 +59,7 @@
     height: 40px;
 }
 
-/* Navigation Button Position */
+
 .movie-category-slider .swiper-button-next {
     right: 10px !important;
 }
@@ -79,21 +68,16 @@
     left: 10px !important;
 }
 
-/* ===========================
-   Movie Category Title
-   =========================== */
 .home-popular-movies {
     font-size: 2rem;
     font-weight: bold;
     color: var(--text-color);
     text-align: left;
-    margin-left: 40px;
-    margin-bottom: 20px;
+
+    margin: 15px 0px;
 }
 
-/* ===========================
-   Responsive Design
-   =========================== */
+
 @media (max-width: 1200px) {
     .movie-category-slider .swiper-slide {
         width: 200px !important;
@@ -129,6 +113,9 @@
         width: 160px !important;
         height: 260px !important;
         margin-right: 10px;
+    }
+    .genre-detail-container{
+        padding-left: 15px !important;
     }
 }
 

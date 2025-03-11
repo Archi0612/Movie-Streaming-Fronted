@@ -128,9 +128,7 @@
     z-index: 10;
     transition: opacity 0.3s ease-in-out, font-size 0.3s ease-in-out;
 }
-    .swiper-button-next {
-        right: 10px;
-        position: relative;
+    .swiper-button-next::after{
         right: 14px;
     }
 
@@ -142,7 +140,7 @@
     .swiper-button-prev::after {
         font-size: 35px !important;
         position: relative;
-        right: 14px;
+    
     }
     
 
@@ -210,6 +208,9 @@
         .watch-now{
             width: 160px;
             font-size: 13px;
+        }
+        .swiper-button-next {
+            right: 7px !important;
         }
 
         
