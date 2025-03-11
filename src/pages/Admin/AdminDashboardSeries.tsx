@@ -140,7 +140,7 @@ const AdminDashboardSeries: React.FC = () => {
                 flex: 1,
                 minWidth: 100,
                 filter: true,
-                floatingFilter: true,
+                floatingFilter: false,
                 sortable: true,
                 headerStyle: { fontWeight: "bold", fontSize: "15px", textAlign: "center" },
               }}
