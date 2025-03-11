@@ -1,14 +1,11 @@
 
 import { useState } from "react";
 import { Play, Plus } from "lucide-react";
-import { FaForward, FaRev, FaStar, FaStarHalfAlt } from "react-icons/fa";
+import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { genreMap } from "../utils/constants";
 import "./MovieCard.css";
 import { MediaCardProps } from "../interfaces/movie.interface";
-import { FaBackward } from "react-icons/fa6";
-
-
 const MovieCard: React.FC<MediaCardProps> = ({ media }) => {
   const { title, poster, description, releaseDate, rating, languages, genres } = media;
 

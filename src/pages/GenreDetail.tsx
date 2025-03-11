@@ -51,35 +51,6 @@ const GenreDetail: React.FC = () => {
   return (
     <div className="genre-detail-container">
       <div className="genre-name">
-        {/* <h3 className="genre-detail-heading">{genreName} Movies</h3> */}
-        {/* <div className="genre-swiper">
-          <Swiper
-            slidesPerView={6}
-            spaceBetween={20}
-            navigation={true}
-            modules={[Navigation]} // ✅ Only Navigation module
-            autoplay={false} // ✅ Explicitly disable autoplay
-            loop={false} // ✅ Ensure loop is disabled
-            className="movie-category-swiper"
-            breakpoints={{
-              1400: { slidesPerView: 6 },
-              1200: { slidesPerView: 5 },
-              1050: { slidesPerView: 4 },
-              768: { slidesPerView: 4 },
-              640: { slidesPerView: 4 },
-              480: { slidesPerView: 3 },
-              400: { slidesPerView: 3 },
-              300: { slidesPerView: 2 },
-            }}
-          >
-            {movies.map((movie, index) => (
-              <SwiperSlide key={movie._id || `genre-${index}`}>
-                <MovieCard media={movie} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-         */}
         <div className="genre-series-container">
           {!series?.length && !movies?.length ? (
             <img className="image-not-found" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIlkfLdB2GiAbY3aZoTvPlWdvgcgwveVEXog&s" alt="No Data Found" />
