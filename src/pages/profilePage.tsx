@@ -14,7 +14,7 @@ import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import { AppDispatch } from '../redux/store';
-import {api} from '../services/api';
+import { api } from '../services/api';
 
 ReactModal.setAppElement('#root'); // Ensure accessibility compliance
 
@@ -32,6 +32,8 @@ export default function ProfilePage() {
         dateOfBirth: "",
         gender: ""
     });
+
+    console.log(formData)
 
     const countries = getNames().sort();
 
@@ -61,11 +63,9 @@ export default function ProfilePage() {
     }
 
     const updateInfo = async () => {
-
         const response = await api.put('/user/editProfile', formData);
         const data = response.data();
         console.log(data);
-
     }
 
     return (
@@ -101,7 +101,7 @@ export default function ProfilePage() {
                                     <tbody>
                                         <tr>
                                             <th>Full Name</th>
-                                            <td>{loggedUser.name.toUpperCase()}</td>
+                                            <td>{loggedUser?.name.toUpperCase()}</td>
                                         </tr>
                                         <tr>
                                             <th>Date Of Birth</th>
@@ -109,7 +109,7 @@ export default function ProfilePage() {
                                         </tr>
                                         <tr>
                                             <th>Gender</th>
-                                            <td>{loggedUser.gender || "NA"}</td>
+                                            <td>{loggedUser?.gender || "NA"}</td>
                                         </tr>
                                         <tr>
                                             <th>Phone Number</th>
@@ -175,7 +175,7 @@ export default function ProfilePage() {
                     </div>
 
                     <label>Date of Birth:</label>
-                    <input type="date" name="dob" value={formData.dateOfBirth} onChange={handleChange} autoComplete='off' required />
+                    <input type="date" name="dateOfBirth" value={formData.dateOfBirth} onChange={handleChange} autoComplete='off' required />
 
                     <label>Gender:</label>
                     <select name="gender" value={formData.gender} onChange={handleChange} required>

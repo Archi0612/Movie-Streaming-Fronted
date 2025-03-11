@@ -81,7 +81,7 @@ export interface Movie {
 }
 
 export interface TrendingMoviesProps {
-  movies: Movie[];
+  movies: Movie;
 }
 
 export interface MovieGridProps {

@@ -6,7 +6,7 @@
 
 - [ ] Add Search bar in Admin Dashboard (P)
 - [ ] Add a Loading screen in Admin Dashboard (P)
-- [ ] Subscription page Dynamic data of USER (P)
+- [DONE ] Subscription page Dynamic data of USER (P)
 
 - [ ] Edit data using FormDATA in Movies (Y)
 - [ ] Add User Data page in Admin (Y)

@@ -7,10 +7,10 @@ import './MovieCard.css';
 import { useNavigate } from 'react-router-dom';
 
 const MovieCard = ({ title, posterPath, overview, releaseDate, voteAverage, language, genres_id }: MovieCardProps) => {
-  const [isHovered, setIsHovered] = useState(false);
+  const [isHovered, setIsHovered] = useState(true);
 
   const imageUrl = `https://image.tmdb.org/t/p/w500${posterPath}`;
-    // 🎭 Genre Mapping
+  // 🎭 Genre Mapping
   const genreNames = genres_id.map((id) => genreMap[id] || "Unknown").join(", ");
 
   // ⭐ Star Ratings Logic
@@ -25,16 +25,16 @@ const MovieCard = ({ title, posterPath, overview, releaseDate, voteAverage, lang
     }
   });
   const navigate = useNavigate();
-  const handleDetailPage = () =>{
+  const handleDetailPage = () => {
     navigate("/details");
   }
 
 
   return (
     <div
-      className="movie-card"
+      className="movie-card" 
       onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseLeave={() => setIsHovered(true)}
       onClick={handleDetailPage}
     >
       {/* Movie Poster */}
@@ -55,7 +55,9 @@ const MovieCard = ({ title, posterPath, overview, releaseDate, voteAverage, lang
 
 
             {/* Overview */}
-            <p className="movie-overview">{overview}</p>
+            <p className="movie-overview">
+              {overview.length > 100 ? overview.substring(0, 100) + "..." : overview}
+            </p>
 
             {/* Buttons */}
             <div className="movie-buttons">
