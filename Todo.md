@@ -6,10 +6,12 @@
 
 - [ ] Add Search bar in Admin Dashboard (P)
 - [ ] Add a Loading screen in Admin Dashboard (P)
-- [ ] Subscription page Dynamic data of USER (P)
+- [DONE ] Subscription page Dynamic data of USER (P)
 
-- [ ] Edit data using FormDATA in Movies (Y)
-- [ ] Add User Data page in Admin (Y)
+- [x] Edit data using FormDATA in Movies (Y)
+- [] Api integration of Series Dashboard with crud operation(Y)
+- [x] Movie Dashboard complete all Api integration except edit (Y)
+- [x] Add User Data page in Admin (Y)
 
 - [ ] Edit data using FormDATA in Series (D)
 - [ ] Using Cloudinary Movie Streaming (D)

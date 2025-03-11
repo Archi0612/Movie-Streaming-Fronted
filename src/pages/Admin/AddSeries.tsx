@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import AsyncSelect from "react-select/async";
 import "./AddSeries.css";
-
+import {toast} from "react-toastify"
+import { addSeries, searchCastByName,searchDirectorByName } from "../../services/apis/adminService";
 const genreOptions = [
   { value: "28", label: "Action" },
   { value: "18", label: "Drama" },
@@ -34,19 +35,30 @@ const languageOptions = [
   { value: "malayalam", label: "Malayalam" },
   { value: "kannada", label: "Kannada" },
 ];
-const fetchCastOptions = async (inputValue: string) => {
-  return [
-    { value: "actor1", label: "Leonardo DiCaprio" },
-    { value: "actor2", label: "Joseph Gordon-Levitt" },
-    { value: "actor3", label: "Elliot Page" },
-  ].filter((i) => i.label.toLowerCase().includes(inputValue.toLowerCase()));
+const fetchCastOptions = async(inputValue: string): Promise<{ value: string; label: string }[]> => {
+    try {
+      const results=await searchCastByName(inputValue.trim());
+      return results.map((cast:{_id:string;name:string})=>({
+        value:cast._id,
+        label:cast.name
+      }))
+    } catch (error) {
+      console.error("Error fetching cast:", error);
+    return [];
+    }
 };
 
-const fetchDirectorOptions = async (inputValue: string) => {
-  return [
-    { value: "director1", label: "Christopher Nolan" },
-    { value: "director2", label: "Quentin Tarantino" },
-  ].filter((i) => i.label.toLowerCase().includes(inputValue.toLowerCase()));
+const fetchDirectorOptions = async(inputValue: string): Promise<{ value: string; label: string }[]> => {
+  try {
+    const results=await searchDirectorByName(inputValue.trim());
+    return results.map((director:{_id:string;name:string})=>({
+      value:director._id,
+      label:director.name
+    }))
+  } catch (error) {
+    console.error("Error fetching director:", error);
+  return [];
+  }
 };
 
 interface Episode {
@@ -72,8 +84,8 @@ interface Series {
   cast: { value: string; label: string }[];
   director: { value: string; label: string }[];
   languages: { value: string; label: string }[];
-  poster: string;
-  trailerUrl: string;
+  poster: File | null;
+  trailerUrl: File | null;
   availableForStreaming: boolean;
   seasons: Season[];
 }
@@ -89,79 +101,27 @@ const AddSeries: React.FC = () => {
     cast: [],
     director: [],
     languages: [],
-    poster: "",
-    trailerUrl: "",
+    poster: null,
+    trailerUrl: null,
     availableForStreaming: false,
     seasons: [],
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value, type, checked,files } = e.target as HTMLInputElement;
-    if (files) {
-      if (name.startsWith("episodeUrl")) {
-        // Extract season and episode index from name
-        const match = name.match(/episodeUrl-(\d+)-(\d+)/);
-        if (match) {
-          const seasonIndex = parseInt(match[1]);
-          const episodeIndex = parseInt(match[2]);
-  
-          setSeries((prev) => {
-            const updatedSeasons = [...prev.seasons];
-            const updatedEpisodes = [...updatedSeasons[seasonIndex].episodes];
-  
-            updatedEpisodes[episodeIndex] = {
-              ...updatedEpisodes[episodeIndex],
-              episodeUrl: files[0], // Store full file object
-            };
-  
-            updatedSeasons[seasonIndex] = {
-              ...updatedSeasons[seasonIndex],
-              episodes: updatedEpisodes,
-            };
-  
-            return { ...prev, seasons: updatedSeasons };
-          });
-        }
-      } else {
-        setSeries((prev) => ({ ...prev, [name]: files[0] })); // Store file object for poster and trailer
-      }
+    if(type === "file" && files){
+      setSeries((prev) => ({
+        ...prev,
+        [name]: files[0],
+      }));
     }
     else{
-      setSeries((prev) => ({ ...prev, [name]: type === "checkbox" ? checked : value }));
+      setSeries((prev) => ({
+        ...prev,
+        [name]: type === "checkbox" ? checked : value,
+      }));
     }
   };
-
-  const addSeason = () => {
-    setSeries((prev) => ({
-      ...prev,
-      seasons: [...prev.seasons, { seasonNumber: prev.seasons.length + 1, episodes: [] }],
-    }));
-  };
-
-  const addEpisode = (seasonIndex: number) => {
-    setSeries((prev) => {
-      const updatedSeasons = [...prev.seasons];
-
-      // Add a new episode without pre-assigning episodeNumber
-      updatedSeasons[seasonIndex] = {
-          ...updatedSeasons[seasonIndex],
-          episodes: [
-              ...updatedSeasons[seasonIndex].episodes,
-              {
-                  title: "",
-                  description: "",
-                  duration: "",
-                  episodeNumber:0, // User will enter this manually
-                  episodeUrl: "",
-                  releaseDate: "",
-              },
-          ],
-      };
-
-      return { ...prev, seasons: updatedSeasons };
-  });
-  };
-
   const updateEpisode = (seasonIndex: number, episodeIndex: number, field: keyof Episode, value: any) => {
     setSeries((prev) => {
       const updatedSeasons = [...prev.seasons];
@@ -170,7 +130,7 @@ const AddSeries: React.FC = () => {
     });
   };
 
-  const handleSave = () => {
+  const handleSave = async() => {
     const formData=new FormData();
     formData.append("title",series.title);
     formData.append("description",series.description);
@@ -185,28 +145,21 @@ const AddSeries: React.FC = () => {
       formData.append("poster",series.poster);
     }
     if(series.trailerUrl){
-      formData.append("trailerUrl",series.trailerUrl);
+      formData.append("trailer",series.trailerUrl);
     }
-    // series.seasons.forEach((season,seasonIndex)=>{
-    //   formData.append(`seasons[${seasonIndex}][seasonNumber]`,String(season.seasonNumber));
-    //   season.episodes.forEach((episode,episodeIndex)=>{
-    //     formData.append(`seasons[${seasonIndex}][episodes][${episodeIndex}][title]`,episode.title);
-    //     formData.append(`seasons[${seasonIndex}][episodes][${episodeIndex}][description]`,episode.description);
-    //     formData.append(`seasons[${seasonIndex}][episodes][${episodeIndex}][duration]`,episode.duration);
-    //     formData.append(`seasons[${seasonIndex}][episodes][${episodeIndex}][episodeNumber]`,String(episode.episodeNumber));
-    //     formData.append(`seasons[${seasonIndex}][episodes][${episodeIndex}][episodeUrl]`,episode.episodeUrl);
-    //     formData.append(`seasons[${seasonIndex}][episodes][${episodeIndex}][releaseDate]`,episode.releaseDate);
-    //     if(episode.episodeUrl){
-    //       formData.append(`seasons[${seasonIndex}][episodes][${episodeIndex}][episodeUrl]`,episode.episodeUrl);
-    //     }
-    //   })
-    // })
+    
     console.log("FormData Entries")
     for(let [key,value] of formData.entries()){
       console.log(`${key}:`,value);
+    };
+    try {
+      const response=await addSeries(formData);
+      toast.success("Series Added Successfully")
+      navigate("/admin-dashboard-series")
+    } catch (error) {
+      toast.error("Error in Adding series")
     }
-  };
-
+  }
   return (
     <div className="container1">
       <div className="add-series-container">
@@ -220,7 +173,7 @@ const AddSeries: React.FC = () => {
             <textarea name="description" value={series.description} onChange={handleChange} placeholder="Enter series details" autoComplete="off" className="text-desc1"/>
 
             <label>Genres</label>
-            <Select isMulti options={genreOptions} onChange={(selected) => setSeries({ ...series, genres: selected as { value: string; label: string }[] })} styles={{
+            <Select isMulti options={genreOptions} value={series.genres}  onChange={(selected: any) => setSeries((prev) => ({ ...prev, genres: selected }))} styles={{
                 control: (provided) => ({
                   ...provided,
                   backgroundColor: "rgba(93, 94, 95, 0.3)",
@@ -344,35 +297,7 @@ const AddSeries: React.FC = () => {
             <input type="file" name="trailerUrl" onChange={handleChange} />
           </div>
         </div>
-        {/* <div className="season-heading-container">
-        <h3 className="season-header">Seasons</h3>
-        <button className="season-add-btn" onClick={addSeason}>Add Season</button>
-        </div>
-        <div className="seasons-container">
-          {series.seasons.map((season, seasonIndex) => (
-            <div key={seasonIndex} className="season">
-              <div className="episode-header">
-                <h4>Season {season.seasonNumber}</h4>
-                <button className="episode-add-btn" onClick={() => addEpisode(seasonIndex)}>Add Episode</button>
-              </div>
-              <div className="episodes-container">
-                {season.episodes.map((episode, episodeIndex) => (
-                  <div key={episodeIndex} className="episode-container">
-                    <h5 className="episode-number">Episode {episode.episodeNumber}</h5>
-                    <label className="episode-label">Title</label>
-                    <input type="text" placeholder="Episode title" onChange={(e) => updateEpisode(seasonIndex, episodeIndex, "title", e.target.value)} autoComplete="off"/>
-                    <label className="episode-label">Description</label>
-                    <textarea placeholder="Episode description" onChange={(e) => updateEpisode(seasonIndex, episodeIndex, "description", e.target.value)} autoComplete="off"/>
-                    <label className="episode-label">Duration</label>
-                    <input type="number" placeholder="Duration in minutes" onChange={(e) => updateEpisode(seasonIndex, episodeIndex, "duration", e.target.value)} min="0"/>
-                    <label className="episode-label">Episode</label>
-                    <input type="file" placeholder="Enter episode URL"  name={`episodeUrl-${seasonIndex}-${episodeIndex}`} onChange={(e) => updateEpisode(seasonIndex, episodeIndex, "episodeUrl", e.target.value)} />
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div> */}
+        
         <div className="buttons-container">
           <button className="close-btn2" onClick={() => navigate("/admin-dashboard-series")}>Close</button>
           

@@ -1,5 +1,5 @@
 import './Watchlist.css';
-import poster1 from "../assets/kgf2poster.jpeg";
+import poster1 from "../../assets/kgf2poster.jpeg";
 
 function WatchList() {
     const WatchLists = [

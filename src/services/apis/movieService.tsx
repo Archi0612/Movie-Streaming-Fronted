@@ -12,7 +12,6 @@ export const getMoviesByGenre = async (genreId: number) => {
   export const getPopularMovies=async()=>{
     try{
       const response = await api.get(`movie/getPopularMovies`)
-      console.log("movie popular response",response)
       return response.data;
 
     }catch(error){
@@ -21,10 +20,9 @@ export const getMoviesByGenre = async (genreId: number) => {
     }
   }
 
-  export const getTopRated=async()=>{
+  export const getTopRatedMovies=async()=>{
     try{
         const response=await api.get(`movie/getTopRatedMovies`)
-        console.log("top rated",response)
         return response.data
     }
     catch(error){
@@ -36,7 +34,6 @@ export const getMoviesByGenre = async (genreId: number) => {
   export const getLatestMovies=async()=>{
     try{
         const response=await api.get(`movie/getLatestMovies`)
-        console.log("latest movies",response)
         return response.data
     }
     catch(error){

@@ -20,11 +20,11 @@ const Home: React.FC = () => {
 
         // Fetch popular movies
         const popular = await getPopularMovies();
-        setPopularMovies(popular?.data?.moviesList || []); // Safe access with fallback
+        setPopularMovies(popular?.data?.moviesList || []); 
 
         // Fetch action movies
         const action = await getMoviesByGenre(28);
-        setActionMovies(action?.data?.moviesList || []); // Safe access with fallback
+        setActionMovies(action?.data?.moviesList || []); 
       } catch (error) {
         console.error("Error fetching movies:", error);
       } finally {
@@ -41,10 +41,9 @@ const Home: React.FC = () => {
         <Shimmer />
       ) : (
         <div className="home-container">
-        
           {/* Popular Movies - Swiper */}
           <div className="section-container">
-          <h3 className="home-popular-movies">Popular Movies</h3>
+            <h3 className="home-popular-movies">Popular Movies</h3>
             <Swiper
               slidesPerView={6}
               spaceBetween={4}
@@ -66,7 +65,6 @@ const Home: React.FC = () => {
               {popularMovies.map((movie) =>
                 movie._id ? (
                   <SwiperSlide key={movie._id}>
-              
                     <MovieCard media={movie}  />
                   </SwiperSlide>
                 ) : null // Prevent rendering items without _id
@@ -76,7 +74,6 @@ const Home: React.FC = () => {
 
           {/* Action Movies - Grid */}
           <div className="home-grid-container">
-  
             <MoviesGrid mediaList={actionMovies} title="Action Movies" />
           </div>
         </div>

@@ -1,88 +1,86 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { AgGridReact } from "ag-grid-react";
 import { ClientSideRowModelModule } from "ag-grid-community";
 import { ModuleRegistry } from "ag-grid-community";
-import { ColDef } from "ag-grid-community";
+import { ColDef, GridReadyEvent } from "ag-grid-community";
+import "ag-grid-community/styles/ag-theme-quartz.css"; 
 import { MdEdit, MdDelete, MdAdd } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import poster1 from "../../assets/kgf2poster.jpeg";
-import poster2 from "../../assets/salar.jpeg";
-import EditSeriesModal from "../EditSeriesModal";
+import DeleteConfirmationModal from "../../components/DeleteConfirmationModal";
+import { deleteSeries, listAllSeries } from "../../services/apis/adminService";
+import { toast } from "react-toastify";
+import "./AdminDashboard.css";
 
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
 interface Series {
-  id?: number;
-  duration?:number; // Now optional
+  id: string;
+  poster: string;
   title: string;
-  description: string;
-  rating: string;
-  cast: { value: string; label: string }[];
-  director: { value: string; label: string }[];
-  poster: File | string; // Poster is now typed as File or string
-  img?: string; // Now optional
-  genres?: { value: string; label: string }[];
-  releaseDate?: string;
-  languages?: { value: string; label: string }[];
-  trailerUrl?: File | string; // Trailer is typed as File or string
-  availableForStreaming?: boolean;
+  description?: string;
+  rating: number;
+  cast?: string;
+  director?: string;
 }
 
 
 const AdminDashboardSeries: React.FC = () => {
-  const [series, setSeries] = useState<Series[]>([
-    {
-      title: "Kgf Chapter 2",
-      description: "In the blood-soaked Kolar Gold Fields, Rocky's name strikes fear into his foes...",
-      rating: "8.2",
-      cast: [
-        { value: "Yash", label: "Yash" },
-        { value: "Shrinidhi Shetty", label: "Shrinidhi Shetty" },
-      ],
-      director: [{ value: "Prashant Neel", label: "Prashant Neel" }],
-      poster: poster1,
-    },
-    {
-      title: "Salaar: Part 1 - Ceasefire",
-      description: "The fate of a violently contested kingdom hangs on the fraught bond...",
-      rating: "6.6",
-      cast: [
-        { value: "Prabhas", label: "Prabhas" },
-        { value: "Shruti Hasan", label: "Shruti Hasan" },
-      ],
-      director: [{ value: "Prashant Neel", label: "Prashant Neel" }],
-      poster: poster2,
-    },
-  ]);
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedSeries, setSelectedSeries] = useState<Series | null>(null);
+  const [series, setSeries] = useState<Series[]>([]);
+  const[selectedSeries,setSelectedSeries]=useState<Series | null>(null);
+  const [isDeleteModelOpen, setIsDeleteModelOpen] = useState(false);
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(12);
+  const [search, setSearch] = useState("");
+  const gridApiRef = useRef<any>(null);
   const navigate = useNavigate();
 
-  const handleEdit = (series: Series) => {
-    setSelectedSeries(series);
-    setIsModalOpen(true);
+  const fetchAllSeries = async () => {
+    try {
+      const response = await listAllSeries(search, page, pageSize);
+      const formattedSeries = response.data.seriesList.map((s: any) => ({
+        id: s._id,
+        poster: s.poster,
+        title: s.title,
+        description: s.description || "N/A",
+        rating: s.rating || "N/A",
+        cast:s.casts.map((c:any)=>c.name).join(", "),
+        director: s.directors.map((d:any)=>d.name).join(", ")
+      }));
+      setSeries(formattedSeries);
+    } catch (error) {
+      toast.error("Error in fetching series");
+    }
   };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setSelectedSeries(null);
-  };
+  useEffect(() => {
+    fetchAllSeries();
+  }, [page, pageSize]);
 
-  const handleSave = (updatedSeries: Series) => {
-    setSeries((prevSeries) =>
-      prevSeries.map((s) => (s.title === updatedSeries.title ? updatedSeries : s))
-    );
-    handleCloseModal();
+  const handleGridReady = (params: GridReadyEvent) => {
+    gridApiRef.current = params.api;
   };
+  const handleDelete=async()=>{
+     if(!selectedSeries) return;
+     try {
+      await deleteSeries(selectedSeries.id);
+      toast.success("Series Deleted Successfully")
+      fetchAllSeries();
+     } catch (error:any) {
+      toast.error(error.message)
+     }
+     setIsDeleteModelOpen(false)
 
+  }
   const columnDefs: ColDef<Series>[] = [
     {
       headerName: "Poster",
       field: "poster",
-      cellRenderer: (params: any) => <img src={params.value} alt="poster" className="poster-img" />,
+      cellRenderer: (params: any) => (
+        <img src={params.value} alt="poster" className="poster-img" />
+      ),
       flex: 2,
       sortable: false,
+      filter:false
     },
     { headerName: "Title", field: "title", flex: 2 },
     { headerName: "Description", field: "description", flex: 3 },
@@ -90,21 +88,21 @@ const AdminDashboardSeries: React.FC = () => {
     {
       headerName: "Cast",
       field: "cast",
-      valueFormatter: (params) => params.value?.map((actor: { label: string }) => actor.label).join(", "),
       flex: 2,
     },
     {
       headerName: "Director",
       field: "director",
-      valueFormatter: (params) => params.value?.map((dir: { label: string }) => dir.label).join(", "),
       flex: 1,
     },
     {
       headerName: "Action",
-      cellRenderer: (params: any) => (
+      cellRenderer: (params:any) => (
         <div className="action-buttons">
-          <button className="edit-btn" onClick={() => handleEdit(params.data)}><MdEdit size={15} /></button>
-          <button className="delete-btn"><MdDelete size={15} /></button>
+          <button className="edit-btn">
+            <MdEdit size={15} />
+          </button>
+          <button className="delete-btn" onClick={()=>{setSelectedSeries(params.data);setIsDeleteModelOpen(true)}}><MdDelete size={15} /></button>
         </div>
       ),
       flex: 1,
@@ -113,44 +111,57 @@ const AdminDashboardSeries: React.FC = () => {
     },
   ];
 
+  const handleOpenSeries = () => navigate("/add-series");
+  const handleOpenEpisode = () => navigate("/add-episode");
+
   return (
     <div className="admin-container">
       <div className="content">
         <div className="content-card">
           <div className="add-btn-container">
-            <button className="add-movie-btn" onClick={() => navigate("/add-series")}>
+            <button className="add-episode-btn" onClick={handleOpenEpisode}>
+              Add Episode
+            </button>
+            <button className="add-movie-btn" onClick={handleOpenSeries}>
               <MdAdd size={20} />
             </button>
           </div>
-          <div className="ag-theme-quartz" style={{ height: "500px", width: "100%" }}>
+          <div className="ag-theme-quartz" style={{ height: "700px", width: "100%" }}>
             <AgGridReact
-              rowStyle={{ color: "white" }}
               rowData={series}
               columnDefs={columnDefs}
               pagination={true}
-              paginationPageSize={10}
-              domLayout="normal"
+              paginationPageSize={pageSize}
+              paginationPageSizeSelector={[15, 20, 40, 60, 100]}
+              onGridReady={handleGridReady}
               rowHeight={60}
               headerHeight={60}
               defaultColDef={{
                 flex: 1,
                 minWidth: 100,
                 filter: true,
-                floatingFilter: true,
+                floatingFilter: false,
                 sortable: true,
+                headerStyle: { fontWeight: "bold", fontSize: "15px", textAlign: "center" },
               }}
             />
           </div>
         </div>
       </div>
-
-      {isModalOpen && selectedSeries && (
+      {
+        isDeleteModelOpen &&(
+          <DeleteConfirmationModal  isOpen={isDeleteModelOpen}
+          onClose={() => setIsDeleteModelOpen(false)}
+          onConfirm={handleDelete}/>
+        )
+      }
+      {/* {isModalOpen && selectedSeries && (
         <EditSeriesModal
           series={selectedSeries}
           onClose={handleCloseModal}
           onSave={handleSave}
         />
-      )}
+      )} */}
     </div>
   );
 };
