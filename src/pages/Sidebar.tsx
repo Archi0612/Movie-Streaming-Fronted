@@ -23,7 +23,6 @@ interface MenuItem {
   isAdminMenu?: boolean; // Optional property
 }
 
-
 const Sidebar: React.FC<SidebarProps> = ({ userRole = "user" }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -48,7 +47,7 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole = "user" }) => {
     { name: "My Space", icon: CgProfile, path: "/profile-page" },
   ];
   // Admin-specific menu items
-  const adminMenuItems: MenuItem[]= [
+  const adminMenuItems: MenuItem[] = [
     { name: "Home", icon: FaHome, path: "/home" },
     {
       name: "Admin",
@@ -89,7 +88,6 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole = "user" }) => {
       isAdminMenu: true,
     },
     { name: "My Space", icon: CgProfile, path: "/profile-page" },
-
   ];
 
   const sparksOptions = [
@@ -203,15 +201,44 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole = "user" }) => {
                 if (item.name === "Home") {
                   handleItemClick(item.path);
                   setShowSparksPopup(!showSparksPopup);
+                  setShowAdminSubmenu(false);
+                } else if (item.name === "Admin") {
+                  handleItemClick(item.path);
+                  setShowAdminSubmenu(!showAdminSubmenu);
+                  setShowSparksPopup(false);
                 } else {
                   handleItemClick(item.path);
                   setShowSparksPopup(false);
+                  setShowAdminSubmenu(false);
                 }
               }}
               className={activeItem === item.path ? "active" : ""}
             >
               <IconComponent />
               <span>{item.name}</span>
+              {/* Admin submenu for mobile */}
+              {item.isAdminMenu && showAdminSubmenu && (
+                <div className="admin-submenu-mobile">
+                  {adminSubmenuItems.map((subItem) => {
+                    const SubIconComponent = subItem.icon;
+                    return (
+                      <div
+                        key={subItem.path}
+                        className={`admin-submenu-item ${
+                          activeItem === subItem.path ? "active" : ""
+                        }`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleItemClick(subItem.path);
+                        }}
+                      >
+                        <SubIconComponent size={16} />
+                        <span>{subItem.name}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </li>
           );
         })}

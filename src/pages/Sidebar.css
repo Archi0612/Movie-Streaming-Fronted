@@ -15,13 +15,18 @@
   z-index: 1000;
 }
 
-.bottom-nav, .sparks-popup {
+.bottom-nav,
+.sparks-popup {
   display: none;
 }
 
 .sidebar.expanded {
   width: 45%;
-  background: linear-gradient(to right, var(--background-color), rgba(0, 0, 0, 0));
+  background: linear-gradient(
+    to right,
+    var(--background-color),
+    rgba(0, 0, 0, 0)
+  );
 }
 
 .sidebar-list {
@@ -69,7 +74,6 @@
   margin-left: 10px;
 }
 
-
 /* Admin Menu Submenu Styles */
 .admin-menu-item {
   position: relative;
@@ -104,7 +108,7 @@
 .admin-submenu-item.active {
   color: black;
   font-weight: 500;
-  background-color: #3498db; /* Highlight active item */
+  background-color: #90c1e1; /* Highlight active item */
 }
 
 .admin-submenu-item span {
@@ -127,8 +131,8 @@
   }
 }
 
-@media (max-width:1080px) {
-  .logo-1{
+@media (max-width: 1080px) {
+  .logo-1 {
     width: 1.8rem;
     margin-left: 0;
   }
@@ -181,7 +185,11 @@
     bottom: 55px;
     left: 50%;
     transform: translateX(-50%);
-    background: linear-gradient(50deg, var(--hover-shadow), var(--background-color));
+    background: linear-gradient(
+      50deg,
+      var(--hover-shadow),
+      var(--background-color)
+    );
     padding: 0.5rem;
     border-radius: 5rem;
     display: flex;
@@ -206,10 +214,40 @@
   .sparks-option svg {
     font-size: 1.2rem;
   }
+  /* Admin submenu for mobile */
+  .admin-submenu-mobile {
+    position: absolute;
+    bottom: 4rem; /* Position above the bottom nav */
+    left: 62%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.2);
+    width: 40%;
+  }
+
+  .admin-submenu-item {
+    color: var(--text-color);
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .admin-submenu-item:hover {
+    color: var(--primary-color);
+    /* background-color: var(--hover-shadow); */
+  }
+
+  .admin-submenu-item.active {
+    color: var(--primary-color);
+  }
 }
 
 @media (max-width: 641px) {
-
   .sparks-option {
     font-size: 0.6rem;
   }
