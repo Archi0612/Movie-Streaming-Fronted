@@ -2,16 +2,19 @@ import React from 'react'
 import { Outlet } from 'react-router-dom'
 import Sidebar from '../pages/Sidebar';
 import Footer from '../pages/Footer';
+import './MainLayout.css';
 
-const MainLayout:React.FC = () => {
+const MainLayout: React.FC = () => {
   const userRole = "admin";
   return (
     <div className='main-layout'>
-        <Sidebar userRole={userRole}/>
+      <div className='main-layout-container'>
+        <Sidebar userRole={userRole} />
         <main className='content1'>
-        <Outlet />
+          <Outlet />
         </main>
-        <Footer/>
+      </div>
+      <Footer />
     </div>
   )
 }

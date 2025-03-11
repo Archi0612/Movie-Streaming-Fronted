@@ -28,6 +28,13 @@ export interface MediaCardProps {
   };
 }
 
+export interface MoviesData {
+  movieList: Movie[];
+  seriesList: Movie[];
+  castAndDirectorWiseMovie: Movie[];
+  castAndDirectorWiseSeries: Movie[];
+}
+
 // Generic Props for Both Movies & Series
 export interface MediaGridProps {
   mediaList: {

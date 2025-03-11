@@ -1,22 +1,19 @@
 import React, { useState, useEffect } from "react";
 import "./Search.css";
 import { GoSearch } from "react-icons/go";
-// import { mediaList } from "../interfaces/movie.interface";
 import { api } from "../services/api";
-// Import MoviesGrid to render the search results
-import MoviesGrid from "../components/MoviesGrid"; // Ensure you import this if you plan to use it.
+import { MoviesData } from "../interfaces/movie.interface";
+import MovieCardSlider from "../components/SearchBarSlider/SearchBarSlider";
 
 const Search: React.FC = () => {
-  const [moviesData, setMoviesData] = useState({
+  const [moviesData, setMoviesData] = useState<MoviesData>({
     movieList: [],
     seriesList: [],
     castAndDirectorWiseMovie: [],
-    castAndDirectorWiseSeries: []
+    castAndDirectorWiseSeries: [],
   });
   const [searchInput, setSearchInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
-  console.log(moviesData); // For debugging
 
   useEffect(() => {
     if (searchInput.trim() === "") {
@@ -24,12 +21,12 @@ const Search: React.FC = () => {
         movieList: [],
         seriesList: [],
         castAndDirectorWiseMovie: [],
-        castAndDirectorWiseSeries: []
+        castAndDirectorWiseSeries: [],
       });
-      return
+      return;
     }
 
-    // Debounce the API call by 2 seconds
+    // Debounce API call by 2 seconds
     const timer = setTimeout(() => {
       const searchMovies = async () => {
         try {
@@ -37,14 +34,19 @@ const Search: React.FC = () => {
           const response = await api.get("/search/", {
             params: { search: searchInput },
           });
-          setMoviesData(response.data);
+          console.log(response.data);
+          setMoviesData({
+            movieList: response?.data?.data?.movieList || [],
+            seriesList: response?.data?.data?.seriesList || [],
+            castAndDirectorWiseMovie: response?.data?.data?.castAndDirectorWiseMovie || [],
+            castAndDirectorWiseSeries: response?.data?.data?.castAndDirectorWiseSeries || [],
+          });
         } catch (err) {
           console.error("Error searching movies", err);
         } finally {
           setIsLoading(false);
         }
       };
-
       searchMovies();
     }, 2000);
 
@@ -65,17 +67,27 @@ const Search: React.FC = () => {
         </div>
       </div>
 
-      <div className="searchMovie-container">
-        {isLoading ? (
-          <div>Loading...</div> // You can replace this with your Shimmer component
-        ) : (
-          <>
-            <MoviesGrid mediaList={moviesData.movieList} title="Movies" />
-            <MoviesGrid mediaList={moviesData.seriesList} title="Series" />
-            <MoviesGrid mediaList={moviesData.castAndDirectorWiseMovie} title="Movies by Cast & Directors" />
-            <MoviesGrid mediaList={moviesData.castAndDirectorWiseSeries} title="Series by Cast & Directors" />
-          </>
-        )}
+      <div className="searchMovie-main">
+        <div className="searchMovie-container">
+          {isLoading ? (
+            <div>Loading...</div>
+          ) : (
+            <>
+              {moviesData.movieList.length > 0 && (
+                <MovieCardSlider mediaList={moviesData.movieList} title="Movies" />
+              )}
+              {moviesData.seriesList.length > 0 && (
+                <MovieCardSlider mediaList={moviesData.seriesList} title="Series" />
+              )}
+              {moviesData.castAndDirectorWiseMovie.length > 0 && (
+                <MovieCardSlider mediaList={moviesData.castAndDirectorWiseMovie} title="Movies by Cast & Directors" />
+              )}
+              {moviesData.castAndDirectorWiseSeries.length > 0 && (
+                <MovieCardSlider mediaList={moviesData.castAndDirectorWiseSeries} title="Series by Cast & Directors" />
+              )}
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

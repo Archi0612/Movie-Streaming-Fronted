@@ -12,6 +12,8 @@
 }
 
 .movies-container {
+  display: grid;
+  gap: 1rem;
   grid-template-columns: repeat(3, 1fr);
 }
 
@@ -20,7 +22,7 @@
     margin-left: 0;
     padding: 1rem 1.5rem;
   }
-  
+
   .all-movies-title {
     font-size: 1.5rem;
     font-weight: bold;
@@ -28,7 +30,7 @@
     margin-bottom: 1.2rem;
     text-align: start;
   }
-  
+
   .movies-container {
     grid-template-columns: repeat(3, 1fr);
   }

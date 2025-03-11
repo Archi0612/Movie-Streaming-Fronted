@@ -1,18 +1,27 @@
 .main-layout {
-    display: flex;
-    height: 100vh;
-    overflow: hidden;
-  }
-  .content1{
-    flex-grow: 1;
-    margin-left: 15rem !important;
-    overflow-y: auto;
-    /* height: 100vh; */
-    width: 100%;
-  }
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  overflow: hidden;
+}
 
-  @media (max-width:785px){
-    .content1{
-      margin-left: 20rem;
-    }
+.content1 {
+  flex-grow: 1;
+  /* margin-left: 5rem !important; */
+  overflow-y: auto;
+  height: 100vh;
+  width: 100%;
+}
+
+.main-layout-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh
+}
+
+
+@media (max-width:785px) {
+  .content1 {
+    margin-left: none;
   }
+}

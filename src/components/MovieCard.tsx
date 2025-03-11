@@ -9,13 +9,12 @@ import { MediaCardProps } from "../interfaces/movie.interface";
 
 
 const MovieCard: React.FC<MediaCardProps> = ({ media }) => {
+  console.log(media, "media in moviecard compo");
   const { title, poster, description, releaseDate, rating, languages, genres } = media;
 
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
-  const handleDetailPage = () => {
-    navigate("/details");
-  };
+
 
   // ⭐ Star Ratings Logic
   const stars = Array.from({ length: 5 }, (_, index) => {
@@ -37,41 +36,43 @@ const MovieCard: React.FC<MediaCardProps> = ({ media }) => {
       className="movie-card"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={handleDetailPage}
+      onClick={() => navigate('/details')}
     >
       <img src={poster} alt={title} />
-      {isHovered && (
-        <div className="movie-hover">
-          <div className="movie-hover-content">
-            <h3 className="movies-title">{title.toUpperCase()}</h3>
-            <div className="movie-rating">{stars}</div>
-            <ul className="movie-details1">
-              <li>{new Date(releaseDate).getFullYear()}</li>
-              {languages.map((lang, index) => (
-                <li key={index}>{lang}</li>
-              ))}
-              <li>{genreNames}</li>
-            </ul>
-            <p className="movie-overview">{description}</p>
+      {
+        isHovered && (
+          <div className="movie-hover">
+            <div className="movie-hover-content">
+              <h3 className="movies-title">{title.toUpperCase()}</h3>
+              <div className="movie-rating">{stars}</div>
+              <ul className="movie-details1">
+                <li>{new Date(releaseDate).getFullYear()}</li>
+                {languages.map((lang, index) => (
+                  <li key={index}>{lang}</li>
+                ))}
+                <li>{genreNames}</li>
+              </ul>
+              <p className="movie-overview">{description}</p>
 
-            {/* Buttons */}
-            <div className='button-container'>
-              <div className="movie-buttons">
-                <button className="movie-button play">
-                  <Play />
-                </button>
-                <button className="movie-button">
-                  <Plus />
-                </button>
-                <button className="movie-button">
-                  <Info />
-                </button>
+              {/* Buttons */}
+              <div className='button-container'>
+                <div className="movie-buttons">
+                  <button className="movie-button play">
+                    <Play />
+                  </button>
+                  <button className="movie-button">
+                    <Plus />
+                  </button>
+                  <button className="movie-button">
+                    <Info />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      )}
-    </div>
+        )
+      }
+    </div >
   );
 };
 

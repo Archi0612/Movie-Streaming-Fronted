@@ -1,0 +1,62 @@
+.searchbarslidermain_container {
+    margin-bottom: 3rem;
+}
+
+.searchbarslidermain_title {
+    font-size: x-large;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.slider-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.searchmovie-slider {
+    display: flex;
+    justify-content: space-between;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    white-space: nowrap;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    width: auto;
+}
+
+.movie-slider::-webkit-scrollbar {
+    display: none;
+}
+
+.movie-slide {
+    flex: 0 0 auto;
+    width: auto;
+    margin-right: 2rem;
+}
+
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    z-index: 10;
+}
+
+.slider-btn.left {
+    left: 0;
+}
+
+.slider-btn.right {
+    right: 0;
+}
+
+.slider-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
