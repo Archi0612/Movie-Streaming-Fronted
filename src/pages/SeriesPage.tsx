@@ -113,7 +113,7 @@ const SeriesPage: React.FC = () => {
         </div>
       </div>
 
-      {/* 🎭 Genres Grid */}
+      
       <div className="genres-grid">
         {seriesCategories.map(({ key, title }) => (
           <div className="series-category" key={key}>
@@ -121,7 +121,7 @@ const SeriesPage: React.FC = () => {
             <Swiper
               slidesPerView={5}
               spaceBetween={20}
-              navigation
+              navigation = {true}
               modules={[Navigation]}
               breakpoints={{
                 1400: { slidesPerView: 6 },

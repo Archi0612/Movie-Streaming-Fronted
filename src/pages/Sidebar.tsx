@@ -14,6 +14,15 @@ import logo from "../assets/logo.png";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./Sidebar.css";
 import { SidebarProps } from "../interfaces/movie.interface";
+import { IconType } from "react-icons";
+
+interface MenuItem {
+  name: string;
+  icon: IconType;
+  path: string;
+  isAdminMenu?: boolean; // Optional property
+}
+
 
 const Sidebar: React.FC<SidebarProps> = ({ userRole = "user" }) => {
   const navigate = useNavigate();
@@ -29,7 +38,7 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole = "user" }) => {
   }, [location.pathname]);
 
   // Regular user menu items
-  const regularMenuItems = [
+  const regularMenuItems: MenuItem[] = [
     { name: "Home", icon: FaHome, path: "/home" },
     { name: "Search", icon: FaSearch, path: "/search" },
     { name: "Movies", icon: FaFilm, path: "/movies" },
@@ -39,7 +48,7 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole = "user" }) => {
     { name: "My Space", icon: CgProfile, path: "/profile-page" },
   ];
   // Admin-specific menu items
-  const adminMenuItems= [
+  const adminMenuItems: MenuItem[]= [
     { name: "Home", icon: FaHome, path: "/home" },
     {
       name: "Admin",
@@ -56,7 +65,7 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole = "user" }) => {
   ];
 
   // Admin submenu items
-  const adminSubmenuItems = [
+  const adminSubmenuItems: MenuItem[] = [
     { name: "User Dashboard", icon: FaUsers, path: "/user-dashboard" },
     {
       name: "Movies Dashboard",
@@ -73,7 +82,6 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole = "user" }) => {
   const bottomNavItems = [
     { name: "Home", icon: FaHome, path: "/home" },
     { name: "Search", icon: FaSearch, path: "/search" },
-    // { name: "Sparks", icon: FaTv, path: "/series" }, // Triggers Popup
     {
       name: "Admin",
       icon: MdDashboard,

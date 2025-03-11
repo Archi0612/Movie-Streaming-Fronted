@@ -50,7 +50,7 @@ export const listAllMovie = async () => {
     }
   }
 };
-export const addMovie = async (formData: any) => {
+export const addMovie = async (formData: unknown) => {
   try {
     const response = await apiFormData.post("/movie/createMovie", formData);
     return response;
