@@ -3,18 +3,30 @@ import "./HeroSection.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation } from "swiper/modules";
 import MovieCard from "../components/MovieCard";
-import { getPopularMovies, getLatestMovies, getTopRatedMovies } from "../services/apis/movieService";
+import {
+  getPopularMovies,
+  getLatestMovies,
+  getTopRatedMovies,
+} from "../services/apis/movieService";
 import { Movie } from "../interfaces/movie.interface";
 
 
 
 const HeroSection: React.FC = () => {
-  const [movies, setMovies] = useState<{ pop: Movie[]; latest: Movie[]; topRated: Movie[] }>({
+  const [movies, setMovies] = useState<{
+    pop: Movie[];
+    latest: Movie[];
+    topRated: Movie[];
+  }>({
     pop: [],
     latest: [],
     topRated: [],
   });
-
+  const movieCategories = [
+    { key: "pop", title: "Popular Movies" },
+    { key: "latest", title: "Latest Movies" },
+    { key: "topRated", title: "Top Rated Movies" },
+  ];
   useEffect(() => {
     const fetchMovies = async () => {
       try {
@@ -25,9 +37,9 @@ const HeroSection: React.FC = () => {
         ]);
 
         setMovies({
-          pop: popularMoviesResponse.data.moviesList || [],
           latest: latestResponse.data.moviesList || [],
           topRated: topRatedResponse.data.moviesList || [],
+          pop: popularMoviesResponse.data.moviesList || [],
         });
       } catch (err) {
         console.error("Error fetching movies", err);
@@ -36,17 +48,18 @@ const HeroSection: React.FC = () => {
     fetchMovies();
   }, []);
 
-  const movieCategories = [
-    { key: "pop", title: "Popular Movies" },
-    { key: "latest", title: "Latest Movies" },
-    { key: "topRated", title: "Top Rated Movies" },
-  ];
-
   return (
     <div className="hero-section">
       {/* Main Movie Slider */}
       <div className="movie-slider-container">
-        <Swiper slidesPerView={1} spaceBetween={10} freeMode={true} navigation={true} modules={[FreeMode, Navigation]} className="main-movie-slider">
+        <Swiper
+          slidesPerView={1}
+          spaceBetween={10}
+          freeMode={true}
+          navigation={true}
+          modules={[FreeMode, Navigation]}
+          className="main-movie-slider"
+        >
           <SwiperSlide>
             <div className="video-overlay">
               <iframe
@@ -67,7 +80,10 @@ const HeroSection: React.FC = () => {
         <div className="movie-details">
           <h2 className="movie-title">Movie Name</h2>
           <p className="movie-info">2025 | U/A 16+ | 1 Season | 7 Languages</p>
-          <p className="movie-desc">Roohi’s life turns topsy-turvy after an ‘accident’ during a medical check-up.</p>
+          <p className="movie-desc">
+            Roohi's life turns topsy-turvy after an 'accident' during a medical
+            check-up.
+          </p>
           <button className="watch-now">▶ Watch Now</button>
         </div>
       </div>
@@ -76,7 +92,7 @@ const HeroSection: React.FC = () => {
       <div className="movie-lists">
         {movieCategories.map(({ key, title }) => (
           <div className="movie-category" key={key}>
-            <h3>{title}</h3>
+            <h3 className="movie-category-title">{title}</h3>
             <Swiper
               slidesPerView={"auto"}
               spaceBetween={20}
@@ -96,7 +112,7 @@ const HeroSection: React.FC = () => {
             >
               {movies[key as keyof typeof movies]?.map((movie, index) => (
                 <SwiperSlide key={movie._id || `${key}-${index}`}>
-                  <MovieCard movie={movie} />
+                  <MovieCard media={movie} />
                 </SwiperSlide>
               ))}
             </Swiper>

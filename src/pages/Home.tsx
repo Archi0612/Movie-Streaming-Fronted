@@ -45,40 +45,38 @@ const Home: React.FC = () => {
           <div className="section-container">
             <h3 className="home-popular-movies">Popular Movies</h3>
             <Swiper
-  slidesPerView={6}
-  spaceBetween={20}
-  navigation={true}
-  modules={[Navigation]}
-  autoplay={false}
-  loop={false}
-  className="movie-category-swiper" 
-  breakpoints={{
-    1400: { slidesPerView: 6 },
-    1200: { slidesPerView: 5 },
-    1050: { slidesPerView: 4 },
-    768: { slidesPerView: 4 },
-    640: { slidesPerView: 4 },
-    550: { slidesPerView: 4},
-    480: { slidesPerView: 3 },
-    400: { slidesPerView: 3 },
-    300: { slidesPerView: 2 },
-  }}
->
-  {popularMovies.slice(0, 10).map((movie, index) => (
-    <SwiperSlide key={movie._id || `popular-${index}`}>
-      <MovieCard movie={movie} />
-    </SwiperSlide>
-  ))}
-</Swiper>
-
-
-            {/* Navigation Buttons */}
-            
+              slidesPerView={6}
+              spaceBetween={4}
+              navigation
+              modules={[Navigation]}
+              className="popular-movies-swiper"
+              breakpoints={{
+                1600:{slidesPerView:6},
+                1400: { slidesPerView: 6 },
+                1200: { slidesPerView: 5 },
+                1050: { slidesPerView: 4 },
+                768: { slidesPerView: 4 },
+                640: { slidesPerView: 4 },
+                480: { slidesPerView: 3 },
+                400: { slidesPerView: 3 },
+                300: { slidesPerView: 2 },
+              }}
+            >    
+              {popularMovies.map((movie) =>
+                movie._id ? (
+                  <SwiperSlide key={movie._id}>
+              
+                    <MovieCard media={movie}  />
+                  </SwiperSlide>
+                ) : null // Prevent rendering items without _id
+              )}
+            </Swiper>
           </div>
 
           {/* Action Movies - Grid */}
           <div className="home-grid-container">
-            <MoviesGrid movies={actionMovies} title="Action Movies" />
+  
+            <MoviesGrid mediaList={actionMovies} title="Action Movies" />
           </div>
         </div>
       )}
