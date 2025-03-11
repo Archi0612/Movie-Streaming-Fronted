@@ -52,7 +52,7 @@ input:-webkit-autofill:focus {
     color: #f1f1f1;
     max-width: 600px;
     min-height: 300px;
-    margin: 15px;
+    margin: 15px; 
     }
     
     .contact-info-content {
@@ -63,6 +63,7 @@ input:-webkit-autofill:focus {
     text-align: left;
     font-size: 40px;
     color: #0073e6;
+    margin-bottom: 1rem;
     }
     .contact-info .contact-info-text {
     margin-bottom: 20px;
@@ -152,7 +153,7 @@ input:-webkit-autofill:focus {
     color: #f1f1f1;
     }
     .faq-section h3{
-    font-size: 32px;
+    font-size: 30px;
     margin-bottom: 14px;
     color: #0073e6;
     }
@@ -237,7 +238,8 @@ input:-webkit-autofill:focus {
      }
      .faq-section{
       padding: 15px;
-      margin:10px
+      margin:10px;
+      font-size: 1.75rem;
      }
       .contact-form,
       .contact-info {

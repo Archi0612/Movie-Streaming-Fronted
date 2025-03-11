@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Search.css";
 import { GoSearch } from "react-icons/go";
-import { Movie } from "../interfaces/movie.interface";
+import { mediaList } from "../interfaces/movie.interface";
 import { api } from "../services/api";
 // Import MoviesGrid to render the search results
 import MoviesGrid from "../components/MoviesGrid"; // Ensure you import this if you plan to use it.
@@ -70,10 +70,10 @@ const Search: React.FC = () => {
           <div>Loading...</div> // You can replace this with your Shimmer component
         ) : (
           <>
-            <MoviesGrid movies={moviesData.movieList} title="Movies" />
-            <MoviesGrid movies={moviesData.seriesList} title="Series" />
-            <MoviesGrid movies={moviesData.castAndDirectorWiseMovie} title="Movies by Cast & Directors" />
-            <MoviesGrid movies={moviesData.castAndDirectorWiseSeries} title="Series by Cast & Directors" />
+            <MoviesGrid mediaList={moviesData.movieList} title="Movies" />
+            <MoviesGrid mediaList={moviesData.seriesList} title="Series" />
+            <MoviesGrid mediaList={moviesData.castAndDirectorWiseMovie} title="Movies by Cast & Directors" />
+            <MoviesGrid mediaList={moviesData.castAndDirectorWiseSeries} title="Series by Cast & Directors" />
           </>
         )}
       </div>

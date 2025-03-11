@@ -1,12 +1,25 @@
 
+
 import { useState } from "react";
 import { Play, Info, Plus } from "lucide-react";
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { genreMap } from "../utils/constants";
 import "./MovieCard.css";
-import { MediaCardProps } from "../interfaces/movie.interface";
 
+// Define a generic type for both Movies & Series
+interface MediaCardProps {
+  media: {
+    _id: string;
+    title: string;
+    poster: string;
+    description: string;
+    releaseDate: string;
+    rating: number;
+    languages: string[];
+    genres: number[];
+  };
+}
 
 const MovieCard: React.FC<MediaCardProps> = ({ media }) => {
   const { title, poster, description, releaseDate, rating, languages, genres } = media;
@@ -21,7 +34,7 @@ const MovieCard: React.FC<MediaCardProps> = ({ media }) => {
   const stars = Array.from({ length: 5 }, (_, index) => {
     const ratingStar = rating / 2;
     if (index + 1 <= ratingStar) {
-      return <FaStar key={index} className="star" size={16} />;
+      return <FaStar key={index} className="star" size={16}/>;
     } else if (index + 0.5 < ratingStar) {
       return <FaStarHalfAlt key={index} className="star" size={16} />;
     } else {
@@ -53,20 +66,16 @@ const MovieCard: React.FC<MediaCardProps> = ({ media }) => {
               <li>{genreNames}</li>
             </ul>
             <p className="movie-overview">{description}</p>
-
-            {/* Buttons */}
-            <div className='button-container'>
-              <div className="movie-buttons">
-                <button className="movie-button play">
-                  <Play />
-                </button>
-                <button className="movie-button">
-                  <Plus />
-                </button>
-                <button className="movie-button">
-                  <Info />
-                </button>
-              </div>
+            <div className="movie-buttons">
+              <button className="movie-button play">
+                <Play />
+              </button>
+              <button className="movie-button">
+                <Plus />
+              </button>
+              <button className="movie-button">
+                <Info />
+              </button>
             </div>
           </div>
         </div>

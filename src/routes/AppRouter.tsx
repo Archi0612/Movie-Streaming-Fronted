@@ -31,8 +31,11 @@ import { Bounce, ToastContainer } from "react-toastify";
 import GenrePage from "../pages/GenrePage";
 import Search from "../pages/Search";
 import AddEpisode from "../pages/Admin/AddEpisode";
-import { PaymentSuccess } from "../pages/paymentSuccess/paymentSuccess";
+import GenreDetail from "../pages/GenreDetail";
 import DetailsPage from "../pages/DetailsPage";
+import SeriesPage from "../pages/SeriesPage";
+import { PaymentSuccess } from "../pages/paymentSuccess/paymentSuccess";
+
 
 // Protected Route component that checks if user is authenticated
 const ProtectedRoute: React.FC = () => {
@@ -77,7 +80,6 @@ const PublicOnlyRoute: React.FC = () => {
   return <Outlet />;
 };
 
-
 const AppRoute: React.FC = () => {
   const { isAuthenticated } = useSelector((state: RootState) => state.user);
 
@@ -103,17 +105,20 @@ const AppRoute: React.FC = () => {
             <Route path="/home" element={<HeroSection />} />
             <Route path="/search" element={<Search />} />
             <Route path="/movies" element={<Home />} />
+            <Route path="/series" element={<SeriesPage />} />
             <Route path="/genres" element={<GenrePage />} />
+            <Route path="/genres/:genreId" element={<GenreDetail />} />
             <Route path="/feedback" element={<Feedback />} />
             <Route path="/contact-us" element={<ContactUs />} />
             <Route path="/profile-page" element={<ProfilePage />} />
             <Route path="/payment-success" element={<PaymentSuccess />} />
             <Route path="/payment-cancel" element={<PaymentCancel />} />
             <Route path="/details" element={<DetailsPage />} />
-          </Route>
+
+          </Route >
 
           {/* Admin Routes - requires admin role */}
-          <Route element={<AdminRoute />}>
+          < Route element={< AdminRoute />}>
             <Route path="/admin-dashboard-movies" element={<AdminDashboard />} />
             <Route
               path="/admin-dashboard-series"
@@ -123,15 +128,15 @@ const AppRoute: React.FC = () => {
             <Route path="/add-series" element={<AddSeries />} />
             <Route path="/add-episode" element={<AddEpisode />} />
             <Route path="/user-dashboard" element={<UserDashboard />} />
-          </Route>
-        </Route>
+          </Route >
+        </Route >
 
         {/* Catch all route - redirect to appropriate landing page */}
-        <Route
+        < Route
           path="*"
-          element={<Navigate to={isAuthenticated ? "/home" : "/login"} />}
+          element={< Navigate to={isAuthenticated ? "/home" : "/login"} />}
         />
-      </Routes>
+      </Routes >
 
       <ToastContainer
         position="top-right"
@@ -145,7 +150,7 @@ const AppRoute: React.FC = () => {
         theme="dark"
         transition={Bounce}
       />
-    </BrowserRouter>
+    </BrowserRouter >
   );
 };
 
