@@ -85,18 +85,6 @@
     padding: 1rem;
   }
   
-  /* Movie Cards */
-
-   .movie-card {
-    background: #222;
-    border-radius: 0.8rem;
-    transition: transform 0.3s ease-in-out;
-  } 
-
-
-  .movie-card:hover {
-    transform: scale(1.05);
-  } 
   
   @media (max-width: 768px) {
     .series-video-slider iframe {

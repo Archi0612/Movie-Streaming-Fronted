@@ -14,6 +14,34 @@ export interface User {
   role: string;
 }
 
+export interface MediaCardProps {
+  media: {
+    _id: string;
+    title: string;
+    poster: string;
+    description: string;
+    releaseDate: string;
+    rating: number;
+    languages: string[];
+    genres: number[];
+  };
+}
+
+// Generic Props for Both Movies & Series
+export interface MediaGridProps {
+  mediaList: {
+    _id: string;
+    title: string;
+    poster: string;
+    description: string;
+    releaseDate: string;
+    rating: number;
+    languages: string[];
+    genres: number[];
+  }[];
+  title: string;
+}
+
 // Define State Interface
 export interface UserState {
   currentUser: User | null;

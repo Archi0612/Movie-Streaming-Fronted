@@ -36,7 +36,8 @@ import GenreDetail from "../pages/GenreDetail";
 
 import DetailsPage from "../pages/DetailsPage";
 import SeriesPage from "../pages/SeriesPage";
-import { PaymentSuccess } from "../pages/paymentSuccess/PaymentSuccess";
+import { PaymentSuccess } from "../pages/paymentSuccess/paymentSuccess";
+
 
 
 // Protected Route component that checks if user is authenticated

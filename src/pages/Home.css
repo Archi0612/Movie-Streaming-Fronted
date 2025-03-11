@@ -6,9 +6,7 @@
     min-height: 100vh;
     overflow-x: hidden;
 }
-.home-popular-movies {
-    color: #0073e6 !important;
-}
+
 
 .section-container {
     width: 100%;
@@ -69,9 +67,9 @@
 }
 
 .home-popular-movies {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: bold;
-    color: var(--text-color);
+    color: var(--primary-color);
     text-align: left;
 
     margin: 15px 0px;
