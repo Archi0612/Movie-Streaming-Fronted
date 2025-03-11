@@ -3,11 +3,11 @@
     padding: 1.5rem 2rem;
   }
   
-  .movies-title {
-    font-size: 2rem;
+  .all-movies-title {
+    font-size: 0.9rem;
     font-weight: bold;
     color: var(--primary-color);
-    margin: 1.3rem 0rem;
+    margin-bottom: 1.2rem;
     text-align: start;
   }
   
@@ -36,7 +36,7 @@
       grid-template-columns: repeat(3, 1fr);
     }
     .movies-title{
-      font-size: 1.5rem;
+      font-size: 1rem;
     }
   }
   @media (max-width: 640px) {
@@ -49,7 +49,7 @@
  
     }*/
     .movies-title{
-      font-size: 1.5rem;
+      font-size: 1rem;
     }
   }
   @media (max-width: 545px) {
@@ -62,7 +62,7 @@
       padding: 0.5rem;
     }
     .movies-title{
-      font-size: 1.2rem;
+      font-size: 0.8rem;
       margin: 0.5rem 0.7rem;
     }
   }

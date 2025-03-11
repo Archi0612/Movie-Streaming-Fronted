@@ -1,3 +1,4 @@
+// src/interfaces/movie.interface.ts
 // USER INTERFACES
 
 import { IconType } from "react-icons/lib";
@@ -33,7 +34,7 @@ export interface UserState {
 //   role: string;
 // }
 
-interface UserData {
+export interface UserData {
   userData: User;
 }
 
@@ -68,19 +69,14 @@ export interface MenuItem {
 }
 
 export interface Movie {
-  id: number;
+  _id: string;
   title: string;
-  poster_path: string;
-  backdrop_path: string;
-  overview: string;
-  release_date: string;
-  vote_average: number;
-  genre_ids: number[];
-  original_language: string;
-  popularity: number;
-  vote_count: number;
-  adult: boolean;
-  video: boolean;
+  poster: string;
+  description: string;
+  releaseDate: string;
+  rating: number;
+  languages: string[];
+  genres: number[];
 }
 
 export interface TrendingMoviesProps {
@@ -97,7 +93,7 @@ export interface MovieCardProps {
   overview: string;
   releaseDate: string;
   voteAverage: number;
-  language: string;
+  language: string[];
   genres_id: number[];
 }
 
