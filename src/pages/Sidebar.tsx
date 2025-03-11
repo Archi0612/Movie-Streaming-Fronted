@@ -74,7 +74,14 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole = "user" }) => {
     { name: "Home", icon: FaHome, path: "/home" },
     { name: "Search", icon: FaSearch, path: "/search" },
     // { name: "Sparks", icon: FaTv, path: "/series" }, // Triggers Popup
+    {
+      name: "Admin",
+      icon: MdDashboard,
+      path: "/admin-dashboard-movies",
+      isAdminMenu: true,
+    },
     { name: "My Space", icon: CgProfile, path: "/profile-page" },
+
   ];
 
   const sparksOptions = [

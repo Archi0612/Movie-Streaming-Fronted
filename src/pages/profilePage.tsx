@@ -45,6 +45,7 @@ export default function ProfilePage() {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         setIsOpen(false);
+        console.log("WJD",formData)
         // to update the profile info we need to setup an api call here 
 
     };

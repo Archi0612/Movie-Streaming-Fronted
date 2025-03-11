@@ -23,6 +23,7 @@ interface Series {
   director?: string;
 }
 
+
 const AdminDashboardSeries: React.FC = () => {
   const [series, setSeries] = useState<Series[]>([]);
   const[selectedSeries,setSelectedSeries]=useState<Series | null>(null);
@@ -79,13 +80,21 @@ const AdminDashboardSeries: React.FC = () => {
       ),
       flex: 2,
       sortable: false,
-      filter: false,
+      filter:false
     },
     { headerName: "Title", field: "title", flex: 2 },
     { headerName: "Description", field: "description", flex: 3 },
     { headerName: "Rating", field: "rating", flex: 1 },
-    { headerName: "Cast", field: "cast", flex: 2 },
-    { headerName: "Director", field: "director", flex: 1 },
+    {
+      headerName: "Cast",
+      field: "cast",
+      flex: 2,
+    },
+    {
+      headerName: "Director",
+      field: "director",
+      flex: 1,
+    },
     {
       headerName: "Action",
       cellRenderer: (params:any) => (
@@ -109,7 +118,6 @@ const AdminDashboardSeries: React.FC = () => {
     <div className="admin-container">
       <div className="content">
         <div className="content-card">
-          <h2 className="dashboard-h2">Manage Series</h2>
           <div className="add-btn-container">
             <button className="add-episode-btn" onClick={handleOpenEpisode}>
               Add Episode
@@ -132,7 +140,7 @@ const AdminDashboardSeries: React.FC = () => {
                 flex: 1,
                 minWidth: 100,
                 filter: true,
-                floatingFilter: false,
+                floatingFilter: true,
                 sortable: true,
                 headerStyle: { fontWeight: "bold", fontSize: "15px", textAlign: "center" },
               }}
@@ -140,13 +148,20 @@ const AdminDashboardSeries: React.FC = () => {
           </div>
         </div>
       </div>
-      {isDeleteModelOpen && (
-        <DeleteConfirmationModal
-          isOpen={isDeleteModelOpen}
+      {
+        isDeleteModelOpen &&(
+          <DeleteConfirmationModal  isOpen={isDeleteModelOpen}
           onClose={() => setIsDeleteModelOpen(false)}
-          onConfirm={handleDelete}
+          onConfirm={handleDelete}/>
+        )
+      }
+      {/* {isModalOpen && selectedSeries && (
+        <EditSeriesModal
+          series={selectedSeries}
+          onClose={handleCloseModal}
+          onSave={handleSave}
         />
-      )}
+      )} */}
     </div>
   );
 };
