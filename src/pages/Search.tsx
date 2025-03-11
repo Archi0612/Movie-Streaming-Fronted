@@ -7,17 +7,26 @@ import { api } from "../services/api";
 import MoviesGrid from "../components/MoviesGrid"; // Ensure you import this if you plan to use it.
 
 const Search: React.FC = () => {
-  const [movies, setMovies] = useState<Movie[]>([]); // Initialize with an empty array
+  const [moviesData, setMoviesData] = useState({
+    movieList: [],
+    seriesList: [],
+    castAndDirectorWiseMovie: [],
+    castAndDirectorWiseSeries: []
+  });
   const [searchInput, setSearchInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  console.log(movies); // For debugging
+  console.log(moviesData); // For debugging
 
   useEffect(() => {
-    // If input is empty, clear the movies state and do not call the API
     if (searchInput.trim() === "") {
-      setMovies([]);
-      return;
+      setMoviesData({
+        movieList: [],
+        seriesList: [],
+        castAndDirectorWiseMovie: [],
+        castAndDirectorWiseSeries: []
+      });
+      return
     }
 
     // Debounce the API call by 2 seconds
@@ -28,20 +37,7 @@ const Search: React.FC = () => {
           const response = await api.get("/search/", {
             params: { search: searchInput },
           });
-
-          // Map the data to fit the Movie interface
-          const movieList = response.data.movieList.map((movieData: any) => ({
-            id: movieData._id,
-            title: movieData.title,
-            poster_path: movieData.poster,
-            description: movieData.description,
-            release_date: movieData.releaseDate,
-            rating: movieData.rating, 
-            genre_ids: movieData.genres,
-            language: movieData.languages[0],
-          }));
-
-          setMovies(movieList);
+          setMoviesData(response.data);
         } catch (err) {
           console.error("Error searching movies", err);
         } finally {
@@ -52,7 +48,7 @@ const Search: React.FC = () => {
       searchMovies();
     }, 2000);
 
-    return () => clearTimeout(timer); // Cleanup the timeout on effect cleanup
+    return () => clearTimeout(timer);
   }, [searchInput]);
 
   return (
@@ -73,7 +69,12 @@ const Search: React.FC = () => {
         {isLoading ? (
           <div>Loading...</div> // You can replace this with your Shimmer component
         ) : (
-          <MoviesGrid movies={movies} title="Movies" />
+          <>
+            <MoviesGrid movies={moviesData.movieList} title="Movies" />
+            <MoviesGrid movies={moviesData.seriesList} title="Series" />
+            <MoviesGrid movies={moviesData.castAndDirectorWiseMovie} title="Movies by Cast & Directors" />
+            <MoviesGrid movies={moviesData.castAndDirectorWiseSeries} title="Series by Cast & Directors" />
+          </>
         )}
       </div>
     </div>
