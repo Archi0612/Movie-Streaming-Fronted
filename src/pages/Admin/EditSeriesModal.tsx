@@ -1,10 +1,69 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { MdClose } from "react-icons/md";
 import Select from "react-select";
 import AsyncSelect from "react-select/async";
-import { MdClose } from "react-icons/md";
-import "./EditSeriesModal.css";
+import "./EditSeriesModal.css"; // Import the CSS file
+import { toast } from "react-toastify";
+import { editSeries,searchCastByName,searchDirectorByName } from "../../services/apis/adminService";
+interface EditSeriesModalProps{
+  seriesId:string;
+  onClose:()=>void;
+  onSave:(updatedSeries:any)=>void;
+}
+const genreOptions = [
+  { value: "28", label: "Action" },
+  { value: "18", label: "Drama" },
+  { value: "35", label: "Comedy" },
+  { value: "53", label: "Thriller" },
+  { value: "878", label: "Sci-Fi" },
+  {value:"10749",label:"Romance"},
+  {value:"10751",label:"Family"},
+  {value:"10752",label:"War"},
+  {value:"12",label:"Adv."},
+  {value:"16",label:"Anim."},
+  {value:"80",label:"Crime"},
+  {value:"99",label:"Doc."},
+  {value:"14",label:"Fantasy"},
+  {value:"36",label:"History"},
+  {value:"27",label:"Horror"},
+  {value:"10402",label:"Music"},
+  {value:"9648",label:"Myst."},
+  {value:"37",label:"Western"},
 
-// Defining a more specific type for the Series interface
+];
+const languageOptions = [
+  { value: "hindi", label: "Hindi" },
+  { value: "english", label: "English" },
+  { value: "gujarati", label: "Gujarati" },
+  { value: "tamil", label: "Tamil" },
+  { value: "telugu", label: "Telugu" },
+  { value: "malayalam", label: "Malayalam" },
+  { value: "kannada", label: "Kannada" },
+];
+const fetchCastOptions = async(inputValue: string): Promise<{ value: string; label: string }[]> => {
+  try {
+    const results=await searchCastByName(inputValue.trim());
+    return results.map((cast:{_id:string;name:string})=>({
+      value:cast._id,
+      label:cast.name
+    }))
+  } catch (error) {
+    console.error("Error fetching cast:", error);
+  return [];
+  }
+};
+const fetchDirectorOptions = async(inputValue: string): Promise<{ value: string; label: string }[]> => {
+  try {
+    const results=await searchDirectorByName(inputValue.trim());
+    return results.map((director:{_id:string;name:string})=>({
+      value:director._id,
+      label:director.name
+    }))
+  } catch (error) {
+    console.error("Error fetching director:", error);
+  return [];
+  }
+};
 interface Series {
   id?: number;
   duration?: number; // Now optional
@@ -27,121 +86,12 @@ interface EditSeriesModalProps {
   onClose: () => void;
   onSave: (updatedSeries: Series) => void;
 }
-
-const genreOptions = [
-  { value: "action", label: "Action" },
-  { value: "comedy", label: "Comedy" },
-  { value: "drama", label: "Drama" },
-];
-
-const languageOptions = [
-  { value: "english", label: "English" },
-  { value: "spanish", label: "Spanish" },
-  { value: "french", label: "French" },
-];
-
-const fetchCastOptions = async (inputValue: string) => {
-  try {
-    return [
-      { value: "actor1", label: "Actor 1" },
-      { value: "actor2", label: "Actor 2" },
-    ];
-  } catch (error) {
-    console.error("Error fetching cast options", error);
-    return [];
-  }
-};
-
-const fetchDirectorOptions = async (inputValue: string) => {
-  try {
-    return [
-      { value: "director1", label: "Director 1" },
-      { value: "director2", label: "Director 2" },
-    ];
-  } catch (error) {
-    console.error("Error fetching director options", error);
-    return [];
-  }
-};
-
-const EditSeriesModal: React.FC<EditSeriesModalProps> = ({ series, onClose, onSave }) => {
-  const [updatedSeries, setUpdatedSeries] = useState<Series>(series);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setUpdatedSeries((prev: Series) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSelectChange = (selected: any, action: any) => {
-    setUpdatedSeries((prev: Series) => ({ ...prev, [action.name]: selected }));
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      const { name } = e.target;
-      const file = e.target.files[0]; // Safe access
-
-      // Log selected file for debugging
-      console.log(`${name} selected:`, file);
-
-      setUpdatedSeries((prev: Series) => ({ ...prev, [name]: file }));
-    }
-  };
-
-  const handleSave = () => {
-    const formData = new FormData();
-    formData.append("title", updatedSeries.title);
-    formData.append("description", updatedSeries.description);
-    formData.append("releaseDate", updatedSeries.releaseDate || ""); // Handle optional fields
-    formData.append("duration", updatedSeries.duration?.toString() || "0");
-    formData.append("rating", updatedSeries.rating.toString());
-
-    // Appending optional fields
-    if (Array.isArray(updatedSeries.genres)) {
-      updatedSeries.genres.forEach((genre: { value: string; label: string }) =>
-        formData.append("genres", genre.value)
-      );
-    }
-
-    if (Array.isArray(updatedSeries.languages)) {
-      updatedSeries.languages.forEach((lang: { value: string; label: string }) =>
-        formData.append("languages", lang.value)
-      );
-    }
-
-    if (Array.isArray(updatedSeries.cast)) {
-      updatedSeries.cast.forEach((cast: { value: string; label: string }) =>
-        formData.append("cast", cast.value)
-      );
-    }
-
-    if (Array.isArray(updatedSeries.director)) {
-      updatedSeries.director.forEach((director: { value: string; label: string }) =>
-        formData.append("director", director.value)
-      );
-    }
-
-    // Handling file uploads with type check
-    if (updatedSeries.poster) {
-    formData.append("poster", updatedSeries.poster);
-  }
-  if (updatedSeries.trailerUrl) {
-    formData.append("trailerUrl", updatedSeries.trailerUrl);
-  }
-
-    // Log all formData entries to check if poster and trailerUrl are appended
-    console.log("FormData before submission:");
-    for (let pair of formData.entries()) {
-      console.log(pair[0], pair[1]);
-    }
-
-    // Log updatedSeries to verify both poster and trailerUrl are included
-    console.log("Updated series data:");
-    console.log(updatedSeries);
-
-    // Saving the updated series
-    onSave(updatedSeries);
-  };
+const EditSeriesModal: React.FC<EditSeriesModalProps> = ({ seriesId, onClose, onSave }) => {
+  const[updatedSeries,setUpdatedSeries]=useState<any>(null);
+  const [originalMovie,setOriginalMovie]=useState<any>(null);
+  useEffect(()=>{
+    const fetch
+  })
 
   return (
     <div className="modal-overlay" onClick={onClose}>
