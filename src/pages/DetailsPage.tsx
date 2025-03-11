@@ -1,21 +1,21 @@
-import React from 'react';
-import './DetailsPage.css';
+import React from "react";
+import "./DetailsPage.css";
 
 const DetailsPage: React.FC = () => {
   return (
     <div className="details-container">
       <div className="header-container">
         <div className="header-image-container">
-          <img 
-            src="https://w0.peakpx.com/wallpaper/641/809/HD-wallpaper-jurassic-park-dark-dinosaur-jurassic-logo-movie-park-whatsapp-world.jpg" 
-            alt="Jurassic Park Banner" 
-            className="header-image" 
+          <img
+            src="https://w0.peakpx.com/wallpaper/641/809/HD-wallpaper-jurassic-park-dark-dinosaur-jurassic-logo-movie-park-whatsapp-world.jpg"
+            alt="Jurassic Park Banner"
+            className="header-image"
           />
           <div className="logo-container">
-            <img 
-              src="/api/placeholder/150/75" 
-              alt="Jurassic Park Logo" 
-              className="movie-logo" 
+            <img
+              src="/api/placeholder/150/75"
+              alt="Jurassic Park Logo"
+              className="movie-logo"
             />
           </div>
         </div>
@@ -28,7 +28,7 @@ const DetailsPage: React.FC = () => {
 
       <div className="content-container">
         <div className="title-section">
-          <h1 className="movie-title">Jurassic Park</h1>
+          <h1 className="movies-title">Jurassic Park</h1>
           <div className="movie-meta">
             <span className="runtime">2 hours 7 minutes</span>
             <span className="divider">•</span>
@@ -53,25 +53,39 @@ const DetailsPage: React.FC = () => {
             <section className="description-section">
               <h2>Description</h2>
               <p>
-                A pragmatic paleontologist visiting an almost complete theme park is tasked with protecting a
-                couple of kids after a power failure causes the park's cloned dinosaurs to run loose.
+                A pragmatic paleontologist visiting an almost complete theme
+                park is tasked with protecting a couple of kids after a power
+                failure causes the park's cloned dinosaurs to run loose.
               </p>
             </section>
 
             <section className="credits-section">
               <div className="director">
                 <h3>Director</h3>
-                <p><a href="#" className="person-link">Steven Spielberg</a></p>
+                <p>
+                  <a href="#" className="person-link">
+                    Steven Spielberg
+                  </a>
+                </p>
               </div>
               <div className="writers">
                 <h3>Writers</h3>
                 <p>
-                  <a href="#" className="person-link">Michael Crichton</a> (novel), 
-                  <a href="#" className="person-link">Michael Crichton</a> (screenplay), 
-                  <a href="#" className="person-link">David Koepp</a> (screenplay)
+                  <a href="#" className="person-link">
+                    Michael Crichton
+                  </a>{" "}
+                  (novel),
+                  <a href="#" className="person-link">
+                    Michael Crichton
+                  </a>{" "}
+                  (screenplay),
+                  <a href="#" className="person-link">
+                    David Koepp
+                  </a>{" "}
+                  (screenplay)
                 </p>
               </div>
-              <div className="stars">
+              {/* <div className="stars">
                 <h3>Stars</h3>
                 <p>
                   <a href="#" className="person-link">Sam Neill</a>, 
@@ -79,6 +93,77 @@ const DetailsPage: React.FC = () => {
                   <a href="#" className="person-link">Jeff Goldblum</a> 
                   | <a href="#" className="see-all">See all cast & crew</a>
                 </p>
+              </div> */}
+              <div className="cast-section">
+                <h2 className="cast-title">Cast</h2>
+                <div className="cast-list">
+                  <div className="cast-member">
+                    <img
+                      src="/api/placeholder/150/150"
+                      alt="Leonardo DiCaprio"
+                      className="cast-image"
+                    />
+                    <div className="cast-info">
+                      <h4>Leonardo DiCaprio</h4>
+                      <p>Cobb</p>
+                    </div>
+                  </div>
+                  <div className="cast-member">
+                    <img
+                      src="/api/placeholder/150/150"
+                      alt="Joseph Gordon-Levitt"
+                      className="cast-image"
+                    />
+                    <div className="cast-info">
+                      <h4>Joseph Gordon-Levitt</h4>
+                      <p>Arthur</p>
+                    </div>
+                  </div>
+                  <div className="cast-member">
+                    <img
+                      src="/api/placeholder/150/150"
+                      alt="Ellen Page"
+                      className="cast-image"
+                    />
+                    <div className="cast-info">
+                      <h4>Elliot Page</h4>
+                      <p>Ariadne</p>
+                    </div>
+                  </div>
+                  <div className="cast-member">
+                    <img
+                      src="/api/placeholder/150/150"
+                      alt="Tom Hardy"
+                      className="cast-image"
+                    />
+                    <div className="cast-info">
+                      <h4>Tom Hardy</h4>
+                      <p>Eames</p>
+                    </div>
+                  </div>
+                  <div className="cast-member">
+                    <img
+                      src="/api/placeholder/150/150"
+                      alt="Ken Watanabe"
+                      className="cast-image"
+                    />
+                    <div className="cast-info">
+                      <h4>Ken Watanabe</h4>
+                      <p>Saito</p>
+                    </div>
+                  </div>
+                  <div className="cast-member">
+                    <img
+                      src="/api/placeholder/150/150"
+                      alt="Cillian Murphy"
+                      className="cast-image"
+                    />
+                    <div className="cast-info">
+                      <h4>Cillian Murphy</h4>
+                      <p>Robert Fischer</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </section>
 
@@ -107,7 +192,17 @@ const DetailsPage: React.FC = () => {
               <div className="gallery-count">
                 <span>2,931 Images</span>
                 <button className="view-all-btn">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <polyline points="9 18 15 12 9 6"></polyline>
                   </svg>
                 </button>
@@ -137,7 +232,9 @@ const DetailsPage: React.FC = () => {
 
               <div className="featured-review">
                 <p className="review-text">
-                  "I don't know why I could this movie so much. Maybe it was the plot, maybe it was the special effects. Whatever the reason, it was phenomenal and I love it to this day."
+                  "I don't know why I could this movie so much. Maybe it was the
+                  plot, maybe it was the special effects. Whatever the reason,
+                  it was phenomenal and I love it to this day."
                 </p>
                 <div className="reviewer-info">
                   <span className="reviewer-name">John D</span>
@@ -155,7 +252,17 @@ const DetailsPage: React.FC = () => {
 
             <div className="actions-container">
               <button className="action-button share-button">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
                   <polyline points="16 6 12 2 8 6"></polyline>
                   <line x1="12" y1="2" x2="12" y2="15"></line>
@@ -163,7 +270,17 @@ const DetailsPage: React.FC = () => {
                 Share
               </button>
               <button className="action-button watchlist-button">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
                 </svg>
                 Add to Watchlist

@@ -26,11 +26,16 @@ export interface UserState {
   detailsError?: string;
   userDetails?: UserDetails;
 }
-export interface UserData {
-  userData: User;
-}
 
-export interface data {
+// export interface UserResponse{
+//   id: string;
+//   name: string;
+//   email: string;
+//   contactNo:string
+//   role: string;
+// }
+
+interface UserData {
   userData: User;
 }
 
@@ -65,19 +70,14 @@ export interface MenuItem {
 }
 
 export interface Movie {
-  id: number;
+  _id: string;
   title: string;
-  poster_path: string;
-  backdrop_path: string;
-  overview: string;
-  release_date: string;
-  vote_average: number;
-  genre_ids: number[];
-  original_language: string;
-  popularity: number;
-  vote_count: number;
-  adult: boolean;
-  video: boolean;
+  poster: string;
+  description: string;
+  releaseDate: string;
+  rating: number;
+  languages: string[];
+  genres: number[];
 }
 
 export interface TrendingMoviesProps {
@@ -94,7 +94,7 @@ export interface MovieCardProps {
   overview: string;
   releaseDate: string;
   voteAverage: number;
-  language: string;
+  language: string[];
   genres_id: number[];
 }
 
@@ -171,7 +171,7 @@ export interface LoginDetails {
 // Define API Response Types
 export interface AuthResponse {
   token: string;
-  data: data;
+  // data: data;
   message?: string | string[];
 }
 

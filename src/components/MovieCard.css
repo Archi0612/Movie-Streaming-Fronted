@@ -1,12 +1,13 @@
 .movie-card {
   position: relative;
-  width: 15rem;
-  height: auto; /* Set a fixed height for the movie card */
+  width: 19rem;
+  height: 20rem;
   max-width: 16rem;
   border-radius: 0.5rem;
   overflow: hidden;
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+
 }
 
 .movie-card:hover {
@@ -18,7 +19,7 @@
 /* 🖼 Poster Image */
 .movie-card img {
   width: 100%;
-  /* height: 100%; Ensure the image takes up the full height of the movie card */
+  height: -webkit-fill-available;
   object-fit: fill;
   border-radius: 0.5rem;
 }
@@ -46,12 +47,12 @@
 }
 
 /* 🎬 Movie Title */
-.movie-title {
+.movies-title {
   color: #fff;
-  font-size: 1.4rem;
+  font-size: 1.2rem !important;
   font-weight: bold;
-  margin-bottom: 0.7rem;
-  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+  margin-top: 0.7rem;
   text-align: left;
 }
 
@@ -72,21 +73,21 @@
   border-radius: 10px;
   text-align: left;
   white-space: nowrap; /* Prevents breaking into multiple lines */
-  font-size: 0.9rem;
+  font-size: 0.7rem;
 }
 
 /* 📝 Overview */
 .movie-overview {
   color: var(--text-color);
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 500;
   text-align: left;
   line-height: 1.5;
   overflow: hidden;
   text-overflow: ellipsis;
-  line-clamp: 3;
   -webkit-box-orient: vertical;
   display: -webkit-box;
+  -webkit-line-clamp: 3;
   /* margin-bottom: auto; Pushes buttons to the bottom */
 }
 
@@ -124,6 +125,7 @@
 }
 /* ⭐ Rating */
 .movie-rating {
+  /* font-size: 0.7rem; */
   gap: 2px;
   margin-bottom: 0.5rem;
   justify-content: left;
@@ -152,7 +154,7 @@
   }
 
   .movie-title {
-    font-size: 1rem !important;
+    font-size: 0.8rem !important;
   }
 
   .movie-rating svg {
@@ -196,7 +198,7 @@
   }
 
   .movie-title {
-    font-size: 1rem;
+    font-size: 0.8rem;
   }
 
   .movie-rating {
