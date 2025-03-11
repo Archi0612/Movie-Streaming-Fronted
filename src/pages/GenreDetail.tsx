@@ -35,7 +35,7 @@ const GenreDetail: React.FC = () => {
       const movieData = await getMoviesByGenre(numericGenreId);
       const seriesData = await fetchSeriesByGenre(numericGenreId);
       setMovies(movieData?.data?.moviesList || []);
-      setSeries(seriesData?.data?.data?.seriesList || []);
+      setSeries(seriesData?.data?.seriesList || []);
     } catch (error: unknown) {
       if (error instanceof Error) {
         throw new Error(error.message);
@@ -51,6 +51,7 @@ const GenreDetail: React.FC = () => {
   return (
     <div className="genre-detail-container">
       <div className="genre-name">
+\
         <div className="genre-series-container">
           {!series?.length && !movies?.length ? (
             <img className="image-not-found" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIlkfLdB2GiAbY3aZoTvPlWdvgcgwveVEXog&s" alt="No Data Found" />
