@@ -74,7 +74,8 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
             console.log("Subscription Payload:", subscriptionPayload);
             const response = await axios.post(
                 "http://localhost:7777/stripe/membersubscription",
-                subscriptionPayload
+                subscriptionPayload,
+                {withCredentials: true}
             );
             // Handle different response scenarios
             if (response.status === 200) {

@@ -16,7 +16,8 @@ export const PaymentSuccess = () => {
 
     const verifyPayment = async (sessionId: string) => {
         try {
-            const response = await axios.get(`http://localhost:7777/stripe/verifyPayment?session_id=${sessionId}`);
+            console.log("sessionId: ", sessionId)
+            const response = await axios.get(`http://localhost:7777/stripe/verifyPayment?sessiond=${sessionId}`, {withCredentials: true});
             if (response.data.success) {
                 setStatus("Payment Successful! 🎉");
 
