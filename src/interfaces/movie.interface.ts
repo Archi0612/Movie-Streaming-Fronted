@@ -87,10 +87,6 @@ export interface TrendingMoviesProps {
   movies: Movie;
 }
 
-export interface MovieGridProps {
-  movies: Movie[];
-  title: string;
-}
 export interface MovieCardProps {
   title: string;
   posterPath: string;
