@@ -105,11 +105,7 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole = "user" }) => {
       {/* Sidebar for Desktop */}
       <div
         className={`sidebar ${isExpanded ? "expanded" : ""}`}
-        onMouseEnter={() => setIsExpanded(true)}
-        onMouseLeave={() => {
-          setIsExpanded(false);
-          setShowAdminSubmenu(false);
-        }}
+       
       >
         <div className="sidebar-logo">
           <img

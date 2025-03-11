@@ -19,7 +19,7 @@
 /* 🖼 Poster Image */
 .movie-card img {
   width: 100%;
-  height:100%;
+  height: 100%;
   object-fit: cover;
   border-radius: 0.5rem;
 }
@@ -38,7 +38,8 @@
   transform: translateY(10px);
   transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
   text-align: left;
-  height: 100%; /* Ensure the hover content takes up the full height of the movie card */
+  height: 100%;
+  /* Ensure the hover content takes up the full height of the movie card */
 }
 
 .movie-card:hover .movie-hover {
@@ -67,12 +68,14 @@
 }
 
 .movie-details1 li {
-  list-style: none; /* Remove bullet points */
+  list-style: none;
+  /* Remove bullet points */
   background: rgba(255, 255, 255, 0.1);
   padding: 4px 10px;
   border-radius: 10px;
   text-align: left;
-  white-space: nowrap; /* Prevents breaking into multiple lines */
+  white-space: nowrap;
+  /* Prevents breaking into multiple lines */
   font-size: 0.7rem;
 }
 
@@ -81,12 +84,15 @@
   font-size: 0.7rem;
   font-weight: 500;
   text-align: left;
-  line-height: 1.5; /* Adjust line spacing */
+  line-height: 1.5;
+  /* Adjust line spacing */
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* Limits to 3 lines */
-  line-clamp: 3; /* Limits to 3 lines */
+  -webkit-line-clamp: 3;
+  /* Limits to 3 lines */
+  line-clamp: 3;
+  /* Limits to 3 lines */
   -webkit-box-orient: vertical;
 }
 
@@ -100,7 +106,14 @@
   align-items: center;
   bottom: 1.5rem;
 }
-.button-container{
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -137,6 +150,7 @@
   background-color: var(--secondary-color);
   color: var(--text-color);
 }
+
 /* ⭐ Rating */
 .movie-rating {
   /* font-size: 0.7rem; */
@@ -161,6 +175,7 @@
     width: 12rem;
     height: 17rem;
   }
+
   .movie-title {
     font-size: 1.2rem !important;
   }
@@ -194,14 +209,16 @@
   }
 
   .movie-rating svg {
-    font-size: 16px !important; /* Reduce size */
+    font-size: 16px !important;
+    /* Reduce size */
   }
 
 }
+
 @media (max-width: 1024px) {
   .movie-card {
     width: 11rem;
-    height: 16rem; 
+    height: 16rem;
   }
 
 
@@ -238,7 +255,8 @@
   }
 
   .movie-rating svg {
-    font-size: 16px !important; /* Reduce size */
+    font-size: 16px !important;
+    /* Reduce size */
   }
 }
 
@@ -248,7 +266,8 @@
     width: 9rem;
     height: 13rem;
   }
-  .movie-hover{
+
+  .movie-hover {
     padding: 0.4rem;
   }
 
@@ -285,7 +304,8 @@
   }
 
   .movie-rating svg {
-    font-size: 14px !important; /* Further reduce */
+    font-size: 14px !important;
+    /* Further reduce */
   }
 }
 
@@ -302,9 +322,11 @@
   .movie-details1 li {
     font-size: 6px;
   }
+
   .movie-details1 {
     margin-bottom: 0.3rem;
   }
+
   .movie-card p {
     font-size: 0.5rem !important;
   }
@@ -331,7 +353,13 @@
   .movie-hover {
     padding: 0.35rem;
   }
-  .movie-card{
+
+  .movie-card {
+    width: 8rem;
+    height: 12rem;
+  }
+
+  .movie-card {
     width: 8rem;
     height: 12rem;
   }
@@ -339,9 +367,11 @@
   .movie-title {
     font-size: 0.7rem !important;
   }
+
   .movie-rating {
     margin-bottom: 0.3rem;
   }
+
   .movie-rating svg {
     font-size: 0.6rem;
   }
@@ -349,6 +379,7 @@
   .movie-details1 li {
     font-size: 7px;
   }
+
   .movie-details1 {
     gap: 0.2rem;
   }
@@ -370,6 +401,7 @@
   }
 
   .movie-rating svg {
-    font-size: 12px !important; /* Smallest size for mobile */
+    font-size: 12px !important;
+    /* Smallest size for mobile */
   }
 }
