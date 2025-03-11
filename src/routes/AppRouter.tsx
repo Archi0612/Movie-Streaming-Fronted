@@ -36,7 +36,8 @@ import GenreDetail from "../pages/GenreDetail";
 
 import DetailsPage from "../pages/DetailsPage";
 import SeriesPage from "../pages/SeriesPage";
-import { PaymentSuccess } from "../pages/paymentSuccess/paymentSuccess";
+import { PaymentSuccess } from "../pages/paymentSuccess/PaymentSuccess";
+
 
 
 
