@@ -118,11 +118,11 @@ const MovieCard: React.FC<MediaCardProps> = ({ media }) => {
   const stars = Array.from({ length: 5 }, (_, index) => {
     const ratingStar = rating / 2;
     if (index + 1 <= ratingStar) {
-      return <FaStar key={index} className="star" />;
+      return <FaStar key={index} className="star" size={16}/>;
     } else if (index + 0.5 < ratingStar) {
-      return <FaStarHalfAlt key={index} className="star" />;
+      return <FaStarHalfAlt key={index} className="star" size={16} />;
     } else {
-      return <FaStar key={index} className="star-gray" />;
+      return <FaStar key={index} className="star-gray" size={16} />;
     }
   });
 
@@ -140,7 +140,7 @@ const MovieCard: React.FC<MediaCardProps> = ({ media }) => {
       {isHovered && (
         <div className="movie-hover">
           <div className="movie-hover-content">
-            <h3 className="movies-title">{title}</h3>
+            <h3 className="movies-title">{title.toUpperCase()}</h3>
             <div className="movie-rating">{stars}</div>
             <ul className="movie-details1">
               <li>{new Date(releaseDate).getFullYear()}</li>

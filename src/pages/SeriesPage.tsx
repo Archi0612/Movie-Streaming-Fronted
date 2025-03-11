@@ -8,6 +8,7 @@ import { SwiperSlide, Swiper } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
 import MovieCard from "../components/MovieCard";
 import { Series } from "../interfaces/series.interface";
+import "./SeriesPage.css"
 
 const SeriesPage: React.FC = () => {
   const [series, setSeries] = useState<{
@@ -50,14 +51,6 @@ const SeriesPage: React.FC = () => {
         fetchLatestSeriesApi(),
         fetchtopRatedSeriesApi(),
       ]);
-      console.log(
-        "Popularseries:",
-        popularSeries,
-        "latestSeries",
-        latestSeries,
-        "topratesSeries:",
-        topRatedSeries
-      );
       setSeries({
         pop: popularSeries?.seriesList || [],
         latest: latestSeries?.seriesList || [],
@@ -78,21 +71,25 @@ const SeriesPage: React.FC = () => {
       <div className="series-slider-container">
         <Swiper
           className="main-series-slider"
-          navigation
+          spaceBetween={10}
+          freeMode={true}
+          navigation={true}
           pagination={{ clickable: true }}
           loop={true}
           modules={[Navigation, Pagination]}
         >
           {videoData.map((video) => (
             <SwiperSlide>
-              <div className="series-slider">
+              <div className="series-video-slider">
                 <iframe
                   width="100%"
-                  height="100%"
+                //   height="100%"
+                // width="1900"
+                height="1000"
                   src={video.url}
                   title={video.title}
                   frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   referrerPolicy="strict-origin-when-cross-origin"
                   allowFullScreen
                 ></iframe>
@@ -101,10 +98,15 @@ const SeriesPage: React.FC = () => {
           ))}
         </Swiper>
 
-        <div className="movie-details">
-          <h2 className="movie-title">Movie Name</h2>
-          <p className="movie-info">2025 | U/A 16+ | 1 Season | 7 Languages</p>
-          <p className="movie-desc">
+        <div className="series-details">
+            {/* {seriesCategories.map(({key, title}) => (
+                <div className="series-title" key={key}>{title}</div>
+                      
+            ))} */}
+   
+          <h2 className="series-video-title">The Falcon and the Winter Soldier</h2>
+          <p className="series-info">2025 | U/A 16+ | 1 Season | 7 Languages</p>
+          <p className="series-desc">
             Roohi’s life turns topsy-turvy after an ‘accident’ during a medical
             check-up.
           </p>
@@ -116,7 +118,7 @@ const SeriesPage: React.FC = () => {
       <div className="genres-grid">
         {seriesCategories.map(({ key, title }) => (
           <div className="series-category" key={key}>
-            <h3>{title}</h3>
+            <h3 className="series-title">{title}</h3>
             <Swiper
               slidesPerView={5}
               spaceBetween={20}

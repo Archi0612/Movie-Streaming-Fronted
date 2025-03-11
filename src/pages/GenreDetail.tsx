@@ -26,25 +26,24 @@ const GenreDetail: React.FC = () => {
   const numericGenreId = genreId ? Number(genreId) : 0;
   const genreName = genreMap[numericGenreId] || "Unknown Genre";
 
+  const fetchMovies = async () => {
+    if (!numericGenreId) {
+      console.error("Invalid genreId:", genreId);
+      return;
+    }
+
+    try {
+      // console.log(`Fetching movies for genre ID: ${numericGenreId}`);
+      const data = await getMoviesByGenre(numericGenreId);
+      // console.log("API Response:", data);
+
+      setMovies(data?.data?.moviesList || []);
+    } catch (error) {
+      console.error("Error fetching movies:", error);
+      setMovies([]);
+    }
+  };
   useEffect(() => {
-    const fetchMovies = async () => {
-      if (!numericGenreId) {
-        console.error("Invalid genreId:", genreId);
-        return;
-      }
-
-      try {
-        console.log(`Fetching movies for genre ID: ${numericGenreId}`);
-        const data = await getMoviesByGenre(numericGenreId);
-        console.log("API Response:", data);
-
-        setMovies(data?.data?.moviesList || []);
-      } catch (error) {
-        console.error("Error fetching movies:", error);
-        setMovies([]);
-      }
-    };
-
     fetchMovies();
   }, [numericGenreId]);
 
@@ -74,7 +73,7 @@ const GenreDetail: React.FC = () => {
           >
             {movies.map((movie, index) => (
               <SwiperSlide key={movie._id || `genre-${index}`}>
-                <MovieCard movie={movie} />
+                <MovieCard media={movie} />
               </SwiperSlide>
             ))}
           </Swiper>
