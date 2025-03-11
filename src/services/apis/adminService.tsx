@@ -128,3 +128,92 @@ export const getMovieById=async(movieId:string)=>{
     }
   }
 }
+export const listAllSeries=async(search:string="",page:number=1,limit:number=10)=>{
+  try {
+    const response=await api.get("/series/list",{
+      params:{
+        search,page,limit
+      },
+      withCredentials:true,
+    });
+    return response.data;
+  } catch (error:any) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(error.response?.data?.message || "Something went wrong");
+    } else {
+      throw new Error("An unknown error occurred");
+    }
+  }
+}
+export const addSeries=async(formData:any)=>{
+  try {
+    const response=await apiFormData.post("/series/create",formData)
+    return response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(error.response?.data?.message || "Something went wrong");
+    } else {
+      throw new Error("An unknown error occurred");
+    }
+  }
+}
+export const addEpisode=async(formData:any)=>{
+  try {
+    const response=await apiFormData.post("/episode/create",formData)
+    return response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(error.response?.data?.message || "Something went wrong");
+    } else {
+      throw new Error("An unknown error occurred");
+    }
+  }
+}
+export const searchSeries=async(search:string)=>{
+    try {
+      const response=await api.get(`/series/searchByAdmin?search=${search}`)
+      return response;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(error.response?.data?.message || "Something went wrong");
+      } else {
+        throw new Error("An unknown error occurred");
+      }
+    }
+}
+export const deleteSeries=async(seriesId:string)=>{
+  try {
+    const response=await api.delete(`/series/delete/${seriesId}`)
+    return response.data
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(error.response?.data?.message || "Something went wrong");
+    } else {
+      throw new Error("An unknown error occurred");
+    }
+  }
+}
+export const editSeries=async(formData:any)=>{
+  try {
+    const response=await apiFormData.put("/series/update",formData);
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(error.response?.data?.message || "Something went wrong");
+    } else {
+      throw new Error("An unknown error occurred");
+    }
+  }
+}
+export const getSeriesById=async(seriesId:string)=>{
+  try {
+    const response=await api.get(`/series/get/${seriesId}`)
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(error.response?.data?.message || "Something went wrong");
+    } else {
+      throw new Error("An unknown error occurred");
+    }
+  }
+}

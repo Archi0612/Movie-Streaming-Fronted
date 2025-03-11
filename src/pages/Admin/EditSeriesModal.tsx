@@ -1,9 +1,69 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MdClose } from "react-icons/md";
 import Select from "react-select";
 import AsyncSelect from "react-select/async";
 import "./EditSeriesModal.css"; // Import the CSS file
+import { toast } from "react-toastify";
+import { editSeries,searchCastByName,searchDirectorByName } from "../../services/apis/adminService";
+interface EditSeriesModalProps{
+  seriesId:string;
+  onClose:()=>void;
+  onSave:(updatedSeries:any)=>void;
+}
+const genreOptions = [
+  { value: "28", label: "Action" },
+  { value: "18", label: "Drama" },
+  { value: "35", label: "Comedy" },
+  { value: "53", label: "Thriller" },
+  { value: "878", label: "Sci-Fi" },
+  {value:"10749",label:"Romance"},
+  {value:"10751",label:"Family"},
+  {value:"10752",label:"War"},
+  {value:"12",label:"Adv."},
+  {value:"16",label:"Anim."},
+  {value:"80",label:"Crime"},
+  {value:"99",label:"Doc."},
+  {value:"14",label:"Fantasy"},
+  {value:"36",label:"History"},
+  {value:"27",label:"Horror"},
+  {value:"10402",label:"Music"},
+  {value:"9648",label:"Myst."},
+  {value:"37",label:"Western"},
 
+];
+const languageOptions = [
+  { value: "hindi", label: "Hindi" },
+  { value: "english", label: "English" },
+  { value: "gujarati", label: "Gujarati" },
+  { value: "tamil", label: "Tamil" },
+  { value: "telugu", label: "Telugu" },
+  { value: "malayalam", label: "Malayalam" },
+  { value: "kannada", label: "Kannada" },
+];
+const fetchCastOptions = async(inputValue: string): Promise<{ value: string; label: string }[]> => {
+  try {
+    const results=await searchCastByName(inputValue.trim());
+    return results.map((cast:{_id:string;name:string})=>({
+      value:cast._id,
+      label:cast.name
+    }))
+  } catch (error) {
+    console.error("Error fetching cast:", error);
+  return [];
+  }
+};
+const fetchDirectorOptions = async(inputValue: string): Promise<{ value: string; label: string }[]> => {
+  try {
+    const results=await searchDirectorByName(inputValue.trim());
+    return results.map((director:{_id:string;name:string})=>({
+      value:director._id,
+      label:director.name
+    }))
+  } catch (error) {
+    console.error("Error fetching director:", error);
+  return [];
+  }
+};
 interface Series {
   id: number;
   img: string;
@@ -26,17 +86,12 @@ interface EditSeriesModalProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   onGenresChange: (selected: any) => void;
 }
-
-const genreOptions = [
-  { value: "action", label: "Action" },
-  { value: "drama", label: "Drama" },
-  { value: "comedy", label: "Comedy" },
-  { value: "thriller", label: "Thriller" },
-  { value: "horror", label: "Horror" },
-];
-
-const EditSeriesModal: React.FC<EditSeriesModalProps> = ({ isOpen, series, onClose, onChange, onGenresChange }) => {
-  if (!isOpen || !series) return null;
+const EditSeriesModal: React.FC<EditSeriesModalProps> = ({ seriesId, onClose, onSave }) => {
+  const[updatedSeries,setUpdatedSeries]=useState<any>(null);
+  const [originalMovie,setOriginalMovie]=useState<any>(null);
+  useEffect(()=>{
+    const fetch
+  })
 
   return (
     <div className="modal-overlay" onClick={onClose}>
