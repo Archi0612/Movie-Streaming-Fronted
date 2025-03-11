@@ -11,5 +11,8 @@
 - [ ] Edit data using FormDATA in Movies (Y)
 - [ ] Add User Data page in Admin (Y)
 
-- [ ] Edit data using FormDATA in Series (D)
-- [ ] Using Cloudinary Movie Streaming (D)
+- [x] Edit data using FormDATA in Series (D)
+- [ ] Using Cloudinary Movie Streaming (D)  (onus is on harsh)
+
+- movies ma series ni jem swiper
+- [] genre details in grid formate

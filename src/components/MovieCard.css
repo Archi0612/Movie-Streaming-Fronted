@@ -1,6 +1,6 @@
 .movie-card {
   position: relative;
-  width: 19rem;
+  width: 15rem;
   height: 22rem;
   max-width: 16rem;
   border-radius: 0.5rem;
@@ -147,6 +147,12 @@
 }
 
 /* Responsive Design */
+@media (max-width:1500px){
+  .movie-card{
+    height: 18rem;
+    width: 13rem;
+  }
+}
 
 @media (max-width: 1250px) {
   .movie-card {
