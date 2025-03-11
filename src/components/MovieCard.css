@@ -1,7 +1,7 @@
 .movie-card {
   position: relative;
   width: 19rem;
-  height: 20rem;
+  height: 22rem;
   max-width: 16rem;
   border-radius: 0.5rem;
   overflow: hidden;
@@ -19,8 +19,8 @@
 /* 🖼 Poster Image */
 .movie-card img {
   width: 100%;
-  height: -webkit-fill-available;
-  object-fit: fill;
+  height: 100%;
+  object-fit: cover;
   border-radius: 0.5rem;
 }
 
@@ -74,7 +74,8 @@
   padding: 4px 10px;
   border-radius: 10px;
   text-align: left;
-  white-space: nowrap; /* Prevents breaking into multiple lines */
+  white-space: nowrap;
+  /* Prevents breaking into multiple lines */
   font-size: 0.7rem;
 }
 
@@ -87,10 +88,12 @@
   /* Adjust line spacing */
   overflow: hidden;
   text-overflow: ellipsis;
-  -webkit-box-orient: vertical;
   display: -webkit-box;
   -webkit-line-clamp: 3;
-  /* margin-bottom: auto; Pushes buttons to the bottom */
+  /* Limits to 3 lines */
+  line-clamp: 3;
+  /* Limits to 3 lines */
+  -webkit-box-orient: vertical;
 }
 
 
@@ -102,6 +105,12 @@
   justify-content: center;
   align-items: center;
   bottom: 1.5rem;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .button-container {
@@ -158,6 +167,52 @@
     width: 12rem;
     height: 17rem;
   }
+
+  .movie-title {
+    font-size: 1.2rem !important;
+  }
+
+  .movie-rating svg {
+    font-size: 0.9rem;
+  }
+
+  .movie-details1 {
+    gap: 0.4rem;
+  }
+
+  .movie-details1 li {
+    font-size: 10px;
+  }
+
+  .movie-overview {
+    font-size: 0.8rem;
+    line-clamp: 3;
+  }
+
+  .movie-buttons {
+    gap: 0.6rem;
+  }
+
+  .movie-button {
+    padding: 0.4rem;
+    font-size: 0.8rem;
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  .movie-rating svg {
+    font-size: 16px !important;
+    /* Reduce size */
+  }
+
+}
+
+@media (max-width: 1024px) {
+  .movie-card {
+    width: 11rem;
+    height: 16rem;
+  }
+
 
   .movie-title {
     font-size: 0.8rem !important;
@@ -289,6 +344,11 @@
 @media (max-width: 480px) {
   .movie-hover {
     padding: 0.35rem;
+  }
+
+  .movie-card {
+    width: 8rem;
+    height: 12rem;
   }
 
   .movie-card {

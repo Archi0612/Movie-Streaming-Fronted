@@ -12,7 +12,7 @@ export const genreMap: { [key: number]: string } = {
   27: "Horror",
   10402: "Music",
   9648: "Myst.", // Mystery -> Myst.
-  10749: "Rom.", // Romance -> Rom.
+  10749: "Romance", // Romance -> Rom.
   878: "Sci-Fi", // Science Fiction -> Sci-Fi
   10770: "TV", // TV Movie -> TV
   53: "Thriller", // Thriller -> Thrill.

@@ -47,7 +47,7 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole = "user" }) => {
       path: "/admin-dashboard-movies",
       isAdminMenu: true,
     },
-    // { name: "Search", icon: FaSearch, path: "/search" },
+    { name: "Search", icon: FaSearch, path: "/search" },
     { name: "Movies", icon: FaFilm, path: "/movies" },
     { name: "Series", icon: FaTv, path: "/series" },
     { name: "Genres", icon: BiCategory, path: "/genres" },

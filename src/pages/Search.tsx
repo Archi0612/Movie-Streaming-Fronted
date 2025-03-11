@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Search.css";
 import { GoSearch } from "react-icons/go";
-import { mediaList } from "../interfaces/movie.interface";
+// import { mediaList } from "../interfaces/movie.interface";
 import { api } from "../services/api";
 // Import MoviesGrid to render the search results
 import MoviesGrid from "../components/MoviesGrid"; // Ensure you import this if you plan to use it.
