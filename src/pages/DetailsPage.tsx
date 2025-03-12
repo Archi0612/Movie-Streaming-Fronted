@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { getMovieById } from "../services/apis/movieService";
 import { Movie } from "../interfaces/movie.interface";
 import { genreMap } from "../utils/constants";
-import { FaRegBookmark, FaThumbsUp } from "react-icons/fa";
+import { FaPlay, FaRegBookmark, FaThumbsUp } from "react-icons/fa";
 import { FaShareFromSquare } from "react-icons/fa6";
 import { Seriesdata } from "../interfaces/series.interface";
 import { Play, Plus } from "lucide-react";
@@ -25,11 +25,10 @@ const DetailsPage: React.FC = () => {
       ]);
       if (seriesResult.status === "fulfilled" && seriesResult.value) {
         setMediaData(seriesResult.value.seriesInfo as Movie);
-
         setSeriesData(seriesResult.value.seriesContent as Seriesdata[]);
       } else if (movieResult.status === "fulfilled" && movieResult.value) {
         setMediaData(movieResult.value);
-        // setSeriesData(null);
+        
       }
     } catch (err: unknown) {
       if (err instanceof Error) {
@@ -110,6 +109,13 @@ const DetailsPage: React.FC = () => {
             </span>
             <span className="divider">•</span>
             <span className="languages">{mediaData?.languages}</span>
+          </div>
+
+          <div className="watch-movie">
+            <button className="watch-movie-button">
+              Watch
+              <FaPlay size={16} />
+            </button>
           </div>
         </div>
 

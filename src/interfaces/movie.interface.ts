@@ -59,9 +59,6 @@ export interface UserState {
   detailsError?: string;
   userDetails?: UserDetails;
 }
-export interface UserData {
-  userData: User;
-}
 
 // export interface UserResponse{
 //   id: string;

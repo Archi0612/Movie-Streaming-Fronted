@@ -12,7 +12,6 @@ const MovieCard: React.FC<MediaCardProps> = ({ media }) => {
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
 
-
   // ⭐ Star Ratings Logic
   const stars = Array.from({ length: 5 }, (_, index) => {
     const ratingStar = rating / 2;
