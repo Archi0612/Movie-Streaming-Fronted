@@ -148,7 +148,7 @@ const AdminDashboard: React.FC = () => {
               <MdAdd size={20} />
             </button>
           </div>
-          <div className="ag-theme-quartz" style={{ height: '700px', width: '100%' }}>
+          <div className="ag-theme-quartz" style={{ height: '500px', }}>
             <AgGridReact
               rowStyle={{ color: "white" }}
               rowData={movies}

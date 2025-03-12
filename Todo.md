@@ -13,5 +13,10 @@
 - [x] Movie Dashboard complete all Api integration except edit (Y)
 - [x] Add User Data page in Admin (Y)
 
-- [ ] Edit data using FormDATA in Series (D)
-- [ ] Using Cloudinary Movie Streaming (D)
+- [x] Edit data using FormDATA in Series (D)
+- [ ] Using Cloudinary Movie Streaming (D)  (onus is on harsh)
+
+- movies ma series ni jem swiper
+- [] genre details in grid formate
+
+use of any in addmovie addseries, both admindashboard movieand series,editmovie editseries

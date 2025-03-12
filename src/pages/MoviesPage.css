@@ -1,16 +1,16 @@
-/* Movies Page */
+
 .movies-page {
     background-color: var(--background-color);
     min-height: 100vh;
     padding: 2rem 3rem;
   }
   
-  /* Trending Movies Section */
+
   .trending-movies {
     margin-bottom: 2rem;
   }
   
-  /* Grid Layout */
+ 
   .movies-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -18,7 +18,7 @@
     padding: 1rem 0;
   }
   
-  /* Individual Movie Card */
+
   .movie-card {
     background-color: var(--card-background);
     border-radius: 10px;

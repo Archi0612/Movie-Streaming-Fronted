@@ -1,9 +1,8 @@
 .main-layout {
-  display: flex;
-  flex-direction: column;
-  height: auto;
-  overflow: hidden;
-}
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+  }
 
 .content1 {
   flex-grow: 1;

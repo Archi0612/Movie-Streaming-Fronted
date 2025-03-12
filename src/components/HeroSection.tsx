@@ -10,8 +10,6 @@ import {
 } from "../services/apis/movieService";
 import { Movie } from "../interfaces/movie.interface";
 
-
-
 const HeroSection: React.FC = () => {
   const [movies, setMovies] = useState<{
     pop: Movie[];
@@ -111,6 +109,7 @@ const HeroSection: React.FC = () => {
                 640: { slidesPerView: 4 },
                 480: { slidesPerView: 3 },
                 400: { slidesPerView: 3 },
+                375:{slidesPerView:3},
                 300: { slidesPerView: 2 },
               }}
             >

@@ -118,6 +118,7 @@ const AdminDashboardSeries: React.FC = () => {
     <div className="admin-container">
       <div className="content">
         <div className="content-card">
+        <h2 className="dashboard-h2">Manage Series</h2>
           <div className="add-btn-container">
             <button className="add-episode-btn" onClick={handleOpenEpisode}>
               Add Episode
@@ -126,7 +127,7 @@ const AdminDashboardSeries: React.FC = () => {
               <MdAdd size={20} />
             </button>
           </div>
-          <div className="ag-theme-quartz" style={{ height: "700px", width: "100%" }}>
+          <div className="ag-theme-quartz" style={{ height: "500px" }}>
             <AgGridReact
               rowData={series}
               columnDefs={columnDefs}

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Play, Info, Plus } from "lucide-react";
+import { Play, Plus } from "lucide-react";
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { genreMap } from "../utils/constants";
@@ -66,9 +66,6 @@ const MovieCard: React.FC<MediaCardProps> = ({ media }) => {
                     dispatch(toggleWatchList({ contentId: _id, contentType: contentType }));
                   }}>
                     <Plus />
-                  </button>
-                  <button className="movie-button">
-                    <Info />
                   </button>
                 </div>
               </div>

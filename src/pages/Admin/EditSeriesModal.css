@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6); /* Black transparent overlay */
+  background: rgba(0, 0, 0, 0.6); 
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18,7 +18,7 @@ box-shadow: 0px 2px 5px var(--hover-shadow);
   padding: 20px;
   width: 50%;
   border-radius: 10px;
-  /* box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); */
+
   color: white;
   position: relative;
   z-index: 1001;
@@ -41,7 +41,7 @@ box-shadow: 0px 2px 5px var(--hover-shadow);
   flex-direction: row;
   justify-content: space-between;
 }
-/* Form fields layout */
+
 .edit-modal-fields {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -80,7 +80,7 @@ textarea {
   width: 20%;
   margin-top: 15px;
   padding: 10px 5px;
-  /* background: #6da3d6; */
+ 
   border: none;
   border-radius: 5px;
   color: white;
@@ -103,7 +103,7 @@ textarea {
   .modal-fields{
     grid-template-columns: 1fr !important;
     display: grid;
-    max-height: 600px !important; /* Adjust height as needed */
+    max-height: 600px !important;
   overflow-y: auto !important;
   }
   .edit-btn{

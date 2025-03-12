@@ -31,7 +31,6 @@ const SUBSCRIPTION_PRICES = {
 interface SubscriptionModalProps {
     isOpen: boolean;
     onClose: () => void;
-    user: User | null
 }
 
 const publishKey: string = import.meta.env.VITE_STRIPE_PUBLISH_KEY!;
