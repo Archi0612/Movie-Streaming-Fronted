@@ -1,15 +1,13 @@
 // src/interfaces/movie.interface.ts
 // USER INTERFACES
-
 import { IconType } from "react-icons/lib";
-
-
 export interface User {
   id: string;
   name: string;
   email: string;
-  contactNo?: string,
+  contactNo?: string;
   password?: string;
+  gender?:string
   // token?: string;
   otp?: number;
   role: string;
@@ -106,7 +104,10 @@ export interface MenuItem {
   path: string;
   isAdminMenu: boolean; // Make it optional
 }
-
+export interface ObjectData {
+  id: string;
+  name: string;
+}
 export interface Movie {
   _id: string;
   title: string;
@@ -116,6 +117,13 @@ export interface Movie {
   rating: number;
   languages: string[];
   genres: number[];
+  directors: ObjectData[];
+  casts: ObjectData[];
+  director: ObjectData[];
+  cast: ObjectData[];
+  likes?: boolean;
+  trailerUrl: string;
+  duration?: number;
 }
 
 export interface TrendingMoviesProps {
@@ -208,5 +216,3 @@ export interface LoginDetails {
 //   data: data;
 //   message?: string | string[];
 // }
-
-

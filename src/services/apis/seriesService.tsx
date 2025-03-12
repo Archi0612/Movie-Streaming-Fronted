@@ -42,7 +42,20 @@ export const fetchtopRatedSeriesApi = async () => {
 export const fetchSeriesByGenre = async (genreId: number) => {
   try {
     const response = await api.get(`/series/genre/${genreId}`);
-    return response.data;
+    console.log("Series by genres:", response.data.data);
+    return response?.data?.data;
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      throw new Error(err.message);
+    }
+  }
+};
+
+export const fetchSeriesByID = async (seriesId: string) => {
+  try {
+    const response = await api.get(`/series/get/${seriesId}`);
+    console.log("series by id:", response)
+    return response.data?.data;
   } catch (err: unknown) {
     if (err instanceof Error) {
       throw new Error(err.message);

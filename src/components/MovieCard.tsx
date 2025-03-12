@@ -8,7 +8,7 @@ import "./MovieCard.css";
 import { MediaCardProps } from "../interfaces/movie.interface";
 const MovieCard: React.FC<MediaCardProps> = ({ media }) => {
   const { title, poster, description, releaseDate, rating, languages, genres } = media;
-
+  const id = media._id;
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
 
@@ -28,12 +28,16 @@ const MovieCard: React.FC<MediaCardProps> = ({ media }) => {
   // 🎭 Genre Mapping
   const genreNames = genres.map((id) => genreMap[id] || "Unknown").join(", ");
 
+  const handleCardClick = () =>{
+    navigate(`/details/${id}`)
+  }
   return (
     <div
       className="movie-card"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={() => navigate('/details')}
+      // onClick={() => navigate('/details')}
+      onClick={handleCardClick}
     >
       <img src={poster} alt={title} />
       {

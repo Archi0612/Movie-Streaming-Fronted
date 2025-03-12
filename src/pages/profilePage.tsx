@@ -31,7 +31,8 @@ export default function ProfilePage() {
         phone: "",
         country: "",
         dateOfBirth: "",
-        gender: ""
+        gender: "",
+        email:"",
     });
     const countries = getNames().sort();
 

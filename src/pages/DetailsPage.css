@@ -6,24 +6,8 @@
     background-color: #121212;
     color: #ffffff;
     padding-left: 7rem;
-    
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
-  
-  a {
-    color: #5799ef;
-    text-decoration: none;
-  }
-  
-  a:hover {
-    text-decoration: underline;
-  }
-  
-  /* h1, h2, h3 {
-    margin: 0;
-    padding: 0;
-  }
-   */
+
   /* Header Styles */
   .header-container {
     position: relative;
@@ -33,13 +17,13 @@
   .header-image-container {
     position: relative;
     width: 100%;
-    height: 320px;
+    height: fit-content;
     overflow: hidden;
   }
   
   .header-image {
-    width: 100%;
-    height: 100%;
+    /* width: 100%; */
+    /* height: 100%; */
     object-fit: cover;
     filter: brightness(0.7);
   }
@@ -52,7 +36,6 @@
   }
   
   .movie-logo {
-    max-width: 150px;
     height: auto;
   }
   
@@ -63,31 +46,76 @@
     margin: 10px 0;
   }
   
-  .dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: #5a5a5a;
-    cursor: pointer;
-  }
-  
-  .dot.active {
-    background-color: #ffffff;
-  }
-  
   /* Title Section */
   .title-section {
+    display: flex;
+    /* flex-wrap: wrap; */
+    flex-direction: column;
     padding: 10px 20px;
   }
-  
-  .movies-title {
-    font-size: 32px;
-    font-weight: 700;
-    margin-bottom: 8px;
+  .media-heading-data{
+    display: flex;
+    justify-content: space-between;
+  }
+
+   /* Action Buttons */
+   .actions-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
   
+  .action-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .like-button{
+    /* background: none; */
+    background-color: var(--primary-color);
+    color: white;
+  }
+  .share-button {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  .watchlist-button {
+    background-color: #2a2a2a;
+    color: white;
+  }
+  .like-button:hover, .share-button:hover, .watchlist-button:hover {
+    opacity: 0.8;
+
+  }
+
+  .mediaData-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom:0.51rem;
+  }
+  .medieaData-subtitle{
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .cast-image{
+    width: 100%;
+  }
+  .media-name{
+    color: #90c1e1;
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+  }
   .movie-meta {
-    color: #aaaaaa;
+    color: #90c1e1;
     font-size: 14px;
   }
   
@@ -129,51 +157,16 @@
     
   }
   
-  .left-content {
-    
-  }
-  
-  .right-content {
-    flex: 2;
-  }
-  
   /* Description Section */
-  .description-section {
-    margin-bottom: 24px;
-  }
-  
-  .description-section h2,
-  .credits-section h3,
-  .gallery-section h2,
-  .reviews-section h2 {
-    color: #ffffff;
-    margin-bottom: 12px;
-    font-size: 20px;
-    font-weight: 600;
-  }
-  
-  .description-section p {
-    color: #aaaaaa;
-    line-height: 1.5;
-    font-size: 15px;
+
+  .description-para{
+    color: #90c1e1;
   }
   
   /* Credits Section */
   .credits-section {
     margin-bottom: 24px;
   }
-  
-  .credits-section h3 {
-    font-size: 16px;
-    margin-bottom: 4px;
-  }
-  
-  .credits-section p {
-    color: #aaaaaa;
-    margin-bottom: 16px;
-    line-height: 1.4;
-  }
-  
   .credits-section .person-link {
     margin-right: 4px;
   }
@@ -183,31 +176,6 @@
     font-size: 14px;
   }
   
-  /* Gallery Section */
-  .gallery-section {
-    margin-bottom: 24px;
-  }
-  
-  .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    margin-bottom: 12px;
-  }
-  
-  .gallery-item img {
-    width: 100%;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 4px;
-  }
-  
-  .gallery-count {
-    display: flex;
-    justify-content: space-between;
-    color: #aaaaaa;
-    font-size: 14px;
-  }
   
   .view-all-btn {
     background: none;
@@ -296,7 +264,7 @@
   
   .stars {
     color: #f5c518;
-    font-size: 14px;
+    font-size: 2.2rem;
   }
   
   .review-actions {
@@ -318,40 +286,6 @@
     background-color: #333333;
   }
   
-  /* Action Buttons */
-  .actions-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-  
-  .action-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 10px;
-    border-radius: 4px;
-    border: none;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
-  }
-  
-  .share-button {
-    background-color: #0F79AF;
-    color: white;
-  }
-  
-  .watchlist-button {
-    background-color: #2a2a2a;
-    color: white;
-  }
-  
-  .share-button:hover, .watchlist-button:hover {
-    opacity: 0.9;
-  }
-  
   .cast-title{
     font-size: 2rem;
     margin-bottom: 2rem;
@@ -361,6 +295,93 @@
     flex-wrap: wrap;
     gap: 1rem;  
   }
+
+  /* SeriesDate Design */
+.episodes-container{
+  display: flex;
+  flex-direction: column;
+  
+  
+  /* width: 20vw; */
+}
+.episode{
+  background-color: #333;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 0.1rem solid var(--primary-color);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+.episode:hover{
+  opacity: 0.8;
+  background-color: var(--card-background);
+  box-shadow: 0.5rem 0.5rem 0.2rem var(--shadow-hover);
+}
+.episode-title{
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.episode-description{
+  margin-top: 0.5rem;
+}
+.episode-buttons{
+  display: flex;
+  gap: 2rem;
+}
+.episode-duration .episode-release{
+  font-size: 0.8rem;
+  color: #333333;
+}
+.movie-button play:hover{
+  cursor: pointer;
+  transition: background 0.3s ease;
+  background-color: var(--primary-color);
+}
+
+/* Season Selector Styling */
+.season-selector {
+  margin: 1.25rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.season-selector label {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.season-selector select {
+  background-color: #222;
+  color: #fff;
+  /* border: 0.125rem solid #ff9800; */
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  border-radius: 0.3125rem;
+  cursor: pointer;
+  
+}
+
+
+.season-selector select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+/* Episodes Section Styling */
+.episodes-section {
+  margin-top: 1.25rem;
+}
+
+.episodes-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9375rem;
+}
+
+
   /* Responsive Design */
   @media (max-width: 768px) {
     .main-content {

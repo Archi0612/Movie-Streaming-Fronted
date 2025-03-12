@@ -5,18 +5,19 @@ import { genreMap } from "../utils/constants";
 import "./GenreDetail.css";
 import MoviesGrid from "../components/MoviesGrid";
 import { fetchSeriesByGenre } from "../services/apis/seriesService";
+import { Movie } from "../interfaces/movie.interface";
 
 // Movie Interface
-interface Movie {
-  _id: string;
-  title: string;
-  poster: string;
-  description: string;
-  releaseDate: string;
-  rating: number;
-  languages: string[];
-  genres: number[];
-}
+// interface Movie {
+//   _id: string;
+//   title: string;
+//   poster: string;
+//   description: string;
+//   releaseDate: string;
+//   rating: number;
+//   languages: string[];
+//   genres: number[];
+// }
 
 const GenreDetail: React.FC = () => {
   const { genreId } = useParams();

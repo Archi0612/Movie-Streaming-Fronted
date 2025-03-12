@@ -1,9 +1,7 @@
-import { useSearchParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./PaymentSuccess.css";
 
 export const PaymentSuccess = () => {
-    const [searchParams] = useSearchParams();
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
