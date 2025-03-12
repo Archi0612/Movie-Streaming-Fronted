@@ -42,7 +42,7 @@ export const fetchtopRatedSeriesApi = async () => {
 export const fetchSeriesByGenre = async (genreId: number) => {
   try {
     const response = await api.get(`/series/genre/${genreId}`);
-    return response;
+    return response.data;
   } catch (err: unknown) {
     if (err instanceof Error) {
       throw new Error(err.message);

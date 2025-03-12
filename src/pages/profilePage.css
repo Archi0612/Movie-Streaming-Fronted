@@ -4,7 +4,7 @@ html {
 
 .profilepagecontainer {
     width: 100vw;
-    height: auto;
+    height: 100vh;
     background-color: #00131f;
     border: none;
 }
@@ -15,8 +15,8 @@ html {
 
 
 .internalProfilePage {
-    margin-left: 6vw;
     background-color: #00131f;
+    padding-left: 6rem;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -148,8 +148,8 @@ html {
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
-    width: 91vw;
-    height: 55vh;
+    width: 87vw;
+    height: auto;
     flex-wrap: wrap;
     border-bottom: 2px solid grey;
 }
@@ -161,13 +161,26 @@ html {
     border-radius: 1rem;
 }
 
-@media screen and (max-width: 785px) {
+@media screen and (max-width:1505px) and (min-width:757px) {
+    .internalProfilePage {
+        background-color: #00131f;
+        padding-left: 6rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+}
+
+/* /////////////////////////////////////////////////////////////////////////////////////////////////// */
+@media screen and (max-width: 789px) {
     .profilepagecontainer {
         position: relative;
         top: 0;
         width: auto;
         transform: none;
         padding: 1rem;
+        height: auto;
+
     }
 
     .profileCard-information {
@@ -210,6 +223,15 @@ html {
         text-align: center;
     }
 
+    /* .profilepage-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        height: auto;
+        flex-wrap: nowrap;
+    } */
+
     .profilepage-content {
         display: flex;
         flex-direction: column;
@@ -217,7 +239,7 @@ html {
         width: 100%;
         height: auto;
         flex-wrap: nowrap;
-
+        overflow: hidden;
     }
 
     .profilepage-watchlist,
@@ -256,7 +278,7 @@ html {
     }
 
     .internalProfilePage {
-        margin-left: 0.5px;
+        padding-left: 1px;
     }
 
     .userLogo {
@@ -269,7 +291,7 @@ html {
     }
 }
 
-@media screen and (min-width:788px) and (max-width: 865px) {
+@media screen and (min-width:790px) and (max-width: 865px) {
 
     .userLogo {
         height: 9rem;
@@ -326,6 +348,8 @@ html {
         width: 25rem;
     }
 }
+
+/* /////////////////////////////////////////////////////////////////////////////////////////////////// */
 
 
 .modal-overlay {
@@ -386,17 +410,18 @@ html {
     padding: 8px;
 }
 
-
+/* Style dropdown menu */
 .country-select option {
     max-height: 30px;
-   
+    /* Adjust this based on font size */
 }
 
+/* Limit dropdown height and enable scrolling */
 .country-select:focus {
     overflow-y: auto !important;
     height: auto !important;
     max-height: 100px !important;
-
+    /* Adjust to show ~7 items */
 }
 
 

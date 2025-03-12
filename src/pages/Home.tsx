@@ -69,48 +69,35 @@ const Home: React.FC = () => {
         <Shimmer />
       ) : (
         <div className="home-container">
-          <div className="moviepage-slider-container">
-          <Swiper
-          className="main-movie-slider"
-          spaceBetween={10}
-          freeMode={true}
-          navigation={true}
-          pagination={{ clickable: true }}
-          loop={true}
-          modules={[Navigation, Pagination]}
-        >
-          {videoData.map((video) => (
-            <SwiperSlide>
-              <div className="movie-video-slider">
-                <iframe
-                  width="100%"
-                  height="1000"
-                  src={video.url}
-                  title={video.title}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  referrerPolicy="strict-origin-when-cross-origin"
-                  allowFullScreen
-                ></iframe>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-        <div className="movie-details">
-          {/* {seriesCategories.map(({key, title}) => (
-                <div className="series-title" key={key}>{title}</div>
-                      
-            ))} */}
-
-          <h2 className="movie-video-title">
-            The Falcon and the Winter Soldier
-          </h2>
-          <p className="movie-info">2025 | U/A 16+ | 1 Season | 7 Languages</p>
-          <p className="movie-desc">
-            Roohi’s life turns topsy-turvy after an ‘accident’ during a medical
-            check-up.
-          </p>
-          <button className="watch-now">▶ Watch Now</button>
-        </div>
+          {/* Popular Movies - Swiper */}
+          <div className="section-container">
+            <h3 className="home-popular-movies">Popular Movies</h3>
+            <Swiper
+              slidesPerView={6}
+              spaceBetween={4}
+              navigation
+              modules={[Navigation]}
+              className="popular-movies-swiper"
+              breakpoints={{
+                1600:{slidesPerView:6},
+                1400: { slidesPerView: 6 },
+                1200: { slidesPerView: 5 },
+                1050: { slidesPerView: 4 },
+                768: { slidesPerView: 4 },
+                640: { slidesPerView: 4 },
+                480: { slidesPerView: 3 },
+                400: { slidesPerView: 3 },
+                300: { slidesPerView: 2 },
+              }}
+            >    
+              {popularMovies.map((movie) =>
+                movie._id ? (
+                  <SwiperSlide key={movie._id}>
+                    <MovieCard media={movie}  />
+                  </SwiperSlide>
+                ) : null // Prevent rendering items without _id
+              )}
+            </Swiper>
           </div>
           <div className="section-container">
             {movieSections.map(({ title, movies }) => (

@@ -4,8 +4,8 @@
   left: 0;
   top: 0;
   height: 100vh;
-  /* background: rgba(var(--primary-color), 0.7); */
   transition: 0.3s ease;
+  background-color: rgba(var(--background-color), 0.1);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -15,19 +15,26 @@
   z-index: 1000;
 }
 
-.bottom-nav, .sparks-popup {
+.bottom-nav,
+.sparks-popup {
   display: none;
 }
 
 .sidebar.expanded {
   width: 45%;
-  background: linear-gradient(to right, var(--background-color), rgba(0, 0, 0, 0));
+  background: linear-gradient(
+    to right,
+    var(--background-color),
+    rgba(0, 0, 0, 0)
+  );
+  transition: ease-in-out;
 }
 
 .sidebar-list {
   list-style: none;
   padding: 0;
   width: 8rem;
+
 }
 
 .sidebar-logo {
@@ -79,7 +86,8 @@
   left: 100%;
   top: 0;
   color: var(--text-color);
-  background-color: var(--background-color); /* Adjust to match your theme */
+  background-color: var(--background-color);
+  /* Adjust to match your theme */
   border-radius: 4px;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
   min-width: 180px;
@@ -97,13 +105,14 @@
 }
 
 .admin-submenu-item:hover {
-  background-color: #34495e; /* Lighter shade for hover */
+  background-color: #34495e;
+  /* Lighter shade for hover */
 }
 
 .admin-submenu-item.active {
   color: black;
   font-weight: 500;
-  background-color: #3498db; /* Highlight active item */
+  background-color: #90c1e1; /* Highlight active item */
 }
 
 .admin-submenu-item span {
@@ -126,12 +135,13 @@
   }
 }
 
-@media (max-width:1080px) {
-  .logo-1{
+@media (max-width: 1080px) {
+  .logo-1 {
     width: 1.8rem;
     margin-left: 0;
   }
 }
+
 /* Mobile / Tablet Bottom Navigation */
 @media (max-width: 768px) {
   .sidebar {
@@ -180,7 +190,11 @@
     bottom: 55px;
     left: 50%;
     transform: translateX(-50%);
-    background: linear-gradient(50deg, var(--hover-shadow), var(--background-color));
+    background: linear-gradient(
+      50deg,
+      var(--hover-shadow),
+      var(--background-color)
+    );
     padding: 0.5rem;
     border-radius: 5rem;
     display: flex;
@@ -205,10 +219,40 @@
   .sparks-option svg {
     font-size: 1.2rem;
   }
+  /* Admin submenu for mobile */
+  .admin-submenu-mobile {
+    position: absolute;
+    bottom: 4rem; /* Position above the bottom nav */
+    left: 62%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.2);
+    width: 40%;
+  }
+
+  .admin-submenu-item {
+    color: var(--text-color);
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .admin-submenu-item:hover {
+    color: var(--primary-color);
+    /* background-color: var(--hover-shadow); */
+  }
+
+  .admin-submenu-item.active {
+    color: var(--primary-color);
+  }
 }
 
 @media (max-width: 641px) {
-
   .sparks-option {
     font-size: 0.6rem;
   }

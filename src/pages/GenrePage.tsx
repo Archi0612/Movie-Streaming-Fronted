@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import GenreCard from "../components/GenreCard";
 import "./GenrePage.css";
 import { genreImages } from "../utils/constants";
-
 const genreMap: { [key: string]: number } = {
   "Rom.": 10749,
   "Action": 28,

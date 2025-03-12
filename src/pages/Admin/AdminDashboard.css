@@ -223,6 +223,7 @@
     margin: 0px 15px;
     padding: 10px;
   }
+<<<<<<< HEAD
 }
 
 @media screen and (max-width: 500px) {
@@ -233,6 +234,95 @@
 
   .add-btn-container {
     justify-content: right;
+=======
+  
+  .content-card {
+    padding: 20px;
+  }
+  .add-btn-container{
+    gap: 10px;
+    display: flex;
+    align-items: end;
+    justify-content: end;
+  }
+  .add-movie-btn {
+    margin-bottom: 15px;
+    width: 45px;
+    height: 45px;
+    border:none;
+    color: white;
+    background-color: #0073e6;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bolder;
+  }
+  .add-movie-btn:hover{
+    background-color: #0059b3;
+  }
+  
+  .grid-container {
+    height: 400px;
+    width: 100%;
+  }
+  
+  .poster-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    margin-bottom: 4px;
+  }
+  
+  .action-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  .dashboard-h2{
+    color: #0073e6;
+  }
+  .action-buttons .edit-btn {
+    width: 40px;
+    height: 40px;
+    background-color: #3498db;
+    color: white !important;
+    margin:4px 0px 5px 4px !important;
+    cursor: pointer !important;
+    border-radius: 5px !important;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .action-buttons .edit-btn:hover{
+    background-color: #188ad6;
+  }
+  
+  .action-buttons .delete-btn {
+    width: 40px;
+    width: 40px;
+    background-color: #e44f3e ;
+    color: white !important;
+    margin:4px 0px 5px 4px !important;
+    cursor: pointer !important;
+    border-radius: 5px !important;
+    border: none;
+  }
+   .delete-btn:hover{
+    background-color: #e0412f;
+  }
+
+  .add-episode-btn {
+    margin-bottom: 15px;
+    /* width: 80px; */
+    font-size: 12px;
+    padding: 6px;
+    height: 45px;
+    border:none;
+    color: white;
+    background-color: #0073e6;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bolder;
+>>>>>>> dba8fd9c709d8dc721101eaa385773941478b3b3
   }
 
   .modal {

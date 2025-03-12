@@ -3,13 +3,14 @@
 
 import { IconType } from "react-icons/lib";
 
+
 export interface User {
   id: string;
   name: string;
   email: string;
-  contactNo: string;
+  contactNo?: string,
   password?: string;
-  token?: string;
+  // token?: string;
   otp?: number;
   role: string;
 }
@@ -25,6 +26,13 @@ export interface MediaCardProps {
     languages: string[];
     genres: number[];
   };
+}
+
+export interface MoviesData {
+  movieList: Movie[];
+  seriesList: Movie[];
+  castAndDirectorWiseMovie: Movie[];
+  castAndDirectorWiseSeries: Movie[];
 }
 
 // Generic Props for Both Movies & Series
@@ -52,6 +60,9 @@ export interface UserState {
   detailsLoading?: boolean;
   detailsError?: string;
   userDetails?: UserDetails;
+}
+export interface UserData {
+  userData: User;
 }
 
 // export interface UserResponse{
@@ -108,13 +119,9 @@ export interface Movie {
 }
 
 export interface TrendingMoviesProps {
-  movies: Movie[];
+  movies: Movie;
 }
 
-export interface MovieGridProps {
-  movies: Movie[];
-  title: string;
-}
 export interface MovieCardProps {
   title: string;
   posterPath: string;
@@ -194,3 +201,12 @@ export interface LoginDetails {
   email: string;
   password: string;
 }
+
+// // Define API Response Types
+// export interface AuthResponse {
+//   token: string;
+//   data: data;
+//   message?: string | string[];
+// }
+
+

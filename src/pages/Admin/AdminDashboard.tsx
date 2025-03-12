@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { AgGridReact } from "ag-grid-react";
 import { ClientSideRowModelModule } from "ag-grid-community";
 import { ModuleRegistry } from "ag-grid-community";
-import { ColDef } from "ag-grid-community";
+import { ColDef, GridReadyEvent } from "ag-grid-community";
 // import "ag-grid-community/styles/ag-grid.css"; 
-import "ag-grid-community/styles/ag-theme-quartz.css"; 
+import "ag-grid-community/styles/ag-theme-quartz.css";
 import { MdEdit, MdDelete, MdAdd } from "react-icons/md";
 import "./AdminDashboard.css";
 import {toast} from "react-toastify"
@@ -14,7 +14,6 @@ import DeleteConfirmationModal from "../../components/DeleteConfirmationModal";
 import { deleteMovie, listAllMovie } from "../../services/apis/adminService";
 // Register AG Grid Modules
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
-
 
 
 // Movie Interface
@@ -37,9 +36,12 @@ const AdminDashboard: React.FC = () => {
   const[isEditModalOpen,setIsEditModalOpen]=useState(false)
   const[isDeleteModelOpen,setIsDeleteModelOpen]=useState(false)
 
+  const[page,setPage]=useState(1);
+  const[pageSize,setPageSize]=useState(12)
+  const gridApiRef=useRef<any>(null);
   const navigate=useNavigate();
 
-  const handleEdit=(movie:Movie)=>{
+  const handleEdit = (movie: Movie) => {
     setSelectedMovie(movie);
     setIsEditModalOpen(true);
   }
@@ -57,7 +59,7 @@ const AdminDashboard: React.FC = () => {
   }
   const fetchAllMovies=async()=>{
       try {
-        const response=await listAllMovie();
+        const response=await listAllMovie(page,pageSize);
         const formattedMovies = response.data.data.movies.map((movie: any) => ({
           id: movie._id,
           poster: movie.poster,
@@ -77,8 +79,18 @@ const AdminDashboard: React.FC = () => {
     }
     useEffect(()=>{
       fetchAllMovies();
-    },[])
-
+    },[page,pageSize])
+    const handleGridReady = (params: GridReadyEvent) => {
+      gridApiRef.current = params.api;
+    };
+  
+    const handlePageSizeChange = (size: number) => {
+      setPageSize(size);
+      if (gridApiRef.current) {
+        gridApiRef.current.paginationSetPageSize(size);
+      }
+    };
+  
   const handleSaveChanges = async (updatedMovie: Movie) => {
     try {
       // // Simulate API call with Promise.all
@@ -94,7 +106,7 @@ const AdminDashboard: React.FC = () => {
       // setMovies((prevMovies) =>
       //   prevMovies.map((m) => (m.id === updatedMovie.id ? updatedMovie : m))
       // );
-      
+
       setIsEditModalOpen(false);
     } catch (error) {
       console.error("Failed to update movie", error);
@@ -111,7 +123,7 @@ const AdminDashboard: React.FC = () => {
     {
       headerName: "Action",
       field: "action",
-      cellRenderer: (params:any) => (
+      cellRenderer: (params: any) => (
         <div className="action-buttons">
           <button className="edit-btn" onClick={() => handleEdit(params.data)}><MdEdit size={15} /></button>
           <button className="delete-btn" onClick={()=>{setSelectedMovie(params.data);setIsDeleteModelOpen(true)}}><MdDelete size={15} /></button>
@@ -123,11 +135,11 @@ const AdminDashboard: React.FC = () => {
     },
   ];
   const handleClick=()=>{
-    navigate("/add-movie");
+    navigate("/add-movies");
   }
   return (
     <div className="admin-container">
-      
+
       <div className="content">
         <div className="content-card">
           <h2 className="dashboard-h2">Manage Movies</h2>
@@ -138,13 +150,21 @@ const AdminDashboard: React.FC = () => {
           </div>
           <div className="ag-theme-quartz" style={{ height: '500px', }}>
             <AgGridReact
-            rowStyle={{color:"white"}}
+              rowStyle={{ color: "white" }}
               rowData={movies}
               columnDefs={columnDefs}
               pagination={true} 
-              paginationPageSize={10}
+              paginationPageSize={15}
+              paginationPageSizeSelector={[12,20,40,60,100]}
+              onPaginationChanged={(params) => {
+                if (params.api) {
+                  setPage(params.api.paginationGetCurrentPage() + 1);
+                  setPageSize(params.api.paginationGetPageSize());
+                }
+              }}
+              onGridReady={handleGridReady}
               domLayout="normal"
-              rowHeight={60} 
+              rowHeight={60}
               headerHeight={60}
               defaultColDef={{
                 flex: 1,
@@ -161,13 +181,13 @@ const AdminDashboard: React.FC = () => {
       {
         
       isEditModalOpen && selectedMovie &&(
-        <EditMovieModal movie={selectedMovie} onClose={()=>setIsEditModalOpen(false)} onSave={handleSaveChanges}/>
+        <EditMovieModal movieId={selectedMovie.id} onClose={()=>setIsEditModalOpen(false)} onSave={handleSaveChanges}/>
       )}
       {
-        isDeleteModelOpen &&(
-          <DeleteConfirmationModal  isOpen={isDeleteModelOpen}
-          onClose={() => setIsDeleteModelOpen(false)}
-          onConfirm={handleDelete}/>
+        isDeleteModelOpen && (
+          <DeleteConfirmationModal isOpen={isDeleteModelOpen}
+            onClose={() => setIsDeleteModelOpen(false)}
+            onConfirm={handleDelete} />
         )
       }
     </div>

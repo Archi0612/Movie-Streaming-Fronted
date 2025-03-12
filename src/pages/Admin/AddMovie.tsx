@@ -141,6 +141,7 @@ const AddMovie: React.FC = () => {
     try {
       const response=await addMovie(formData)
       toast.success(response.data.data.message)
+      navigate("/admin-dashboard-movies")
     } catch (error) {
       toast.error("Error in Adding Movie")
     }
@@ -148,7 +149,7 @@ const AddMovie: React.FC = () => {
 
 
   const handleClose = () => {
-    navigate("/admin-dashboard");
+    navigate("/admin-dashboard-movies");
   };
 
   return (
