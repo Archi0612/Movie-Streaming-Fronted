@@ -117,7 +117,7 @@ const AppRoute: React.FC = () => {
             <Route path="/payment-success" element={<PaymentSuccess />} />
             <Route path="/payment-cancel" element={<PaymentCancel />} />
             <Route path="/details" element={<DetailsPage />}/>
-            <Route path="/videoPlayer" element={<VideoPlayer url="https://res.cloudinary.com/dwabecyrt/video/upload/v1741350593/movies/k6jawoy4kul45u6mckhz.webm"/>} />
+            <Route path="/videoPlayer" element={<VideoPlayer control={true} url="https://res.cloudinary.com/dwabecyrt/video/upload/v1741350593/movies/k6jawoy4kul45u6mckhz.webm"/>} />
       
           </Route>
 
