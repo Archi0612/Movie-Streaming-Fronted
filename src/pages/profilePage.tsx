@@ -14,6 +14,7 @@ import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import { AppDispatch } from '../redux/store';
+import { api } from '../services/api';
 
 
 
@@ -26,7 +27,7 @@ export default function ProfilePage() {
     const navigate = useNavigate();
 
 
-    const [formData, setFormData] = useState({
+    const [userFromData, setuserFromData] = useState({
         name: "",
         email: "",
         phone: "",
@@ -39,13 +40,12 @@ export default function ProfilePage() {
     const loggedUser = useSelector((state: RootState) => state.user.currentUser) ?? {};
     // Handle input changes for Edit Profile form
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        setuserFromData({ ...userFromData, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         setIsOpen(false);
-        console.log("WJD",formData)
         // to update the profile info we need to setup an api call here 
 
     };
@@ -60,6 +60,11 @@ export default function ProfilePage() {
                 toast.error(error.message);
             }
         }
+    }
+    const updateInfo = async () => {
+        const response = await api.put('/user/editProfile', userFromData);
+        const data = response.data();
+    
     }
 
     return (
@@ -149,16 +154,16 @@ export default function ProfilePage() {
                 <h2 style={{ color: 'white' }}>Edit Profile</h2>
                 <form onSubmit={handleSubmit}>
                     <label>Name:</label>
-                    <input type="text" name="name" value={formData.name} onChange={handleChange} autoComplete='off' required />
+                    <input type="text" name="name" value={userFromData.name} onChange={handleChange} autoComplete='off' required />
 
                     <label>Email:</label>
-                    <input type="email" name="email" value={formData.email} onChange={handleChange} autoComplete='off' required />
+                    <input type="email" name="email" value={userFromData.email} onChange={handleChange} autoComplete='off' required />
 
                     <label>Phone Number:</label>
-                    <input type="tel" name="phone" value={formData.phone} onChange={handleChange} autoComplete='off' required />
+                    <input type="tel" name="phone" value={userFromData.phone} onChange={handleChange} autoComplete='off' required />
                     <div className="country">
                         <label className="country-label">Country:</label>
-                        <select name="country" value={formData.country} onChange={handleChange} required className="country-select">
+                        <select name="country" value={userFromData.country} onChange={handleChange} required className="country-select">
                             <option value="">Select a country</option>
                             {countries.map((country: string) => (
                                 <option key={country} value={country}>
@@ -169,10 +174,10 @@ export default function ProfilePage() {
                     </div>
 
                     <label>Date of Birth:</label>
-                    <input type="date" name="dob" value={formData.dob} onChange={handleChange} autoComplete='off' required />
+                    <input type="date" name="dob" value={userFromData.dob} onChange={handleChange} autoComplete='off' required />
 
                     <label>Gender:</label>
-                    <select name="gender" value={formData.gender} onChange={handleChange} required>
+                    <select name="gender" value={userFromData.gender} onChange={handleChange} required>
                         <option value="">Select Gender</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
@@ -182,7 +187,7 @@ export default function ProfilePage() {
                     <div className="modal-buttons">
 
                         <button type="button" onClick={() => setIsOpen(false)}>Cancel</button>
-                        <button type="submit">Save</button>
+                        <button type="submit" onClick={updateInfo}>Save</button>
                     </div>
                 </form>
             </ReactModal>

@@ -1,4 +1,4 @@
-/* Header */
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -13,13 +13,11 @@
   padding: 1rem;
 }
 
-/* Logo */
 .logo {
   width: 20vh;
   height: auto;
 }
 
-/* Sign In Button */
 .sign-in-button {
   background-color: transparent;
   color: var(--primary-color);
@@ -38,8 +36,8 @@
   box-shadow: 0 6px 30px var(--hover-shadow);
 }
 
-/* Responsive Design */
-@media (max-width: 1024px) { /* Tablets */
+
+@media (max-width: 1024px) { 
   .header {
       width: 90%;
       padding: 0.8rem;
@@ -55,9 +53,9 @@
   }
 }
 
-@media (max-width: 768px) { /* Mobile Devices */
+@media (max-width: 768px) { 
   .header {
-      /* flex-direction: column; */
+
       text-align: center;
       width: 100%;
       padding: 1rem;
@@ -74,7 +72,7 @@
   }
 }
 
-@media (max-width: 480px) { /* Small Mobile Devices */
+@media (max-width: 480px) { 
   .header {
       width: 100%;
       padding: 1rem;

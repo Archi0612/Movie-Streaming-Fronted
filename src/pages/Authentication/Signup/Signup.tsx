@@ -201,7 +201,7 @@ const Signup: React.FC = () => {
           );
         }
       } catch (error) {
-        console.error("Signup failed", error);
+
         toast.error("Something went wrong. Please try again.");
       }
     } else {
@@ -210,7 +210,7 @@ const Signup: React.FC = () => {
   };
 
   const handleResendOtp = () => {
-    console.log("Resending OTP...");
+
     setOtpState((prevState) => ({
       ...prevState,
       otp: ["", "", "", "", "", ""],

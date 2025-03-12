@@ -24,14 +24,13 @@
     border-radius: 10px;
     padding: 5px;
     overflow-y: auto;
-    /* Enable vertical scrolling */
+
     overflow-x: hidden;
-    /* Prevent unnecessary horizontal scroll */
+
     scroll-behavior: smooth;
     height: auto;
     max-height: 50vh;
 
-    /* Ensure scrolling works within this height */
 }
 
 .likedlist {
@@ -45,9 +44,9 @@
     border-radius: 10px;
     padding: 10px;
     width: 96%;
-    /* Ensures each item takes full container width */
+
     min-height: 80px;
-    /* Ensures proper spacing */
+
 }
 
 
@@ -81,7 +80,7 @@
 .likedlist-button button {
     padding: 8px 15px;
     background-color: #007bff;
-    /* A more vibrant blue */
+
     color: white;
     border: none;
     border-radius: 5px;

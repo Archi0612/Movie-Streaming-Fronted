@@ -1,11 +1,12 @@
 
 import { useState } from "react";
-import { Play, Info, Plus } from "lucide-react";
-import { FaStar, FaStarHalfAlt } from "react-icons/fa";
+import { Play, Plus } from "lucide-react";
+import { FaForward, FaRev, FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { genreMap } from "../utils/constants";
 import "./MovieCard.css";
 import { MediaCardProps } from "../interfaces/movie.interface";
+import { FaBackward } from "react-icons/fa6";
 
 
 const MovieCard: React.FC<MediaCardProps> = ({ media }) => {
@@ -62,9 +63,6 @@ const MovieCard: React.FC<MediaCardProps> = ({ media }) => {
                 </button>
                 <button className="movie-button">
                   <Plus />
-                </button>
-                <button className="movie-button">
-                  <Info />
                 </button>
               </div>
             </div>

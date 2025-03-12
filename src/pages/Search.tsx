@@ -8,19 +8,19 @@ import { GoSearch } from "react-icons/go";
 const Search: React.FC = () => {
     const [popularMovies, setpopularMovies] = useState<Movie[]>([]);
     const[isLoading,setIsLoading]=useState(true);
-      useEffect(() => {
-        const fetchMovies = async () => {
-          try {
-            setIsLoading(true);
-            const popular=await getPopularMovies();
-            setpopularMovies(popular.data.moviesList);
-          } catch (err) {
-            console.error("Error fetching movies", err);
-          }
-          finally{
-            setIsLoading(false);
-          }
-        };
+    const fetchMovies = async () => {
+      try {
+        setIsLoading(true);
+        const popular=await getPopularMovies();
+        setpopularMovies(popular.data.moviesList);
+      } catch (err) {
+        console.error("Error fetching movies", err);
+      }
+      finally{
+        setIsLoading(false);
+      }
+    };  
+    useEffect(() => {
         fetchMovies();
       }, []);
     
@@ -37,7 +37,7 @@ const Search: React.FC = () => {
       </div>
       </div>
      
-      <MoviesGrid movies={popularMovies} title="Popular in India" />
+      <MoviesGrid mediaList={popularMovies} title="Popular in India" />
     </div>
     )}
     </>

@@ -89,7 +89,6 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
                 },
                 user: userData, // UserData means the object in which we will store detail of user 
             };
-            console.log("Subscription Payload:", subscriptionPayload);
             const response = await axios.post(
                 "http://localhost:7777/stripe/membersubscription",
                 subscriptionPayload
@@ -108,7 +107,6 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
                 const { error } = await stripe.redirectToCheckout({
                     sessionId: response.data.id
                 });
-                console.log(error, "Line 111");
                 if (error) {
                     alert("There was an error processing your subscription. Please try again.");
                 }

@@ -1,109 +1,133 @@
 /* Global Styles */
 .series-section {
-    background-color: #000;
-    color: #fff;
-    padding: 2rem;
-    min-height: 100vh;
-  }
-  
-  /* Main Series Slider */
-  .series-slider-container {
-    position: relative;
-    text-align: center;
-    margin: 0 0 3rem 5rem;
-    background-color: #000;
-  }
-  
-  .main-series-slider {
-    width: 100%;
-    height: 50rem;
-  }
-  
-  .series-video-slider iframe {
-    width: 100%;
-    max-width: 120rem;
-    max-height: 62.5rem;
-    border-radius: 1rem;
-  }
-  
-  /* Movie Details */
-  .series-details {
+  background-color: var(--background-color);
+  color: #fff;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0%;
+}
+
+/* Main Series Slider */
+.series-slider-container {
+  position: relative;
+  text-align: center;
+  margin-bottom: 3rem ;
+  margin-left: 116px;
+  background-color: #000;
+}
+
+.main-series-slider {
+  height: 50rem;
+}
+
+.series-video-slider::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.8), transparent);
+  z-index: 1;
+}
+
+.series-video-slider iframe {
+  width: 100%;
+  max-width: 120rem;
+  max-height: 62.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.7), transparent);
+}
+
+/* Movie Details */
+.series-details {
+  position: absolute;
+  bottom: 2rem;
+  left: 3rem;
+  text-align: left;
+  z-index: 100;
+}
+
+.series-video-title {
+  margin-top: 0.5rem;
+  font-size: 1.7rem;
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+}
+
+.series-info {
+  font-size: 0.9rem;
+  margin: 0.5rem 0;
+}
+
+.series-desc {
+  font-size: 0.8rem;
+  max-width: 50rem;
+}
+
+.watch-now {
+  color: #fff;
+  border: none;
+  /* padding: 1rem 2rem; */
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+}
+
+/* Genres Grid */
+.genres-grid {
+
+  margin-left: 116px;
+  overflow: hidden;
+}
+
+.series-category {
+  margin-bottom: 2rem;
+}
+
+.series-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+
+
+    /* Swiper Navigation */
+    .swiper-button-next,
+.swiper-button-prev {
+    display: flex; /* Ensure buttons are displayed */
+    color: #ffffff;
+    font-weight: bold;
     position: absolute;
-    bottom: 2rem;
-    left: 3rem;
-    text-align: left;
-    z-index: 100;
-  }
-  
-  .series-video-title {
-    margin-top: 0.5rem;
-    font-size: 1.7rem;
-    font-weight: bold;
-    margin-bottom: 0.3rem;
-  }
-  
-  .series-info {
-    font-size: 0.9rem;
-    margin: 0.5rem 0;
-  }
-  
-  .series-desc {
-    font-size: 0.8rem;
-    max-width: 50rem;
-  }
-  
-  .watch-now {
-    color: #fff;
-    border: none;
-    /* padding: 1rem 2rem; */
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 0.5rem;
-    margin-top: 1rem;
-  }
-  
-  /* Genres Grid */
-  .genres-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-    margin-left: 5rem;
-  }
-  
-  .series-category {
-    margin-bottom: 2rem;
-  }
-  
-  .series-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-    color: var(--primary-color);
-  }
-  
-  .swiper-container {
-    padding: 1rem;
-  }
-  
-  
-  @media (max-width: 768px) {
-    .series-video-slider iframe {
-      height: 20rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    transition: opacity 0.3s ease-in-out, font-size 0.3s ease-in-out;
+}
+    .swiper-button-next::after{
+        right: 14px;
     }
-    .movie-details {
-      bottom: 2rem;
-      left: 2rem;
+
+    .swiper-button-prev {
+        left: 10px;
     }
-    .movie-title {
-      font-size: 1.5rem;
+
+    .swiper-button-next::after,
+    .swiper-button-prev::after {
+        font-size: 35px !important;
+        position: relative;
+    
     }
-    .movie-info,
-    .movie-desc {
-      font-size: 1rem;
-    }
-    .watch-now {
-      font-size: 1rem;
-      padding: 0.8rem 1.5rem;
-    }
-  }
-  
+@media (max-width:768px){
+
+.series-slider-container{
+  margin-left: 8px;
+}
+.genres-grid{
+  margin-left: 8px;
+}
+}

@@ -1,6 +1,6 @@
-/* Base styles and resets */
+
 .details-container {
-    /* position: absolute; */
+
     width: 100%;
     margin: 0 auto;
     background-color: #121212;
@@ -19,12 +19,7 @@
     text-decoration: underline;
   }
   
-  /* h1, h2, h3 {
-    margin: 0;
-    padding: 0;
-  }
-   */
-  /* Header Styles */
+ 
   .header-container {
     position: relative;
     width: 100%;
@@ -75,7 +70,7 @@
     background-color: #ffffff;
   }
   
-  /* Title Section */
+
   .title-section {
     padding: 10px 20px;
   }
@@ -95,7 +90,7 @@
     margin: 0 8px;
   }
   
-  /* Rating Container */
+
   .rating-container {
     padding: 0 20px;
     margin-bottom: 20px;
@@ -123,7 +118,7 @@
     font-size: 14px;
   }
   
-  /* Main Content Layout */
+
   .main-content {
     padding: 0 20px 30px 20px;
     
@@ -137,7 +132,6 @@
     flex: 2;
   }
   
-  /* Description Section */
   .description-section {
     margin-bottom: 24px;
   }
@@ -158,7 +152,7 @@
     font-size: 15px;
   }
   
-  /* Credits Section */
+
   .credits-section {
     margin-bottom: 24px;
   }
@@ -183,7 +177,7 @@
     font-size: 14px;
   }
   
-  /* Gallery Section */
+
   .gallery-section {
     margin-bottom: 24px;
   }
@@ -217,8 +211,7 @@
     display: flex;
     align-items: center;
   }
-  
-  /* Reviews Section */
+
   .reviews-section {
     background-color: #1f1f1f;
     border-radius: 8px;
@@ -361,7 +354,7 @@
     flex-wrap: wrap;
     gap: 1rem;  
   }
-  /* Responsive Design */
+
   @media (max-width: 768px) {
     .main-content {
       flex-direction: column;

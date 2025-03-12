@@ -64,12 +64,11 @@ const Login = () => {
       try {
         //  await dispatch(loginUser(userFormData));
         const response = await dispatch(loginUser(userFormData)).unwrap();
-        console.log("Login API response:", response);
 
         toast.success("Successfully logged in!");
         navigate("/home");
       } catch (err) {
-        console.error("Login failed:", err);
+  
         toast.error("Incorrect Email or Password!");
       }
     }

@@ -16,3 +16,5 @@
 
 - movies ma series ni jem swiper
 - [] genre details in grid formate
+
+use of any in addmovie addseries, both admindashboard movieand series,editmovie editseries

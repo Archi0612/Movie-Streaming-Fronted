@@ -117,12 +117,13 @@ const AdminDashboardSeries: React.FC = () => {
     <div className="admin-container">
       <div className="content">
         <div className="content-card">
+        <h2 className="dashboard-h2">Manage Series</h2>
           <div className="add-btn-container">
             <button className="add-movie-btn" onClick={() => navigate("/add-series")}>
               <MdAdd size={20} />
             </button>
           </div>
-          <div className="ag-theme-quartz" style={{ height: "500px", width: "100%" }}>
+          <div className="ag-theme-quartz" style={{ height: "500px" }}>
             <AgGridReact
               rowStyle={{ color: "white" }}
               rowData={series}

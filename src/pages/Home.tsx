@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
+import { Navigation, Pagination } from "swiper/modules";
 import MoviesGrid from "../components/MoviesGrid";
 import MovieCard from "../components/MovieCard";
 import { getLatestMovies, getMoviesByGenre, getPopularMovies, getTopRatedMovies } from "../services/apis/movieService";
@@ -46,13 +46,72 @@ const Home: React.FC = () => {
     { title: "Latest Movies", movies: latestMovies },
     { title: "Top Rated Movies", movies: topRatedMovies },
   ];
-
+  const videoData = [
+    {
+      id: 1,
+      title: "The Falcon and the Winter Soldier",
+      url: "https://www.youtube.com/embed/pW_b6jOl1o8?si=BU8mEiGDuf5dbMEo",
+    },
+    {
+      id: 2,
+      title: "Loki",
+      url: "https://www.youtube.com/embed/dug56u8NN7g?si=8val9smLbvGc3Har",
+    },
+    {
+      id: 3,
+      title: "The Mandalorian",
+      url: "https://www.youtube.com/embed/Znsa4Deavgg?si=_SSagp7GeRpZIp99",
+    },
+  ];
   return (
     <>
       {isLoading ? (
         <Shimmer />
       ) : (
         <div className="home-container">
+          <div className="moviepage-slider-container">
+          <Swiper
+          className="main-movie-slider"
+          spaceBetween={10}
+          freeMode={true}
+          navigation={true}
+          pagination={{ clickable: true }}
+          loop={true}
+          modules={[Navigation, Pagination]}
+        >
+          {videoData.map((video) => (
+            <SwiperSlide>
+              <div className="movie-video-slider">
+                <iframe
+                  width="100%"
+                  height="1000"
+                  src={video.url}
+                  title={video.title}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                ></iframe>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        <div className="movie-details">
+          {/* {seriesCategories.map(({key, title}) => (
+                <div className="series-title" key={key}>{title}</div>
+                      
+            ))} */}
+
+          <h2 className="movie-video-title">
+            The Falcon and the Winter Soldier
+          </h2>
+          <p className="movie-info">2025 | U/A 16+ | 1 Season | 7 Languages</p>
+          <p className="movie-desc">
+            Roohi’s life turns topsy-turvy after an ‘accident’ during a medical
+            check-up.
+          </p>
+          <button className="watch-now">▶ Watch Now</button>
+        </div>
+          </div>
           <div className="section-container">
             {movieSections.map(({ title, movies }) => (
               <div key={title}>
@@ -72,6 +131,7 @@ const Home: React.FC = () => {
                     640: { slidesPerView: 4 },
                     480: { slidesPerView: 3 },
                     400: { slidesPerView: 3 },
+                    380:{slidesPerView :3},
                     300: { slidesPerView: 2 },
                   }}
                 >
@@ -86,6 +146,7 @@ const Home: React.FC = () => {
               </div>
             ))}
           </div>
+          
 
           {/* Action Movies - Grid */}
           <div className="home-grid-container">

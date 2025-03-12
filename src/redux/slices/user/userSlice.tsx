@@ -56,12 +56,6 @@ export const loginUser = createAsyncThunk<
     async (userFormData, { rejectWithValue }) => {
         try {
             const response = await api.post<AuthResponse>('/auth/login', userFormData);
-            console.log("Response from login api:", response);
-
-            console.log("Full API response:", response);
-            console.log("API response data:", response.data);
-
-            
             // Store user details & authentication token in local storage
             localStorage.setItem("currentUser", JSON.stringify(response.data.data.userData));
 
@@ -96,8 +90,6 @@ export const fetchUserDetails = createAsyncThunk<
                     Authorization: `Bearer ${token}`
                 }
             });
-
-            console.log(response, "response fo whole user in user details")
 
             return response.data;
         } catch (err: unknown) {
@@ -171,7 +163,6 @@ const userSlice = createSlice({
             .addCase(loginUser.fulfilled, (state, action: PayloadAction<AuthResponse>) => {
                 state.loading = false;
                 state.success = true;
-                console.log("Action payload in fulfilled:", action.payload);
                 state.currentUser = action.payload.data.userData;
                 state.isAuthenticated = true;
             })
