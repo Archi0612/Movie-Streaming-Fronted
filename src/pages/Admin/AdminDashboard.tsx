@@ -1,9 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { AgGridReact } from "ag-grid-react";
-import { ClientSideRowModelModule } from "ag-grid-community";
-import { ModuleRegistry } from "ag-grid-community";
-import { ColDef, GridReadyEvent } from "ag-grid-community";
-// import "ag-grid-community/styles/ag-grid.css"; 
+import { ModuleRegistry, ClientSideRowModelModule,PaginationModule,TextFilterModule,NumberFilterModule } from "ag-grid-community";
+import { ColDef, GridReadyEvent } from "ag-grid-community"; 
 import "ag-grid-community/styles/ag-theme-quartz.css"; 
 import { MdEdit, MdDelete, MdAdd } from "react-icons/md";
 import "./AdminDashboard.css";
@@ -12,22 +10,10 @@ import { useNavigate } from "react-router-dom";
 import EditMovieModal from "./EditMovieModal";
 import DeleteConfirmationModal from "../../components/DeleteConfirmationModal";
 import { deleteMovie, listAllMovie } from "../../services/apis/adminService";
+import { Movie } from "../../interfaces/admin.interface";
+import Loader from "../../components/shimmerUI/Loader";
 // Register AG Grid Modules
-ModuleRegistry.registerModules([ClientSideRowModelModule]);
-
-
-// Movie Interface
-interface Movie {
-  id: string;
-  poster: string;
-  title: string;
-  description: string;
-  rating: number;
-  duration: string;
-  cast: {_id:string;name:string}[];
-  director: {_id:string;name:string}[];
-  action?: string;
-}
+ModuleRegistry.registerModules([ClientSideRowModelModule,PaginationModule,TextFilterModule,NumberFilterModule]);
 
 // AdminDashboard Component
 const AdminDashboard: React.FC = () => {
@@ -37,6 +23,7 @@ const AdminDashboard: React.FC = () => {
   const[isDeleteModelOpen,setIsDeleteModelOpen]=useState(false)
   const[page,setPage]=useState(1);
   const[pageSize,setPageSize]=useState(12)
+  const[loading,setLoading]=useState<boolean>(false)
   const gridApiRef=useRef<any>(null);
   const navigate=useNavigate();
 
@@ -58,6 +45,7 @@ const AdminDashboard: React.FC = () => {
   }
   const fetchAllMovies=async()=>{
       try {
+        setLoading(true)
         const response=await listAllMovie(page,pageSize);
         const formattedMovies = response.data.data.movies.map((movie: any) => ({
           id: movie._id,
@@ -65,15 +53,16 @@ const AdminDashboard: React.FC = () => {
           title: movie.title,
           description: movie.description,
           rating: movie.rating,
-          cast: movie.cast.map((c: any) => c.name).join(", "), // Convert array to string
-          director: movie.director.map((d: any) => d.name).join(", ") // Convert array to string
+          cast: movie.cast.map((c: any) => c.name).join(", "), 
+          director: movie.director.map((d: any) => d.name).join(", ")
         }));
         setMovies(formattedMovies)
-        // setMovies(response.data.data.movies)
-        console.log(response.data.data.movies)
   
       } catch (error) {
         toast.error("Error in fetching Movies")
+      }
+      finally{
+        setLoading(false)
       }
     }
     useEffect(()=>{
@@ -82,35 +71,32 @@ const AdminDashboard: React.FC = () => {
     const handleGridReady = (params: GridReadyEvent) => {
       gridApiRef.current = params.api;
     };
-  
-    const handlePageSizeChange = (size: number) => {
-      setPageSize(size);
-      if (gridApiRef.current) {
-        gridApiRef.current.paginationSetPageSize(size);
+    const handleSaveChanges = async (updatedMovie: any) => {
+      try {
+        debugger
+        const formattedMovie: Movie = {
+          id: updatedMovie._id,
+          poster: updatedMovie.poster,
+          title: updatedMovie.title,
+          description: updatedMovie.description,
+          rating: updatedMovie.rating,
+          duration: updatedMovie.duration,
+          cast: updatedMovie.cast.map((c: any) => c.label).join(", "),
+          director: updatedMovie.director.map((d: any) => d.label).join(", ") 
+        };
+        setMovies((prevMovies) =>
+          prevMovies.map((m) => (m.id === formattedMovie.id ? formattedMovie : m))
+        );
+    
+        toast.success("Movie updated successfully");
+        setIsEditModalOpen(false);
+      } 
+      catch (error) {
+        toast.error("Failed to update movie");
       }
     };
-  
-  const handleSaveChanges = async (updatedMovie: Movie) => {
-    try {
-      // // Simulate API call with Promise.all
-      // await Promise.all([
-      //   fetch(`https://api.example.com/movies/${updatedMovie.id}`, {
-      //     method: "PUT",
-      //     headers: { "Content-Type": "application/json" },
-      //     body: JSON.stringify(updatedMovie),
-      //   }),
-      // ]);
-
-      // // Update movie list in UI
-      // setMovies((prevMovies) =>
-      //   prevMovies.map((m) => (m.id === updatedMovie.id ? updatedMovie : m))
-      // );
-      
-      setIsEditModalOpen(false);
-    } catch (error) {
-      console.error("Failed to update movie", error);
-    }
-  };
+    
+    
 
   const columnDefs: ColDef<Movie>[] = [
     { headerName: "Poster", field: "poster", cellRenderer: (params: any) => <img src={params.value} alt="poster" className="poster-img" />, flex: 2, sortable: false,filter:false },
@@ -136,8 +122,12 @@ const AdminDashboard: React.FC = () => {
   const handleClick=()=>{
     navigate("/add-movies");
   }
+  const pagination=true;
+  const paginationPageSize=12;
+  const paginationPageSizeSelector=[12,20,30,50,100];
   return (
     <div className="admin-container">
+      {loading && <Loader/>}
       
       <div className="content">
         <div className="content-card">
@@ -152,9 +142,9 @@ const AdminDashboard: React.FC = () => {
             rowStyle={{color:"white"}}
               rowData={movies}
               columnDefs={columnDefs}
-              pagination={true} 
-              paginationPageSize={15}
-              paginationPageSizeSelector={[12,20,40,60,100]}
+              pagination={pagination} 
+              paginationPageSize={paginationPageSize}
+              paginationPageSizeSelector={paginationPageSizeSelector}
               onPaginationChanged={(params) => {
                 if (params.api) {
                   setPage(params.api.paginationGetCurrentPage() + 1);

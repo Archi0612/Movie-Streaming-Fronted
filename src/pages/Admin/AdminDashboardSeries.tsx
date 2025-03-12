@@ -10,23 +10,14 @@ import DeleteConfirmationModal from "../../components/DeleteConfirmationModal";
 import { deleteSeries, listAllSeries } from "../../services/apis/adminService";
 import { toast } from "react-toastify";
 import "./AdminDashboard.css";
-
+import EditSeriesModal from "./EditSeriesModal";
+import { Series } from "../../interfaces/admin.interface";
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
-
-interface Series {
-  id: string;
-  poster: string;
-  title: string;
-  description?: string;
-  rating: number;
-  cast?: string;
-  director?: string;
-}
-
 
 const AdminDashboardSeries: React.FC = () => {
   const [series, setSeries] = useState<Series[]>([]);
   const[selectedSeries,setSelectedSeries]=useState<Series | null>(null);
+  const[isEditModalOpen,setIsEditModalOpen]=useState(false)
   const [isDeleteModelOpen, setIsDeleteModelOpen] = useState(false);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(12);
@@ -71,6 +62,33 @@ const AdminDashboardSeries: React.FC = () => {
      setIsDeleteModelOpen(false)
 
   }
+  const handleEdit=(ser:Series)=>{
+    setSelectedSeries(ser)
+    setIsEditModalOpen(true)
+  }
+  const handleSaveChanges = async (updatedSeries: any) => {
+    try {
+     const formattedMovie: Series = {
+               id: updatedSeries._id,
+               poster: updatedSeries.poster,
+               title: updatedSeries.title,
+               description: updatedSeries.description,
+               rating: updatedSeries.rating,
+               cast: updatedSeries.casts.map((c: any) => c.label).join(", "),
+               director: updatedSeries.directors.map((d: any) => d.label).join(", ")
+             };
+         
+             setSeries((prevSeries) =>
+               prevSeries.map((m) => (m.id === formattedMovie.id ? formattedMovie : m))
+             );
+         
+             toast.success("Series updated successfully");
+      
+      setIsEditModalOpen(false);
+    } catch (error) {
+      toast.error("Failed to update movie");
+    }
+  };
   const columnDefs: ColDef<Series>[] = [
     {
       headerName: "Poster",
@@ -99,7 +117,7 @@ const AdminDashboardSeries: React.FC = () => {
       headerName: "Action",
       cellRenderer: (params:any) => (
         <div className="action-buttons">
-          <button className="edit-btn">
+          <button className="edit-btn" onClick={()=>handleEdit(params.data)}>
             <MdEdit size={15} />
           </button>
           <button className="delete-btn" onClick={()=>{setSelectedSeries(params.data);setIsDeleteModelOpen(true)}}><MdDelete size={15} /></button>
@@ -118,6 +136,7 @@ const AdminDashboardSeries: React.FC = () => {
     <div className="admin-container">
       <div className="content">
         <div className="content-card">
+          <h2 className="dashboard-h2">Manage Series</h2>
           <div className="add-btn-container">
             <button className="add-episode-btn" onClick={handleOpenEpisode}>
               Add Episode
@@ -155,13 +174,13 @@ const AdminDashboardSeries: React.FC = () => {
           onConfirm={handleDelete}/>
         )
       }
-      {/* {isModalOpen && selectedSeries && (
+      {isEditModalOpen && selectedSeries && (
         <EditSeriesModal
-          series={selectedSeries}
-          onClose={handleCloseModal}
-          onSave={handleSave}
+          seriesId={selectedSeries.id}
+          onClose={()=>setIsEditModalOpen(false)}
+          onSave={handleSaveChanges}
         />
-      )} */}
+      )}
     </div>
   );
 };
