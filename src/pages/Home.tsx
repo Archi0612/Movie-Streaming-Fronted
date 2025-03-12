@@ -21,16 +21,16 @@ const Home: React.FC = () => {
         setIsLoading(true);
 
         const popular = await getPopularMovies();
-        setPopularMovies(popular?.data?.moviesList || []);
+        setPopularMovies(popular?.moviesList || []);
 
         const latest = await getLatestMovies();
-        setLatestMovies(latest?.data?.moviesList || []);
+        setLatestMovies(latest?.moviesList || []);
 
         const topRated = await getTopRatedMovies();
-        setTopRatedMovies(topRated?.data?.moviesList || []);
+        setTopRatedMovies(topRated?.moviesList || []);
 
         const action = await getMoviesByGenre(28);
-        setActionMovies(action?.data?.moviesList || []);
+        setActionMovies(action?.moviesList || []);
       } catch (error) {
         console.error("Error fetching movies:", error);
       } finally {
@@ -79,7 +79,7 @@ const Home: React.FC = () => {
               modules={[Navigation]}
               className="popular-movies-swiper"
               breakpoints={{
-                1600:{slidesPerView:6},
+                1600: { slidesPerView: 6 },
                 1400: { slidesPerView: 6 },
                 1200: { slidesPerView: 5 },
                 1050: { slidesPerView: 4 },
@@ -89,11 +89,11 @@ const Home: React.FC = () => {
                 400: { slidesPerView: 3 },
                 300: { slidesPerView: 2 },
               }}
-            >    
+            >
               {popularMovies.map((movie) =>
                 movie._id ? (
                   <SwiperSlide key={movie._id}>
-                    <MovieCard media={movie}  />
+                    <MovieCard media={movie} />
                   </SwiperSlide>
                 ) : null // Prevent rendering items without _id
               )}
@@ -118,7 +118,7 @@ const Home: React.FC = () => {
                     640: { slidesPerView: 4 },
                     480: { slidesPerView: 3 },
                     400: { slidesPerView: 3 },
-                    380:{slidesPerView :3},
+                    380: { slidesPerView: 3 },
                     300: { slidesPerView: 2 },
                   }}
                 >
@@ -133,7 +133,7 @@ const Home: React.FC = () => {
               </div>
             ))}
           </div>
-          
+
 
           {/* Action Movies - Grid */}
           <div className="home-grid-container">

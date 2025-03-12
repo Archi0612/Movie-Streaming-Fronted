@@ -31,3 +31,12 @@ const fetchSeriesData = async (endpoint: string) => {
 export const fetchLatestSeriesApi = () => fetchSeriesData("/series/latestReleased");
 export const fetchPopularSeriesApi = () => fetchSeriesData("/series/popular");
 export const fetchTopRatedSeriesApi = () => fetchSeriesData("/series/topRated");
+
+export const fetchSeriesByGenre = (genreId: number) => fetchSeriesData(`/series/genre/${genreId}`);
+
+export const fetchSeriesByID = (seriesId: number) => fetchSeriesData(`/series/get/${seriesId}`);
+
+
+
+
+

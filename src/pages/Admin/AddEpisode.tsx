@@ -3,26 +3,10 @@ import { useNavigate } from "react-router-dom";
 import AsyncSelect from "react-select/async";
 import "./AddEpisode.css";
 import { MdAdd } from "react-icons/md";
-import { addEpisode,searchSeries } from "../../services/apis/adminService";
+import { addEpisode, searchSeries } from "../../services/apis/adminService";
 import { toast } from "react-toastify";
-interface Episode {
-  title: string;
-  description: string;
-  duration: string;
-  episodeNumber: number;
-  episode: File | null;
-  releaseDate: string;
-}
-
-interface Season {
-  seasonNumber: number;
-  episodes: Episode[];
-}
-// const seriesOptions = [
-//   { value: "1", label: "Special Ops" },
-//   { value: "2", label: "Scam 1992" },
-//   { value: "3", label: "Mirzapur" },
-// ];
+import { Episode, Season } from "../../interfaces/admin.interface";
+import Loader from "../../components/shimmerUI/Loader";
 const AddEpisode: React.FC = () => {
   const [seasons, setSeasons] = useState<Season[]>([]);
   const [selectedSeries, setSelectedSeries] = useState<{
@@ -30,6 +14,7 @@ const AddEpisode: React.FC = () => {
     label: string;
   } | null>(null);
   const [seasonInput, setSeasonInput] = useState("");
+  const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const addSeason = () => {
     const seasonNumber = parseInt(seasonInput, 10);
@@ -74,6 +59,7 @@ const AddEpisode: React.FC = () => {
   };
   const handleSave = async () => {
     try {
+      setLoading(true);
       const formDataArray: FormData[] = [];
 
       seasons.forEach((season) => {
@@ -99,16 +85,10 @@ const AddEpisode: React.FC = () => {
       await Promise.all(formDataArray.map((formdata) => addEpisode(formdata)));
       toast.success("Episodes added Successfully");
       navigate("/admin-dashboard-series");
-      formDataArray.forEach((formData, index) => {
-        console.log(`FormData for Episode ${index + 1}:`);
-        for (let [key, value] of formData.entries()) {
-          console.log(`${key}:`, value);
-        }
-      });
-
-      console.log("FormData array:", formDataArray);
     } catch (error) {
       toast.error("Error in Adding episode");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -118,23 +98,24 @@ const AddEpisode: React.FC = () => {
   const fetchSeriesOptions = async (inputValue: string) => {
     try {
       const response = await searchSeries(inputValue.trim());
-      console.log(response.data);
-      return response?.data?.data?.seriesList.map((series: { _id: string; title: string }) => ({
-        value: series._id,
-        label: series.title,
-      })) || [];
+      return (
+        response?.data?.data?.seriesList.map(
+          (series: { _id: string; title: string }) => ({
+            value: series._id,
+            label: series.title,
+          })
+        ) || []
+      );
     } catch (error) {
-      console.error("Error fetching series:", error);
-      
+      toast.error("Error in fetching series");
     }
   };
-  
+
   return (
     <div className="add-episode">
+      {loading && <Loader />}
       <div className="add-episode-container">
-        {/* <div className="season-heading-container"> */}
         <h2 className="season-header">Seasons</h2>
-        {/* </div> */}
         <div className="series-selection">
           <div className="series-selection-1">
             <label>Select Series:</label>
@@ -149,11 +130,11 @@ const AddEpisode: React.FC = () => {
               styles={{
                 singleValue: (provided) => ({
                   ...provided,
-                  color: "white", // Selected option color
+                  color: "white",
                 }),
                 placeholder: (provided) => ({
                   ...provided,
-                  color: "white", // Placeholder color
+                  color: "white",
                 }),
                 option: (provided, state) => ({
                   ...provided,
@@ -175,6 +156,7 @@ const AddEpisode: React.FC = () => {
           <div className="series-selection-2">
             <input
               type="number"
+              className="add-episode-input"
               placeholder="Enter Season Number.."
               value={seasonInput}
               onChange={(e) => setSeasonInput(e.target.value)}
@@ -203,6 +185,7 @@ const AddEpisode: React.FC = () => {
                     <label className="episode-label">Title</label>
                     <input
                       type="text"
+                      className="add-episode-input"
                       placeholder="Episode title"
                       onChange={(e) =>
                         updateEpisode(
@@ -226,11 +209,12 @@ const AddEpisode: React.FC = () => {
                         )
                       }
                       autoComplete="off"
-                      className="text-area"
+                      className="add-episode-textarea"
                     />
                     <label className="episode-label">Duration (Seconds)</label>
                     <input
                       type="number"
+                      className="add-episode-input"
                       placeholder="Duration in minutes"
                       onChange={(e) =>
                         updateEpisode(
@@ -245,6 +229,7 @@ const AddEpisode: React.FC = () => {
                     <label className="episode-label">Episode Number</label>
                     <input
                       type="number"
+                      className="add-episode-input"
                       min={"1"}
                       placeholder="Episode number"
                       onChange={(e) =>
@@ -260,6 +245,7 @@ const AddEpisode: React.FC = () => {
                     <label className="episode-label">Release Date</label>
                     <input
                       type="date"
+                      className="add-episode-input"
                       placeholder="Release Date"
                       onChange={(e) =>
                         updateEpisode(
@@ -274,6 +260,7 @@ const AddEpisode: React.FC = () => {
                     <label className="episode-label">Episode</label>
                     <input
                       type="file"
+                      className="add-episode-input"
                       placeholder="Enter episode URL"
                       onChange={(e) =>
                         updateEpisode(

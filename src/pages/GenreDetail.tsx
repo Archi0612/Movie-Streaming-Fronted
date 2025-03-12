@@ -24,6 +24,7 @@ const GenreDetail: React.FC = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [series, setSeries] = useState<Movie[]>([]);
 
+
   const numericGenreId = genreId ? Number(genreId) : 0;
   const genreName = genreMap[numericGenreId] || "Unknown Genre";
   const fetchByGenres = async () => {
@@ -31,12 +32,11 @@ const GenreDetail: React.FC = () => {
       console.error("Invalid genreId:", genreId);
       return;
     }
-
     try {
       const movieData = await getMoviesByGenre(numericGenreId);
       const seriesData = await fetchSeriesByGenre(numericGenreId);
-      setMovies(movieData?.data?.moviesList || []);
-      setSeries(seriesData?.data?.seriesList || []);
+      setMovies(movieData?.moviesList || []);
+      setSeries(seriesData?.seriesList || []);
     } catch (error: unknown) {
       if (error instanceof Error) {
         throw new Error(error.message);
@@ -49,10 +49,13 @@ const GenreDetail: React.FC = () => {
     fetchByGenres();
   }, [numericGenreId]);
 
+  console.log(movies, "gener detail page ");
+
+
   return (
     <div className="genre-detailpage-container">
       <div className="genre-name">
-\
+        \
         <div className="genre-series-container">
           {!series?.length && !movies?.length ? (
             <img className="image-not-found" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIlkfLdB2GiAbY3aZoTvPlWdvgcgwveVEXog&s" alt="No Data Found" />
@@ -70,7 +73,7 @@ const GenreDetail: React.FC = () => {
       </div>
     </div>
   );
-  
+
 };
 
 export default GenreDetail;

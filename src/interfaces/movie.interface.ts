@@ -117,6 +117,7 @@ export interface Movie {
   rating: number;
   languages: string[];
   genres: number[];
+  contentType: string;
 }
 
 export interface TrendingMoviesProps {

@@ -4,29 +4,27 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6); 
+  background: rgba(0, 0, 0, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
 }
 
-/* Modal container */
 .modal-container {
-  background-color: rgba(26,26,45,0.8);
-box-shadow: 0px 2px 5px var(--hover-shadow);
+  background-color: rgba(26, 26, 45, 0.8);
+  box-shadow: 0px 2px 5px var(--hover-shadow);
   padding: 20px;
   width: 50%;
   border-radius: 10px;
-
   color: white;
   position: relative;
   z-index: 1001;
 }
 
 
- .upper-close-btn{
-  position:absolute;
+.upper-close-btn {
+  position: absolute;
   top: 10px;
   right: 10px;
   background: none;
@@ -34,8 +32,9 @@ box-shadow: 0px 2px 5px var(--hover-shadow);
   color: white;
   cursor: pointer;
   font-size: 18px;
- }
-.edit-btn{
+}
+
+.edit-btn {
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -61,8 +60,7 @@ label {
   margin-top: 10px;
 }
 
-input,
-textarea {
+.edit-series-input {
   width: 100%;
   padding: 8px;
   border-radius: 5px;
@@ -71,45 +69,59 @@ textarea {
   color: white;
 }
 
-textarea {
-  height: 60px;
+.edit-series-textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: white;
   resize: none;
+  height: 90px !important;
 }
 
-.edit-save-btn,.edit-close-btn {
+.edit-save-btn,
+.edit-close-btn {
   width: 20%;
   margin-top: 15px;
   padding: 10px 5px;
- 
   border: none;
   border-radius: 5px;
   color: white;
   font-weight: bold;
   cursor: pointer;
 }
-.edit-save-btn{
+
+.edit-save-btn {
   background: #0073e6
 }
+
 .edit-save-btn:hover {
   background: #0059b3;
 }
-.edit-close-btn{
+
+.edit-close-btn {
   background: gray;
 }
-.edit-close-btn:hover{
+
+.edit-close-btn:hover {
   background: #666;
 }
+
 @media screen and (max-width: 1024px) {
-  .modal-fields{
+  .modal-fields {
     grid-template-columns: 1fr !important;
     display: grid;
     max-height: 600px !important;
-  overflow-y: auto !important;
+    overflow-y: auto !important;
   }
-  .edit-btn{
+
+  .edit-btn {
     height: 50px;
   }
-  .edit-close-btn,.edit-save-btn{
+
+  .edit-close-btn,
+  .edit-save-btn {
     font-size: 13px;
     padding: 3px;
     width: 30%;

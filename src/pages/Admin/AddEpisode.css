@@ -22,23 +22,28 @@
     align-items: center;
     justify-content: center;
 }
-/* .add-episode-container  h2{
-    text-align: center;
-    font-size: 30px;
-    margin-bottom: 20px;
-    color: var(--primary-color);
-} */
+
 label {
     font-weight: bold;
 }
 
-input, textarea {
+.add-episode-input{
     width: 100%;
     padding: 10px;
     border: none;
     border-radius: 5px;
     background: rgba(93, 94, 95, 0.3);
     color: white;
+}
+.add-episode-textarea{
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: rgba(93, 94, 95, 0.3);
+    color: white;
+    resize: none;
+    height: 90px;
 }
 
 input[type="file"]::file-selector-button {
@@ -53,11 +58,6 @@ input[type="file"]::file-selector-button {
 input[type="file"]::file-selector-button:hover {
     background-color: #51afdb;
     border: 2px solid #4da4df;
-}
-
-textarea {
-    resize: vertical;
-    height: 80px;
 }
 .seasons-container {
     width: 100%;
@@ -78,9 +78,6 @@ textarea {
 }
 
 .season-header {
-    /* display: flex;
-    justify-content: space-between;
-    align-items: center; */
     font-size: 25px !important;
     font-weight: bold;
     color: var(--primary-color);
