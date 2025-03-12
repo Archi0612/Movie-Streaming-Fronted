@@ -25,6 +25,7 @@ export interface MediaCardProps {
     rating: number;
     languages: string[];
     genres: number[];
+    contentType: string;
   };
 }
 
@@ -209,4 +210,93 @@ export interface LoginDetails {
 //   message?: string | string[];
 // }
 
+
+// this is to fetch profile info for profile page 
+
+export interface UserProfile {
+  _id: string;
+  email: string;
+  name: string;
+  contactNo?: string;
+  profilePicture?: string;
+  dateOfBirth?: string;
+  gender?: string;
+  subscriptionPlan?: string;
+  role: string;
+  isActive: boolean;
+}
+
+// Define Type for API Response
+export interface ProfileApiResponse {
+  data: User
+}
+
+export interface User {
+  user: UserProfile;
+}
+
+// Define Type for State
+export interface ProfileState {
+  data: UserProfile | null;
+  loading: boolean;
+  error: string | null;
+}
+
+// watchlist interface for state management
+
+interface Content {
+  _id: string;
+  title: string;
+  poster?: string;
+}
+
+export interface WatchListItem {
+  contentId: Content;
+  contentType: string;
+  _id: string;
+}
+
+export interface WatchListData {
+  _id: string;
+  watchlist: WatchListItem[];
+}
+
+export interface WatchListApiResponse {
+  data: {
+    watchlist: WatchListData;
+  };
+}
+
+export interface WatchListState {
+  data: WatchListItem[] | null;
+  loading: boolean;
+  error: string | null;
+}
+
+
+
+// LikedList Interface for state Management
+export interface LikedListState {
+  data: LikedContentItem[] | null;
+  loading: boolean;
+  error: string | null;
+}
+
+export interface LikedContentItem {
+  _id: string;
+  userId: string;
+  contentId: string | null; // Can be null
+  contentType: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface LikedContent {
+  likedContent: LikedContentItem[];
+}
+
+export interface LikedListApiResponse {
+  message: string;
+  data: LikedContent;
+}
 

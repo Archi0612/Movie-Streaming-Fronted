@@ -22,6 +22,8 @@ const HeroSection: React.FC = () => {
     latest: [],
     topRated: [],
   });
+
+
   const movieCategories = [
     { key: "pop", title: "Popular Movies" },
     { key: "latest", title: "Latest Movies" },
@@ -37,9 +39,9 @@ const HeroSection: React.FC = () => {
         ]);
 
         setMovies({
-          latest: latestResponse.data.moviesList || [],
-          topRated: topRatedResponse.data.moviesList || [],
-          pop: popularMoviesResponse.data.moviesList || [],
+          latest: latestResponse?.moviesList || [],
+          topRated: topRatedResponse?.moviesList || [],
+          pop: popularMoviesResponse?.moviesList || [],
         });
       } catch (err) {
         console.error("Error fetching movies", err);
@@ -47,6 +49,8 @@ const HeroSection: React.FC = () => {
     };
     fetchMovies();
   }, []);
+
+  console.log(movies, "movie in herosection file line 54");
 
   return (
     <div className="hero-section">

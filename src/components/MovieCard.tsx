@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Play, Info, Plus } from "lucide-react";
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
@@ -6,15 +5,17 @@ import { useNavigate } from "react-router-dom";
 import { genreMap } from "../utils/constants";
 import "./MovieCard.css";
 import { MediaCardProps } from "../interfaces/movie.interface";
+import { toggleWatchList } from "../redux/slices/WatchList/WatchList";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../redux/store";
 
 
 const MovieCard: React.FC<MediaCardProps> = ({ media }) => {
   console.log(media, "media in moviecard compo");
-  const { title, poster, description, releaseDate, rating, languages, genres } = media;
-
+  const { title, poster, description, releaseDate, rating, languages, genres, _id, contentType } = media;
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
-
+  const dispatch = useDispatch<AppDispatch>();
 
   // ⭐ Star Ratings Logic
   const stars = Array.from({ length: 5 }, (_, index) => {
@@ -60,7 +61,10 @@ const MovieCard: React.FC<MediaCardProps> = ({ media }) => {
                   <button className="movie-button play">
                     <Play />
                   </button>
-                  <button className="movie-button">
+                  <button className="movie-button" onClick={(e) => {
+                    e.stopPropagation();
+                    dispatch(toggleWatchList({ contentId: _id, contentType: contentType }));
+                  }}>
                     <Plus />
                   </button>
                   <button className="movie-button">
@@ -77,3 +81,5 @@ const MovieCard: React.FC<MediaCardProps> = ({ media }) => {
 };
 
 export default MovieCard;
+
+

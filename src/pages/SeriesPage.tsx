@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   fetchLatestSeriesApi,
   fetchPopularSeriesApi,
-  fetchtopRatedSeriesApi,
+  fetchTopRatedSeriesApi,
 } from "../services/apis/seriesService";
 import { SwiperSlide, Swiper } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
@@ -49,7 +49,7 @@ const SeriesPage: React.FC = () => {
       const [popularSeries, latestSeries, topRatedSeries] = await Promise.all([
         fetchPopularSeriesApi(),
         fetchLatestSeriesApi(),
-        fetchtopRatedSeriesApi(),
+        fetchTopRatedSeriesApi(),
       ]);
       setSeries({
         pop: popularSeries?.seriesList || [],
@@ -65,6 +65,8 @@ const SeriesPage: React.FC = () => {
   useEffect(() => {
     fetchSeries();
   }, []);
+
+  // console.log(series, "series page line 69");
 
   return (
     <div className="series-section">

@@ -4,7 +4,6 @@ import { Elements } from '@stripe/react-stripe-js';
 import axios from 'axios';
 import "./Subscription.css";
 import { loadStripe, Stripe } from '@stripe/stripe-js';
-import { redirect } from 'react-router-dom';
 
 // Define subscription types and pricing
 interface SubscriptionPlan {
@@ -43,19 +42,9 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
     onClose,
 }) => {
 
-    const userData: UserData = {
-        ID: 123,
-        name: "Priyanshu1",
-        email: "zCfdf6@gmail.com",
-        phone: "1234567890",
-        country: "India",
-        countryCode: "+91",
-    };
-
     const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
     const [loading, setLoading] = useState(false);
     const selectedPlanRef = useRef<SubscriptionPlan | null>(null);
-
 
     const handleSubscription = async (tier: 'basic' | 'premium'): Promise<void> => {
         try {
@@ -64,7 +53,6 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
                 tier,
                 price: SUBSCRIPTION_PRICES[tier][billingCycle],
             };
-
             selectedPlanRef.current = plan;
 
             // Validate plan selection
@@ -80,7 +68,6 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
                     type: plan.type,
                     tier: plan.tier,
                 },
-                user: userData, // UserData means the object in which we will store detail of user 
             };
             console.log("Subscription Payload:", subscriptionPayload);
             const response = await axios.post<any>(
