@@ -31,13 +31,14 @@ const MovieCard: React.FC<MediaCardProps> = ({ media }) => {
 
   // 🎭 Genre Mapping
   const genreNames = genres.map((id) => genreMap[id] || "Unknown").join(", ");
-
+  const mediaId = media._id;
   return (
     <div
       className="movie-card"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={() => navigate('/details')}
+      onClick={() => navigate(`/details/${mediaId}?contentType=${contentType}`)}
+
     >
       <img src={poster} alt={title} />
       {

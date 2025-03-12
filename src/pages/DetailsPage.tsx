@@ -1,49 +1,138 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./DetailsPage.css";
+import { fetchSeriesByID } from "../services/apis/seriesService";
+import { useParams, useSearchParams } from "react-router-dom";
+import { getMovieById } from "../services/apis/movieService";
+import { Movie } from "../interfaces/movie.interface";
+import { genreMap } from "../utils/constants";
+import { FaPlay, FaRegBookmark, FaThumbsUp } from "react-icons/fa";
+import { FaShareFromSquare } from "react-icons/fa6";
+import { Seriesdata } from "../interfaces/series.interface";
+import { Play, Plus } from "lucide-react";
+import ReactPlayer from "react-player";
 
 const DetailsPage: React.FC = () => {
+  const { mediaId } = useParams();
+  const [mediaData, setMediaData] = useState<Movie | null>(null);
+  const [seriesData, setSeriesData] = useState<Seriesdata[]>();
+  const [searchParams] = useSearchParams();
+  const contentType = searchParams.get("contentType");
+  console.log(contentType, "content type");
+
+  const [selectedSeason, setSelectedSeason] = useState<number | null>(null);
+
+  const fetchMediaByID = async () => {
+    try {
+      if (contentType === "Movie") {
+        const response = await getMovieById(mediaId as string);
+        setMediaData(response as Movie);
+      }
+      else {
+        const response = await fetchSeriesByID(mediaId as string);
+        setMediaData(response as Movie);
+      }
+
+      // if (seriesResult.status === "fulfilled" && seriesResult.value) {
+      //   setMediaData(seriesResult.value.seriesInfo as Movie);
+      //   setSeriesData(seriesResult.value.seriesContent as Seriesdata[]);
+      //   console.log(setMediaData, "media data ")
+      // } else if (movieResult.status === "fulfilled" && movieResult.value) {
+      //   setMediaData(movieResult.value);
+
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        throw new Error(err.message);
+      }
+    }
+  };
+
+  useEffect(() => {
+    fetchMediaByID();
+  }, [mediaId]);
+  // 🎭 Genre Mapping
+  // console.log(mediaData, "geners");
+  const genreNames = mediaData?.genres
+    .map((id) => genreMap[id] || "Unknown")
+    .join(", ");
+  const handleSeasonChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedSeason(Number(event.target.value));
+  };
   return (
     <div className="details-container">
       <div className="header-container">
-        <div className="header-image-container">
-          <img
-            src="https://w0.peakpx.com/wallpaper/641/809/HD-wallpaper-jurassic-park-dark-dinosaur-jurassic-logo-movie-park-whatsapp-world.jpg"
-            alt="Jurassic Park Banner"
-            className="header-image"
-          />
-          <div className="logo-container">
-            <img
-              src="/api/placeholder/150/75"
-              alt="Jurassic Park Logo"
-              className="movie-logo"
+        <div className="video-overlay">
+          {mediaData?.trailerUrl && (
+            <ReactPlayer
+              url={mediaData.trailerUrl}
+              width="100%"
+              height="25rem"
+              controls
+              playing
             />
-          </div>
-        </div>
-        <div className="navigation-dots">
-          <span className="dot active"></span>
-          <span className="dot"></span>
-          <span className="dot"></span>
+          )}
         </div>
       </div>
 
       <div className="content-container">
         <div className="title-section">
-          <h1 className="movies-title">Jurassic Park</h1>
+          <div className="media-heading-data">
+            <h1 className="mediaData-title">{mediaData?.title}</h1>
+            {/* <div className="header-image-container">
+          <img
+            // src="https://w0.peakpx.com/wallpaper/641/809/HD-wallpaper-jurassic-park-dark-dinosaur-jurassic-logo-movie-park-whatsapp-world.jpg"
+            src={mediaData?.poster}
+            alt={`Poster of ${mediaData?.title}`}
+            className="header-image"
+          />
+        </div> */}
+            <div className="actions-container">
+              <button className="action-button like-button">
+                <FaThumbsUp size={16} />
+                Like
+              </button>
+              <button className="action-button share-button">
+                <FaShareFromSquare size={16} />
+                Share
+              </button>
+              <button className="action-button watchlist-button">
+                <FaRegBookmark size={16} />
+                Add to Watchlist
+              </button>
+            </div>
+          </div>
+
           <div className="movie-meta">
-            <span className="runtime">2 hours 7 minutes</span>
+            <span className="runtime">
+              {(() => {
+                const totalSeconds = mediaData?.duration || 0;
+                const hours = Math.floor(totalSeconds / 3600);
+                const minutes = Math.floor((totalSeconds % 3600) / 60);
+                if (hours == 0 || minutes == 0) return;
+                return hours > 0 ? `${hours}h ${minutes}m` : `${minutes}m`;
+              })()}
+            </span>
             <span className="divider">•</span>
-            <span className="rating">PG-13</span>
+            <span className="genres">{genreNames}</span>
             <span className="divider">•</span>
-            <span className="genres">Action, Adventure</span>
+            <span className="release-date">
+              {new Date(mediaData?.releaseDate as string).getFullYear()}
+            </span>
             <span className="divider">•</span>
-            <span className="release-date">11 June 1993 (USA)</span>
+            <span className="languages">{mediaData?.languages}</span>
+          </div>
+
+          <div className="watch-movie">
+            <button className="watch-movie-button">
+              Watch
+              <FaPlay size={16} />
+            </button>
           </div>
         </div>
 
         <div className="rating-container">
           <div className="star-rating">
             <span className="star">★</span>
-            <span className="rating-score">8.1</span>
+            <span className="rating-score">{mediaData?.rating}</span>
             <span className="total-votes">/10 (1.4M)</span>
           </div>
         </div>
@@ -51,161 +140,137 @@ const DetailsPage: React.FC = () => {
         <div className="main-content">
           <div className="left-content">
             <section className="description-section">
-              <h2>Description</h2>
-              <p>
-                A pragmatic paleontologist visiting an almost complete theme
-                park is tasked with protecting a couple of kids after a power
-                failure causes the park's cloned dinosaurs to run loose.
-              </p>
+              <h3 className="medieaData-subtitle">Description</h3>
+              <div className="episodes-container">
+                <p className="description-para">{mediaData?.description}</p>
+              </div>
             </section>
+            {seriesData && (
+              <div className="season-selector">
+                <label htmlFor="season">Select Season: </label>
+                <select id="season" onChange={handleSeasonChange}>
+                  <option value="No Seasons">Select</option>
+                  {seriesData.map((season) => (
+                    <option
+                      key={season._id}
+                      value={season.season}
+                      className="option-season"
+                    >
+                      Season {season.season || `No Seasons`}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
 
+            {selectedSeason !== null && (
+              <section className="episodes-section">
+                {(seriesData as Seriesdata[])
+                  .filter((season) => season.season === selectedSeason)
+                  .map((season) => (
+                    <div key={season._id}>
+                      <h3 className="medieaData-subtitle">
+                        Season: {season.season}
+                      </h3>
+                      <div className="episodes-container">
+                        {season.episodes.map((episode) => (
+                          <div key={episode._id} className="episode">
+                            <h4 className="episode-title">
+                              Episode {episode.episodeNumber}: {episode.title}
+                            </h4>
+                            <span className="episode-duration">
+                              Duration: {Math.floor(episode.duration / 60)} min
+                            </span>
+                            <span className="divider">•</span>
+                            <span className="episode-release">
+                              Released:{" "}
+                              {new Date(episode.releaseDate).toDateString()}
+                            </span>
+                            <p className="episode-description">
+                              {episode.description}
+                            </p>
+                            <div className="episode-buttons">
+                              <button className="movie-button play">
+                                <Play />
+                              </button>
+                              <button className="movie-button">
+                                <Plus />
+                              </button>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+              </section>
+            )}
             <section className="credits-section">
+              {/* Directors Section */}
               <div className="director">
-                <h3>Director</h3>
-                <p>
-                  <a href="#" className="person-link">
-                    Steven Spielberg
-                  </a>
-                </p>
-              </div>
-              <div className="writers">
-                <h3>Writers</h3>
-                <p>
-                  <a href="#" className="person-link">
-                    Michael Crichton
-                  </a>{" "}
-                  (novel),
-                  <a href="#" className="person-link">
-                    Michael Crichton
-                  </a>{" "}
-                  (screenplay),
-                  <a href="#" className="person-link">
-                    David Koepp
-                  </a>{" "}
-                  (screenplay)
-                </p>
-              </div>
-              {/* <div className="stars">
-                <h3>Stars</h3>
-                <p>
-                  <a href="#" className="person-link">Sam Neill</a>, 
-                  <a href="#" className="person-link">Laura Dern</a>, 
-                  <a href="#" className="person-link">Jeff Goldblum</a> 
-                  | <a href="#" className="see-all">See all cast & crew</a>
-                </p>
-              </div> */}
-              <div className="cast-section">
-                <h2 className="cast-title">Cast</h2>
+                <h3 className="medieaData-subtitle">Directors</h3>
                 <div className="cast-list">
-                  <div className="cast-member">
-                    <img
-                      src="/api/placeholder/150/150"
-                      alt="Leonardo DiCaprio"
-                      className="cast-image"
-                    />
-                    <div className="cast-info">
-                      <h4>Leonardo DiCaprio</h4>
-                      <p>Cobb</p>
-                    </div>
-                  </div>
-                  <div className="cast-member">
-                    <img
-                      src="/api/placeholder/150/150"
-                      alt="Joseph Gordon-Levitt"
-                      className="cast-image"
-                    />
-                    <div className="cast-info">
-                      <h4>Joseph Gordon-Levitt</h4>
-                      <p>Arthur</p>
-                    </div>
-                  </div>
-                  <div className="cast-member">
-                    <img
-                      src="/api/placeholder/150/150"
-                      alt="Ellen Page"
-                      className="cast-image"
-                    />
-                    <div className="cast-info">
-                      <h4>Elliot Page</h4>
-                      <p>Ariadne</p>
-                    </div>
-                  </div>
-                  <div className="cast-member">
-                    <img
-                      src="/api/placeholder/150/150"
-                      alt="Tom Hardy"
-                      className="cast-image"
-                    />
-                    <div className="cast-info">
-                      <h4>Tom Hardy</h4>
-                      <p>Eames</p>
-                    </div>
-                  </div>
-                  <div className="cast-member">
-                    <img
-                      src="/api/placeholder/150/150"
-                      alt="Ken Watanabe"
-                      className="cast-image"
-                    />
-                    <div className="cast-info">
-                      <h4>Ken Watanabe</h4>
-                      <p>Saito</p>
-                    </div>
-                  </div>
-                  <div className="cast-member">
-                    <img
-                      src="/api/placeholder/150/150"
-                      alt="Cillian Murphy"
-                      className="cast-image"
-                    />
-                    <div className="cast-info">
-                      <h4>Cillian Murphy</h4>
-                      <p>Robert Fischer</p>
-                    </div>
-                  </div>
+                  {mediaData?.directors
+                    ? mediaData.directors.map((director, index) => (
+                      <div key={index} className="cast-member">
+                        <img
+                          src="/public/default.png"
+                          alt={director.name}
+                          className="cast-image"
+                        />
+                        <div className="cast-info">
+                          <h4 className="media-name">{director.name}</h4>
+                        </div>
+                      </div>
+                    ))
+                    : mediaData?.director // Fallback for movie response
+                      ? mediaData.director.map((director, index) => (
+                        <div key={index} className="cast-member">
+                          <img
+                            src="/public/default.png"
+                            alt={director.name}
+                            className="cast-image"
+                          />
+                          <div className="cast-info">
+                            <h4 className="media-name">{director.name}</h4>
+                          </div>
+                        </div>
+                      ))
+                      : null}
                 </div>
               </div>
-            </section>
 
-            <section className="gallery-section">
-              <h2>Gallery</h2>
-              <div className="gallery-grid">
-                <div className="gallery-item">
-                  <img src="/api/placeholder/240/160" alt="Scene 1" />
+              {/* Casts Section */}
+              <div className="cast-section">
+                <h3 className="medieaData-subtitle">Casts</h3>
+                <div className="cast-list">
+                  {mediaData?.casts
+                    ? mediaData.casts.map((cast, index) => (
+                      <div key={index} className="cast-member">
+                        <img
+                          src="/public/default.png"
+                          alt={cast.name}
+                          className="cast-image"
+                        />
+                        <div className="cast-info">
+                          <h4 className="media-name">{cast.name}</h4>
+                        </div>
+                      </div>
+                    ))
+                    : mediaData?.cast // Fallback for movie response
+                      ? mediaData.cast.map((cast, index) => (
+                        <div key={index} className="cast-member">
+                          <img
+                            src="/public/default.png"
+                            alt={cast.name}
+                            className="cast-image"
+                          />
+                          <div className="cast-info">
+                            <h4 className="media-name">{cast.name}</h4>
+                          </div>
+                        </div>
+                      ))
+                      : null}
                 </div>
-                <div className="gallery-item">
-                  <img src="/api/placeholder/240/160" alt="Scene 2" />
-                </div>
-                <div className="gallery-item">
-                  <img src="/api/placeholder/240/160" alt="Scene 3" />
-                </div>
-                <div className="gallery-item">
-                  <img src="/api/placeholder/240/160" alt="Scene 4" />
-                </div>
-                <div className="gallery-item">
-                  <img src="/api/placeholder/240/160" alt="Scene 5" />
-                </div>
-                <div className="gallery-item">
-                  <img src="/api/placeholder/240/160" alt="Scene 6" />
-                </div>
-              </div>
-              <div className="gallery-count">
-                <span>2,931 Images</span>
-                <button className="view-all-btn">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <polyline points="9 18 15 12 9 6"></polyline>
-                  </svg>
-                </button>
               </div>
             </section>
           </div>
@@ -213,22 +278,7 @@ const DetailsPage: React.FC = () => {
           <div className="right-content">
             <div className="reviews-section">
               <h2>Reviews</h2>
-              <div className="review-summary">
-                <div className="review-meter">
-                  <div className="meter-circle positive">
-                    <span className="meter-value">90</span>
-                  </div>
-                  <div className="meter-label">User Reviews</div>
-                  <div className="meter-count">See details and 36 ratings</div>
-                </div>
-                <div className="metacritic">
-                  <div className="meter-circle meta-positive">
-                    <span className="meter-value">77</span>
-                  </div>
-                  <div className="meter-label">Metascore</div>
-                  <div className="meter-count">See all details</div>
-                </div>
-              </div>
+              <div className="review-summary"></div>
 
               <div className="featured-review">
                 <p className="review-text">
@@ -237,54 +287,12 @@ const DetailsPage: React.FC = () => {
                   it was phenomenal and I love it to this day."
                 </p>
                 <div className="reviewer-info">
-                  <span className="reviewer-name">John D</span>
+                  <span className="reviewer-name">John</span>
                   <div className="reviewer-rating">
                     <span className="stars">★★★★★</span>
                   </div>
                 </div>
               </div>
-
-              <div className="review-actions">
-                <button className="review-action-btn">1,027 Reviews</button>
-                <button className="review-action-btn">276 Critics</button>
-              </div>
-            </div>
-
-            <div className="actions-container">
-              <button className="action-button share-button">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
-                  <polyline points="16 6 12 2 8 6"></polyline>
-                  <line x1="12" y1="2" x2="12" y2="15"></line>
-                </svg>
-                Share
-              </button>
-              <button className="action-button watchlist-button">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-                </svg>
-                Add to Watchlist
-              </button>
             </div>
           </div>
         </div>
@@ -294,3 +302,5 @@ const DetailsPage: React.FC = () => {
 };
 
 export default DetailsPage;
+
+

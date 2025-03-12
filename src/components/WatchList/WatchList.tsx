@@ -2,15 +2,21 @@ import './Watchlist.css';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { WatchListItem } from '../../interfaces/movie.interface';
+import { toggleWatchList } from "../../redux/slices/WatchList/WatchList";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../redux/store";
 
 function WatchList() {
     const watchListState = useSelector((state: RootState) => state.watchlist);
+    const dispatch = useDispatch<AppDispatch>();
 
+    console.log(watchListState);
     return (
         <div className="main-watchlist">
             <div className='watchlist-heading'>
                 <h3 className='watchlist-headingh3'>Watchlist</h3>
             </div>
+
 
             <div className='watchlist-content'>
                 {watchListState.data && watchListState.data.length > 0 ? (
@@ -28,7 +34,7 @@ function WatchList() {
                             </div>
                             <div className='watchlist-buttons'>
                                 <button className='watchlistBtn'>Watch</button>
-                                <button className='watchlistBtn' onClick={()=> dispatchEvent(toggleWatchList())}>Remove</button>
+                                <button className='watchlistBtn' onClick={() => dispatch(toggleWatchList({ contentId: item.contentId?._id || '', contentType: item.contentType || '' }))}>Remove</button>
 
                             </div>
                         </div>

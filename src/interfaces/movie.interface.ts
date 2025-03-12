@@ -108,18 +108,34 @@ export interface MenuItem {
   isAdminMenu: boolean; // Make it optional
 }
 
+//export interface Movie {
+//   _id: string;
+//   title: string;
+//   poster: string;
+//   description: string;
+//   releaseDate: string;
+//   rating: number;
+//   languages: string[];
+//   genres: number[];
+//   contentType: string;
+// }
+
 export interface Movie {
   _id: string;
   title: string;
+  name: string;
   poster: string;
   description: string;
   releaseDate: string;
   rating: number;
   languages: string[];
   genres: number[];
-  contentType: string;
+  director?: Movie[];
+  cast?: Movie[];
+  likes?: boolean;
+  duration?: number;
+  trailerUrl: string;
 }
-
 export interface TrendingMoviesProps {
   movies: Movie;
 }

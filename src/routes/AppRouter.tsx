@@ -117,7 +117,7 @@ const AppRoute: React.FC = () => {
             <Route path="/profile-page" element={<ProfilePage />} />
             <Route path="/payment-success" element={<PaymentSuccess />} />
             <Route path="/payment-cancel" element={<PaymentCancel />} />
-            <Route path="/details" element={<DetailsPage />} />
+            <Route path="/details/:mediaId" element={<DetailsPage />} />
 
           </Route >
 

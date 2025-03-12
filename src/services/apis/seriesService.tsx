@@ -34,7 +34,7 @@ export const fetchTopRatedSeriesApi = () => fetchSeriesData("/series/topRated");
 
 export const fetchSeriesByGenre = (genreId: number) => fetchSeriesData(`/series/genre/${genreId}`);
 
-export const fetchSeriesByID = (seriesId: number) => fetchSeriesData(`/series/get/${seriesId}`);
+export const fetchSeriesByID = (mediaId: string) => fetchSeriesData(`/series/get/${mediaId}`);
 
 
 

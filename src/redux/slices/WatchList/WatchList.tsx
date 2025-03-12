@@ -29,7 +29,7 @@ export const toggleWatchList = createAsyncThunk(
     "watchlist/toggleWatchList",
     async ({ contentId, contentType }: { contentId: string; contentType: string }, { rejectWithValue, dispatch }) => {
         try {
-            console.log(contentId, "here we got the id ")
+            console.log(contentId, contentType, "here we got the id ")
             const response = await api.post("watchlist/toggle", { contentId, contentType }, {
                 withCredentials: true,
             });

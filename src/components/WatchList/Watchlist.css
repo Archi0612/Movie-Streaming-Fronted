@@ -18,7 +18,6 @@
 .watchlist-content {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     gap: 20px;
     color: white;
     border-radius: 10px;
@@ -40,12 +39,11 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin: 10px;
     color: white;
     background-color: #003366;
     border-radius: 10px;
     padding: 10px;
-    width: 96%;
+    width: auto;
     min-height: 80px;
     scroll-snap-align: start;
 }
@@ -80,7 +78,7 @@
 }
 
 .watchlistBtn {
-    width: 6rem;
+    width: 5rem;
     padding: 8px 15px;
     background-color: #007bff;
     color: white;
