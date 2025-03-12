@@ -1,54 +1,166 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import AsyncSelect from "react-select/async";
 import "./EditMovieModal.css";
 import { MdClose } from "react-icons/md";
+import { toast } from "react-toastify";
 import { Movie } from "../../interfaces/movie.interface";
-
+import { editMovie, getMovieById, searchCastByName,searchDirectorByName } from "../../services/apis/adminService";
 interface EditMovieModalProps {
-  movie: any;
+  movieId: string;
   onClose: () => void;
   onSave: (updatedMovie: any) => void;
 }
 
 const genreOptions = [
-  { value: "action", label: "Action" },
-  { value: "comedy", label: "Comedy" },
-  { value: "drama", label: "Drama" },
+  { value: "28", label: "Action" },
+  { value: "18", label: "Drama" },
+  { value: "35", label: "Comedy" },
+  { value: "53", label: "Thriller" },
+  { value: "878", label: "Sci-Fi" },
+  {value:"10749",label:"Romance"},
+  {value:"10751",label:"Family"},
+  {value:"10752",label:"War"},
+  {value:"12",label:"Adv."},
+  {value:"16",label:"Anim."},
+  {value:"80",label:"Crime"},
+  {value:"99",label:"Doc."},
+  {value:"14",label:"Fantasy"},
+  {value:"36",label:"History"},
+  {value:"27",label:"Horror"},
+  {value:"10402",label:"Music"},
+  {value:"9648",label:"Myst."},
+  {value:"37",label:"Western"},
+
 ];
 
 const languageOptions = [
+  { value: "hindi", label: "Hindi" },
   { value: "english", label: "English" },
-  { value: "spanish", label: "Spanish" },
-  { value: "french", label: "French" },
+  { value: "gujarati", label: "Gujarati" },
+  { value: "tamil", label: "Tamil" },
+  { value: "telugu", label: "Telugu" },
+  { value: "malayalam", label: "Malayalam" },
+  { value: "kannada", label: "Kannada" },
 ];
 
-const fetchCastOptions = async (inputValue: string) => {
-  return [
-    { value: "actor1", label: "Actor 1" },
-    { value: "actor2", label: "Actor 2" },
-  ];
+const fetchCastOptions = async(inputValue: string): Promise<{ value: string; label: string }[]> => {
+    try {
+      const results=await searchCastByName(inputValue.trim());
+      return results.map((cast:{_id:string;name:string})=>({
+        value:cast._id,
+        label:cast.name
+      }))
+    } catch (error) {
+      console.error("Error fetching cast:", error);
+    return [];
+    }
 };
 
-const fetchDirectorOptions = async (inputValue: string) => {
-  return [
-    { value: "director1", label: "Director 1" },
-    { value: "director2", label: "Director 2" },
-  ];
+const fetchDirectorOptions = async(inputValue: string): Promise<{ value: string; label: string }[]> => {
+  try {
+    const results=await searchDirectorByName(inputValue.trim());
+    return results.map((director:{_id:string;name:string})=>({
+      value:director._id,
+      label:director.name
+    }))
+  } catch (error) {
+    console.error("Error fetching director:", error);
+  return [];
+  }
 };
 
-const EditMovieModal: React.FC<EditMovieModalProps> = ({ movie, onClose, onSave }) => {
-  const [updatedMovie, setUpdatedMovie] = useState(movie);
+const EditMovieModal: React.FC<EditMovieModalProps> = ({ movieId, onClose, onSave }) => {
+  const [updatedMovie, setUpdatedMovie] = useState<any>(null);
+  const [originalMovie,setOriginalMovie]=useState<any>(null);
+  useEffect(() => {
+    const fetchMovies = async() => {
+      try {
+        const result = await getMovieById(movieId);
+        const movieData = result?.data.data.movie;
+        console.log("Fetched movie data:", movieData);
+        
+        const formattedReleaseDate = movieData.releaseDate 
+          ? new Date(movieData.releaseDate).toISOString().split("T")[0] 
+          : "";
 
+        // Format cast data
+        const formattedCast = movieData.cast
+          ? movieData.cast.map((member: { _id: string; name: string }) => ({
+              value: member._id,
+              label: member.name,
+            }))
+          : [];
+          
+        // Format director data
+        const formattedDirector = movieData.director
+          ? movieData.director.map((dir: { _id: string, name: string }) => ({
+              value: dir._id,
+              label: dir.name
+            }))
+          : [];
+          
+        // Format genres data - convert numeric IDs to strings for react-select
+        const formattedGenres = movieData.genres
+          ? movieData.genres.map((genreId: number) => {
+              const genreOption = genreOptions.find(option => parseInt(option.value) === genreId);
+              return genreOption || { value: genreId.toString(), label: `Genre ${genreId}` };
+            })
+          : [];
+          
+        // Format languages data
+        const formattedLanguages = movieData.languages
+          ? movieData.languages.map((lang: string) => {
+              const langOption = languageOptions.find(option => option.value === lang);
+              return langOption || { value: lang, label: lang };
+            })
+          : [];
+          
+        const formattedMovie = {
+          ...movieData,
+          releaseDate: formattedReleaseDate,
+          cast: formattedCast,
+          director: formattedDirector,
+          genres: formattedGenres,
+          languages: formattedLanguages,
+          poster: movieData.poster || ""
+        };
+        
+        setOriginalMovie(formattedMovie);
+        setUpdatedMovie(formattedMovie);
+        console.log("Formatted movie data:", formattedMovie);
+      } catch (error: any) {
+        toast.error(error.message);
+      }
+    };
+    
+    fetchMovies();
+  }, [movieId]);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setUpdatedMovie((prev: any) => ({ ...prev, [name]: value }));
   };
 
+  // const handleSelectChange = (selected: any, action: any) => {
+  //   setUpdatedMovie((prev: any) => {
+  //     if (!prev) return prev; // Ensure `prev` exists
+  //     return {
+  //       ...prev,
+  //       [action.name]: selected ? [...selected] : [],
+  //     };
+  //   });
+  // };
   const handleSelectChange = (selected: any, action: any) => {
-    setUpdatedMovie((prev: any) => ({ ...prev, [action.name]: selected }));
-  };
-
+    setUpdatedMovie((prev: any) => ({
+      ...prev,
+      [action.name]: selected || [],
+    }));
+  }; 
+  
+  
+  
+  
+  
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const { name } = e.target;
@@ -56,42 +168,104 @@ const EditMovieModal: React.FC<EditMovieModalProps> = ({ movie, onClose, onSave 
       setUpdatedMovie((prev: any) => ({ ...prev, [name]: file }));
     }
   };
+  const hasChanged = (field: string) => {
+    if (!updatedMovie || !originalMovie) return false;
+  
+    const updatedValue = updatedMovie[field];
+    const originalValue = originalMovie[field];
+  
+    if (Array.isArray(updatedValue) && Array.isArray(originalValue)) {
+      // Convert to sorted strings to compare effectively
+      const updatedStr = updatedValue.map((item: any) => item.value).sort().join(",");
+      const originalStr = originalValue.map((item: any) => item.value).sort().join(",");
+      return updatedStr !== originalStr;
+    }
+    return updatedValue !== originalValue;
+  };
   
 
-  const handleSave = () => {
+  const handleSave = async() => {
     const formData=new FormData()
-    formData.append("title",updatedMovie.title)
-    formData.append("description",updatedMovie.description)
-    formData.append("releaseDate", updatedMovie.releaseDate);
-  formData.append("duration", updatedMovie.duration.toString());
-  formData.append("rating", updatedMovie.rating.toString());
+  //   formData.append("movieId",updatedMovie.id)
+  //   formData.append("title",updatedMovie.title)
+  //   formData.append("description",updatedMovie.description)
+  //   formData.append("releaseDate", updatedMovie.releaseDate);
+  // formData.append("duration", updatedMovie.duration.toString());
+  // formData.append("rating", updatedMovie.rating.toString());
 
-  // Append multi-select fields as comma-separated values
-  if (Array.isArray(updatedMovie.genres)) {
-    updatedMovie.genres.forEach((genre: { value: string; label: string }) => formData.append("genres", genre.value));
-  }
+  // // Append multi-select fields as comma-separated values
+  // if (Array.isArray(updatedMovie.genres)) {
+  //   updatedMovie.genres.forEach((genre: { value: string; label: string }) => formData.append("genres", genre.value));
+  // }
 
-  if (Array.isArray(updatedMovie.languages)) {
-    updatedMovie.languages.forEach((lang: { value: string; label: string }) => formData.append("languages", lang.value));
-  }
+  // if (Array.isArray(updatedMovie.languages)) {
+  //   updatedMovie.languages.forEach((lang: { value: string; label: string }) => formData.append("languages", lang.value));
+  // }
 
-  if (Array.isArray(updatedMovie.cast)) {
-    updatedMovie.cast.forEach((cast: { value: string; label: string }) => formData.append("cast", cast.value));
-  }
+  // if (Array.isArray(updatedMovie.cast)) {
+  //   updatedMovie.cast.forEach((cast: { value: string; label: string }) => formData.append("cast", cast.value));
+  // }
 
-  if (Array.isArray(updatedMovie.director)) {
-    updatedMovie.director.forEach((director: { value: string; label: string }) => formData.append("director", director.value));
-  }
-  if (updatedMovie.poster) {
-    formData.append("poster", updatedMovie.poster);
-  }
-  if (updatedMovie.trailerUrl) {
-    formData.append("trailerUrl", updatedMovie.trailerUrl);
-  }
-  for(let pair of formData.entries()){
-    console.log(pair[0],pair[1])
-   }
+  // if (Array.isArray(updatedMovie.director)) {
+  //   updatedMovie.director.forEach((director: { value: string; label: string }) => formData.append("director", director.value));
+  // }
+  // if (updatedMovie.poster) {
+  //   formData.append("poster", updatedMovie.poster);
+  // }
+  // if (updatedMovie.trailerUrl) {
+  //   formData.append("trailerUrl", updatedMovie.trailerUrl);
+  // }
+
+  if (hasChanged("title")) formData.append("title", updatedMovie.title);
+    if (hasChanged("description")) formData.append("description", updatedMovie.description);
+    if (hasChanged("releaseDate")) formData.append("releaseDate", updatedMovie.releaseDate);
+    if (hasChanged("duration")) formData.append("duration", updatedMovie.duration.toString());
+    if (hasChanged("rating")) formData.append("rating", updatedMovie.rating.toString());
+
+    if (hasChanged("genres")) {
+      updatedMovie.genres.forEach((genre: { value: string }) => {
+        // Convert string value back to integer for the backend
+        formData.append("genres", parseInt(genre.value).toString());
+      });
+    }
+    
+    if (hasChanged("languages")) {
+      updatedMovie.languages.forEach((lang: { value: string }) =>
+        formData.append("languages", lang.value)
+      );
+    }
+    
+    if (hasChanged("cast")) {
+      updatedMovie.cast.forEach((cast: { value: string }) =>
+        formData.append("casts", cast.value)
+      );
+    }
+    if (hasChanged("director")) {
+      updatedMovie.director.forEach((director: { value: string }) =>
+        formData.append("directors", director.value)
+      );
+    }
+    
+    if (updatedMovie.poster && updatedMovie.poster !== originalMovie.poster) {
+      formData.append("poster", updatedMovie.poster);
+    }
+    if (updatedMovie.trailerUrl && updatedMovie.trailerUrl !== originalMovie.trailerUrl) {
+      formData.append("trailer", updatedMovie.trailerUrl);
+    }
+    if (updatedMovie.movieUrl && updatedMovie.movieUrl !== originalMovie.movieUrl) {
+      formData.append("movie", updatedMovie.movieUrl);
+    }
+
+    formData.append("movieId", movieId);
+
+  try {
+    await editMovie(formData);
+    toast.success("Movie Updated Successfully")
     onSave(updatedMovie);
+    onClose();
+  } catch (error:any) {
+    toast.error(error.message)
+  }
   };
 
   return (
@@ -104,21 +278,21 @@ const EditMovieModal: React.FC<EditMovieModalProps> = ({ movie, onClose, onSave 
         <div className="modal-fields">
             <div className="fields-left">
         <label>Title</label>
-        <input type="text" name="title" value={updatedMovie.title} onChange={handleChange} />
+        <input type="text" name="title" value={updatedMovie?.title}  onChange={handleChange} />
 
         <label>Description</label>
-        <textarea name="description" value={updatedMovie.description} onChange={handleChange} />
+        <textarea className="text-desc" name="description" value={updatedMovie?.description} onChange={handleChange} />
 
         <label>Release Date</label>
-        <input type="date" name="releaseDate" value={updatedMovie.releaseDate} onChange={handleChange} />
+        <input type="date" name="releaseDate" value={updatedMovie?.releaseDate} onChange={handleChange} />
 
         <label>Genres</label>
         <Select
           name="genres"
           isMulti
           options={genreOptions}
-          value={updatedMovie.genres}
-          onChange={handleSelectChange}
+          value={updatedMovie?.genres || []}
+          onChange={(selected)=>handleSelectChange(selected,{name:"genres"})}
           placeholder="Select genres"
           className="select"
           styles={{
@@ -144,18 +318,17 @@ const EditMovieModal: React.FC<EditMovieModalProps> = ({ movie, onClose, onSave 
           }}
           />
         <label>Duration (Seconds)</label>
-        <input type="number" name="duration" value={updatedMovie.duration} onChange={handleChange} min="0" />
+        <input type="number" name="duration" value={updatedMovie?.duration} onChange={handleChange} min="0" />
+        <label>Rating</label>
+        <input type="number" name="rating" value={updatedMovie?.rating} onChange={handleChange} step="0.1" min="0" />
         </div>
         <div className="fields-right">
-
-        <label>Rating</label>
-        <input type="number" name="rating" value={updatedMovie.rating} onChange={handleChange} step="0.1" min="0" />
-
         <label>Cast</label>
         <AsyncSelect
           isMulti
           loadOptions={fetchCastOptions}
           defaultOptions
+          value={updatedMovie?.cast || []}
           onChange={(selected) => handleSelectChange(selected, { name: "cast" })}
           placeholder="Select movie cast"
           styles={{
@@ -186,6 +359,7 @@ const EditMovieModal: React.FC<EditMovieModalProps> = ({ movie, onClose, onSave 
         <AsyncSelect
           isMulti
           loadOptions={fetchDirectorOptions}
+          value={updatedMovie?.director || []}
           defaultOptions
           onChange={(selected) => handleSelectChange(selected, { name: "director" })}
           placeholder="Select movie director"
@@ -216,8 +390,11 @@ const EditMovieModal: React.FC<EditMovieModalProps> = ({ movie, onClose, onSave 
         <Select
           isMulti
           options={languageOptions}
-          value={updatedMovie.languages}
-          onChange={(selected) => handleSelectChange(selected, { name: "languages" })}
+          value={updatedMovie?.languages || []}
+          onChange={(selected)=>handleSelectChange(selected,{name:"languages"})}
+          // value={updatedMovie?.languages?.map((lang: string) =>
+          //   languageOptions.find((option) => option.value === lang) || null
+          // ).filter(Boolean)} 
           placeholder="Select languages"
           className="select"
           styles={{
@@ -247,7 +424,9 @@ const EditMovieModal: React.FC<EditMovieModalProps> = ({ movie, onClose, onSave 
         <input type="file" name="poster" onChange={handleFileChange} />
 
         <label>Trailer</label>
-        <input type="file" name="trailerUrl" onChange={handleFileChange} />
+        <input type="file" name="trailerUrl"  onChange={handleFileChange} />
+        <label>Movie</label>
+            <input type="file" name="movieUrl"onChange={handleFileChange} />
         </div>
         </div>
         <div className="edit-btn">

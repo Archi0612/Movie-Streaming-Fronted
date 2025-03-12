@@ -65,7 +65,6 @@ const Home: React.FC = () => {
               {popularMovies.map((movie) =>
                 movie._id ? (
                   <SwiperSlide key={movie._id}>
-              
                     <MovieCard media={movie}  />
                   </SwiperSlide>
                 ) : null // Prevent rendering items without _id
@@ -75,7 +74,6 @@ const Home: React.FC = () => {
 
           {/* Action Movies - Grid */}
           <div className="home-grid-container">
-  
             <MoviesGrid mediaList={actionMovies} title="Action Movies" />
           </div>
         </div>

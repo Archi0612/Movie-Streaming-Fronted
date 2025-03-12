@@ -71,9 +71,9 @@
     color: white;
   }
   
-  textarea {
-    height: 60px;
+  .text-desc{
     resize: none;
+    height: 90px !important;
   }
   
   .edit-save-btn,.edit-close-btn {

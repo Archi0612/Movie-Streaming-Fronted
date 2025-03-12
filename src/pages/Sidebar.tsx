@@ -14,6 +14,14 @@ import logo from "../assets/logo.png";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./Sidebar.css";
 import { SidebarProps } from "../interfaces/movie.interface";
+import { IconType } from "react-icons";
+
+interface MenuItem {
+  name: string;
+  icon: IconType;
+  path: string;
+  isAdminMenu?: boolean; // Optional property
+}
 
 const Sidebar: React.FC<SidebarProps> = ({ userRole = "user" }) => {
   const navigate = useNavigate();
@@ -29,7 +37,7 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole = "user" }) => {
   }, [location.pathname]);
 
   // Regular user menu items
-  const regularMenuItems = [
+  const regularMenuItems: MenuItem[] = [
     { name: "Home", icon: FaHome, path: "/home" },
     { name: "Search", icon: FaSearch, path: "/search" },
     { name: "Movies", icon: FaFilm, path: "/movies" },
@@ -39,7 +47,7 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole = "user" }) => {
     { name: "My Space", icon: CgProfile, path: "/profile-page" },
   ];
   // Admin-specific menu items
-  const adminMenuItems= [
+  const adminMenuItems: MenuItem[] = [
     { name: "Home", icon: FaHome, path: "/home" },
     {
       name: "Admin",
@@ -56,7 +64,7 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole = "user" }) => {
   ];
 
   // Admin submenu items
-  const adminSubmenuItems = [
+  const adminSubmenuItems: MenuItem[] = [
     { name: "User Dashboard", icon: FaUsers, path: "/user-dashboard" },
     {
       name: "Movies Dashboard",
@@ -73,7 +81,6 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole = "user" }) => {
   const bottomNavItems = [
     { name: "Home", icon: FaHome, path: "/home" },
     { name: "Search", icon: FaSearch, path: "/search" },
-    // { name: "Sparks", icon: FaTv, path: "/series" }, // Triggers Popup
     {
       name: "Admin",
       icon: MdDashboard,
@@ -81,7 +88,6 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole = "user" }) => {
       isAdminMenu: true,
     },
     { name: "My Space", icon: CgProfile, path: "/profile-page" },
-
   ];
 
   const sparksOptions = [
@@ -99,11 +105,7 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole = "user" }) => {
       {/* Sidebar for Desktop */}
       <div
         className={`sidebar ${isExpanded ? "expanded" : ""}`}
-        onMouseEnter={() => setIsExpanded(true)}
-        onMouseLeave={() => {
-          setIsExpanded(false);
-          setShowAdminSubmenu(false);
-        }}
+       
       >
         <div className="sidebar-logo">
           <img
@@ -195,15 +197,44 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole = "user" }) => {
                 if (item.name === "Home") {
                   handleItemClick(item.path);
                   setShowSparksPopup(!showSparksPopup);
+                  setShowAdminSubmenu(false);
+                } else if (item.name === "Admin") {
+                  handleItemClick(item.path);
+                  setShowAdminSubmenu(!showAdminSubmenu);
+                  setShowSparksPopup(false);
                 } else {
                   handleItemClick(item.path);
                   setShowSparksPopup(false);
+                  setShowAdminSubmenu(false);
                 }
               }}
               className={activeItem === item.path ? "active" : ""}
             >
               <IconComponent />
               <span>{item.name}</span>
+              {/* Admin submenu for mobile */}
+              {item.isAdminMenu && showAdminSubmenu && (
+                <div className="admin-submenu-mobile">
+                  {adminSubmenuItems.map((subItem) => {
+                    const SubIconComponent = subItem.icon;
+                    return (
+                      <div
+                        key={subItem.path}
+                        className={`admin-submenu-item ${
+                          activeItem === subItem.path ? "active" : ""
+                        }`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleItemClick(subItem.path);
+                        }}
+                      >
+                        <SubIconComponent size={16} />
+                        <span>{subItem.name}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </li>
           );
         })}

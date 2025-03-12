@@ -28,6 +28,13 @@ export interface MediaCardProps {
   };
 }
 
+export interface MoviesData {
+  movieList: Movie[];
+  seriesList: Movie[];
+  castAndDirectorWiseMovie: Movie[];
+  castAndDirectorWiseSeries: Movie[];
+}
+
 // Generic Props for Both Movies & Series
 export interface MediaGridProps {
   mediaList: {
@@ -63,7 +70,7 @@ export interface UserState {
 //   role: string;
 // }
 
-interface UserData {
+export interface UserData {
   userData: User;
 }
 
@@ -112,10 +119,6 @@ export interface TrendingMoviesProps {
   movies: Movie;
 }
 
-export interface MovieGridProps {
-  movies: Movie[];
-  title: string;
-}
 export interface MovieCardProps {
   title: string;
   posterPath: string;
@@ -196,11 +199,11 @@ export interface LoginDetails {
   password: string;
 }
 
-// Define API Response Types
-export interface AuthResponse {
-  token: string;
-  // data: data;
-  message?: string | string[];
-}
+// // Define API Response Types
+// export interface AuthResponse {
+//   token: string;
+//   data: data;
+//   message?: string | string[];
+// }
 
 

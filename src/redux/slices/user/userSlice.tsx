@@ -4,13 +4,9 @@ import { User, UserState, AuthResponse } from "../../../interfaces/movie.interfa
 import { api } from "../../../services/api";
 import { deleteCookie, getCookie } from "../../../utils/constants";
 
-
-// const dispatch = useDispatch<AppDispatch>();
-
-
 const storedToken = getCookie('token');
-
 const user = localStorage.getItem("currentUser");
+
 const parsedUser = user && user !== "undefined" ? JSON.parse(user) as User : null;
 
 const initialState: UserState = {

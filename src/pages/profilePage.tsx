@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Likedlist from '../components/LikedList';
-import WatchList from '../components/WatchList';
+import Likedlist from '../components/LikedList/LikedList';
+import WatchList from '../components/WatchList/WatchList';
 import userIcon from '../assets/user_logo.png';
 import './profilePage.css';
 import { getNames } from "country-list";
@@ -19,12 +19,13 @@ import { api } from '../services/api';
 ReactModal.setAppElement('#root'); // Ensure accessibility compliance
 
 export default function ProfilePage() {
-    const [isOpen, setIsOpen] = useState(false);
-    const [isSubscribeOpen, setIsSubscribeOpen] = useState(false);
+
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
 
-
+    const loggedUser = useSelector((state: RootState) => state.user.currentUser);
+    const [isOpen, setIsOpen] = useState(false);
+    const [isSubscribeOpen, setIsSubscribeOpen] = useState(false);
     const [formData, setFormData] = useState({
         name: "",
         phone: "",
@@ -32,13 +33,8 @@ export default function ProfilePage() {
         dateOfBirth: "",
         gender: ""
     });
-
-    console.log(formData)
-
     const countries = getNames().sort();
 
-    const loggedUser = useSelector((state: RootState) => state.user.currentUser);
-    // Handle input changes for Edit Profile form
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
@@ -46,9 +42,6 @@ export default function ProfilePage() {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         setIsOpen(false);
-        console.log("WJD",formData)
-        // to update the profile info we need to setup an api call here 
-
     };
 
     const logoutUser = async () => {

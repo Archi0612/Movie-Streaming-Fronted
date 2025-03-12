@@ -13,6 +13,7 @@
 .genre-swiper {
     display: flex;
     justify-content: flex-start;
+    margin-left: 5rem;
 }
 .genre-name{
     display: flex;
@@ -51,20 +52,15 @@
 
 .genre-detail-heading {
     color: #0073e6;
-   margin-top: 30px;
-    font-size: 34px;
+    margin-top: 30px;
+    margin-left: 5rem;
+    font-size: 1.5rem;
     font-weight: bolder;
 }
 
 .genre-detail-heading h3 {
     color: #0073e6;
 }
-
-/* Movie Card Styling */
-
-
-
-
 
 /* Swiper Navigation Buttons */
 .movies-swiper .swiper-button-next,
@@ -78,7 +74,10 @@
     transform: scale(1.05);
 }
 
-/* Swiper Wrapper */
-
-
-/* Responsive Design */
+.genre-series-conatiner{
+    display: flex;
+}
+.image-not-found{
+    height: 30rem;
+    margin: 20%;
+}
