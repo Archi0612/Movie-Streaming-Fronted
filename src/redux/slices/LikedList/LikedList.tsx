@@ -30,6 +30,7 @@ export const fetchLikedList = createAsyncThunk(
 export const toggleLike = createAsyncThunk(
     "likedList/toggleLike",
     async ({ contentId, contentType }: { contentId: string; contentType: string }, { rejectWithValue, dispatch }) => {
+        // console.log(contentId, contentType, "likelist slice");
         try {
             const response = await api.post("/liked/toggle-like", { contentId, contentType }, { withCredentials: true });
             // console.log(response, "response at likelist slice");
@@ -61,7 +62,7 @@ const likedListSlice = createSlice({
                 state.error = action.payload as string || "Unknown error occurred";
             })
             .addCase(toggleLike.fulfilled, (state, action) => {
-                state.data = action.payload.data.likedContent; // Updating the liked list after toggle
+                state.data = action.payload.data; // Updating the liked list after toggle
             })
             .addCase(toggleLike.rejected, (state, action) => {
                 state.error = action.payload as string || "Unknown error occurred";

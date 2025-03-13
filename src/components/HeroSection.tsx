@@ -11,7 +11,6 @@ import {
   getHomeTrending,
 } from "../services/apis/movieService";
 import { Movie } from "../interfaces/movie.interface";
-import VideoPlayer from "./videoPlayer/videoPlayer";
 
 const HeroSection: React.FC = () => {
   const [movies, setMovies] = useState<{
@@ -23,50 +22,48 @@ const HeroSection: React.FC = () => {
     latest: [],
     topRated: [],
   });
-  const [trending, setTrending] = useState<any[]>([]);
-  const [activeIndex, setActiveIndex] = useState(0); 
+  const [trending, setTrending] = useState<Movie[]>([]);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const movieCategories = [
     { key: "pop", title: "Popular Movies" },
     { key: "latest", title: "Latest Movies" },
     { key: "topRated", title: "Top Rated Movies" },
   ];
-  
-  useEffect(() => {
-    const fetchMovies = async () => {
-      try {
-        const [popularMoviesResponse, latestResponse, topRatedResponse, trendingResponse] = await Promise.all([
-          getPopularMovies(),
-          getLatestMovies(),
-          getTopRatedMovies(),
-          getHomeTrending(),
-        ]);
-    
-       
-    
-        if (trendingResponse?.data?.heroContent) {
-      
-          setTrending(trendingResponse.data.heroContent);
-        } else {
-          setTrending([]); 
-        }
-    
-        setMovies({
-          latest: latestResponse?.moviesList || [],
-          topRated: topRatedResponse?.moviesList || [],
-          pop: popularMoviesResponse?.moviesList || [],
-        });
-      } catch (err) {
-        console.error("Error fetching movies", err);
+
+  const fetchMovies = async () => {
+    try {
+      const [
+        popularMoviesResponse,
+        latestResponse,
+        topRatedResponse,
+        trendingResponse,
+      ] = await Promise.all([
+        getPopularMovies(),
+        getLatestMovies(),
+        getTopRatedMovies(),
+        getHomeTrending(),
+      ]);
+
+      if (trendingResponse?.data?.heroContent) {
+        setTrending(trendingResponse.data.heroContent);
+      } else {
+        setTrending([]);
       }
-    };
-    
-    
+
+      setMovies({
+        latest: latestResponse?.moviesList || [],
+        topRated: topRatedResponse?.moviesList || [],
+        pop: popularMoviesResponse?.moviesList || [],
+      });
+    } catch (err) {
+      console.error("Error fetching movies", err);
+    }
+  };
+  useEffect(() => {
     fetchMovies();
-  }, [trending]);
+  }, []);
 
-
-  
   return (
     <div className="hero-section">
       {/* Main Movie Slider */}
@@ -78,22 +75,27 @@ const HeroSection: React.FC = () => {
           navigation={true}
           modules={[FreeMode, Navigation]}
           className="main-movie-slider"
-          onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)} 
+          onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
         >
-          {trending.map((movie) => (
-            <SwiperSlide key={movie._id}>
-              <div className="video-overlay">
-              <VideoPlayer url={movie.trailerUrl} control={true} /> {/* Use VideoPlayer */}
-              </div>
-            </SwiperSlide>
-          ))}
+          {trending.map((movie, index) => (
+  <SwiperSlide key={`${movie._id}${"hero"}` || `${movie.title}-${index}`}>
+    <div className="video-overlay">
+      <video width="100%" height="auto" controls autoPlay muted>
+        <source src={movie.trailerUrl} type="video/webm" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </SwiperSlide>
+))}
+
         </Swiper>
 
         {trending.length > 0 && (
           <div className="movie-details">
             <h2 className="movie-title">{trending[activeIndex]?.title}</h2>
             <p className="movie-info">
-              {new Date(trending[activeIndex]?.releaseDate).getFullYear()} | {trending[activeIndex]?.languages.join(", ")}
+              {new Date(trending[activeIndex]?.releaseDate).getFullYear()} |{" "}
+              {trending[activeIndex]?.languages.join(", ")}
             </p>
             <p className="movie-desc">{trending[activeIndex]?.description}</p>
             <button className="watch-now">▶ Watch Now</button>
@@ -124,10 +126,11 @@ const HeroSection: React.FC = () => {
               }}
             >
               {movies[key as keyof typeof movies]?.map((movie, index) => (
-                <SwiperSlide key={movie._id || `${key}-${index}`}>
-                  <MovieCard media={movie} />
-                </SwiperSlide>
-              ))}
+  <SwiperSlide key={`${movie._id}${title}` || `${movie.title}-${index}`}>
+    <MovieCard media={movie} />
+  </SwiperSlide>
+))}
+
             </Swiper>
           </div>
         ))}

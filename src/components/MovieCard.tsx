@@ -36,7 +36,7 @@ const MovieCard: React.FC<MediaCardProps> = ({ media }) => {
   const handleCardClick = () => {
     navigate(`/details/${id}?contentType=${contentType}`)
   }
-  const handlePlayVodeo = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handlePlayVideo = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation(); // Stop event from reaching the parent div
     navigate(`/videoPlayer`);
   };
@@ -85,7 +85,7 @@ const MovieCard: React.FC<MediaCardProps> = ({ media }) => {
               <div className='button-container'>
                 <div className="movie-buttons">
                   <button className="movie-button play"
-                    onClick={handlePlayVodeo}>
+                    onClick={handlePlayVideo}>
                     <Play />
                   </button>
                   <button className="movie-button" onClick={handleWatchList}>

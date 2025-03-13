@@ -1,5 +1,4 @@
-import  { useEffect, useState } from "react";
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import "./DetailsPage.css";
 import { fetchSeriesByID } from "../services/apis/seriesService";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
@@ -62,7 +61,15 @@ const DetailsPage: React.FC = () => {
   const handleSeasonChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedSeason(Number(event.target.value));
   };
-
+  const handleLike = async () => {
+    const response = await dispatch(toggleLike({ contentId: mediaId || "", contentType: contentType || ""}));
+    console.log(response.payload.message, "Response from detailpahe");
+      if(response.payload.message == "Unliked successfully"){
+        toast.info("Removed from Liked List");
+      }else{
+        toast.success("Added to Liked List");
+      }
+  };
 
   const handleWatchList = async () => {
     try {
@@ -116,7 +123,9 @@ const DetailsPage: React.FC = () => {
             <div className="actions-container">
               <button
                 className="action-button like-button"
-                onClick={() => {dispatch(toggleLike({ contentId: mediaId || "", contentType: contentType || ""}))}}
+                // onClick={() => {dispatch(toggleLike({ contentId: mediaId || "", contentType: contentType || ""}))}
+              onClick={handleLike}
+              
               >
                 <FaThumbsUp size={16} />
                 Like
