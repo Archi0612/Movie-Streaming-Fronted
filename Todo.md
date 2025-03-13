@@ -13,10 +13,39 @@
 - [x] Movie Dashboard complete all Api integration except edit (Y)
 - [x] Add User Data page in Admin (Y)
 
-- [x] Edit data using FormDATA in Series (D)
-- [ ] Using Cloudinary Movie Streaming (D)  (onus is on harsh)
+- [ ] Edit data using FormDATA in Series (D)
+- [ ] Using Cloudinary Movie Streaming (D)
 
-- movies ma series ni jem swiper
-- [] genre details in grid formate
 
-use of any in addmovie addseries, both admindashboard movieand series,editmovie editseries
+WORK DONE BY FRONTEND TEAM
+- ARCHI
+    - Protected Routes
+    - Movies Cards and Grid cards
+    - Header 
+    - Footer
+    - Details Page
+    - API integration of Authentication, Series, Genre Page
+    - Side Bar All design
+    
+- YASH
+    - AdminDashBoard
+        - User
+        - Movie
+        - Series
+    - Sunbcription page Design
+    - Authentication page Design
+    - Genre Page
+
+- DISHIT
+    - HeroSection
+    - Contact us Page
+    - Genre Details
+    - API inegration od Movies
+    - Authentication page Design
+
+- PRIYANSHU
+    - Payment
+    - Subscription functionality 
+    - Store management using REDUX
+    - Profile Page
+    - Search bar functinality

@@ -1,4 +1,3 @@
-
 import React, { useState, useRef } from 'react';
 import { Elements } from '@stripe/react-stripe-js';
 import axios from 'axios';
@@ -69,12 +68,10 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
                 },
             };
             console.log("Subscription Payload:", subscriptionPayload);
-            const response = await axios.post<any>(
+            const response = await axios.post(
                 "http://localhost:7777/stripe/membersubscription",
-                {
-                    selectedPlan: { type: plan.type, tier: plan.tier },
-
-                }, { withCredentials: true },
+                subscriptionPayload,
+                {withCredentials: true}
             );
 
             if (response.data.status === "existing_subscription" && response.data.redirectUrl) {
@@ -87,7 +84,7 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
                 const { error } = await stripe.redirectToCheckout({ sessionId: response.data.id });
                 if (error) alert("There was an error processing your subscription.");
             }
-        } catch (error) {
+        } catch {
             alert("An error occurred while processing your subscription.");
         } finally {
             setLoading(false);

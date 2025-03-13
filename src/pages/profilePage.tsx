@@ -39,7 +39,8 @@ export default function ProfilePage() {
         contactNo: "",
         country: "",
         dateOfBirth: "",
-        gender: ""
+        gender: "",
+        email:"",
     });
 
     const countries = getNames().sort();

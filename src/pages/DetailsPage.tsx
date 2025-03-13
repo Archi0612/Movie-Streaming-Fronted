@@ -23,13 +23,33 @@ const DetailsPage: React.FC = () => {
 
   const fetchMediaByID = async () => {
     try {
+      // const [seriesResult, movieResult] = await Promise.allSettled([
+      //   fetchSeriesByID(mediaId as string),
+      //   getMovieById(mediaId as string),
+      // ]);
+      // if (seriesResult.status === "fulfilled" && seriesResult.value) {
+      //   setMediaData(seriesResult.value.seriesInfo as Movie);
+      //   setSeriesData(seriesResult.value.seriesContent as Seriesdata[]);
+      // } else if (movieResult.status === "fulfilled" && movieResult.value) {
+      //   setMediaData(movieResult.value);
+        
+      // }
       if (contentType === "Movie") {
         const response = await getMovieById(mediaId as string);
-        setMediaData(response as Movie);
+        console.log(response.movie, "response from movie by id");
+        setMediaData(response.movie as Movie);
+        console.log(setMediaData, "Movie in detail page");
+    
       }
       else {
         const response = await fetchSeriesByID(mediaId as string);
-        setMediaData(response as Movie);
+        console.log(response.seriesInfo, "response from series by id series Info");
+        console.log(response.seriesContent, "response from series by id series content");
+        setMediaData(response.seriesInfo as Movie);
+        setSeriesData(response.seriesContent as Seriesdata[]);
+
+          //  setMediaData(seriesResult.value.seriesInfo as Movie);
+        
       }
 
       // if (seriesResult.status === "fulfilled" && seriesResult.value) {
@@ -50,13 +70,14 @@ const DetailsPage: React.FC = () => {
     fetchMediaByID();
   }, [mediaId]);
   // 🎭 Genre Mapping
-  // console.log(mediaData, "geners");
+  console.log(mediaData, "geners");
   const genreNames = mediaData?.genres
     .map((id) => genreMap[id] || "Unknown")
     .join(", ");
   const handleSeasonChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedSeason(Number(event.target.value));
   };
+
   return (
     <div className="details-container">
       <div className="header-container">
@@ -122,7 +143,7 @@ const DetailsPage: React.FC = () => {
           </div>
 
           <div className="watch-movie">
-            <button className="watch-movie-button">
+            <button className="action-button watch-button">
               Watch
               <FaPlay size={16} />
             </button>
@@ -211,19 +232,6 @@ const DetailsPage: React.FC = () => {
                 <div className="cast-list">
                   {mediaData?.directors
                     ? mediaData.directors.map((director, index) => (
-                      <div key={index} className="cast-member">
-                        <img
-                          src="/public/default.png"
-                          alt={director.name}
-                          className="cast-image"
-                        />
-                        <div className="cast-info">
-                          <h4 className="media-name">{director.name}</h4>
-                        </div>
-                      </div>
-                    ))
-                    : mediaData?.director // Fallback for movie response
-                      ? mediaData.director.map((director, index) => (
                         <div key={index} className="cast-member">
                           <img
                             src="/public/default.png"
@@ -235,7 +243,20 @@ const DetailsPage: React.FC = () => {
                           </div>
                         </div>
                       ))
-                      : null}
+                    : mediaData?.director // Fallback for movie response
+                    ? mediaData.director.map((director, index) => (
+                        <div key={index} className="cast-member">
+                          <img
+                            src="/public/default.png"
+                            alt={director.name}
+                            className="cast-image"
+                          />
+                          <div className="cast-info">
+                            <h4 className="media-name">{director.name}</h4>
+                          </div>
+                        </div>
+                      ))
+                    : null}
                 </div>
               </div>
 
@@ -245,19 +266,6 @@ const DetailsPage: React.FC = () => {
                 <div className="cast-list">
                   {mediaData?.casts
                     ? mediaData.casts.map((cast, index) => (
-                      <div key={index} className="cast-member">
-                        <img
-                          src="/public/default.png"
-                          alt={cast.name}
-                          className="cast-image"
-                        />
-                        <div className="cast-info">
-                          <h4 className="media-name">{cast.name}</h4>
-                        </div>
-                      </div>
-                    ))
-                    : mediaData?.cast // Fallback for movie response
-                      ? mediaData.cast.map((cast, index) => (
                         <div key={index} className="cast-member">
                           <img
                             src="/public/default.png"
@@ -269,7 +277,20 @@ const DetailsPage: React.FC = () => {
                           </div>
                         </div>
                       ))
-                      : null}
+                    : mediaData?.cast // Fallback for movie response
+                    ? mediaData.cast.map((cast, index) => (
+                        <div key={index} className="cast-member">
+                          <img
+                            src="/public/default.png"
+                            alt={cast.name}
+                            className="cast-image"
+                          />
+                          <div className="cast-info">
+                            <h4 className="media-name">{cast.name}</h4>
+                          </div>
+                        </div>
+                      ))
+                    : null}
                 </div>
               </div>
             </section>

@@ -35,7 +35,7 @@ const Search: React.FC = () => {
           const response = await api.get("/search/", {
             params: { search: searchInput },
           });
-          console.log(response.data);
+          
           setMoviesData({
             movieList: response?.data?.data?.movieList || [],
             seriesList: response?.data?.data?.seriesList || [],

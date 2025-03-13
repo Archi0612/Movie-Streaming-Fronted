@@ -9,10 +9,10 @@ import { toggleWatchList } from "../redux/slices/WatchList/WatchList";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/store";
 
-
 const MovieCard: React.FC<MediaCardProps> = ({ media }) => {
-  console.log(media, "media in moviecard compo");
-  const { title, poster, description, releaseDate, rating, languages, genres, _id, contentType } = media;
+  const { title, poster, description, releaseDate, rating, languages, genres  } = media;
+  const id = media._id;
+  const contentType = media.contentType;
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
@@ -31,14 +31,17 @@ const MovieCard: React.FC<MediaCardProps> = ({ media }) => {
 
   // 🎭 Genre Mapping
   const genreNames = genres.map((id) => genreMap[id] || "Unknown").join(", ");
-  const mediaId = media._id;
+
+  const handleCardClick = () =>{
+    navigate(`/details/${id}?contentType=${contentType}`)
+  }
   return (
     <div
       className="movie-card"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={() => navigate(`/details/${mediaId}?contentType=${contentType}`)}
-
+      // onClick={() => navigate('/details')}
+      onClick={handleCardClick}
     >
       <img src={poster} alt={title} />
       {
@@ -64,7 +67,7 @@ const MovieCard: React.FC<MediaCardProps> = ({ media }) => {
                   </button>
                   <button className="movie-button" onClick={(e) => {
                     e.stopPropagation();
-                    dispatch(toggleWatchList({ contentId: _id, contentType: contentType }));
+                    dispatch(toggleWatchList({ contentId: id, contentType: contentType }));
                   }}>
                     <Plus />
                   </button>
