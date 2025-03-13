@@ -1,6 +1,6 @@
 .movie-card {
   position: relative;
-  width: 19rem;
+  width: 15rem;
   height: 22rem;
   max-width: 16rem;
   border-radius: 0.5rem;
@@ -139,8 +139,7 @@
 }
 
 .movie-button.play {
-  /* width: 7.5rem; */
-  /* border-radius: 10%; */
+
   background: white;
   color: black;
   border-color: var(--text-color);
@@ -151,15 +150,14 @@
   color: var(--text-color);
 }
 
-/* ⭐ Rating */
 .movie-rating {
-  /* font-size: 0.7rem; */
+
   gap: 2px;
   margin-bottom: 0.5rem;
   justify-content: left;
 }
 
-/* ⭐ Star Colors */
+
 .star {
   color: gold !important;
 }
@@ -168,7 +166,13 @@
   color: #94a3b7 !important;
 }
 
-/* Responsive Design */
+
+@media (max-width:1500px){
+  .movie-card{
+    height: 18rem;
+    width: 13rem;
+  }
+}
 
 @media (max-width: 1250px) {
   .movie-card {
@@ -209,16 +213,15 @@
   }
 
   .movie-rating svg {
-    font-size: 16px !important;
-    /* Reduce size */
+    font-size: 16px !important; 
   }
 
 }
 
 @media (max-width: 1024px) {
   .movie-card {
-    width: 11rem;
-    height: 16rem;
+    width: 10rem;
+    height: 15rem; 
   }
 
 
@@ -255,12 +258,10 @@
   }
 
   .movie-rating svg {
-    font-size: 16px !important;
-    /* Reduce size */
+    font-size: 16px !important; 
   }
 }
 
-/* Small Tablets */
 @media (max-width: 768px) {
   .movie-card {
     width: 9rem;
@@ -299,17 +300,14 @@
   .movie-button {
     padding: 0.3rem;
     font-size: 0.7rem;
-    /* width: 26px !important; */
-    /* height: 26px !important; */
+ 
   }
 
   .movie-rating svg {
-    font-size: 14px !important;
-    /* Further reduce */
+    font-size: 14px !important; 
   }
 }
 
-/* Extra Small Mobile View */
 @media (max-width: 545px) {
   .movie-title {
     font-size: 0.4rem;
@@ -348,20 +346,14 @@
   }
 }
 
-/* Mobile View */
+
 @media (max-width: 480px) {
   .movie-hover {
     padding: 0.35rem;
   }
-
-  .movie-card {
-    width: 8rem;
-    height: 12rem;
-  }
-
-  .movie-card {
-    width: 8rem;
-    height: 12rem;
+  .movie-card{
+    width: 7rem;
+    height: 11rem;
   }
 
   .movie-title {
@@ -401,7 +393,12 @@
   }
 
   .movie-rating svg {
-    font-size: 12px !important;
-    /* Smallest size for mobile */
+    font-size: 12px !important; 
+  }
+}
+@media (max-width: 400px) {
+  .movie-card{
+    width: 6rem;
+    height: 10rem;
   }
 }

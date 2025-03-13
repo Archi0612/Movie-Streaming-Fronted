@@ -41,6 +41,9 @@ import VideoPlayer from "../components/videoPlayer/videoPlayer";
 
 
 
+
+
+
 // Protected Route component that checks if user is authenticated
 const ProtectedRoute: React.FC = () => {
 

@@ -3,30 +3,21 @@ import { AgGridReact } from "ag-grid-react";
 import { ClientSideRowModelModule } from "ag-grid-community";
 import { ModuleRegistry } from "ag-grid-community";
 import { ColDef, GridReadyEvent } from "ag-grid-community";
-import "ag-grid-community/styles/ag-theme-quartz.css"; 
+import "ag-grid-community/styles/ag-theme-quartz.css";
 import { MdEdit, MdDelete, MdAdd } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import DeleteConfirmationModal from "../../components/DeleteConfirmationModal";
 import { deleteSeries, listAllSeries } from "../../services/apis/adminService";
 import { toast } from "react-toastify";
 import "./AdminDashboard.css";
-
+import EditSeriesModal from "./EditSeriesModal";
+import { Series } from "../../interfaces/admin.interface";
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
-
-interface Series {
-  id: string;
-  poster: string;
-  title: string;
-  description?: string;
-  rating: number;
-  cast?: string;
-  director?: string;
-}
-
 
 const AdminDashboardSeries: React.FC = () => {
   const [series, setSeries] = useState<Series[]>([]);
-  const[selectedSeries,setSelectedSeries]=useState<Series | null>(null);
+  const [selectedSeries, setSelectedSeries] = useState<Series | null>(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [isDeleteModelOpen, setIsDeleteModelOpen] = useState(false);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(12);
@@ -43,8 +34,8 @@ const AdminDashboardSeries: React.FC = () => {
         title: s.title,
         description: s.description || "N/A",
         rating: s.rating || "N/A",
-        cast:s.casts.map((c:any)=>c.name).join(", "),
-        director: s.directors.map((d:any)=>d.name).join(", ")
+        cast: s.casts.map((c: any) => c.name).join(", "),
+        director: s.directors.map((d: any) => d.name).join(", ")
       }));
       setSeries(formattedSeries);
     } catch (error) {
@@ -59,18 +50,45 @@ const AdminDashboardSeries: React.FC = () => {
   const handleGridReady = (params: GridReadyEvent) => {
     gridApiRef.current = params.api;
   };
-  const handleDelete=async()=>{
-     if(!selectedSeries) return;
-     try {
+  const handleDelete = async () => {
+    if (!selectedSeries) return;
+    try {
       await deleteSeries(selectedSeries.id);
       toast.success("Series Deleted Successfully")
       fetchAllSeries();
-     } catch (error:any) {
+    } catch (error: any) {
       toast.error(error.message)
-     }
-     setIsDeleteModelOpen(false)
+    }
+    setIsDeleteModelOpen(false)
 
   }
+  const handleEdit = (ser: Series) => {
+    setSelectedSeries(ser)
+    setIsEditModalOpen(true)
+  }
+  const handleSaveChanges = async (updatedSeries: any) => {
+    try {
+      const formattedMovie: Series = {
+        id: updatedSeries._id,
+        poster: updatedSeries.poster,
+        title: updatedSeries.title,
+        description: updatedSeries.description,
+        rating: updatedSeries.rating,
+        cast: updatedSeries.casts.map((c: any) => c.label).join(", "),
+        director: updatedSeries.directors.map((d: any) => d.label).join(", ")
+      };
+
+      setSeries((prevSeries) =>
+        prevSeries.map((m) => (m.id === formattedMovie.id ? formattedMovie : m))
+      );
+
+      toast.success("Series updated successfully");
+
+      setIsEditModalOpen(false);
+    } catch (error) {
+      toast.error("Failed to update movie");
+    }
+  };
   const columnDefs: ColDef<Series>[] = [
     {
       headerName: "Poster",
@@ -80,7 +98,7 @@ const AdminDashboardSeries: React.FC = () => {
       ),
       flex: 2,
       sortable: false,
-      filter:false
+      filter: false
     },
     { headerName: "Title", field: "title", flex: 2 },
     { headerName: "Description", field: "description", flex: 3 },
@@ -97,12 +115,12 @@ const AdminDashboardSeries: React.FC = () => {
     },
     {
       headerName: "Action",
-      cellRenderer: (params:any) => (
+      cellRenderer: (params: any) => (
         <div className="action-buttons">
-          <button className="edit-btn">
+          <button className="edit-btn" onClick={() => handleEdit(params.data)}>
             <MdEdit size={15} />
           </button>
-          <button className="delete-btn" onClick={()=>{setSelectedSeries(params.data);setIsDeleteModelOpen(true)}}><MdDelete size={15} /></button>
+          <button className="delete-btn" onClick={() => { setSelectedSeries(params.data); setIsDeleteModelOpen(true) }}><MdDelete size={15} /></button>
         </div>
       ),
       flex: 1,
@@ -118,6 +136,7 @@ const AdminDashboardSeries: React.FC = () => {
     <div className="admin-container">
       <div className="content">
         <div className="content-card">
+          <h2 className="dashboard-h2">Manage Series</h2>
           <div className="add-btn-container">
             <button className="add-episode-btn" onClick={handleOpenEpisode}>
               Add Episode
@@ -149,19 +168,19 @@ const AdminDashboardSeries: React.FC = () => {
         </div>
       </div>
       {
-        isDeleteModelOpen &&(
-          <DeleteConfirmationModal  isOpen={isDeleteModelOpen}
-          onClose={() => setIsDeleteModelOpen(false)}
-          onConfirm={handleDelete}/>
+        isDeleteModelOpen && (
+          <DeleteConfirmationModal isOpen={isDeleteModelOpen}
+            onClose={() => setIsDeleteModelOpen(false)}
+            onConfirm={handleDelete} />
         )
       }
-      {/* {isModalOpen && selectedSeries && (
+      {isEditModalOpen && selectedSeries && (
         <EditSeriesModal
-          series={selectedSeries}
-          onClose={handleCloseModal}
-          onSave={handleSave}
+          seriesId={selectedSeries.id}
+          onClose={() => setIsEditModalOpen(false)}
+          onSave={handleSaveChanges}
         />
-      )} */}
+      )}
     </div>
   );
 };

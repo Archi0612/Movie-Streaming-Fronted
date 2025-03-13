@@ -1,15 +1,19 @@
-/* Genre Detail Page */
-.genre-detail-container {
+/* 
+/* 
+.genre-detailpage-container {
     background-color: var(--background-color);
     min-height: 100vh;
     width: 100%;
-    padding-left: 100px;
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
-
-/* Swiper Wrapper */
+.movies-grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+    gap: 15px; 
+  }
+  
 .genre-swiper {
     display: flex;
     justify-content: flex-start;
@@ -21,26 +25,23 @@
     gap:40px
 }
 
-/* Swiper Container */
 .movies-swiper {
     width: 100%;
-    height: auto !important; /* ✅ Let it adjust dynamically */
+    height: auto !important;
     padding: 10px;
     position: relative;
 }
 
-/* Swiper Slides */
 .movies-swiper .swiper-slide {
-    width: 220px !important; /* ✅ Match movie card width */
-    height: 350px !important; /* ✅ Match movie card height */
+    width: 220px !important; 
+    height: 350px !important; 
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-right: 1rem; /* ✅ 1rem gap between cards */
+    margin-right: 1rem; 
     transition: transform 0.3s ease-in-out;
 }
 
-/* Title Styling */
 .genre-title {
     font-size: 2rem;
     font-weight: bold;
@@ -62,14 +63,13 @@
     color: #0073e6;
 }
 
-/* Swiper Navigation Buttons */
 .movies-swiper .swiper-button-next,
 .movies-swiper .swiper-button-prev {
     color: white;
     font-size: 20px;
 }
 
-/* Hover Effect */
+
 .movies-swiper .swiper-slide:hover {
     transform: scale(1.05);
 }
@@ -80,4 +80,5 @@
 .image-not-found{
     height: 30rem;
     margin: 20%;
-}
+} */
+*/

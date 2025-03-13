@@ -35,7 +35,7 @@ h1 {
     font-weight: bold;
 }
 
-p {
+.paymentSuccess-p {
     color: var(--text-color);
     margin-bottom: 20px;
 }

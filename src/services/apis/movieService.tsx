@@ -1,49 +1,26 @@
+import { Movie } from "../../interfaces/movie.interface";
 import { api } from "../api";
-export const getMoviesByGenre = async (genreId: number) => {
-  try {
-    const response = await api.get(`movie/getMoviesByGenre/${genreId}`);
-    return response.data; // Return the response data
-  } catch (error) {
-    console.error("Error fetching movies by genre:", error);
-    return null; // Handle errors gracefully
-  }
-};
 
-export const getPopularMovies = async () => {
+const fetchMovieData = async (endpoint: string) => {
   try {
-    const response = await api.get(`movie/getPopularMovies`);
-    return response.data;
-  } catch (error) {
-    console.error("Error getting popular movie", error);
-    return null;
-  }
-};
-
-export const getTopRatedMovies = async () => {
-  try {
-    const response = await api.get(`movie/getTopRatedMovies`);
-    return response.data;
-  } catch (error) {
-    console.error("Eror in top rated", error);
-    return null;
-  }
-};
-
-export const getLatestMovies = async () => {
-  try {
-    const response = await api.get(`movie/getLatestMovies`);
-    return response.data;
-  } catch (error) {
-    console.error("error in latest", error);
-    return null;
-  }
-};
-
-export const getMovieById = async (movieId: string) => {
-  try {
-    const response = await api.get(`movie/getMovieById/${movieId}`);
-    console.log("Movies By ID:", response);
-    return response.data?.data?.movie;
+    const response = await api.get(endpoint);
+    const data = response?.data?.data;
+    if (data?.data?.moviesList) {
+      data.data.moviesList = data.data.moviesList.map((movie: Movie[]) => ({
+        ...movie,
+        contentType: "Movie",
+      }));
+      console.log(data, "response data")
+      return data;
+    } else if (data?.moviesList) {
+      // If structure is: data.seriesList
+      data.moviesList = data.moviesList.map((movie: Movie[]) => ({
+        ...movie,
+        contentType: "Movie",
+      }));
+      return data;
+    }
+    return data;
   } catch (err: unknown) {
     if (err instanceof Error) {
       throw new Error(err.message);
@@ -52,3 +29,28 @@ export const getMovieById = async (movieId: string) => {
     }
   }
 };
+
+// API functions
+export const getLatestMovies = () => fetchMovieData("/movie/getLatestMovies");
+export const getTopRatedMovies = () => fetchMovieData("/movie/getTopRatedMovies");
+export const getPopularMovies = () => fetchMovieData("/movie/getPopularMovies");
+export const getMoviesByGenre = (genreId: number) => fetchMovieData(`movie/getMoviesByGenre/${genreId}`);
+
+export const getMovieById = (mediaId: string) => fetchMovieData(`movie/getMovieById/${mediaId}`);
+
+
+// export const getMovieById = async (mediaId: string) => {
+//   try {
+//     const response = await api.get(`movie/getMovieById/${mediaId}`);
+//     const data = response?.data?.data.movie;
+//     console.log("Series api call", data);
+
+//     return data;
+//   } catch (err: unknown) {
+//     if (err instanceof Error) {
+//       throw new Error(err.message);
+//     } else {
+//       throw new Error("An error occurred");
+//     }
+//   }
+// }

@@ -5,6 +5,8 @@ import AsyncSelect from "react-select/async";
 import "./AddMovie.css";
 import { addMovie, searchCastByName, searchDirectorByName } from "../../services/apis/adminService";
 import { toast } from "react-toastify";
+import { AddMovies } from "../../interfaces/admin.interface";
+import  Loader  from "../../components/shimmerUI/Loader";
 
 const genreOptions = [
   { value: "28", label: "Action" },
@@ -44,7 +46,7 @@ const fetchCastOptions = async(inputValue: string): Promise<{ value: string; lab
         label:cast.name
       }))
     } catch (error) {
-      console.error("Error fetching cast:", error);
+      toast.error("Error in fetching cast")
     return [];
     }
 };
@@ -57,27 +59,15 @@ const fetchDirectorOptions = async(inputValue: string): Promise<{ value: string;
       label:director.name
     }))
   } catch (error) {
-    console.error("Error fetching director:", error);
+    toast.error("Error in fetching director")
   return [];
   }
 };
 
 const AddMovie: React.FC = () => {
+  
   const navigate = useNavigate();
-  const [movie, setMovie] = useState<{
-    title: string;
-    description: string;
-    releaseDate: string;
-    genres: { value: string; label: string }[];
-    duration: string;
-    rating: string;
-    cast: { value: string; label: string }[];
-    director: { value: string; label: string }[];
-    poster: File | null;
-    trailerUrl: File | null;
-    movieUrl: File | null;
-    languages: { value: string; label: string }[];
-  }>({
+  const [movie, setMovie] = useState<AddMovies>({
     title: "",
     description: "",
     releaseDate: "",
@@ -91,7 +81,7 @@ const AddMovie: React.FC = () => {
     movieUrl: null,
     languages:[]
   });
-
+  const[loading,setLoading]=useState<boolean>(false);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value, type, checked,files } = e.target as HTMLInputElement;
     if(type === "file" && files){
@@ -119,8 +109,6 @@ const AddMovie: React.FC = () => {
    movie.genres.forEach((genre)=>formData.append("genres",genre.value))
    if (Array.isArray(movie.languages)) {
     movie.languages.forEach((lang) => formData.append("languages", lang.value));
-  } else {
-    console.error("movie.languages is not an array");
   }
    movie.cast.forEach((cast)=>formData.append("casts",cast.value))
    movie.director.forEach((director)=>formData.append("directors",director.value))
@@ -133,17 +121,19 @@ const AddMovie: React.FC = () => {
    if(movie.movieUrl){
     formData.append("movie",movie.movieUrl)
    }
-   console.log("Form Data Entries",formData.entries())
-   for(let pair of formData.entries()){
-    console.log(pair[0],pair[1])
-   }
     //API call to save movie
     try {
+      setLoading(true)
       const response=await addMovie(formData)
-      toast.success(response.data.data.message)
+      toast.success("Movie Added Successfully")
       navigate("/admin-dashboard-movies")
-    } catch (error) {
+    } 
+    catch (error: any) {
       toast.error("Error in Adding Movie")
+      
+    }
+    finally{
+      setLoading(false)
     }
   };
 
@@ -154,18 +144,19 @@ const AddMovie: React.FC = () => {
 
   return (
     <div className="container1">
+      {loading && (<Loader/>)}
       <div className="add-movie-container">
         <h2 className="admin-h2">Add Movie</h2>
         <div className="fields-container">
           <div className="fields1">
             <label>Title</label>
-            <input type="text" name="title" value={movie.title} onChange={handleChange} placeholder="Enter movie title" autoComplete="off" />
+            <input type="text" name="title" value={movie.title} className="add-movie-input" onChange={handleChange} placeholder="Enter movie title" autoComplete="off" />
 
             <label>Description</label>
-            <textarea name="description" value={movie.description} onChange={handleChange} placeholder="Enter movie details"className="text-desc" autoComplete="off" />
+            <textarea name="description" value={movie.description}   onChange={handleChange} placeholder="Enter movie details"className="text-desc" autoComplete="off" />
 
             <label>Release Date</label>
-            <input type="date" name="releaseDate" value={movie.releaseDate} onChange={handleChange}  placeholder="Enter movie release date"/>
+            <input type="date" name="releaseDate" value={movie.releaseDate} className="add-movie-input" onChange={handleChange}  placeholder="Enter movie release date"/>
 
             <label>Genres</label>
             <Select
@@ -200,9 +191,9 @@ const AddMovie: React.FC = () => {
             />
 
             <label>Duration (Seconds)</label>
-            <input type="number" name="duration" value={movie.duration} onChange={handleChange} placeholder="Enter duration" min="0"/>
+            <input type="number" name="duration" value={movie.duration} className="add-movie-input" onChange={handleChange} placeholder="Enter duration" min="0"/>
             <label>Rating</label>
-            <input type="number" name="rating" value={movie.rating} onChange={handleChange} step="0.1" min="0.0" placeholder="Enter movie rating"/>
+            <input type="number" name="rating" value={movie.rating} className="add-movie-input" onChange={handleChange} step="0.1" min="0.0" placeholder="Enter movie rating"/>
           </div>
 
           <div className="fields2">
@@ -298,12 +289,12 @@ const AddMovie: React.FC = () => {
               }}
             />
             <label>Poster</label>
-            <input type="file" name="poster" onChange={handleChange} />
+            <input type="file" name="poster" className="add-movie-input" onChange={handleChange} />
 
             <label>Trailer</label>
-            <input type="file" name="trailerUrl"onChange={handleChange} />
+            <input type="file" name="trailerUrl" className="add-movie-input" onChange={handleChange} />
             <label>Movie</label>
-            <input type="file" name="movieUrl"onChange={handleChange} />
+            <input type="file" name="movieUrl" className="add-movie-input" onChange={handleChange} />
           </div>
         </div>
         <div className="buttons-container">

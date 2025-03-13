@@ -1,64 +1,66 @@
+import { Series } from "../../interfaces/admin.interface";
 import { api } from "../api";
 
-export const fetchLatestSeriesApi = async () => {
-  try {
-    const response = await api.get("/series/latestReleased");
-    return response?.data?.data;
-  } catch (err: unknown) {
-    if (err instanceof Error) {
-      throw new Error(err.message);
-    } else {
-      throw new Error("An error occurred");
+const fetchSeriesData = async (endpoint: string) => {
+    try {
+        const response = await api.get(endpoint);
+        const data = response.data.data;
+        if (data?.data?.seriesList) {
+            data.data.seriesList = data.data.seriesList.map((series: Series[]) => ({
+                ...series,
+                contentType: "Series",
+            }));
+            return data;
+        } else if (data?.seriesList) {
+            data.seriesList = data.seriesList.map((series: Series[]) => ({
+                ...series,
+                contentType: "Series",
+            }));
+            return data;
+        }
+        return data;
+    } catch (err: unknown) {
+        if (err instanceof Error) {
+            throw new Error(err.message);
+        } else {
+            throw new Error("An error occurred");
+        }
     }
-  }
 };
 
-export const fetchPopularSeriesApi = async () => {
-  try {
-    const response = await api.get("/series/popular");
-    return response?.data?.data;
-  } catch (err: unknown) {
-    if (err instanceof Error) {
-      throw new Error(err.message);
-    } else {
-      throw new Error("An error occurred");
-    }
-  }
-};
+// API functions
+export const fetchLatestSeriesApi = () => fetchSeriesData("/series/latestReleased");
+export const fetchPopularSeriesApi = () => fetchSeriesData("/series/popular");
+export const fetchTopRatedSeriesApi = () => fetchSeriesData("/series/topRated");
 
-export const fetchtopRatedSeriesApi = async () => {
-  try {
-    const response = await api.get("/series/topRated");
-    return response?.data?.data;
-  } catch (err: unknown) {
-    if (err instanceof Error) {
-      throw new Error(err.message);
-    } else {
-      throw new Error("An error occurred");
-    }
-  }
-};
+export const fetchSeriesByGenre = (genreId: number) => fetchSeriesData(`/series/genre/${genreId}`);
 
-export const fetchSeriesByGenre = async (genreId: number) => {
-  try {
-    const response = await api.get(`/series/genre/${genreId}`);
-    console.log("Series by genres:", response.data.data);
-    return response?.data?.data;
-  } catch (err: unknown) {
-    if (err instanceof Error) {
-      throw new Error(err.message);
-    }
-  }
-};
+export const fetchSeriesByID = (mediaId: string) => fetchSeriesData(`/series/get/${mediaId}`);
 
-export const fetchSeriesByID = async (seriesId: string) => {
-  try {
-    const response = await api.get(`/series/get/${seriesId}`);
-    console.log("series by id:", response)
-    return response.data?.data;
-  } catch (err: unknown) {
-    if (err instanceof Error) {
-      throw new Error(err.message);
-    }
-  }
-};
+
+
+
+
+// export const fetchSeriesByGenre = async (genreId: number) => {
+//   try {
+//     const response = await api.get(`/series/genre/${genreId}`);
+//     console.log("Series by genres:", response.data.data);
+//     return response?.data?.data;
+//   } catch (err: unknown) {
+//     if (err instanceof Error) {
+//       throw new Error(err.message);
+//     }
+//   }
+// };
+
+// export const fetchSeriesByID = async (seriesId: string) => {
+//   try {
+//     const response = await api.get(`/series/get/${seriesId}`);
+//     console.log("series by id:", response)
+//     return response.data?.data;
+//   } catch (err: unknown) {
+//     if (err instanceof Error) {
+//       throw new Error(err.message);
+//     }
+//   }
+// };

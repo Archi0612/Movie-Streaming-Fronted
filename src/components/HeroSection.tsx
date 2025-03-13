@@ -10,8 +10,6 @@ import {
 } from "../services/apis/movieService";
 import { Movie } from "../interfaces/movie.interface";
 
-
-
 const HeroSection: React.FC = () => {
   const [movies, setMovies] = useState<{
     pop: Movie[];
@@ -22,6 +20,8 @@ const HeroSection: React.FC = () => {
     latest: [],
     topRated: [],
   });
+
+
   const movieCategories = [
     { key: "pop", title: "Popular Movies" },
     { key: "latest", title: "Latest Movies" },
@@ -37,9 +37,9 @@ const HeroSection: React.FC = () => {
         ]);
 
         setMovies({
-          latest: latestResponse.data.moviesList || [],
-          topRated: topRatedResponse.data.moviesList || [],
-          pop: popularMoviesResponse.data.moviesList || [],
+          latest: latestResponse?.moviesList || [],
+          topRated: topRatedResponse?.moviesList || [],
+          pop: popularMoviesResponse?.moviesList || [],
         });
       } catch (err) {
         console.error("Error fetching movies", err);
@@ -47,6 +47,8 @@ const HeroSection: React.FC = () => {
     };
     fetchMovies();
   }, []);
+
+  console.log(movies, "movie in herosection file line 54");
 
   return (
     <div className="hero-section">
@@ -107,6 +109,7 @@ const HeroSection: React.FC = () => {
                 640: { slidesPerView: 4 },
                 480: { slidesPerView: 3 },
                 400: { slidesPerView: 3 },
+                375:{slidesPerView:3},
                 300: { slidesPerView: 2 },
               }}
             >

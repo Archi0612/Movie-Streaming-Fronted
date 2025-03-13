@@ -1,28 +1,59 @@
 .movies-grid {
-  margin-left: 5.1rem;
-  padding: 1.5rem 2rem;
+
+  padding-left:108px;
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
+
 .all-movies-title {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: bold;
   color: var(--primary-color);
-  margin-bottom: 1.2rem;
-  text-align: start;
+  margin: 1rem 0rem;
+
+  text-align: left;
 }
+
 
 .movies-container {
   display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+  max-width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+  gap: 1.5rem;
+  justify-content: center;
+
+  box-sizing: border-box;
+}
+
+@media (max-width: 1600px) {
+  .movies-container {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 1280px) {
+  .movies-container {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+
+@media (max-width: 1024px) {
+  .movies-container {
+    grid-template-columns: repeat(auto-fit, minmax(156px, 1fr));
+  }
 }
 
 @media (max-width: 768px) {
   .movies-grid {
-    margin-left: 0;
-    padding: 1rem 1.5rem;
+    padding: 1rem 0.5rem;
   }
-
+  .movies-container {
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  }
   .all-movies-title {
     font-size: 1.8rem;
     font-weight: bold;
@@ -56,18 +87,13 @@
 
 @media (max-width: 545px) {
   .movies-grid {
-    margin-left: 0;
-    padding: 1rem 1.5rem;
+    padding: 1rem 0.5rem;
   }
-
   .movies-container {
-    /* grid-template-columns: repeat(2, 1fr); */
-    padding: 0.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   }
-
-  .movies-title {
-    font-size: 0.8rem;
-    margin: 0.5rem 0.7rem;
+  .all-movies-title {
+    font-size: 1.2rem;
   }
 }
 

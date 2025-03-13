@@ -44,7 +44,6 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
     const [loading, setLoading] = useState(false);
     const selectedPlanRef = useRef<SubscriptionPlan | null>(null);
 
-
     const handleSubscription = async (tier: 'basic' | 'premium'): Promise<void> => {
         try {
             const plan: SubscriptionPlan = {
@@ -52,7 +51,6 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
                 tier,
                 price: SUBSCRIPTION_PRICES[tier][billingCycle],
             };
-
             selectedPlanRef.current = plan;
 
             // Validate plan selection

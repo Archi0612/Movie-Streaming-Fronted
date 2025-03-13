@@ -1,12 +1,9 @@
-/* src/styles/Genres.css */
+
 .gen-container{
     background-color: var(--background-color);
     min-height: 100vh;
 }
-/* .gen-container h2{
-    padding-top: 10px;
-    margin: 0 20px;
-} */
+
 .genres-container {
     margin-left: 100px;
     display: flex;
@@ -23,14 +20,13 @@
     }
 }
 
-/* For tablets (768px) */
+
 @media (max-width: 768px) {
     .genres-container {
         padding: 1.5rem;
     }
 }
 
-/* For large phones (480px) */
 @media (max-width: 480px) {
     .genres-container {
         padding: 1rem;
@@ -38,13 +34,13 @@
     }
 
     .genre-card {
-        /* width: 100%; */
+
         object-fit: cover;
         height: 160px;
     }
 }
 
-/* For small phones (368px) */
+
 @media (max-width: 368px) {
     .genres-container {
         padding: 0.8rem;

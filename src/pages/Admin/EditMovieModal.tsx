@@ -4,13 +4,11 @@ import AsyncSelect from "react-select/async";
 import "./EditMovieModal.css";
 import { MdClose } from "react-icons/md";
 import { toast } from "react-toastify";
-import { Movie } from "../../interfaces/movie.interface";
+import { EditMovieModalProps } from "../../interfaces/admin.interface";
 import { editMovie, getMovieById, searchCastByName,searchDirectorByName } from "../../services/apis/adminService";
-interface EditMovieModalProps {
-  movieId: string;
-  onClose: () => void;
-  onSave: (updatedMovie: any) => void;
-}
+import { useNavigate } from "react-router-dom";
+import { Loader } from "lucide-react";
+
 
 const genreOptions = [
   { value: "28", label: "Action" },
@@ -52,7 +50,7 @@ const fetchCastOptions = async(inputValue: string): Promise<{ value: string; lab
         label:cast.name
       }))
     } catch (error) {
-      console.error("Error fetching cast:", error);
+      toast.error("Error fetching cast:");
     return [];
     }
 };
@@ -65,7 +63,7 @@ const fetchDirectorOptions = async(inputValue: string): Promise<{ value: string;
       label:director.name
     }))
   } catch (error) {
-    console.error("Error fetching director:", error);
+    toast.error("Error fetching director:");
   return [];
   }
 };
@@ -73,12 +71,13 @@ const fetchDirectorOptions = async(inputValue: string): Promise<{ value: string;
 const EditMovieModal: React.FC<EditMovieModalProps> = ({ movieId, onClose, onSave }) => {
   const [updatedMovie, setUpdatedMovie] = useState<any>(null);
   const [originalMovie,setOriginalMovie]=useState<any>(null);
+  const [loading,setLoading]=useState<boolean>(false);
+  const navigate=useNavigate();
   useEffect(() => {
     const fetchMovies = async() => {
       try {
         const result = await getMovieById(movieId);
         const movieData = result?.data.data.movie;
-        console.log("Fetched movie data:", movieData);
         
         const formattedReleaseDate = movieData.releaseDate 
           ? new Date(movieData.releaseDate).toISOString().split("T")[0] 
@@ -128,7 +127,6 @@ const EditMovieModal: React.FC<EditMovieModalProps> = ({ movieId, onClose, onSav
         
         setOriginalMovie(formattedMovie);
         setUpdatedMovie(formattedMovie);
-        console.log("Formatted movie data:", formattedMovie);
       } catch (error: any) {
         toast.error(error.message);
       }
@@ -140,16 +138,6 @@ const EditMovieModal: React.FC<EditMovieModalProps> = ({ movieId, onClose, onSav
     const { name, value } = e.target;
     setUpdatedMovie((prev: any) => ({ ...prev, [name]: value }));
   };
-
-  // const handleSelectChange = (selected: any, action: any) => {
-  //   setUpdatedMovie((prev: any) => {
-  //     if (!prev) return prev; // Ensure `prev` exists
-  //     return {
-  //       ...prev,
-  //       [action.name]: selected ? [...selected] : [],
-  //     };
-  //   });
-  // };
   const handleSelectChange = (selected: any, action: any) => {
     setUpdatedMovie((prev: any) => ({
       ...prev,
@@ -161,7 +149,7 @@ const EditMovieModal: React.FC<EditMovieModalProps> = ({ movieId, onClose, onSav
   
   
   
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const { name } = e.target;
       const file = e.target.files[0]; // Safe access
@@ -184,39 +172,9 @@ const EditMovieModal: React.FC<EditMovieModalProps> = ({ movieId, onClose, onSav
   };
   
 
-  const handleSave = async() => {
-    const formData=new FormData()
-  //   formData.append("movieId",updatedMovie.id)
-  //   formData.append("title",updatedMovie.title)
-  //   formData.append("description",updatedMovie.description)
-  //   formData.append("releaseDate", updatedMovie.releaseDate);
-  // formData.append("duration", updatedMovie.duration.toString());
-  // formData.append("rating", updatedMovie.rating.toString());
-
-  // // Append multi-select fields as comma-separated values
-  // if (Array.isArray(updatedMovie.genres)) {
-  //   updatedMovie.genres.forEach((genre: { value: string; label: string }) => formData.append("genres", genre.value));
-  // }
-
-  // if (Array.isArray(updatedMovie.languages)) {
-  //   updatedMovie.languages.forEach((lang: { value: string; label: string }) => formData.append("languages", lang.value));
-  // }
-
-  // if (Array.isArray(updatedMovie.cast)) {
-  //   updatedMovie.cast.forEach((cast: { value: string; label: string }) => formData.append("cast", cast.value));
-  // }
-
-  // if (Array.isArray(updatedMovie.director)) {
-  //   updatedMovie.director.forEach((director: { value: string; label: string }) => formData.append("director", director.value));
-  // }
-  // if (updatedMovie.poster) {
-  //   formData.append("poster", updatedMovie.poster);
-  // }
-  // if (updatedMovie.trailerUrl) {
-  //   formData.append("trailerUrl", updatedMovie.trailerUrl);
-  // }
-
-  if (hasChanged("title")) formData.append("title", updatedMovie.title);
+const handleSave = async() => {
+  const formData=new FormData()
+    if (hasChanged("title")) formData.append("title", updatedMovie.title);
     if (hasChanged("description")) formData.append("description", updatedMovie.description);
     if (hasChanged("releaseDate")) formData.append("releaseDate", updatedMovie.releaseDate);
     if (hasChanged("duration")) formData.append("duration", updatedMovie.duration.toString());
@@ -259,17 +217,23 @@ const EditMovieModal: React.FC<EditMovieModalProps> = ({ movieId, onClose, onSav
     formData.append("movieId", movieId);
 
   try {
+    setLoading(true);
     await editMovie(formData);
-    toast.success("Movie Updated Successfully")
     onSave(updatedMovie);
     onClose();
+    // navigate("/admin-dashboard-movies")
+    
   } catch (error:any) {
     toast.error(error.message)
+  }
+  finally{
+    setLoading(false)
   }
   };
 
   return (
     <div className="modal-overlay" onClick={onClose}>
+      {loading && <Loader/>}
       <div className="modal-container" onClick={(e)=>e.stopPropagation()}>
         <button className="upper-close-btn" onClick={onClose}>
             <MdClose size={20}/>
@@ -278,13 +242,13 @@ const EditMovieModal: React.FC<EditMovieModalProps> = ({ movieId, onClose, onSav
         <div className="modal-fields">
             <div className="fields-left">
         <label>Title</label>
-        <input type="text" name="title" value={updatedMovie?.title}  onChange={handleChange} />
+        <input type="text" name="title" value={updatedMovie?.title} className="edit-movie-input" onChange={handleChange} />
 
         <label>Description</label>
-        <textarea className="text-desc" name="description" value={updatedMovie?.description} onChange={handleChange} />
+        <textarea className="text-desc" name="description" value={updatedMovie?.description}  onChange={handleChange} />
 
         <label>Release Date</label>
-        <input type="date" name="releaseDate" value={updatedMovie?.releaseDate} onChange={handleChange} />
+        <input type="date" name="releaseDate" value={updatedMovie?.releaseDate} className="edit-movie-input" onChange={handleChange} />
 
         <label>Genres</label>
         <Select
@@ -318,9 +282,9 @@ const EditMovieModal: React.FC<EditMovieModalProps> = ({ movieId, onClose, onSav
           }}
           />
         <label>Duration (Seconds)</label>
-        <input type="number" name="duration" value={updatedMovie?.duration} onChange={handleChange} min="0" />
+        <input type="number" name="duration" value={updatedMovie?.duration} className="edit-movie-input" onChange={handleChange} min="0" />
         <label>Rating</label>
-        <input type="number" name="rating" value={updatedMovie?.rating} onChange={handleChange} step="0.1" min="0" />
+        <input type="number" name="rating" value={updatedMovie?.rating} className="edit-movie-input" onChange={handleChange} step="0.1" min="0" />
         </div>
         <div className="fields-right">
         <label>Cast</label>
@@ -392,9 +356,6 @@ const EditMovieModal: React.FC<EditMovieModalProps> = ({ movieId, onClose, onSav
           options={languageOptions}
           value={updatedMovie?.languages || []}
           onChange={(selected)=>handleSelectChange(selected,{name:"languages"})}
-          // value={updatedMovie?.languages?.map((lang: string) =>
-          //   languageOptions.find((option) => option.value === lang) || null
-          // ).filter(Boolean)} 
           placeholder="Select languages"
           className="select"
           styles={{
@@ -421,12 +382,12 @@ const EditMovieModal: React.FC<EditMovieModalProps> = ({ movieId, onClose, onSav
         />
 
         <label>Poster</label>
-        <input type="file" name="poster" onChange={handleFileChange} />
+        <input type="file" name="poster" className="edit-movie-input" onChange={handleFileChange} />
 
         <label>Trailer</label>
-        <input type="file" name="trailerUrl"  onChange={handleFileChange} />
+        <input type="file" name="trailerUrl"  className="edit-movie-input" onChange={handleFileChange} />
         <label>Movie</label>
-            <input type="file" name="movieUrl"onChange={handleFileChange} />
+            <input type="file" name="movieUrl" className="edit-movie-input" onChange={handleFileChange} />
         </div>
         </div>
         <div className="edit-btn">

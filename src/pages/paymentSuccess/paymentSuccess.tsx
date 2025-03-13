@@ -16,7 +16,7 @@ export const PaymentSuccess = () => {
                 ) : (
                     <>
                         <h1>Thank You for Subscribing!</h1>
-                        <p>Welcome to <span className="brand-name">Filmster</span>. Enjoy unlimited movies and shows.</p>
+                        <p className="paymentSuccess-p">Welcome to <span className="brand-name">Filmster</span>. Enjoy unlimited movies and shows.</p>
                         <button onClick={() => window.location.href = "/home"} className="home-button">
                             Go to Home
                         </button>

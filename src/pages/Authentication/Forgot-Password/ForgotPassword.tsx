@@ -27,17 +27,16 @@ const ForgotPassword:React.FC = () => {
       setError(emailError);
     } 
     else {
-      console.log("Email Submitted:", email);
+
       // Perform actions such as sending a password reset link
       try{
         const data = await sendMailResetPassword(email);
-        console.log("Email send:", data?.data?.message);
+
         toast.success("Email sent successfully!");
         return data;
         
       }catch(err:unknown){
         if (err instanceof Error) {
-          console.log("Error sending email:", err.message);
           toast.error("Error sending email");
         } else {
           console.log("Error sending email:", err);
