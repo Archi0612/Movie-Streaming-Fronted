@@ -59,6 +59,7 @@ const DetailsPage: React.FC = () => {
   const genreNames = mediaData?.genres
     .map((id) => genreMap[id] || "Unknown")
     .join(", ");
+
   const handleSeasonChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedSeason(Number(event.target.value));
   };

@@ -375,10 +375,9 @@ color: #fff;
 .season-selector select {
 background-color: #222;
 color: #fff;
-/* border: 0.125rem solid #ff9800; */
 padding: 0.5rem 0.75rem;
 font-size: 1rem;
-border-radius: 0.3125rem;
+border-radius: 0.3rem;
 cursor: pointer;
 
 }
