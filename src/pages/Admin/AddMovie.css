@@ -2,7 +2,6 @@
     display: flex;
     justify-content: center;
     background-color: var(--background-color);
-    /* height: 100vh; */
     min-height: 100vh;
     height: auto;
     width: 100vw;
@@ -24,26 +23,24 @@
     align-items: center;
     justify-content: center;
   }
-  
   .admin-h2 {
     text-align: center;
     font-size: 35px;
     margin-bottom: 30px;
     color: var(--primary-color);
   }
-  
   .fields-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 40px;
     width: 100%;
   }
-  .fields1{
+  .fields-one{
     display: flex;
     flex-direction: column;
     gap: 15px;
   }
-  .fields2{
+  .fields-two{
         display: flex;
         flex-direction: column;
         gap: 15px;
@@ -66,7 +63,6 @@
     padding: .2em .4em;
     border-radius: .2em;
     background-color: #6da3d6;
-    transition: 1s;
     cursor: pointer;
   }
   input[type=file]::file-selector-button:hover {
@@ -79,30 +75,28 @@
     justify-content: space-between;
     width: 100%;
   }
-  
-  .save-btn,.close-btn1 {
+  .save-btn-movie,.close-btn-movie {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
   }
-  
-  .save-btn {
+  .save-btn-movie {
     background: #0073e6;
     color: white;
   }
-  
-  .save-btn:hover {
+
+  .save-btn-movie:hover {
     background: #0059b3;
   }
   
-  .close-btn1 {
+  .close-btn-movie {
     background: grey;
     color: white;
   }
   
-  .close-btn1:hover {
+  .close-btn-movie:hover {
     background: #666;
   }
   ::-webkit-calendar-picker-indicator  {

@@ -149,7 +149,7 @@ const AddMovie: React.FC = () => {
       <div className="add-movie-container">
         <h2 className="admin-h2">Add Movie</h2>
         <div className="fields-container">
-          <div className="fields1">
+          <div className="fields-one">
             <label>Title</label>
             <input type="text" name="title" value={movie.title} className="add-movie-input" onChange={handleChange} placeholder="Enter movie title" autoComplete="off" />
 
@@ -197,7 +197,7 @@ const AddMovie: React.FC = () => {
             <input type="number" name="rating" value={movie.rating} className="add-movie-input" onChange={handleChange} step="0.1" min="0.0" placeholder="Enter movie rating"/>
           </div>
 
-          <div className="fields2">
+          <div className="fields-two">
 
             <label>Cast</label>
             <AsyncSelect
@@ -297,8 +297,8 @@ const AddMovie: React.FC = () => {
           </div>
         </div>
         <div className="buttons-container">
-          <button className="close-btn1" onClick={handleClose}>Close</button>
-          <button className="save-btn" onClick={handleSave}>Save</button>
+          <button className="close-btn-movie" onClick={handleClose}>Close</button>
+          <button className="save-btn-movie" onClick={handleSave}>Save</button>
         </div>
       </div>
     </div>
