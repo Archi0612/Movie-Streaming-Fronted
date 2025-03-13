@@ -35,9 +35,9 @@
     width: 70rem;
     height: 20rem;
     display: flex;
-    flex-direction: row;
+    /* flex-direction: row; */
     justify-content: space-evenly;
-    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    /* flex-wrap: wrap; Allow wrapping on smaller screens */
     gap: 2rem;
     margin-top: 2rem;
 }

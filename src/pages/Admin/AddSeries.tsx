@@ -45,7 +45,7 @@ const fetchCastOptions = async(inputValue: string): Promise<{ value: string; lab
         label:cast.name
       }))
     } catch (error) {
-      toast.error("Error fetching cast:");
+      console.error("Error fetching cast:",error);
     return [];
     }
 };
@@ -58,7 +58,7 @@ const fetchDirectorOptions = async(inputValue: string): Promise<{ value: string;
       label:director.name
     }))
   } catch (error) {
-    toast.error("Error fetching director:");
+    console.error("Error fetching director:",error);
   return [];
   }
 };
@@ -171,7 +171,6 @@ const AddSeries: React.FC = () => {
             <AsyncSelect
               isMulti
               loadOptions={fetchCastOptions}
-              defaultOptions
               onChange={(selected:any) => setSeries((prev) => ({ ...prev, cast: selected }))}
               placeholder="Select movie cast"
               styles={{
@@ -200,7 +199,6 @@ const AddSeries: React.FC = () => {
             <AsyncSelect
             isMulti
               loadOptions={fetchDirectorOptions}
-              defaultOptions
               onChange={(selected:any) => setSeries((prev) => ({ ...prev, director: selected }))}
               placeholder="Select movie director"
               styles={{
@@ -264,9 +262,9 @@ const AddSeries: React.FC = () => {
         </div>
         
         <div className="buttons-container">
-          <button className="close-btn2" onClick={() => navigate("/admin-dashboard-series")}>Close</button>
+          <button className="close-btn-series" onClick={() => navigate("/admin-dashboard-series")}>Close</button>
           
-          <button className="save-btn" onClick={handleSave}>Save</button>
+          <button className="save-btn-series" onClick={handleSave}>Save</button>
         </div>
       </div>
     </div>

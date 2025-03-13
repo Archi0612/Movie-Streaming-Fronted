@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { editSeries,getSeriesById,searchCastByName,searchDirectorByName } from "../../services/apis/adminService";
 import { useNavigate } from "react-router-dom";
 import { EditSeriesModalProps } from "../../interfaces/admin.interface";
+import Loader from "../../components/shimmerUI/Loader";
 const genreOptions = [
   { value: "28", label: "Action" },
   { value: "18", label: "Drama" },
@@ -37,6 +38,7 @@ const languageOptions = [
   { value: "kannada", label: "Kannada" },
 ];
 const fetchCastOptions = async(inputValue: string): Promise<{ value: string; label: string }[]> => {
+  if(!inputValue.trim()) return [];
   try {
     const results=await searchCastByName(inputValue.trim());
     return results.map((cast:{_id:string;name:string})=>({
@@ -44,11 +46,12 @@ const fetchCastOptions = async(inputValue: string): Promise<{ value: string; lab
       label:cast.name
     }))
   } catch (error) {
-    toast.error("Error fetching cast:");
-  return [];
+    console.error("Error fetching cast:",error);
+    return [];
   }
 };
 const fetchDirectorOptions = async(inputValue: string): Promise<{ value: string; label: string }[]> => {
+  if(!inputValue.trim()) return [];
   try {
     const results=await searchDirectorByName(inputValue.trim());
     return results.map((director:{_id:string;name:string})=>({
@@ -56,17 +59,19 @@ const fetchDirectorOptions = async(inputValue: string): Promise<{ value: string;
       label:director.name
     }))
   } catch (error) {
-    toast.error("Error fetching director:");
-  return [];
+    console.error("Error fetching director:");
+    return [];
   }
 };
 const EditSeriesModal: React.FC<EditSeriesModalProps> = ({ seriesId, onClose, onSave }) => {
   const[updatedSeries,setUpdatedSeries]=useState<any>(null);
   const [originalSeries,setOriginalSeries]=useState<any>(null);
+  const[loading,setLoading]=useState<boolean>(false)
   const navigate=useNavigate();
   useEffect(()=>{
     const fetchSeries=async()=>{
       try {
+        setLoading(true);
         const result=await getSeriesById(seriesId);
         const seriesData=result?.data.seriesInfo;
         const formattedReleaseDate = seriesData.releaseDate 
@@ -118,6 +123,9 @@ const EditSeriesModal: React.FC<EditSeriesModalProps> = ({ seriesId, onClose, on
         setUpdatedSeries(formattedSeries);
       } catch (error:any) {
         toast.error(error.message)
+      }
+      finally{
+        setLoading(false)
       }
     };
     fetchSeries();
@@ -188,6 +196,7 @@ const EditSeriesModal: React.FC<EditSeriesModalProps> = ({ seriesId, onClose, on
     }
     formData.append("seriesId",seriesId)
     try {
+      setLoading(true);
       await editSeries(formData);
       onSave(updatedSeries);
       onClose();
@@ -195,6 +204,9 @@ const EditSeriesModal: React.FC<EditSeriesModalProps> = ({ seriesId, onClose, on
     } 
     catch (error:any) {
       toast.error(error.message)
+    }
+    finally{
+      setLoading(false);
     }
   }      
   return (
@@ -205,6 +217,7 @@ const EditSeriesModal: React.FC<EditSeriesModalProps> = ({ seriesId, onClose, on
         </button>
         <h2>Edit Series</h2>
         <div className="modal-fields">
+      {loading && (<Loader/>)}
           <div className="fields-left">
             <label>Title</label>
             <input type="text" name="title" value={updatedSeries?.title} className="edit-series-input" onChange={handleChange} />
@@ -257,7 +270,6 @@ const EditSeriesModal: React.FC<EditSeriesModalProps> = ({ seriesId, onClose, on
             <AsyncSelect
               isMulti
               loadOptions={fetchCastOptions}
-              defaultOptions
               value={updatedSeries?.casts || []}
               onChange={(selected) => handleSelectChange(selected, { name: "casts" })}
               placeholder="Select series cast"
@@ -289,7 +301,6 @@ const EditSeriesModal: React.FC<EditSeriesModalProps> = ({ seriesId, onClose, on
               isMulti
               loadOptions={fetchDirectorOptions}
               value={updatedSeries?.directors || []}
-              defaultOptions
               onChange={(selected) => handleSelectChange(selected, { name: "directors" })}
               placeholder="Select series director"
               styles={{

@@ -3,8 +3,8 @@
 
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* Align towards the top */
-  padding-top: 3rem; /* Adjust top padding to move it up */
+  align-items: flex-start; 
+  padding-top: 3rem; 
 }
 
 .feedback-container {

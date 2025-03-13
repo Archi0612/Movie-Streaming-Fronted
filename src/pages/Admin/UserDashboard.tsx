@@ -9,7 +9,6 @@ import {
   NumberFilterModule,
 } from "ag-grid-community";
 import "ag-grid-community/styles/ag-theme-quartz.css";
-import "./AdminDashboard.css"; // Using the same styles as AdminDashboard
 import "./AdminDashboard.css";
 import {
   getAllUser,

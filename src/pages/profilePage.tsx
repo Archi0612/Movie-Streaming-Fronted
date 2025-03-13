@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import  { useEffect, useState } from 'react';
+import * as React from "react";
 import Likedlist from '../components/LikedList/LikedList';
 import WatchList from '../components/WatchList/WatchList';
 import userIcon from '../assets/user_logo.png';
@@ -15,6 +16,9 @@ import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import { AppDispatch } from '../redux/store';
 import { api } from '../services/api';
+import { fetchProfile } from '../redux/slices/Profile/Profile';
+import { fetchWatchList } from '../redux/slices/WatchList/WatchList';
+import { fetchLikedList } from '../redux/slices/LikedList/LikedList';
 
 ReactModal.setAppElement('#root'); // Ensure accessibility compliance
 
@@ -23,20 +27,28 @@ export default function ProfilePage() {
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
 
-    const loggedUser = useSelector((state: RootState) => state.user.currentUser);
+    useEffect(() => {
+        dispatch(fetchProfile());
+        dispatch(fetchWatchList());
+        dispatch(fetchLikedList());
+    }, [dispatch]);
+
     const [isOpen, setIsOpen] = useState(false);
     const [isSubscribeOpen, setIsSubscribeOpen] = useState(false);
-    const [formData, setFormData] = useState({
+    const [userFormData, setUserFormData] = useState({
         name: "",
-        phone: "",
+        contactNo: "",
         country: "",
         dateOfBirth: "",
-        gender: ""
+        gender: "",
+        email:"",
     });
+
     const countries = getNames().sort();
+    const profile = useSelector((state: RootState) => state.profile);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        setUserFormData({ ...userFormData, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -57,10 +69,20 @@ export default function ProfilePage() {
     }
 
     const updateInfo = async () => {
-        const response = await api.put('/user/editProfile', formData);
-        const data = response.data();
-        console.log(data);
-    }
+        try {
+            const response = await api.put('/user/editProfile', userFormData);
+            
+            // Check if response itself has status 200
+            if (response.status === 200) {
+               dispatch(fetchProfile());
+            } else {
+                console.log("Unexpected response status:", response.status);
+            }
+        } catch (error) {
+            console.error("Error updating profile:", error);
+        }
+    };
+    
 
     return (
         <>
@@ -95,27 +117,23 @@ export default function ProfilePage() {
                                     <tbody>
                                         <tr>
                                             <th>Full Name</th>
-                                            <td>{loggedUser?.name.toUpperCase()}</td>
+                                            <td>{profile?.data?.name}</td>
                                         </tr>
                                         <tr>
                                             <th>Date Of Birth</th>
-                                            <td>22 August 2001</td>
+                                            <td>{profile?.data?.dateOfBirth || "N/A"}</td>
                                         </tr>
                                         <tr>
                                             <th>Gender</th>
-                                            <td>{loggedUser?.gender || "NA"}</td>
+                                            <td>{profile?.data?.gender || "N/A"}</td>
                                         </tr>
                                         <tr>
                                             <th>Phone Number</th>
-                                            <td>{loggedUser?.contactNo}</td>
+                                            <td>{profile?.data?.contactNo || "N/A"}</td>
                                         </tr>
                                         <tr>
                                             <th>Email</th>
-                                            <td>{loggedUser?.email}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Country</th>
-                                            <td>india</td>
+                                            <td>{profile?.data?.email || "N/A"}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -149,16 +167,16 @@ export default function ProfilePage() {
                 <h2 style={{ color: 'white' }}>Edit Profile</h2>
                 <form onSubmit={handleSubmit}>
                     <label>Name:</label>
-                    <input type="text" name="name" value={formData.name} onChange={handleChange} autoComplete='off' required />
+                    <input type="text" name="name" value={userFormData.name} onChange={handleChange} autoComplete='off'  />
 
                     <label>Email:</label>
-                    <input type="email" placeholder={loggedUser?.email} name="email" value={formData.email} onChange={handleChange} autoComplete='off' disabled />
+                    <input type="email" placeholder="" name="email" value={profile?.data?.email} onChange={handleChange} autoComplete='off' disabled />
 
                     <label>Phone Number:</label>
-                    <input type="tel" name="phone" value={formData.phone} onChange={handleChange} autoComplete='off' required />
-                    <div className="country">
+                    <input type="tel" name="contactNo" value={userFormData.contactNo} onChange={handleChange} autoComplete='off'  />
+                    {/* <div className="country">
                         <label className="country-label">Country:</label>
-                        <select name="country" value={formData.country} onChange={handleChange} required className="country-select">
+                        <select name="country" value={userFormData.country} onChange={handleChange} required className="country-select">
                             <option value="">Select a country</option>
                             {countries.map((country: string) => (
                                 <option key={country} value={country}>
@@ -166,13 +184,13 @@ export default function ProfilePage() {
                                 </option>
                             ))}
                         </select>
-                    </div>
+                    </div> */}
 
                     <label>Date of Birth:</label>
-                    <input type="date" name="dateOfBirth" value={formData.dateOfBirth} onChange={handleChange} autoComplete='off' required />
+                    <input type="date" name="dateOfBirth" value={userFormData.dateOfBirth} onChange={handleChange} autoComplete='off'  />
 
                     <label>Gender:</label>
-                    <select name="gender" value={formData.gender} onChange={handleChange} required>
+                    <select name="gender" value={userFormData.gender} onChange={handleChange}>
                         <option value="">Select Gender</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
@@ -187,12 +205,10 @@ export default function ProfilePage() {
                 </form>
             </ReactModal>
 
-
-
             {/* Subscription Component */}
 
             {isSubscribeOpen && (
-                < SubscriptionModal user={loggedUser} isOpen={isSubscribeOpen} onClose={() => setIsSubscribeOpen(false)} />
+                < SubscriptionModal  isOpen={isSubscribeOpen} onClose={() => setIsSubscribeOpen(false)} />
             )}
 
 

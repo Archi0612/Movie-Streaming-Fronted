@@ -93,6 +93,7 @@
   /* Mobile Phones */
   .search-page {
     padding: 0.7rem;
+    height: auto;
   }
 
   .search-bar {

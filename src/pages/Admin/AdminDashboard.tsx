@@ -5,7 +5,7 @@ import { ColDef, GridReadyEvent } from "ag-grid-community";
 import "ag-grid-community/styles/ag-theme-quartz.css"; 
 import { MdEdit, MdDelete, MdAdd } from "react-icons/md";
 import "./AdminDashboard.css";
-import {toast} from "react-toastify"
+import { toast } from "react-toastify"
 import { useNavigate } from "react-router-dom";
 import EditMovieModal from "./EditMovieModal";
 import DeleteConfirmationModal from "../../components/DeleteConfirmationModal";
@@ -13,33 +13,32 @@ import { deleteMovie, listAllMovie } from "../../services/apis/adminService";
 import { Movie } from "../../interfaces/admin.interface";
 import Loader from "../../components/shimmerUI/Loader";
 // Register AG Grid Modules
-ModuleRegistry.registerModules([ClientSideRowModelModule,PaginationModule,TextFilterModule,NumberFilterModule]);
+ModuleRegistry.registerModules([ClientSideRowModelModule, PaginationModule, TextFilterModule, NumberFilterModule]);
 
 // AdminDashboard Component
 const AdminDashboard: React.FC = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
-  const[selectedMovie,setSelectedMovie]=useState<Movie | null>(null);
-  const[isEditModalOpen,setIsEditModalOpen]=useState(false)
-  const[isDeleteModelOpen,setIsDeleteModelOpen]=useState(false)
-
-  const[page,setPage]=useState(1);
-  const[pageSize,setPageSize]=useState(12)
-  const[loading,setLoading]=useState<boolean>(false)
-  const gridApiRef=useRef<any>(null);
-  const navigate=useNavigate();
+  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  const [isDeleteModelOpen, setIsDeleteModelOpen] = useState(false)
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(12)
+  const [loading, setLoading] = useState<boolean>(false)
+  const gridApiRef = useRef<any>(null);
+  const navigate = useNavigate();
 
   const handleEdit = (movie: Movie) => {
     setSelectedMovie(movie);
     setIsEditModalOpen(true);
   }
-  
-  const handleDelete=async()=>{
-    if(!selectedMovie) return;
+
+  const handleDelete = async () => {
+    if (!selectedMovie) return;
     try {
       await deleteMovie(selectedMovie.id);
       toast.success("Movie Deleted successfully");
       fetchAllMovies();
-    } catch (error:any) {
+    } catch (error: any) {
       toast.error(error.message || "Failed to delete movie")
     }
     setIsDeleteModelOpen(false)
@@ -97,7 +96,7 @@ const AdminDashboard: React.FC = () => {
       }
     };
   const columnDefs: ColDef<Movie>[] = [
-    { headerName: "Poster", field: "poster", cellRenderer: (params: any) => <img src={params.value} alt="poster" className="poster-img" />, flex: 2, sortable: false,filter:false },
+    { headerName: "Poster", field: "poster", cellRenderer: (params: any) => <img src={params.value} alt="poster" className="poster-img" />, flex: 2, sortable: false, filter: false },
     { headerName: "Title", field: "title", flex: 2 },
     { headerName: "Description", field: "description", flex: 3 },
     { headerName: "Rating", field: "rating", flex: 1 },
@@ -108,8 +107,8 @@ const AdminDashboard: React.FC = () => {
       field: "action",
       cellRenderer: (params: any) => (
         <div className="action-buttons">
-          <button className="edit-btn" onClick={() => handleEdit(params.data)}><MdEdit size={15} /></button>
-          <button className="delete-btn" onClick={()=>{setSelectedMovie(params.data);setIsDeleteModelOpen(true)}}><MdDelete size={15} /></button>
+          <button className="edit-btn-dashboard" onClick={() => handleEdit(params.data)}><MdEdit size={15} /></button>
+          <button className="delete-btn-dashboard" onClick={() => { setSelectedMovie(params.data); setIsDeleteModelOpen(true) }}><MdDelete size={15} /></button>
         </div>
       ),
       flex: 1,
@@ -117,12 +116,12 @@ const AdminDashboard: React.FC = () => {
       filter: false
     },
   ];
-  const handleClick=()=>{
+  const handleClick = () => {
     navigate("/add-movies");
   }
-  const pagination=true;
-  const paginationPageSize=12;
-  const paginationPageSizeSelector=[12,20,30,50,100];
+  const pagination = true;
+  const paginationPageSize = 12;
+  const paginationPageSizeSelector = [12, 20, 30, 50, 100];
   return (
     <div className="admin-container">
       {loading && <Loader/>}
@@ -135,12 +134,12 @@ const AdminDashboard: React.FC = () => {
               <MdAdd size={20} />
             </button>
           </div>
-          <div className="ag-theme-quartz" style={{ height: '700px', width: '100%' }}>
+          <div className="ag-theme-quartz" style={{ height: '600px', width: '100%' }}>
             <AgGridReact
               rowStyle={{ color: "white" }}
               rowData={movies}
               columnDefs={columnDefs}
-              pagination={pagination} 
+              pagination={pagination}
               paginationPageSize={paginationPageSize}
               paginationPageSizeSelector={paginationPageSizeSelector}
               onPaginationChanged={(params) => {
@@ -156,8 +155,8 @@ const AdminDashboard: React.FC = () => {
               defaultColDef={{
                 flex: 1,
                 minWidth: 100,
-                filter: true, 
-                floatingFilter: false, 
+                filter: true,
+                floatingFilter: false,
                 sortable: true,
                 headerStyle: { fontWeight: "bold", fontSize: "15px", textAlign: "center" }
               }}
@@ -166,10 +165,10 @@ const AdminDashboard: React.FC = () => {
         </div>
       </div>
       {
-        
-      isEditModalOpen && selectedMovie &&(
-        <EditMovieModal movieId={selectedMovie.id} onClose={()=>setIsEditModalOpen(false)} onSave={handleSaveChanges}/>
-      )}
+
+        isEditModalOpen && selectedMovie && (
+          <EditMovieModal movieId={selectedMovie.id} onClose={() => setIsEditModalOpen(false)} onSave={handleSaveChanges} />
+        )}
       {
         isDeleteModelOpen && (
           <DeleteConfirmationModal isOpen={isDeleteModelOpen}

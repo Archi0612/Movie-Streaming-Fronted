@@ -1,77 +1,150 @@
-import './LikedList.css';
-import poster2 from "../../assets/salar.jpeg";
+// import "./LikedList.css";
+// import { AppDispatch, RootState } from "../../redux/store";
+// import { useNavigate } from "react-router-dom";
+// import { useDispatch, useSelector } from "react-redux";
+// import { toggleLike } from "../../redux/slices/LikedList/LikedList";
+// import { toast } from "react-toastify";
+
+// function Likedlist() {
+//   const LikedListState = useSelector((state: RootState) => state.likedlist);
+//   const navigate = useNavigate();
+//   const dispatch = useDispatch<AppDispatch>();
+
+//   const handlePlayVideo = (e: React.MouseEvent<HTMLButtonElement>) => {
+//     e.stopPropagation(); // Stop event from reaching the parent div
+//     navigate(`/videoPlayer`);
+//   };
+
+//   const handleLike = async (contentId: string, contentType: string) => {
+//     const response = await dispatch(toggleLike({ contentId, contentType }));
+//     // console.log(response.payload.message, "Response from detail page");
+
+//     if (response.payload.message === "Unliked successfully") {
+//       toast.info("Removed from Liked List");
+//     } else {
+//       toast.success("Added to Liked List");
+//     }
+//   };
+
+//   return (
+//     <>
+//       <div className="main-likedlist">
+//         <div className="likedlist-heading">
+//           <h3 className="likedList-headingh3">Liked </h3>
+//         </div>
+//         <div className="likedlist-content">
+//           {LikedListState.data?.map((likedlist, index) => (
+//             <div className="likedlist" key={index}>
+//               <div className="likedlist-img">
+//                 <img src={likedlist.contentId?.poster} alt="Poster" />
+//               </div>
+//               <div className="likedlist-info">
+//                 <h4>{likedlist.contentId?.title || "Unknown Title"}</h4>
+//                 <p className="likedlistinfo-p">
+//                   {
+//                     "This is a placeholder description. Add real descriptions later."
+//                   }
+//                 </p>
+//               </div>
+//               <div className="likedlist-button">
+//                 <button className="likedListBtn" onClick={handlePlayVideo}>
+//                   Watch
+//                 </button>
+//                 <button
+//                   className="likedListBtn"
+//                   onClick={() =>
+//                     handleLike(likedlist.contentId?._id, likedlist.contentType)
+//                   }
+//                 >
+//                   Remove
+//                 </button>
+//               </div>
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+//     </>
+//   );
+// }
+
+// export default Likedlist;
+import "./LikedList.css";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/store";
+import { toast } from "react-toastify";
+import { toggleLike } from "../../redux/slices/LikedList/LikedList";
 
 function Likedlist() {
-    const Likedlists = [
-        {
-            title: 'Inception',
-            description: 'A thief who enters the dreams of others to steal secrets from their subconscious is given a chance to have his criminal history erased if he can successfully plant an idea into someone’s mind.'
-        },
-        {
-            title: 'Interstellar',
-            description: 'A team of explorers travel through a wormhole in space in an attempt to ensure humanity’s survival as Earth becomes increasingly uninhabitable.'
-        },
-        {
-            title: 'The Dark Knight',
-            description: 'Batman faces off against the Joker, a criminal mastermind who seeks to create chaos and challenge Gotham’s sense of morality.'
-        },
-        {
-            title: 'Pulp Fiction',
-            description: 'The lives of two hitmen, a boxer, a gangster, and his wife intertwine in a series of violent and unexpected events.'
-        },
-        {
-            title: 'Forrest Gump',
-            description: 'The story of a simple man with good intentions who unknowingly influences major historical events throughout his lifetime.'
-        },
-        {
-            title: 'Inception',
-            description: 'A thief who enters the dreams of others to steal secrets from their subconscious is given a chance to have his criminal history erased if he can successfully plant an idea into someone’s mind.'
-        },
-        {
-            title: 'Interstellar',
-            description: 'A team of explorers travel through a wormhole in space in an attempt to ensure humanity’s survival as Earth becomes increasingly uninhabitable.'
-        },
-        {
-            title: 'The Dark Knight',
-            description: 'Batman faces off against the Joker, a criminal mastermind who seeks to create chaos and challenge Gotham’s sense of morality.'
-        },
-        {
-            title: 'Pulp Fiction',
-            description: 'The lives of two hitmen, a boxer, a gangster, and his wife intertwine in a series of violent and unexpected events.'
-        },
-        {
-            title: 'Forrest Gump',
-            description: 'The story of a simple man with good intentions who unknowingly influences major historical events throughout his lifetime.'
+  const likedListState = useSelector((state: RootState) => state.likedlist);
+    const dispatch = useDispatch<AppDispatch>();
+
+  const handleWatch = (id: string) => {
+    console.log(`Watching movie with ID: ${id}`);
+  };
+
+//   const handleRemove = (id: string) => {
+//     console.log(`Removing movie with ID: ${id}`);
+//   };
+  const handleLike = async (contentId: string, contentType: string) => {
+        const response = await dispatch(toggleLike({ contentId, contentType }));
+        // console.log(response.payload.message, "Response from detail page");
+    
+        if (response.payload.message === "Unliked successfully") {
+          toast.info("Removed from Liked List");
+        } else {
+          toast.success("Added to Liked List");
         }
-    ];
-    return (
-        <>
-            <div className="main-likedlist">
-                <div className='likedlist-heading'>
-                    <h3 className='likedList-headingh3'>Liked </h3>
-                </div>
-                <div className='likedlist-content'>
-                    {Likedlists.map((likedlist, index) => (
+      };
+  return (
+    <div className="main-likedlist">
+      <div className="likedlist-heading">
+        <h3 className="likedList-headingh3">Liked Movies</h3>
+      </div>
 
-                        <div className='likedlist' key={index}>
-                            <div className='likedlist-img'>
-                                <img src={poster2} alt="Poster" />
-                            </div>
-                            <div className='likedlist-info'>
-                                <h4>{likedlist.title}</h4>
-                                <p>{likedlist.description.substring(0, 30)}</p>
-                            </div>
-                            <div className='likedlist-button'>
-                                <button>Watch</button>
-                            </div>
-                        </div>
-
-                    ))}
-                </div>
+      {/* Validation: Show message when likedListState.data is empty */}
+      {likedListState.data?.length ? (
+        <div className="likedlist-content">
+          {likedListState.data.map((likedlist) => (
+            <div className="likedlist" key={likedlist.contentId?._id}>
+              <div className="likedlist-img">
+                <img src={likedlist.contentId?.poster} alt="Movie Poster" />
+              </div>
+              <div className="likedlist-info">
+                <h4>{likedlist.contentId?.title || "Unknown Title"}</h4>
+                <p className="likedlistinfo-p">
+                  {
+                    "This is a placeholder description. Add real descriptions later."
+                  }
+                </p>
+              </div>
+              <div className="likedlist-button">
+                <button
+                  className="likedListBtn"
+                  onClick={() => handleWatch(likedlist.contentId?._id)}
+                >
+                  Watch
+                </button>
+                <button
+                  className="likedListBtn"
+                  onClick={() =>
+                    handleLike(likedlist.contentId?._id, likedlist.contentType)
+                  }
+                >
+                  Remove
+                </button>
+              </div>
             </div>
-        </>
-
-    )
+          ))}
+        </div>
+      ) : (
+        <div className="empty-likedlist-container">
+          <p className="empty-likedlist">
+            Add movies to your likedlist to see them here.
+          </p>
+        </div>
+      )}
+    </div>
+  );
 }
 
-export default Likedlist
+export default Likedlist;

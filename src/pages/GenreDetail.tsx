@@ -1,27 +1,21 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import * as React from "react";
 import { useParams } from "react-router-dom";
 import { getMoviesByGenre } from "../services/apis/movieService";
+
 import { genreMap } from "../utils/constants";
 import "./GenreDetail.css";
 import MoviesGrid from "../components/MoviesGrid";
 import { fetchSeriesByGenre } from "../services/apis/seriesService";
+import { Movie } from "../interfaces/movie.interface";
 
-// Movie Interface
-interface Movie {
-  _id: string;
-  title: string;
-  poster: string;
-  description: string;
-  releaseDate: string;
-  rating: number;
-  languages: string[];
-  genres: number[];
-}
+
 
 const GenreDetail: React.FC = () => {
   const { genreId } = useParams();
   const [movies, setMovies] = useState<Movie[]>([]);
   const [series, setSeries] = useState<Movie[]>([]);
+
 
   const numericGenreId = genreId ? Number(genreId) : 0;
   const genreName = genreMap[numericGenreId] || "Unknown Genre";
@@ -30,12 +24,11 @@ const GenreDetail: React.FC = () => {
       console.error("Invalid genreId:", genreId);
       return;
     }
-
     try {
       const movieData = await getMoviesByGenre(numericGenreId);
       const seriesData = await fetchSeriesByGenre(numericGenreId);
-      setMovies(movieData?.data?.moviesList || []);
-      setSeries(seriesData?.data?.seriesList || []);
+      setMovies(movieData?.moviesList || []);
+      setSeries(seriesData?.seriesList || []);
     } catch (error: unknown) {
       if (error instanceof Error) {
         throw new Error(error.message);
@@ -48,10 +41,13 @@ const GenreDetail: React.FC = () => {
     fetchByGenres();
   }, [numericGenreId]);
 
+
+
+
   return (
-    <div className="genre-detail-container">
+    <div className="genre-detailpage-container">
       <div className="genre-name">
-\
+        \
         <div className="genre-series-container">
           {!series?.length && !movies?.length ? (
             <img className="image-not-found" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIlkfLdB2GiAbY3aZoTvPlWdvgcgwveVEXog&s" alt="No Data Found" />
@@ -69,6 +65,7 @@ const GenreDetail: React.FC = () => {
       </div>
     </div>
   );
+
 };
 
 export default GenreDetail;

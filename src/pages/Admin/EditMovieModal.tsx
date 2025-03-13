@@ -50,8 +50,8 @@ const fetchCastOptions = async(inputValue: string): Promise<{ value: string; lab
         label:cast.name
       }))
     } catch (error) {
-      toast.error("Error fetching cast:");
-    return [];
+      console.error("Error fetching cast:",error);
+      return [];
     }
 };
 
@@ -63,7 +63,7 @@ const fetchDirectorOptions = async(inputValue: string): Promise<{ value: string;
       label:director.name
     }))
   } catch (error) {
-    toast.error("Error fetching director:");
+    console.error("Error fetching director:",error);
   return [];
   }
 };
@@ -83,7 +83,6 @@ const EditMovieModal: React.FC<EditMovieModalProps> = ({ movieId, onClose, onSav
           ? new Date(movieData.releaseDate).toISOString().split("T")[0] 
           : "";
 
-        // Format cast data
         const formattedCast = movieData.cast
           ? movieData.cast.map((member: { _id: string; name: string }) => ({
               value: member._id,
@@ -91,7 +90,6 @@ const EditMovieModal: React.FC<EditMovieModalProps> = ({ movieId, onClose, onSav
             }))
           : [];
           
-        // Format director data
         const formattedDirector = movieData.director
           ? movieData.director.map((dir: { _id: string, name: string }) => ({
               value: dir._id,
@@ -99,7 +97,7 @@ const EditMovieModal: React.FC<EditMovieModalProps> = ({ movieId, onClose, onSav
             }))
           : [];
           
-        // Format genres data - convert numeric IDs to strings for react-select
+        
         const formattedGenres = movieData.genres
           ? movieData.genres.map((genreId: number) => {
               const genreOption = genreOptions.find(option => parseInt(option.value) === genreId);
@@ -107,7 +105,6 @@ const EditMovieModal: React.FC<EditMovieModalProps> = ({ movieId, onClose, onSav
             })
           : [];
           
-        // Format languages data
         const formattedLanguages = movieData.languages
           ? movieData.languages.map((lang: string) => {
               const langOption = languageOptions.find(option => option.value === lang);
@@ -152,7 +149,7 @@ const EditMovieModal: React.FC<EditMovieModalProps> = ({ movieId, onClose, onSav
 const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const { name } = e.target;
-      const file = e.target.files[0]; // Safe access
+      const file = e.target.files[0];
       setUpdatedMovie((prev: any) => ({ ...prev, [name]: file }));
     }
   };
@@ -291,7 +288,6 @@ const handleSave = async() => {
         <AsyncSelect
           isMulti
           loadOptions={fetchCastOptions}
-          defaultOptions
           value={updatedMovie?.cast || []}
           onChange={(selected) => handleSelectChange(selected, { name: "cast" })}
           placeholder="Select movie cast"
@@ -324,7 +320,6 @@ const handleSave = async() => {
           isMulti
           loadOptions={fetchDirectorOptions}
           value={updatedMovie?.director || []}
-          defaultOptions
           onChange={(selected) => handleSelectChange(selected, { name: "director" })}
           placeholder="Select movie director"
           styles={{

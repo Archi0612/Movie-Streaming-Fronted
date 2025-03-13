@@ -1,76 +1,101 @@
+// import './Watchlist.css';
+// import { useSelector } from 'react-redux';
+// import { RootState } from '../../redux/store';
+// import { WatchListItem } from '../../interfaces/movie.interface';
+// import { toggleWatchList } from "../../redux/slices/WatchList/WatchList";
+// import { useDispatch } from "react-redux";
+// import { AppDispatch } from "../../redux/store";
+
+// function WatchList() {
+//     const watchListState = useSelector((state: RootState) => state.watchlist);
+//     const dispatch = useDispatch<AppDispatch>();
+//     return (
+//         <div className="main-watchlist">
+//             <div className='watchlist-heading'>
+//                 <h3 className='watchlist-headingh3'>Watchlist</h3>
+//             </div>
+
+
+//             <div className='watchlist-content'>
+//                 {watchListState.data && watchListState.data.length > 0 ? (
+//                     watchListState.data.map((item: WatchListItem, index) => (
+//                         <div className='watchlist' key={index}>
+//                             <div className='watchlist-img'>
+//                                 <img
+//                                     src={item.contentId?.poster || "https://via.placeholder.com/150"}
+//                                     alt={item.contentId?.title || "No Title"}
+//                                 />
+//                             </div>
+//                             <div className='watchlist-info'>
+//                                 <h4>{item.contentId?.title || "Unknown Title"}</h4>
+//                                 <p className='watchlistinfo-p'>{"This is a placeholder description. Add real descriptions later."}</p>
+//                             </div>
+//                             <div className='watchlist-buttons'>
+//                                 <button className='watchlistBtn'>Watch</button>
+//                                 <button className='watchlistBtn' onClick={() => dispatch(toggleWatchList({ contentId: item.contentId?._id || '', contentType: item.contentType || '' }))}>Remove</button>
+
+//                             </div>
+//                         </div>
+//                     ))
+//                 ) : (
+//                     <p>No movies in your watchlist.</p>
+//                 )}
+//             </div>
+//         </div>
+//     );
+// }
+
+// export default WatchList;
+
 import './Watchlist.css';
-import poster1 from "../../assets/kgf2poster.jpeg";
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
+import { WatchListItem } from '../../interfaces/movie.interface';
+import { toggleWatchList } from "../../redux/slices/WatchList/WatchList";
+import { AppDispatch } from "../../redux/store";
 
 function WatchList() {
-    const WatchLists = [
-        {
-            title: 'Inception',
-            description: 'A thief who enters the dreams of others to steal secrets from their subconscious is given a chance to have his criminal history erased if he can successfully plant an idea into someone’s mind.'
-        },
-        {
-            title: 'Interstellar',
-            description: 'A team of explorers travel through a wormhole in space in an attempt to ensure humanity’s survival as Earth becomes increasingly uninhabitable.'
-        },
-        {
-            title: 'The Dark Knight',
-            description: 'Batman faces off against the Joker, a criminal mastermind who seeks to create chaos and challenge Gotham’s sense of morality.'
-        },
-        {
-            title: 'Pulp Fiction',
-            description: 'The lives of two hitmen, a boxer, a gangster, and his wife intertwine in a series of violent and unexpected events.'
-        },
-        {
-            title: 'Forrest Gump',
-            description: 'The story of a simple man with good intentions who unknowingly influences major historical events throughout his lifetime.'
-        },
-        {
-            title: 'Inception',
-            description: 'A thief who enters the dreams of others to steal secrets from their subconscious is given a chance to have his criminal history erased if he can successfully plant an idea into someone’s mind.'
-        },
-        {
-            title: 'Interstellar',
-            description: 'A team of explorers travel through a wormhole in space in an attempt to ensure humanity’s survival as Earth becomes increasingly uninhabitable.'
-        },
-        {
-            title: 'The Dark Knight',
-            description: 'Batman faces off against the Joker, a criminal mastermind who seeks to create chaos and challenge Gotham’s sense of morality.'
-        },
-        {
-            title: 'Pulp Fiction',
-            description: 'The lives of two hitmen, a boxer, a gangster, and his wife intertwine in a series of violent and unexpected events.'
-        },
-        {
-            title: 'Forrest Gump',
-            description: 'The story of a simple man with good intentions who unknowingly influences major historical events throughout his lifetime.'
-        }
-    ];
+    const watchListState = useSelector((state: RootState) => state.watchlist);
+    const dispatch = useDispatch<AppDispatch>();
+
+    console.log(watchListState);
     return (
-        <>
-            <div className="main-watchlist">
-                <div className='watchlist-heading'>
-                    <h3 className='watchlist-headingh3'>Watchlist</h3>
-                </div>
-                <div className='watchlist-content'>
-                    {WatchLists.map((watchlist, index) => (
+        <div className="main-watchlist">
+            <div className='watchlist-heading'>
+                <h3 className='watchlist-headingh3'>Watchlist</h3>
+            </div>
+
+
+
+            <div className='watchlist-content'>
+                {watchListState.data && watchListState.data.length > 0 ? (
+                    watchListState.data.map((item: WatchListItem, index) => (
                         <div className='watchlist' key={index}>
                             <div className='watchlist-img'>
-                                <img src={poster1} alt="Poster" />
+                                <img
+                                    src={item.contentId?.poster || "https://via.placeholder.com/150"}
+                                    alt={item.contentId?.title || "No Title"}
+                                />
                             </div>
                             <div className='watchlist-info'>
-                                <h4>{watchlist.title}</h4>
-                                <p>{watchlist.description.substring(0, 30)}</p>
+                                <h4>{item.contentId?.title || "Unknown Title"}</h4>
+                                <p className='watchlistinfo-p'>{"This is a placeholder description. Add real descriptions later."}</p>
                             </div>
-                            <div className='watchlist-button'>
-                                <button>Watch</button>
+                            <div className='watchlist-buttons'>
+                                <button className='watchlistBtn'>Watch</button>
+                                <button className='watchlistBtn' onClick={() => dispatch(toggleWatchList({ contentId: item.contentId?._id || '', contentType: item.contentType || '' }))}>Remove</button>
+
                             </div>
                         </div>
-
-                    ))}
+                    ))
+                ) : (
+                    <div className='empty-watchlist-container'>
+                    <p className="empty-watchlist">Add movies to your watchlist to see them here.</p>
                 </div>
+                )}
             </div>
-        </>
-
-    )
+        </div>
+    );
 }
 
-export default WatchList
+export default WatchList;

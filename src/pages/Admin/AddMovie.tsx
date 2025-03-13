@@ -39,6 +39,7 @@ const languageOptions = [
   { value: "kannada", label: "Kannada" },
 ];
 const fetchCastOptions = async(inputValue: string): Promise<{ value: string; label: string }[]> => {
+  if(!inputValue.trim()) return [];
     try {
       const results=await searchCastByName(inputValue.trim());
       return results.map((cast:{_id:string;name:string})=>({
@@ -46,7 +47,7 @@ const fetchCastOptions = async(inputValue: string): Promise<{ value: string; lab
         label:cast.name
       }))
     } catch (error) {
-      toast.error("Error in fetching cast")
+      console.error("Error in fetching cast",error)
     return [];
     }
 };
@@ -59,7 +60,7 @@ const fetchDirectorOptions = async(inputValue: string): Promise<{ value: string;
       label:director.name
     }))
   } catch (error) {
-    toast.error("Error in fetching director")
+    console.error("Error in fetching director")
   return [];
   }
 };
@@ -148,7 +149,7 @@ const AddMovie: React.FC = () => {
       <div className="add-movie-container">
         <h2 className="admin-h2">Add Movie</h2>
         <div className="fields-container">
-          <div className="fields1">
+          <div className="fields-one">
             <label>Title</label>
             <input type="text" name="title" value={movie.title} className="add-movie-input" onChange={handleChange} placeholder="Enter movie title" autoComplete="off" />
 
@@ -196,13 +197,12 @@ const AddMovie: React.FC = () => {
             <input type="number" name="rating" value={movie.rating} className="add-movie-input" onChange={handleChange} step="0.1" min="0.0" placeholder="Enter movie rating"/>
           </div>
 
-          <div className="fields2">
+          <div className="fields-two">
 
             <label>Cast</label>
             <AsyncSelect
               isMulti
               loadOptions={fetchCastOptions}
-              defaultOptions={true}
               onChange={(selected:any) => setMovie((prev) => ({ ...prev, cast: selected }))}
               placeholder="Select movie cast"
               styles={{
@@ -233,7 +233,6 @@ const AddMovie: React.FC = () => {
             <AsyncSelect
             isMulti
               loadOptions={fetchDirectorOptions}
-              defaultOptions
               onChange={(selected:any) => setMovie((prev) => ({ ...prev, director: selected }))}
               placeholder="Select movie director"
               styles={{
@@ -298,8 +297,8 @@ const AddMovie: React.FC = () => {
           </div>
         </div>
         <div className="buttons-container">
-          <button className="close-btn1" onClick={handleClose}>Close</button>
-          <button className="save-btn" onClick={handleSave}>Save</button>
+          <button className="close-btn-movie" onClick={handleClose}>Close</button>
+          <button className="save-btn-movie" onClick={handleSave}>Save</button>
         </div>
       </div>
     </div>
