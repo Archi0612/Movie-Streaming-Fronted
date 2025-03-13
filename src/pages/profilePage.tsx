@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
+import * as React from "react";
 import Likedlist from '../components/LikedList/LikedList';
 import WatchList from '../components/WatchList/WatchList';
 import userIcon from '../assets/user_logo.png';
@@ -196,7 +197,7 @@ export default function ProfilePage() {
             {/* Subscription Component */}
 
             {isSubscribeOpen && (
-                < SubscriptionModal user={profile} isOpen={isSubscribeOpen} onClose={() => setIsSubscribeOpen(false)} />
+                < SubscriptionModal  isOpen={isSubscribeOpen} onClose={() => setIsSubscribeOpen(false)} />
             )}
 
 

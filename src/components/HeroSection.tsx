@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import * as React from "react";
+import { useEffect, useState } from "react";
 import "./HeroSection.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation } from "swiper/modules";
@@ -7,8 +8,10 @@ import {
   getPopularMovies,
   getLatestMovies,
   getTopRatedMovies,
+  getHomeTrending,
 } from "../services/apis/movieService";
 import { Movie } from "../interfaces/movie.interface";
+import VideoPlayer from "./videoPlayer/videoPlayer";
 
 const HeroSection: React.FC = () => {
   const [movies, setMovies] = useState<{
@@ -20,22 +23,34 @@ const HeroSection: React.FC = () => {
     latest: [],
     topRated: [],
   });
-
+  const [trending, setTrending] = useState<any[]>([]);
+  const [activeIndex, setActiveIndex] = useState(0); 
 
   const movieCategories = [
     { key: "pop", title: "Popular Movies" },
     { key: "latest", title: "Latest Movies" },
     { key: "topRated", title: "Top Rated Movies" },
   ];
+  
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const [popularMoviesResponse, latestResponse, topRatedResponse] = await Promise.all([
+        const [popularMoviesResponse, latestResponse, topRatedResponse, trendingResponse] = await Promise.all([
           getPopularMovies(),
           getLatestMovies(),
           getTopRatedMovies(),
+          getHomeTrending(),
         ]);
-
+    
+       
+    
+        if (trendingResponse?.data?.heroContent) {
+      
+          setTrending(trendingResponse.data.heroContent);
+        } else {
+          setTrending([]); 
+        }
+    
         setMovies({
           latest: latestResponse?.moviesList || [],
           topRated: topRatedResponse?.moviesList || [],
@@ -45,10 +60,13 @@ const HeroSection: React.FC = () => {
         console.error("Error fetching movies", err);
       }
     };
+    
+    
     fetchMovies();
-  }, []);
+  }, [trending]);
 
 
+  
   return (
     <div className="hero-section">
       {/* Main Movie Slider */}
@@ -60,36 +78,29 @@ const HeroSection: React.FC = () => {
           navigation={true}
           modules={[FreeMode, Navigation]}
           className="main-movie-slider"
+          onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)} 
         >
-          <SwiperSlide>
-            <div className="video-overlay">
-              <iframe
-                width="1930"
-                height="950"
-                src="https://www.youtube.com/embed/XXuLWW3H3jY?autoplay=1&mute=1"
-                title="Avatar 3: Fire and Ash (2025) - First Trailer | James Cameron"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
-              ></iframe>
-            </div>
-          </SwiperSlide>
+          {trending.map((movie) => (
+            <SwiperSlide key={movie._id}>
+              <div className="video-overlay">
+              <VideoPlayer url={movie.trailerUrl} control={true} /> {/* Use VideoPlayer */}
+              </div>
+            </SwiperSlide>
+          ))}
         </Swiper>
 
-        {/* Movie Details */}
-        <div className="movie-details">
-          <h2 className="movie-title">Movie Name</h2>
-          <p className="movie-info">2025 | U/A 16+ | 1 Season | 7 Languages</p>
-          <p className="movie-desc">
-            Roohi's life turns topsy-turvy after an 'accident' during a medical
-            check-up.
-          </p>
-          <button className="watch-now">▶ Watch Now</button>
-        </div>
+        {trending.length > 0 && (
+          <div className="movie-details">
+            <h2 className="movie-title">{trending[activeIndex]?.title}</h2>
+            <p className="movie-info">
+              {new Date(trending[activeIndex]?.releaseDate).getFullYear()} | {trending[activeIndex]?.languages.join(", ")}
+            </p>
+            <p className="movie-desc">{trending[activeIndex]?.description}</p>
+            <button className="watch-now">▶ Watch Now</button>
+          </div>
+        )}
       </div>
 
-      {/* Movie Categories */}
       <div className="movie-lists">
         {movieCategories.map(({ key, title }) => (
           <div className="movie-category" key={key}>
@@ -108,7 +119,7 @@ const HeroSection: React.FC = () => {
                 640: { slidesPerView: 4 },
                 480: { slidesPerView: 3 },
                 400: { slidesPerView: 3 },
-                375:{slidesPerView:3},
+                375: { slidesPerView: 3 },
                 300: { slidesPerView: 2 },
               }}
             >

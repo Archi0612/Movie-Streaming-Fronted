@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
+import * as React from "react";
 import "./DetailsPage.css";
 import { fetchSeriesByID } from "../services/apis/seriesService";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
