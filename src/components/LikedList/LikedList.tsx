@@ -1,5 +1,5 @@
 import './LikedList.css';
-import poster2 from "../assets/salar.jpeg";
+import poster2 from "../../assets/salar.jpeg";
 
 function Likedlist() {
     const Likedlists = [

@@ -1,69 +1,84 @@
 .movies-grid {
-    margin-left: 5.1rem;
-    padding: 1.5rem 2rem;
+  margin-left: 5.1rem;
+  padding: 1.5rem 2rem;
+}
+
+.all-movies-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-bottom: 1.2rem;
+  text-align: start;
+}
+
+.movies-container {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 768px) {
+  .movies-grid {
+    margin-left: 0;
+    padding: 1rem 1.5rem;
   }
-  
+
   .all-movies-title {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: bold;
     color: var(--primary-color);
     margin-bottom: 1.2rem;
     text-align: start;
   }
-  
+
   .movies-container {
-    display: flex;
-    flex-wrap: wrap;
-    /* display: grid; */
     grid-template-columns: repeat(3, 1fr);
-    /* justify-content: center; */
-    gap: 2rem;
-  }
-  
-
-  @media (max-width: 1024px) {
-    .movies-container {
-      grid-template-columns: repeat(4, 1fr);
-    }
   }
 
-  @media (max-width: 768px) {
-    .movies-grid{
-      margin-left: 0;
-      padding: 1rem 1.5rem;
-    }
-    .movies-container {
-      grid-template-columns: repeat(3, 1fr);
-    }
-    .movies-title{
-      font-size: 1rem;
-    }
+  .movies-title {
+    font-size: 1rem;
   }
-  @media (max-width: 640px) {
-    .movies-grid{
-      margin-left: 0;
-      padding: 1rem 1.5rem;
-    }
-    /* .movies-container {
+}
+
+
+@media (max-width: 640px) {
+  .movies-grid {
+    margin-left: 0;
+    padding: 1rem 1.5rem;
+  }
+
+  /* .movies-container {
       grid-template-columns: repeat(4, 1fr);
  
     }*/
-    .movies-title{
-      font-size: 1rem;
-    }
+  .movies-title {
+    font-size: 1rem;
   }
-  @media (max-width: 545px) {
-    .movies-grid{
-      margin-left: 0;
-      padding: 1rem 1.5rem;
-    }
-    .movies-container {
-      /* grid-template-columns: repeat(2, 1fr); */
-      padding: 0.5rem;
-    }
-    .movies-title{
-      font-size: 0.8rem;
-      margin: 0.5rem 0.7rem;
-    }
+}
+
+@media (max-width: 545px) {
+  .movies-grid {
+    margin-left: 0;
+    padding: 1rem 1.5rem;
   }
-  
+
+  .movies-container {
+    /* grid-template-columns: repeat(2, 1fr); */
+    padding: 0.5rem;
+  }
+
+  .movies-title {
+    font-size: 0.8rem;
+    margin: 0.5rem 0.7rem;
+  }
+}
+
+.movies-container {
+  /* grid-template-columns: repeat(2, 1fr); */
+  padding: 0.5rem;
+}
+
+.movies-title {
+  font-size: 1.2rem;
+  margin: 0.5rem 0.7rem;
+}

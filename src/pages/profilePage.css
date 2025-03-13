@@ -4,7 +4,7 @@ html {
 
 .profilepagecontainer {
     width: 100vw;
-    height: auto;
+    height: 100vh;
     background-color: #00131f;
     border: none;
 }
@@ -15,8 +15,8 @@ html {
 
 
 .internalProfilePage {
-    margin-left: 6vw;
     background-color: #00131f;
+    padding-left: 6rem;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;

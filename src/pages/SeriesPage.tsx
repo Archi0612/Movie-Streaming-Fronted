@@ -8,7 +8,7 @@ import { SwiperSlide, Swiper } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
 import MovieCard from "../components/MovieCard";
 import { Series } from "../interfaces/series.interface";
-import "./SeriesPage.css"
+import "./SeriesPage.css";
 
 const SeriesPage: React.FC = () => {
   const [series, setSeries] = useState<{
@@ -83,12 +83,9 @@ const SeriesPage: React.FC = () => {
               <div className="series-video-slider">
                 <iframe
                   width="100%"
-                //   height="100%"
-                // width="1900"
-                height="1000"
+                  height="1000"
                   src={video.url}
                   title={video.title}
-                  frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   referrerPolicy="strict-origin-when-cross-origin"
                   allowFullScreen
@@ -99,12 +96,14 @@ const SeriesPage: React.FC = () => {
         </Swiper>
 
         <div className="series-details">
-            {/* {seriesCategories.map(({key, title}) => (
+          {/* {seriesCategories.map(({key, title}) => (
                 <div className="series-title" key={key}>{title}</div>
                       
             ))} */}
-   
-          <h2 className="series-video-title">The Falcon and the Winter Soldier</h2>
+
+          <h2 className="series-video-title">
+            The Falcon and the Winter Soldier
+          </h2>
           <p className="series-info">2025 | U/A 16+ | 1 Season | 7 Languages</p>
           <p className="series-desc">
             Roohi’s life turns topsy-turvy after an ‘accident’ during a medical
@@ -114,7 +113,7 @@ const SeriesPage: React.FC = () => {
         </div>
       </div>
 
-      {/* 🎭 Genres Grid */}
+      
       <div className="genres-grid">
         {seriesCategories.map(({ key, title }) => (
           <div className="series-category" key={key}>
@@ -122,7 +121,7 @@ const SeriesPage: React.FC = () => {
             <Swiper
               slidesPerView={5}
               spaceBetween={20}
-              navigation
+              navigation = {true}
               modules={[Navigation]}
               breakpoints={{
                 1400: { slidesPerView: 6 },

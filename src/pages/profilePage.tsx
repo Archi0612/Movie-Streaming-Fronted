@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Likedlist from '../components/LikedList';
-import WatchList from '../components/WatchList';
+import Likedlist from '../components/LikedList/LikedList';
+import WatchList from '../components/WatchList/WatchList';
 import userIcon from '../assets/user_logo.png';
 import './profilePage.css';
 import { getNames } from "country-list";
@@ -14,30 +14,27 @@ import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import { AppDispatch } from '../redux/store';
-
-
+import { api } from '../services/api';
 
 ReactModal.setAppElement('#root'); // Ensure accessibility compliance
 
 export default function ProfilePage() {
-    const [isOpen, setIsOpen] = useState(false);
-    const [isSubscribeOpen, setIsSubscribeOpen] = useState(false);
+
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
 
-
+    const loggedUser = useSelector((state: RootState) => state.user.currentUser);
+    const [isOpen, setIsOpen] = useState(false);
+    const [isSubscribeOpen, setIsSubscribeOpen] = useState(false);
     const [formData, setFormData] = useState({
         name: "",
-        email: "",
         phone: "",
         country: "",
-        dob: "",
+        dateOfBirth: "",
         gender: ""
     });
     const countries = getNames().sort();
 
-    const loggedUser = useSelector((state: RootState) => state.user.currentUser) ?? {};
-    // Handle input changes for Edit Profile form
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
@@ -45,21 +42,24 @@ export default function ProfilePage() {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         setIsOpen(false);
-        console.log("WJD",formData)
-        // to update the profile info we need to setup an api call here 
-
     };
 
     const logoutUser = async () => {
         try {
-            await dispatch({ type: 'user/logout' });
+            dispatch({ type: 'user/logout' });
             navigate("/login");
             toast.success("Logout Success");
-        } catch (error:unknown) {
+        } catch (error: unknown) {
             if (error instanceof Error) {
                 toast.error(error.message);
             }
         }
+    }
+
+    const updateInfo = async () => {
+        const response = await api.put('/user/editProfile', formData);
+        const data = response.data();
+        console.log(data);
     }
 
     return (
@@ -95,7 +95,7 @@ export default function ProfilePage() {
                                     <tbody>
                                         <tr>
                                             <th>Full Name</th>
-                                            <td>{loggedUser.name.toUpperCase()}</td>
+                                            <td>{loggedUser?.name.toUpperCase()}</td>
                                         </tr>
                                         <tr>
                                             <th>Date Of Birth</th>
@@ -103,15 +103,15 @@ export default function ProfilePage() {
                                         </tr>
                                         <tr>
                                             <th>Gender</th>
-                                            <td>{loggedUser.gender || "NA" }</td>
+                                            <td>{loggedUser?.gender || "NA"}</td>
                                         </tr>
                                         <tr>
                                             <th>Phone Number</th>
-                                            <td>{loggedUser.contactNo}</td>
+                                            <td>{loggedUser?.contactNo}</td>
                                         </tr>
                                         <tr>
                                             <th>Email</th>
-                                            <td>{loggedUser.email}</td>
+                                            <td>{loggedUser?.email}</td>
                                         </tr>
                                         <tr>
                                             <th>Country</th>
@@ -152,7 +152,7 @@ export default function ProfilePage() {
                     <input type="text" name="name" value={formData.name} onChange={handleChange} autoComplete='off' required />
 
                     <label>Email:</label>
-                    <input type="email" name="email" value={formData.email} onChange={handleChange} autoComplete='off' required />
+                    <input type="email" placeholder={loggedUser?.email} name="email" value={formData.email} onChange={handleChange} autoComplete='off' disabled />
 
                     <label>Phone Number:</label>
                     <input type="tel" name="phone" value={formData.phone} onChange={handleChange} autoComplete='off' required />
@@ -169,20 +169,20 @@ export default function ProfilePage() {
                     </div>
 
                     <label>Date of Birth:</label>
-                    <input type="date" name="dob" value={formData.dob} onChange={handleChange} autoComplete='off' required />
+                    <input type="date" name="dateOfBirth" value={formData.dateOfBirth} onChange={handleChange} autoComplete='off' required />
 
                     <label>Gender:</label>
                     <select name="gender" value={formData.gender} onChange={handleChange} required>
                         <option value="">Select Gender</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                        <option value="Other">Other</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="Other">other</option>
                     </select>
 
                     <div className="modal-buttons">
 
                         <button type="button" onClick={() => setIsOpen(false)}>Cancel</button>
-                        <button type="submit">Save</button>
+                        <button type="submit" onClick={updateInfo}>Save</button>
                     </div>
                 </form>
             </ReactModal>
@@ -192,7 +192,7 @@ export default function ProfilePage() {
             {/* Subscription Component */}
 
             {isSubscribeOpen && (
-                < SubscriptionModal isOpen={isSubscribeOpen} onClose={() => setIsSubscribeOpen(false)} />
+                < SubscriptionModal user={loggedUser} isOpen={isSubscribeOpen} onClose={() => setIsSubscribeOpen(false)} />
             )}
 
 

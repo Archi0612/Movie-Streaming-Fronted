@@ -6,7 +6,7 @@
 
 - [ ] Add Search bar in Admin Dashboard (P)
 - [ ] Add a Loading screen in Admin Dashboard (P)
-- [ ] Subscription page Dynamic data of USER (P)
+- [DONE ] Subscription page Dynamic data of USER (P)
 
 - [x] Edit data using FormDATA in Movies (Y)
 - [] Api integration of Series Dashboard with crud operation(Y)

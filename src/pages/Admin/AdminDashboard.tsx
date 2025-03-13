@@ -21,13 +21,14 @@ const AdminDashboard: React.FC = () => {
   const[selectedMovie,setSelectedMovie]=useState<Movie | null>(null);
   const[isEditModalOpen,setIsEditModalOpen]=useState(false)
   const[isDeleteModelOpen,setIsDeleteModelOpen]=useState(false)
+
   const[page,setPage]=useState(1);
   const[pageSize,setPageSize]=useState(12)
   const[loading,setLoading]=useState<boolean>(false)
   const gridApiRef=useRef<any>(null);
   const navigate=useNavigate();
 
-  const handleEdit=(movie:Movie)=>{
+  const handleEdit = (movie: Movie) => {
     setSelectedMovie(movie);
     setIsEditModalOpen(true);
   }
@@ -95,9 +96,6 @@ const AdminDashboard: React.FC = () => {
         toast.error("Failed to update movie");
       }
     };
-    
-    
-
   const columnDefs: ColDef<Movie>[] = [
     { headerName: "Poster", field: "poster", cellRenderer: (params: any) => <img src={params.value} alt="poster" className="poster-img" />, flex: 2, sortable: false,filter:false },
     { headerName: "Title", field: "title", flex: 2 },
@@ -108,7 +106,7 @@ const AdminDashboard: React.FC = () => {
     {
       headerName: "Action",
       field: "action",
-      cellRenderer: (params:any) => (
+      cellRenderer: (params: any) => (
         <div className="action-buttons">
           <button className="edit-btn" onClick={() => handleEdit(params.data)}><MdEdit size={15} /></button>
           <button className="delete-btn" onClick={()=>{setSelectedMovie(params.data);setIsDeleteModelOpen(true)}}><MdDelete size={15} /></button>
@@ -139,7 +137,7 @@ const AdminDashboard: React.FC = () => {
           </div>
           <div className="ag-theme-quartz" style={{ height: '700px', width: '100%' }}>
             <AgGridReact
-            rowStyle={{color:"white"}}
+              rowStyle={{ color: "white" }}
               rowData={movies}
               columnDefs={columnDefs}
               pagination={pagination} 
@@ -153,7 +151,7 @@ const AdminDashboard: React.FC = () => {
               }}
               onGridReady={handleGridReady}
               domLayout="normal"
-              rowHeight={60} 
+              rowHeight={60}
               headerHeight={60}
               defaultColDef={{
                 flex: 1,
@@ -173,10 +171,10 @@ const AdminDashboard: React.FC = () => {
         <EditMovieModal movieId={selectedMovie.id} onClose={()=>setIsEditModalOpen(false)} onSave={handleSaveChanges}/>
       )}
       {
-        isDeleteModelOpen &&(
-          <DeleteConfirmationModal  isOpen={isDeleteModelOpen}
-          onClose={() => setIsDeleteModelOpen(false)}
-          onConfirm={handleDelete}/>
+        isDeleteModelOpen && (
+          <DeleteConfirmationModal isOpen={isDeleteModelOpen}
+            onClose={() => setIsDeleteModelOpen(false)}
+            onConfirm={handleDelete} />
         )
       }
     </div>

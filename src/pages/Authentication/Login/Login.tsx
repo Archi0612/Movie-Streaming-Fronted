@@ -104,7 +104,7 @@ const Login = () => {
                   value={userFormData.password}
                   onChange={(e) => handleChange("password", e.target.value)}
                   placeholder="Enter your password"
-                   className="input-text"
+                  className="input-text"
                 />
                 <span className="toggle-icon" onClick={togglePasswordVisibility}>
                   {showPassword ? <FaEyeSlash color="white" /> : <FaEye color="white" />}
