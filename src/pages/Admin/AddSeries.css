@@ -77,83 +77,17 @@ input[type="file"]::file-selector-button:hover {
     justify-content: space-between;
     width: 100%;
 }
-.button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
-.save-btn {
+.save-btn-series {
     background: #0073e6;
     color: white;
 }
-.save-btn:hover {
+.save-btn-series:hover {
     background: #0059b3;
 }
 
-.close-btn {
-    background: grey;
-    color: white;
-}
 
-.close-btn:hover {
-    background: #666;
-}
-
-/* SEASON AND EPISODE STYLING */
-.seasons-container {
-    width: 100%;
-    margin-top: 30px;
-    background-color: rgba(40, 40, 55, 0.9);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 1px 3px var(--hover-shadow);
-}
-
-.season {
-    margin-bottom: 15px;
-    padding: 15px;
-    border-radius: 8px;
-    background-color: rgba(30, 30, 45, 0.9);
-    box-shadow: 0px 2px 4px rgba(255, 255, 255, 0.1);
-    position: relative;
-}
-
-.season-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 18px;
-    font-weight: bold;
-    color: var(--primary-color);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    padding-bottom: 10px;
-}
-
-.episode-container {
-    margin-top: 10px;
-    padding: 10px;
-    border-radius: 6px;
-    background-color: rgba(50, 50, 65, 0.9);
-}
-.episode-container input{
-     background: rgba(93, 94, 95, 0.3) !important;
-}
-.episode-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 16px;
-    font-weight: bold;
-    color: #6da3d6;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    padding-bottom: 5px;
-}
-
-/* BUTTON STYLING */
-.season-add-btn,.episode-add-btn, .remove-btn, .close-btn2 {
-    padding: 8px 12px;
+.close-btn-series,.save-btn-series {
+    padding: 10px 20px;
     border: none;
     border-radius: 5px;
     font-size: 14px;
@@ -162,45 +96,16 @@ input[type="file"]::file-selector-button:hover {
     align-items: center;
     justify-content: center;
     transition: 0.3s;
-}
-
-.season-add-btn{
-    position: relative;
-    left: 60%;
-    background: #28a745;
-    color: white;
-}
-.episode-add-btn {
-    background: #28a745;
-    color: white;
-}
-
-.season-add-btn:hover {
-    background: #218838;
-}
-
-.episode-add-btn:hover{
-    background: #218838;
-}
-
-.remove-btn {
-    background: #dc3545;
-    color: white;
-}
-
-.remove-btn:hover {
-    background: #c82333;
-}
-.close-btn2 {
+    
+} 
+.close-btn-series{
     background: grey;
     color: white;
-    
-  }
-  
-  .close-btn2:hover {
+}
+.close-btn-series:hover {
     background: #666;
   }
-  ::-webkit-calendar-picker-indicator  {
+::-webkit-calendar-picker-indicator  {
     filter: invert(1);
   }
   .episode-number{
@@ -209,7 +114,6 @@ input[type="file"]::file-selector-button:hover {
   .episode-label{
     margin-top: 3px;
   }
-/* RESPONSIVE DESIGN */
 @media (max-width: 768px) {
     .fields-container {
         grid-template-columns: 1fr;
@@ -220,7 +124,6 @@ input[type="file"]::file-selector-button:hover {
         gap: 10px;
     }
 }
-
 @media (max-width:480px){
     
     .season-add-btn{
