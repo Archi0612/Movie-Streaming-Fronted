@@ -39,7 +39,7 @@ label {
     font-weight: bold;
 }
 
-input, textarea {
+.add-series-input{
     width: 100%;
     padding: 10px;
     border: none;
@@ -47,7 +47,16 @@ input, textarea {
     background: rgba(93, 94, 95, 0.3);
     color: white;
 }
-
+.text-desc1{
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: rgba(93, 94, 95, 0.3);
+    color: white;
+    resize: none;
+    height:110px !important;
+  }
 input[type="file"]::file-selector-button {
     border: 2px solid #4da4df;
     padding: .3em .6em;
@@ -62,18 +71,12 @@ input[type="file"]::file-selector-button:hover {
     border: 2px solid #4da4df;
 }
 
-textarea {
-    resize: vertical;
-    height: 80px;
-}
-
 .buttons-container {
     margin-top: 20px;
     display: flex;
     justify-content: space-between;
     width: 100%;
 }
-
 .button {
     padding: 10px 20px;
     border: none;
@@ -81,12 +84,10 @@ textarea {
     cursor: pointer;
     font-size: 16px;
 }
-
 .save-btn {
     background: #0073e6;
     color: white;
 }
-
 .save-btn:hover {
     background: #0059b3;
 }
@@ -247,7 +248,3 @@ textarea {
     margin-bottom: 20px;
     width: 50%;
 }
-.text-desc1{
-    resize: none;
-    height:110px !important;
-  }

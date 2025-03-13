@@ -4,8 +4,8 @@
     background-color: #021c2c;
   }
   .content {
-    margin-left: 260px;
     padding: 20px;
+    margin: 0px 30px;
     flex-grow: 1;
   }
   

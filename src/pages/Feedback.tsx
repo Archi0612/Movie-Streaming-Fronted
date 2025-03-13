@@ -37,7 +37,6 @@ const Feedback: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ rating, review,  comment });
   };
 
   const handleSkip = () => {

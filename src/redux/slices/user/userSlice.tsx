@@ -21,9 +21,8 @@ const initialState: UserState = {
 };
 
 export const registerUser = createAsyncThunk<
-    AuthResponse, // Expected return type from api
-    Omit<User, "id" | "token">, // Input type (User object without id & token)
-    { rejectValue: string } // Type for rejected errors
+    AuthResponse,
+    { rejectValue: string }
 >(
     "user/register",
     async (user, { rejectWithValue }) => {
@@ -70,22 +69,25 @@ export const loginUser = createAsyncThunk<
 export const logoutUser = createAsyncThunk("user/logout", async () => {
     // Remove user data from local storage on logout
     try {
-        localStorage.removeItem("currentUser");
-        deleteCookie('token');
+        console.log("logout called")
+        const response = await api.post<AuthResponse>('/auth/logout');
+        if (response.status === 200) {
+            console.log("got status 200");
+            // localStorage.removeItem("currentUser");
+            // deleteCookie('token');
+        }
         return null;
     } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
             return (error.response?.data?.message || "Logout Failed");
         }
     }
-
 });
 
 const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
-        // Manually log in a user (without api call)
         login: (state, action: PayloadAction<User>) => {
             state.currentUser = action.payload;
             state.isAuthenticated = true;
@@ -93,7 +95,6 @@ const userSlice = createSlice({
             state.error = undefined;
         },
 
-        // Manually log out a user
         logout: (state) => {
             state.currentUser = null;
             state.isAuthenticated = false;
@@ -105,7 +106,6 @@ const userSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            // ✅ **Register User Cases**
             .addCase(registerUser.pending, (state) => {
                 state.loading = true;
                 state.error = undefined;
@@ -117,10 +117,9 @@ const userSlice = createSlice({
             })
             .addCase(registerUser.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload;
+                state.error = action.payload as string;
             })
 
-            // ✅ **Login User Cases**
             .addCase(loginUser.pending, (state) => {
                 state.loading = true;
                 state.error = undefined;
@@ -136,7 +135,6 @@ const userSlice = createSlice({
                 state.error = action.payload;
             })
 
-            // ✅ **Logout User Cases**
             .addCase(logoutUser.pending, (state) => {
                 state.loading = true;
             })

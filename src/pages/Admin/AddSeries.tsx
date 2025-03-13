@@ -5,6 +5,8 @@ import AsyncSelect from "react-select/async";
 import "./AddSeries.css";
 import {toast} from "react-toastify"
 import { addSeries, searchCastByName,searchDirectorByName } from "../../services/apis/adminService";
+import { Addseries } from "../../interfaces/admin.interface";
+import Loader from "../../components/shimmerUI/Loader";
 const genreOptions = [
   { value: "28", label: "Action" },
   { value: "18", label: "Drama" },
@@ -43,7 +45,7 @@ const fetchCastOptions = async(inputValue: string): Promise<{ value: string; lab
         label:cast.name
       }))
     } catch (error) {
-      console.error("Error fetching cast:", error);
+      console.error("Error fetching cast:",error);
     return [];
     }
 };
@@ -56,43 +58,14 @@ const fetchDirectorOptions = async(inputValue: string): Promise<{ value: string;
       label:director.name
     }))
   } catch (error) {
-    console.error("Error fetching director:", error);
+    console.error("Error fetching director:",error);
   return [];
   }
 };
 
-interface Episode {
-  title: string;
-  description: string;
-  duration: string;
-  episodeNumber: number;
-  episodeUrl: string | File;
-  releaseDate: string;
-}
-
-interface Season {
-  seasonNumber: number;
-  episodes: Episode[];
-}
-
-interface Series {
-  title: string;
-  description: string;
-  genres: { value: string; label: string }[];
-  releaseDate: string;
-  rating: string;
-  cast: { value: string; label: string }[];
-  director: { value: string; label: string }[];
-  languages: { value: string; label: string }[];
-  poster: File | null;
-  trailerUrl: File | null;
-  availableForStreaming: boolean;
-  seasons: Season[];
-}
-
 const AddSeries: React.FC = () => {
   const navigate = useNavigate();
-  const [series, setSeries] = useState<Series>({
+  const [series, setSeries] = useState<Addseries>({
     title: "",
     description: "",
     genres: [],
@@ -104,9 +77,8 @@ const AddSeries: React.FC = () => {
     poster: null,
     trailerUrl: null,
     availableForStreaming: false,
-    seasons: [],
   });
-
+  const[loading,setLoading]=useState<boolean>(false);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value, type, checked,files } = e.target as HTMLInputElement;
     if(type === "file" && files){
@@ -122,15 +94,8 @@ const AddSeries: React.FC = () => {
       }));
     }
   };
-  const updateEpisode = (seasonIndex: number, episodeIndex: number, field: keyof Episode, value: any) => {
-    setSeries((prev) => {
-      const updatedSeasons = [...prev.seasons];
-      (updatedSeasons[seasonIndex].episodes[episodeIndex][field] as any) = value;
-      return { ...prev, seasons: updatedSeasons };
-    });
-  };
-
   const handleSave = async() => {
+
     const formData=new FormData();
     formData.append("title",series.title);
     formData.append("description",series.description);
@@ -147,30 +112,30 @@ const AddSeries: React.FC = () => {
     if(series.trailerUrl){
       formData.append("trailer",series.trailerUrl);
     }
-    
-    console.log("FormData Entries")
-    for(let [key,value] of formData.entries()){
-      console.log(`${key}:`,value);
-    };
     try {
+      setLoading(true)
       const response=await addSeries(formData);
       toast.success("Series Added Successfully")
       navigate("/admin-dashboard-series")
     } catch (error) {
       toast.error("Error in Adding series")
     }
+    finally{
+      setLoading(false)
+    }
   }
   return (
     <div className="container1">
+      {loading && (<Loader/>)}
       <div className="add-series-container">
       <h2 className="admin-h2">Add Series</h2>
         <div className="fields-container">
           <div className="fields1">
             <label>Title</label>
-            <input type="text" name="title" value={series.title} onChange={handleChange} placeholder="Enter series title" autoComplete="off"/>
+            <input type="text" name="title" value={series.title} className="add-series-input" onChange={handleChange} placeholder="Enter series title" autoComplete="off"/>
 
             <label>Description</label>
-            <textarea name="description" value={series.description} onChange={handleChange} placeholder="Enter series details" autoComplete="off" className="text-desc1"/>
+            <textarea name="description" value={series.description}  onChange={handleChange} placeholder="Enter series details" autoComplete="off" className="text-desc1"/>
 
             <label>Genres</label>
             <Select isMulti options={genreOptions} value={series.genres}  onChange={(selected: any) => setSeries((prev) => ({ ...prev, genres: selected }))} styles={{
@@ -196,9 +161,9 @@ const AddSeries: React.FC = () => {
               }} />
 
             <label>Release Date</label>
-            <input type="date" name="releaseDate" value={series.releaseDate} onChange={handleChange} />
+            <input type="date" name="releaseDate" value={series.releaseDate} className="add-series-input" onChange={handleChange} />
             <label>Rating</label>
-            <input type="number" name="rating" value={series.rating} onChange={handleChange} step="0.1" min="0.0" placeholder="Enter series rating "/>
+            <input type="number" name="rating" value={series.rating} className="add-series-input" onChange={handleChange} step="0.1" min="0.0" placeholder="Enter series rating "/>
           </div>
 
           <div className="fields2">
@@ -206,7 +171,6 @@ const AddSeries: React.FC = () => {
             <AsyncSelect
               isMulti
               loadOptions={fetchCastOptions}
-              defaultOptions
               onChange={(selected:any) => setSeries((prev) => ({ ...prev, cast: selected }))}
               placeholder="Select movie cast"
               styles={{
@@ -235,7 +199,6 @@ const AddSeries: React.FC = () => {
             <AsyncSelect
             isMulti
               loadOptions={fetchDirectorOptions}
-              defaultOptions
               onChange={(selected:any) => setSeries((prev) => ({ ...prev, director: selected }))}
               placeholder="Select movie director"
               styles={{
@@ -291,10 +254,10 @@ const AddSeries: React.FC = () => {
               }}
             />
             <label>Poster</label>
-            <input type="file" name="poster" onChange={handleChange} />
+            <input type="file" name="poster" className="add-series-input" onChange={handleChange} />
 
             <label>Trailer</label>
-            <input type="file" name="trailerUrl" onChange={handleChange} />
+            <input type="file" name="trailerUrl" className="add-series-input" onChange={handleChange} />
           </div>
         </div>
         

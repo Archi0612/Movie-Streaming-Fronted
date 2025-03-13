@@ -4,28 +4,25 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6); /* Black transparent overlay */
+    background: rgba(0, 0, 0, 0.6); 
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1000;
+    z-index: 999;
   }
   
   /* Modal container */
   .modal-container {
     background-color: rgba(26,26,45,0.8);
-  box-shadow: 0px 2px 5px var(--hover-shadow);
+    box-shadow: 0px 2px 5px var(--hover-shadow);
     padding: 20px;
     width: 50%;
     border-radius: 10px;
-    /* box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); */
     color: white;
     position: relative;
     z-index: 1001;
   }
-  
-  
-   .upper-close-btn{
+  .upper-close-btn{
     position:absolute;
     top: 10px;
     right: 10px;
@@ -61,8 +58,7 @@
     margin-top: 10px;
   }
   
-  input,
-  textarea {
+  .edit-movie-input {
     width: 100%;
     padding: 8px;
     border-radius: 5px;
@@ -74,13 +70,18 @@
   .text-desc{
     resize: none;
     height: 90px !important;
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
   }
   
   .edit-save-btn,.edit-close-btn {
     width: 20%;
     margin-top: 15px;
     padding: 10px 5px;
-    /* background: #6da3d6; */
     border: none;
     border-radius: 5px;
     color: white;
@@ -102,7 +103,7 @@
   @media screen and (max-width: 1024px) {
     .modal-fields{
       grid-template-columns: 1fr;
-      max-height: 600px; /* Adjust height as needed */
+      max-height: 600px;
     overflow-y: auto;
     }
     .edit-btn{

@@ -125,6 +125,7 @@ label {
 .input-text {
   width: 100%;
   padding-right: 40px;
+  background-color: var(--hover-shadow);
   /* Space for the eye icon */
 }
 

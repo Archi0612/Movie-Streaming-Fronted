@@ -1,6 +1,6 @@
 /* Global Styles */
 .series-section {
-  background-color: #000;
+  background-color: var(--background-color);
   color: #fff;
   min-height: 100vh;
   margin: 0;
@@ -12,7 +12,7 @@
   position: relative;
   text-align: center;
   margin-bottom: 3rem ;
-  margin-left: 3rem;
+  margin-left: 116px;
   background-color: #000;
 }
 
@@ -78,10 +78,8 @@
 
 /* Genres Grid */
 .genres-grid {
-  /* display: flex;
-  flex-direction: column;
-  gap: 3rem; */
-  margin-left: 8rem;
+
+  margin-left: 116px;
   overflow: hidden;
 }
 
@@ -96,9 +94,7 @@
   color: var(--primary-color);
 }
 
-/* .swiper-container {
-  padding: 1rem;
-} */
+
 
     /* Swiper Navigation */
     .swiper-button-next,
@@ -126,3 +122,12 @@
         position: relative;
     
     }
+@media (max-width:768px){
+
+.series-slider-container{
+  margin-left: 8px;
+}
+.genres-grid{
+  margin-left: 8px;
+}
+}

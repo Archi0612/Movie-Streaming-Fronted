@@ -4,6 +4,7 @@ import { GoSearch } from "react-icons/go";
 import { api } from "../services/api";
 import { MoviesData } from "../interfaces/movie.interface";
 import MovieCardSlider from "../components/SearchBarSlider/SearchBarSlider";
+import ShimmerUI from "../components/shimmerUI/Shimmer";
 
 const Search: React.FC = () => {
   const [moviesData, setMoviesData] = useState<MoviesData>({
@@ -34,7 +35,7 @@ const Search: React.FC = () => {
           const response = await api.get("/search/", {
             params: { search: searchInput },
           });
-          console.log(response.data);
+          
           setMoviesData({
             movieList: response?.data?.data?.movieList || [],
             seriesList: response?.data?.data?.seriesList || [],
@@ -48,7 +49,7 @@ const Search: React.FC = () => {
         }
       };
       searchMovies();
-    }, 2000);
+    }, 1500);
 
     return () => clearTimeout(timer);
   }, [searchInput]);
@@ -67,28 +68,26 @@ const Search: React.FC = () => {
         </div>
       </div>
 
-      <div className="searchMovie-main">
-        <div className="searchMovie-container">
-          {isLoading ? (
-            <div>Loading...</div>
-          ) : (
-            <>
-              {moviesData.movieList.length > 0 && (
-                <MovieCardSlider mediaList={moviesData.movieList} title="Movies" />
-              )}
-              {moviesData.seriesList.length > 0 && (
-                <MovieCardSlider mediaList={moviesData.seriesList} title="Series" />
-              )}
-              {moviesData.castAndDirectorWiseMovie.length > 0 && (
-                <MovieCardSlider mediaList={moviesData.castAndDirectorWiseMovie} title="Movies by Cast & Directors" />
-              )}
-              {moviesData.castAndDirectorWiseSeries.length > 0 && (
-                <MovieCardSlider mediaList={moviesData.castAndDirectorWiseSeries} title="Series by Cast & Directors" />
-              )}
-            </>
-          )}
+      {isLoading ? (
+        <ShimmerUI /> // Ensure this is a valid component
+      ) : (
+        <div className="searchMovie-main">
+          <div className="searchMovie-container">
+            {moviesData.movieList.length > 0 && (
+              <MovieCardSlider mediaList={moviesData.movieList} title="Movies" />
+            )}
+            {moviesData.seriesList.length > 0 && (
+              <MovieCardSlider mediaList={moviesData.seriesList} title="Series" />
+            )}
+            {moviesData.castAndDirectorWiseMovie.length > 0 && (
+              <MovieCardSlider mediaList={moviesData.castAndDirectorWiseMovie} title="Movies by Cast & Directors" />
+            )}
+            {moviesData.castAndDirectorWiseSeries.length > 0 && (
+              <MovieCardSlider mediaList={moviesData.castAndDirectorWiseSeries} title="Series by Cast & Directors" />
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

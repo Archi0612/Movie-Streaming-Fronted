@@ -6,8 +6,70 @@
     min-height: 100vh;
     overflow-x: hidden;
 }
+.moviepage-slider-container {
+    position: relative;
+    text-align: center;
+    margin-bottom: 3rem ;
+    margin-left: 7rem;
+    background-color: #000;
+  }
 
-
+  .main-movie-slider {
+    height: 50rem;
+  }
+  .movie-video-slider::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.8), transparent);
+    z-index: 1;
+  }
+  
+  .movie-video-slider iframe {
+    width: 100%;
+    max-width: 120rem;
+    max-height: 62.5rem;
+    border-radius: 0.5rem;
+    border: none;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.7), transparent);
+  }
+  .movie-details {
+    position: absolute;
+    bottom: 2rem;
+    left: 3rem;
+    text-align: left;
+    z-index: 100;
+  }
+  
+  .movie-video-title {
+    margin-top: 0.5rem;
+    font-size: 1.7rem;
+    font-weight: bold;
+    margin-bottom: 0.3rem;
+  }
+  
+  .movie-info {
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+  }
+  
+  .movie-desc {
+    font-size: 0.8rem;
+    max-width: 50rem;
+  }
+  
+  .watch-now {
+    color: #fff;
+    border: none;
+    /* padding: 1rem 2rem; */
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+  }
 .section-container {
     width: 100%;
     padding-left: 116px;
@@ -44,7 +106,9 @@
 .movie-category-slider .swiper-slide:hover {
     transform: scale(1.05);
 }
-
+.swiper-button-next::after{
+    right: 20px !important;
+}
 
 .movie-category-slider .swiper-button-prev,
 .movie-category-slider .swiper-button-next {
@@ -84,12 +148,15 @@
 }
 
 @media (max-width: 992px) {
+    .moviepage-slider-container{
+        margin-left: 108px;
+    }
     .section-container {
-        padding-left: 80px;
+        padding-left: 108px;
     }
 
     .movie-category-slider {
-        width: calc(100% - 80px);
+        width: calc(100% - 108px);
     }
 
     .movie-category-slider .swiper-slide {
@@ -99,8 +166,11 @@
 }
 
 @media (max-width: 768px) {
+    .moviepage-slider-container{
+        margin-left: 8px;
+    }
     .section-container {
-        padding-left: 40px;
+        padding-left: 8px;
     }
 
     .movie-category-slider {
@@ -112,15 +182,18 @@
         height: 260px !important;
         margin-right: 10px;
     }
+    .movie-details {
+        width: 50%;
+        padding: 10px;
+        left:5px
+    }
     .genre-detail-container{
         padding-left: 15px !important;
     }
 }
 
 @media (max-width: 576px) {
-    .section-container {
-        padding-left: 20px;
-    }
+    
 
     .movie-category-slider {
         width: calc(100% - 20px);

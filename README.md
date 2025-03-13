@@ -1,7 +1,10 @@
-# React + TypeScript + Vite
+# FilmSter Frontend
+    Add .env file
 
-Commands:
+## Commands:
+- `nvm use`: Use nvm for used node version
+- `npm install` : Install all dependencies
+- `npm run dev`: Start development server
 
-npm i express 
-npm install framer-motion @types/react
-Add .env file
+# Filmster Backend
+- Git repo: [FilmSter Backend Repository](https://github.com/harshrupavatiya/Movie-Streaming-Backend)
