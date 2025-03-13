@@ -123,6 +123,7 @@ export interface Movie {
   likes?: boolean;
   trailerUrl: string;
   duration?: number;
+  contentType: string;
   // director?: Movie[];
   // cast?: Movie[];
   // likes?: boolean;

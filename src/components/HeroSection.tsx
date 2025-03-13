@@ -48,7 +48,6 @@ const HeroSection: React.FC = () => {
     fetchMovies();
   }, []);
 
-  console.log(movies, "movie in herosection file line 54");
 
   return (
     <div className="hero-section">
