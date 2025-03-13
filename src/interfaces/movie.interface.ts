@@ -45,6 +45,7 @@ export interface MediaGridProps {
     rating: number;
     languages: string[];
     genres: number[];
+    contentType: string;
   }[];
   title: string;
 }
