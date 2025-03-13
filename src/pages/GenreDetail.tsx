@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import * as React from "react";
 import { useParams } from "react-router-dom";
 import { getMoviesByGenre } from "../services/apis/movieService";
 

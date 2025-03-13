@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
+import * as React from "react";
 import "./DetailsPage.css";
 import { fetchSeriesByID } from "../services/apis/seriesService";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { getMovieById } from "../services/apis/movieService";
 import { Movie } from "../interfaces/movie.interface";
 import { genreMap } from "../utils/constants";
@@ -10,54 +11,37 @@ import { FaShareFromSquare } from "react-icons/fa6";
 import { Seriesdata } from "../interfaces/series.interface";
 import { Play, Plus } from "lucide-react";
 import ReactPlayer from "react-player";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../redux/store";
+import { toggleWatchList } from "../redux/slices/WatchList/WatchList";
+import { toggleLike } from "../redux/slices/LikedList/LikedList";
+import { toast } from "react-toastify";
 
 const DetailsPage: React.FC = () => {
   const { mediaId } = useParams();
+  const navigate = useNavigate();
   const [mediaData, setMediaData] = useState<Movie | null>(null);
   const [seriesData, setSeriesData] = useState<Seriesdata[]>();
   const [searchParams] = useSearchParams();
   const contentType = searchParams.get("contentType");
-  console.log(contentType, "content type");
-
+  const dispatch = useDispatch<AppDispatch>();
   const [selectedSeason, setSelectedSeason] = useState<number | null>(null);
 
   const fetchMediaByID = async () => {
     try {
-      // const [seriesResult, movieResult] = await Promise.allSettled([
-      //   fetchSeriesByID(mediaId as string),
-      //   getMovieById(mediaId as string),
-      // ]);
-      // if (seriesResult.status === "fulfilled" && seriesResult.value) {
-      //   setMediaData(seriesResult.value.seriesInfo as Movie);
-      //   setSeriesData(seriesResult.value.seriesContent as Seriesdata[]);
-      // } else if (movieResult.status === "fulfilled" && movieResult.value) {
-      //   setMediaData(movieResult.value);
-        
-      // }
+  
       if (contentType === "Movie") {
         const response = await getMovieById(mediaId as string);
-        console.log(response.movie, "response from movie by id");
+
         setMediaData(response.movie as Movie);
-        console.log(setMediaData, "Movie in detail page");
-    
-      }
-      else {
+      } else {
         const response = await fetchSeriesByID(mediaId as string);
-        console.log(response.seriesInfo, "response from series by id series Info");
-        console.log(response.seriesContent, "response from series by id series content");
+     
         setMediaData(response.seriesInfo as Movie);
         setSeriesData(response.seriesContent as Seriesdata[]);
 
-          //  setMediaData(seriesResult.value.seriesInfo as Movie);
-        
+        //  setMediaData(seriesResult.value.seriesInfo as Movie);
       }
-
-      // if (seriesResult.status === "fulfilled" && seriesResult.value) {
-      //   setMediaData(seriesResult.value.seriesInfo as Movie);
-      //   setSeriesData(seriesResult.value.seriesContent as Seriesdata[]);
-      //   console.log(setMediaData, "media data ")
-      // } else if (movieResult.status === "fulfilled" && movieResult.value) {
-      //   setMediaData(movieResult.value);
 
     } catch (err: unknown) {
       if (err instanceof Error) {
@@ -69,8 +53,9 @@ const DetailsPage: React.FC = () => {
   useEffect(() => {
     fetchMediaByID();
   }, [mediaId]);
+
   // 🎭 Genre Mapping
-  console.log(mediaData, "geners");
+
   const genreNames = mediaData?.genres
     .map((id) => genreMap[id] || "Unknown")
     .join(", ");
@@ -78,6 +63,28 @@ const DetailsPage: React.FC = () => {
     setSelectedSeason(Number(event.target.value));
   };
 
+
+  const handleWatchList = async () => {
+    try {
+      dispatch(
+        toggleWatchList({
+          contentId: mediaId || "",
+          contentType: contentType || "",
+        })
+      );
+      toast.success("Added in Watchlist successfully!", {
+        position: "top-right",
+      });
+    } catch (error: unknown) {
+      if (error instanceof Error)
+        toast.error("Failed to add. Try again!", { position: "top-right" });
+    }
+  };
+  const handlePlayVodeo = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation(); // Stop event from reaching the parent div
+    // console.log("video player clicked from movie card");
+    navigate(`/videoPlayer`);
+  };
   return (
     <div className="details-container">
       <div className="header-container">
@@ -107,15 +114,23 @@ const DetailsPage: React.FC = () => {
           />
         </div> */}
             <div className="actions-container">
-              <button className="action-button like-button">
+              <button
+                className="action-button like-button"
+                onClick={() => {dispatch(toggleLike({ contentId: mediaId || "", contentType: contentType || ""}))}}
+              >
                 <FaThumbsUp size={16} />
                 Like
+                {/* <FaThumbsUp size={16} color={isLiked ? "white" : "grey"} />
+                {isLiked ? "Unlike" : "Like"} */}
               </button>
               <button className="action-button share-button">
                 <FaShareFromSquare size={16} />
                 Share
               </button>
-              <button className="action-button watchlist-button">
+              <button
+                className="action-button watchlist-button"
+                onClick={handleWatchList}
+              >
                 <FaRegBookmark size={16} />
                 Add to Watchlist
               </button>
@@ -143,7 +158,8 @@ const DetailsPage: React.FC = () => {
           </div>
 
           <div className="watch-movie">
-            <button className="action-button watch-button">
+            <button className="action-button watch-button"
+            onClick={handlePlayVodeo}>
               Watch
               <FaPlay size={16} />
             </button>
@@ -323,5 +339,3 @@ const DetailsPage: React.FC = () => {
 };
 
 export default DetailsPage;
-
-

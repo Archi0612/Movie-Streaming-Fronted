@@ -37,13 +37,6 @@ import SeriesPage from "../pages/SeriesPage";
 import { PaymentSuccess } from "../pages/paymentSuccess/paymentSuccess";
 import VideoPlayer from "../components/videoPlayer/videoPlayer";
 
-
-
-
-
-
-
-
 // Protected Route component that checks if user is authenticated
 const ProtectedRoute: React.FC = () => {
 
@@ -120,8 +113,8 @@ const AppRoute: React.FC = () => {
             <Route path="/profile-page" element={<ProfilePage />} />
             <Route path="/payment-success" element={<PaymentSuccess />} />
             <Route path="/payment-cancel" element={<PaymentCancel />} />
-            <Route path="/details/:mediaId" element={<DetailsPage />}/>
             <Route path="/videoPlayer" element={<VideoPlayer control={true} url="https://res.cloudinary.com/dwabecyrt/video/upload/v1741350593/movies/k6jawoy4kul45u6mckhz.webm"/>} />
+            <Route path="/details/:mediaId" element={<DetailsPage />}/>
       
           </Route>
 

@@ -35,25 +35,26 @@ export const getLatestMovies = () => fetchMovieData("/movie/getLatestMovies");
 export const getTopRatedMovies = () => fetchMovieData("/movie/getTopRatedMovies");
 export const getPopularMovies = () => fetchMovieData("/movie/getPopularMovies");
 export const getMoviesByGenre = (genreId: number) => fetchMovieData(`movie/getMoviesByGenre/${genreId}`);
+export const getMovieById = (mediaId: string) => fetchMovieData(`movie/getMovieById/${mediaId}`);
 
 // Removed duplicate declaration of getMovieById
 
 
-export const getMovieById = async (mediaId: string) => {
-  try {
-    const response = await api.get(`movie/getMovieById/${mediaId}`);
-    const data = response?.data?.data.movie;
-    console.log("Series api call", data);
+// export const getMovieById = async (mediaId: string) => {
+//   try {
+//     const response = await api.get(`movie/getMovieById/${mediaId}`);
+//     const data = response?.data?.data.movie;
+//     console.log("Series api call", data);
 
-    return data;
-  } catch (err: unknown) {
-    if (err instanceof Error) {
-      throw new Error(err.message);
-    } else {
-      throw new Error("An error occurred");
-    }
-  }
-}
+//     return data;
+//   } catch (err: unknown) {
+//     if (err instanceof Error) {
+//       throw new Error(err.message);
+//     } else {
+//       throw new Error("An error occurred");
+//     }
+//   }
+// }
 export const getHomeTrending = async () => {
   try {
     const response = await api.get(`trending/getTrendingContent`);

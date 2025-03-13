@@ -63,12 +63,9 @@ const HeroSection: React.FC = () => {
     
     
     fetchMovies();
-  }, []);
-
-  // Track trending state updates
-  useEffect(() => {
-
   }, [trending]);
+
+
   
   return (
     <div className="hero-section">

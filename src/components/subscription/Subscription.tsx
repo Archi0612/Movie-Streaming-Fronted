@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
+import * as React from "react";
 import { Elements } from '@stripe/react-stripe-js';
 import axios from 'axios';
 import "./Subscription.css";

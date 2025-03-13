@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
+import * as React from "react";
 import Likedlist from '../components/LikedList/LikedList';
 import WatchList from '../components/WatchList/WatchList';
 import userIcon from '../assets/user_logo.png';
