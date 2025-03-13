@@ -7,6 +7,7 @@ import {
   getPopularMovies,
   getLatestMovies,
   getTopRatedMovies,
+  getHomeTrending,
 } from "../services/apis/movieService";
 import { Movie } from "../interfaces/movie.interface";
 
@@ -20,6 +21,9 @@ const HeroSection: React.FC = () => {
     latest: [],
     topRated: [],
   });
+  const [trending, setTrending] = useState<any[]>([]);
+
+
 
 
   const movieCategories = [
@@ -30,12 +34,16 @@ const HeroSection: React.FC = () => {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const [popularMoviesResponse, latestResponse, topRatedResponse] = await Promise.all([
+        const [popularMoviesResponse, latestResponse, topRatedResponse, trendingResponse] = await Promise.all([
           getPopularMovies(),
           getLatestMovies(),
           getTopRatedMovies(),
+          getHomeTrending(),
         ]);
-
+  
+        setTrending(trendingResponse);
+        console.log("home trending",trending)
+  
         setMovies({
           latest: latestResponse?.moviesList || [],
           topRated: topRatedResponse?.moviesList || [],
@@ -47,12 +55,13 @@ const HeroSection: React.FC = () => {
     };
     fetchMovies();
   }, []);
+  
 
-  console.log(movies, "movie in herosection file line 54");
 
   return (
     <div className="hero-section">
       {/* Main Movie Slider */}
+      trendingResponse.map()
       <div className="movie-slider-container">
         <Swiper
           slidesPerView={1}

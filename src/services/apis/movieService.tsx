@@ -53,3 +53,19 @@ export const getMovieById = async (mediaId: string) => {
     }
   }
 }
+
+export const getHomeTrending=async()=>{
+  try{ 
+    const response=await api.get(`trending/getTrendingContent`);
+    const data = response?.data?.data.heroContent;
+  
+    return data;
+  }
+  catch (err: unknown) {
+    if (err instanceof Error) {
+      throw new Error(err.message);
+    } else {
+      throw new Error("An error occurred");
+    }
+  }
+}
