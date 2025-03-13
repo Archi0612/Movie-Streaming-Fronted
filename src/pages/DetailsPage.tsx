@@ -106,6 +106,7 @@ const DetailsPage: React.FC = () => {
               height="25rem"
               controls
               playing
+              muted={true}
             />
           )}
         </div>
