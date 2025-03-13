@@ -63,10 +63,10 @@ const DetailsPage: React.FC = () => {
   };
   const handleLike = async () => {
     const response = await dispatch(toggleLike({ contentId: mediaId || "", contentType: contentType || ""}));
-    console.log(response.payload.message, "Response from detailpahe");
+    // console.log(response.payload.message, "Response from detailpahe");
       if(response.payload.message == "Unliked successfully"){
         toast.info("Removed from Liked List");
-      }else{
+      }else if(response.payload.message == "liked successfully"){
         toast.success("Added to Liked List");
       }
   };

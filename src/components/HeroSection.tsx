@@ -78,16 +78,17 @@ const HeroSection: React.FC = () => {
           onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
         >
           {trending.map((movie, index) => (
-  <SwiperSlide key={`${movie._id}${"hero"}` || `${movie.title}-${index}`}>
-    <div className="video-overlay">
-      <video width="100%" height="auto" controls autoPlay muted>
-        <source src={movie.trailerUrl} type="video/webm" />
-        Your browser does not support the video tag.
-      </video>
-    </div>
-  </SwiperSlide>
-))}
-
+            <SwiperSlide
+              key={`${movie._id}${"hero"}` || `${movie.title}-${index}`}
+            >
+              <div className="video-overlay">
+                <video width="100%" height="auto" controls autoPlay muted>
+                  <source src={movie.trailerUrl} type="video/webm" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </SwiperSlide>
+          ))}
         </Swiper>
 
         {trending.length > 0 && (
@@ -126,11 +127,12 @@ const HeroSection: React.FC = () => {
               }}
             >
               {movies[key as keyof typeof movies]?.map((movie, index) => (
-  <SwiperSlide key={`${movie._id}${title}` || `${movie.title}-${index}`}>
-    <MovieCard media={movie} />
-  </SwiperSlide>
-))}
-
+                <SwiperSlide
+                  key={`${movie._id}${title}` || `${movie.title}-${index}`}
+                >
+                  <MovieCard media={movie} />
+                </SwiperSlide>
+              ))}
             </Swiper>
           </div>
         ))}
