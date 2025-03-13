@@ -39,6 +39,7 @@ const languageOptions = [
   { value: "kannada", label: "Kannada" },
 ];
 const fetchCastOptions = async(inputValue: string): Promise<{ value: string; label: string }[]> => {
+  if(!inputValue.trim()) return [];
     try {
       const results=await searchCastByName(inputValue.trim());
       return results.map((cast:{_id:string;name:string})=>({
@@ -46,7 +47,7 @@ const fetchCastOptions = async(inputValue: string): Promise<{ value: string; lab
         label:cast.name
       }))
     } catch (error) {
-      toast.error("Error in fetching cast")
+      console.error("Error in fetching cast",error)
     return [];
     }
 };
@@ -59,7 +60,7 @@ const fetchDirectorOptions = async(inputValue: string): Promise<{ value: string;
       label:director.name
     }))
   } catch (error) {
-    toast.error("Error in fetching director")
+    console.error("Error in fetching director")
   return [];
   }
 };
@@ -202,7 +203,6 @@ const AddMovie: React.FC = () => {
             <AsyncSelect
               isMulti
               loadOptions={fetchCastOptions}
-              defaultOptions={true}
               onChange={(selected:any) => setMovie((prev) => ({ ...prev, cast: selected }))}
               placeholder="Select movie cast"
               styles={{
@@ -233,7 +233,6 @@ const AddMovie: React.FC = () => {
             <AsyncSelect
             isMulti
               loadOptions={fetchDirectorOptions}
-              defaultOptions
               onChange={(selected:any) => setMovie((prev) => ({ ...prev, director: selected }))}
               placeholder="Select movie director"
               styles={{

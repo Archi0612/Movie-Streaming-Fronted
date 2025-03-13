@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { AgGridReact } from "ag-grid-react";
-import { ClientSideRowModelModule } from "ag-grid-community";
-import { ModuleRegistry } from "ag-grid-community";
+import { ModuleRegistry, ClientSideRowModelModule, PaginationModule, TextFilterModule, NumberFilterModule } from "ag-grid-community";
 import { ColDef, GridReadyEvent } from "ag-grid-community";
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import { MdEdit, MdDelete, MdAdd } from "react-icons/md";
@@ -12,7 +11,7 @@ import { toast } from "react-toastify";
 import "./AdminDashboard.css";
 import EditSeriesModal from "./EditSeriesModal";
 import { Series } from "../../interfaces/admin.interface";
-ModuleRegistry.registerModules([ClientSideRowModelModule]);
+ModuleRegistry.registerModules([ClientSideRowModelModule,PaginationModule,TextFilterModule,NumberFilterModule]);
 
 const AdminDashboardSeries: React.FC = () => {
   const [series, setSeries] = useState<Series[]>([]);
@@ -117,10 +116,10 @@ const AdminDashboardSeries: React.FC = () => {
       headerName: "Action",
       cellRenderer: (params: any) => (
         <div className="action-buttons">
-          <button className="edit-btn" onClick={() => handleEdit(params.data)}>
+          <button className="edit-btn-dashboard" onClick={() => handleEdit(params.data)}>
             <MdEdit size={15} />
           </button>
-          <button className="delete-btn" onClick={() => { setSelectedSeries(params.data); setIsDeleteModelOpen(true) }}><MdDelete size={15} /></button>
+          <button className="delete-btn-dashboard" onClick={() => { setSelectedSeries(params.data); setIsDeleteModelOpen(true) }}><MdDelete size={15} /></button>
         </div>
       ),
       flex: 1,
@@ -145,7 +144,7 @@ const AdminDashboardSeries: React.FC = () => {
               <MdAdd size={20} />
             </button>
           </div>
-          <div className="ag-theme-quartz" style={{ height: "700px", width: "100%" }}>
+          <div className="ag-theme-quartz" style={{ height: "600px", width: "100%" }}>
             <AgGridReact
               rowData={series}
               columnDefs={columnDefs}

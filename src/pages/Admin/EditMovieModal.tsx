@@ -50,8 +50,8 @@ const fetchCastOptions = async(inputValue: string): Promise<{ value: string; lab
         label:cast.name
       }))
     } catch (error) {
-      toast.error("Error fetching cast:");
-    return [];
+      console.error("Error fetching cast:",error);
+      return [];
     }
 };
 
@@ -63,7 +63,7 @@ const fetchDirectorOptions = async(inputValue: string): Promise<{ value: string;
       label:director.name
     }))
   } catch (error) {
-    toast.error("Error fetching director:");
+    console.error("Error fetching director:",error);
   return [];
   }
 };
@@ -291,7 +291,6 @@ const handleSave = async() => {
         <AsyncSelect
           isMulti
           loadOptions={fetchCastOptions}
-          defaultOptions
           value={updatedMovie?.cast || []}
           onChange={(selected) => handleSelectChange(selected, { name: "cast" })}
           placeholder="Select movie cast"
@@ -324,7 +323,6 @@ const handleSave = async() => {
           isMulti
           loadOptions={fetchDirectorOptions}
           value={updatedMovie?.director || []}
-          defaultOptions
           onChange={(selected) => handleSelectChange(selected, { name: "director" })}
           placeholder="Select movie director"
           styles={{

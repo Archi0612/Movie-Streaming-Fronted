@@ -67,9 +67,20 @@ export default function ProfilePage() {
     }
 
     const updateInfo = async () => {
-        const response = await api.put('/user/editProfile', userFormData);
-        const data = response.data();
-    }
+        try {
+            const response = await api.put('/user/editProfile', userFormData);
+            
+            // Check if response itself has status 200
+            if (response.status === 200) {
+               dispatch(fetchProfile());
+            } else {
+                console.log("Unexpected response status:", response.status);
+            }
+        } catch (error) {
+            console.error("Error updating profile:", error);
+        }
+    };
+    
 
     return (
         <>
@@ -154,14 +165,14 @@ export default function ProfilePage() {
                 <h2 style={{ color: 'white' }}>Edit Profile</h2>
                 <form onSubmit={handleSubmit}>
                     <label>Name:</label>
-                    <input type="text" name="name" value={userFormData.name} onChange={handleChange} autoComplete='off' required />
+                    <input type="text" name="name" value={userFormData.name} onChange={handleChange} autoComplete='off'  />
 
                     <label>Email:</label>
                     <input type="email" placeholder="" name="email" value={profile?.data?.email} onChange={handleChange} autoComplete='off' disabled />
 
                     <label>Phone Number:</label>
-                    <input type="tel" name="contactNo" value={userFormData.contactNo} onChange={handleChange} autoComplete='off' required />
-                    <div className="country">
+                    <input type="tel" name="contactNo" value={userFormData.contactNo} onChange={handleChange} autoComplete='off'  />
+                    {/* <div className="country">
                         <label className="country-label">Country:</label>
                         <select name="country" value={userFormData.country} onChange={handleChange} required className="country-select">
                             <option value="">Select a country</option>
@@ -171,13 +182,13 @@ export default function ProfilePage() {
                                 </option>
                             ))}
                         </select>
-                    </div>
+                    </div> */}
 
                     <label>Date of Birth:</label>
-                    <input type="date" name="dateOfBirth" value={userFormData.dateOfBirth} onChange={handleChange} autoComplete='off' required />
+                    <input type="date" name="dateOfBirth" value={userFormData.dateOfBirth} onChange={handleChange} autoComplete='off'  />
 
                     <label>Gender:</label>
-                    <select name="gender" value={userFormData.gender} onChange={handleChange} required>
+                    <select name="gender" value={userFormData.gender} onChange={handleChange}>
                         <option value="">Select Gender</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
@@ -195,7 +206,7 @@ export default function ProfilePage() {
             {/* Subscription Component */}
 
             {isSubscribeOpen && (
-                < SubscriptionModal user={profile} isOpen={isSubscribeOpen} onClose={() => setIsSubscribeOpen(false)} />
+                < SubscriptionModal  isOpen={isSubscribeOpen} onClose={() => setIsSubscribeOpen(false)} />
             )}
 
 

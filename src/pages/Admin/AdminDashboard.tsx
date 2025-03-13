@@ -110,8 +110,8 @@ const AdminDashboard: React.FC = () => {
       field: "action",
       cellRenderer: (params: any) => (
         <div className="action-buttons">
-          <button className="edit-btn" onClick={() => handleEdit(params.data)}><MdEdit size={15} /></button>
-          <button className="delete-btn" onClick={() => { setSelectedMovie(params.data); setIsDeleteModelOpen(true) }}><MdDelete size={15} /></button>
+          <button className="edit-btn-dashboard" onClick={() => handleEdit(params.data)}><MdEdit size={15} /></button>
+          <button className="delete-btn-dashboard" onClick={() => { setSelectedMovie(params.data); setIsDeleteModelOpen(true) }}><MdDelete size={15} /></button>
         </div>
       ),
       flex: 1,
@@ -137,7 +137,7 @@ const AdminDashboard: React.FC = () => {
               <MdAdd size={20} />
             </button>
           </div>
-          <div className="ag-theme-quartz" style={{ height: '700px', width: '100%' }}>
+          <div className="ag-theme-quartz" style={{ height: '600px', width: '100%' }}>
             <AgGridReact
               rowStyle={{ color: "white" }}
               rowData={movies}
