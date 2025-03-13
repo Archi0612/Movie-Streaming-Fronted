@@ -1,15 +1,13 @@
 // src/interfaces/movie.interface.ts
 // USER INTERFACES
-
 import { IconType } from "react-icons/lib";
-
-
 export interface User {
   id: string;
   name: string;
   email: string;
-  contactNo?: string,
+  contactNo?: string;
   password?: string;
+  gender?:string
   // token?: string;
   otp?: number;
   role: string;
@@ -47,6 +45,7 @@ export interface MediaGridProps {
     rating: number;
     languages: string[];
     genres: number[];
+    contentType: string;
   }[];
   title: string;
 }
@@ -61,9 +60,6 @@ export interface UserState {
   detailsLoading?: boolean;
   detailsError?: string;
   userDetails?: UserDetails;
-}
-export interface UserData {
-  userData: User;
 }
 
 // export interface UserResponse{
@@ -107,19 +103,34 @@ export interface MenuItem {
   path: string;
   isAdminMenu: boolean; // Make it optional
 }
-
+export interface ObjectData {
+  id: string;
+  name: string;
+}
 export interface Movie {
   _id: string;
   title: string;
+  name: string;
   poster: string;
   description: string;
   releaseDate: string;
   rating: number;
   languages: string[];
   genres: number[];
+  directors: ObjectData[];
+  casts: ObjectData[];
+  director: ObjectData[];
+  cast: ObjectData[];
+  likes?: boolean;
+  trailerUrl: string;
+  duration?: number;
   contentType: string;
+  // director?: Movie[];
+  // cast?: Movie[];
+  // likes?: boolean;
+  // duration?: number;
+  // trailerUrl: string;
 }
-
 export interface TrendingMoviesProps {
   movies: Movie;
 }

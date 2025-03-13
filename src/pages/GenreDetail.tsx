@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import * as React from "react";
 import { useParams } from "react-router-dom";
 import { getMoviesByGenre } from "../services/apis/movieService";
 
@@ -6,18 +7,9 @@ import { genreMap } from "../utils/constants";
 import "./GenreDetail.css";
 import MoviesGrid from "../components/MoviesGrid";
 import { fetchSeriesByGenre } from "../services/apis/seriesService";
+import { Movie } from "../interfaces/movie.interface";
 
-// Movie Interface
-interface Movie {
-  _id: string;
-  title: string;
-  poster: string;
-  description: string;
-  releaseDate: string;
-  rating: number;
-  languages: string[];
-  genres: number[];
-}
+
 
 const GenreDetail: React.FC = () => {
   const { genreId } = useParams();
@@ -49,7 +41,7 @@ const GenreDetail: React.FC = () => {
     fetchByGenres();
   }, [numericGenreId]);
 
-  console.log(movies, "gener detail page ");
+
 
 
   return (

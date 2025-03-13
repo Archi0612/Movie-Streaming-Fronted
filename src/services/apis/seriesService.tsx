@@ -1,3 +1,4 @@
+import { Series } from "../../interfaces/admin.interface";
 import { api } from "../api";
 
 const fetchSeriesData = async (endpoint: string) => {
@@ -5,13 +6,13 @@ const fetchSeriesData = async (endpoint: string) => {
         const response = await api.get(endpoint);
         const data = response.data.data;
         if (data?.data?.seriesList) {
-            data.data.seriesList = data.data.seriesList.map((series: any) => ({
+            data.data.seriesList = data.data.seriesList.map((series: Series[]) => ({
                 ...series,
                 contentType: "Series",
             }));
             return data;
         } else if (data?.seriesList) {
-            data.seriesList = data.seriesList.map((series: any) => ({
+            data.seriesList = data.seriesList.map((series: Series[]) => ({
                 ...series,
                 contentType: "Series",
             }));
@@ -34,9 +35,32 @@ export const fetchTopRatedSeriesApi = () => fetchSeriesData("/series/topRated");
 
 export const fetchSeriesByGenre = (genreId: number) => fetchSeriesData(`/series/genre/${genreId}`);
 
-export const fetchSeriesByID = (seriesId: number) => fetchSeriesData(`/series/get/${seriesId}`);
+export const fetchSeriesByID = (mediaId: string) => fetchSeriesData(`/series/get/${mediaId}`);
 
 
 
 
 
+// export const fetchSeriesByGenre = async (genreId: number) => {
+//   try {
+//     const response = await api.get(`/series/genre/${genreId}`);
+//     console.log("Series by genres:", response.data.data);
+//     return response?.data?.data;
+//   } catch (err: unknown) {
+//     if (err instanceof Error) {
+//       throw new Error(err.message);
+//     }
+//   }
+// };
+
+// export const fetchSeriesByID = async (seriesId: string) => {
+//   try {
+//     const response = await api.get(`/series/get/${seriesId}`);
+//     console.log("series by id:", response)
+//     return response.data?.data;
+//   } catch (err: unknown) {
+//     if (err instanceof Error) {
+//       throw new Error(err.message);
+//     }
+//   }
+// };

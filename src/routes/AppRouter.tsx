@@ -35,11 +35,7 @@ import GenreDetail from "../pages/GenreDetail";
 import DetailsPage from "../pages/DetailsPage";
 import SeriesPage from "../pages/SeriesPage";
 import { PaymentSuccess } from "../pages/paymentSuccess/paymentSuccess";
-
-
-
-
-
+import VideoPlayer from "../components/videoPlayer/videoPlayer";
 
 // Protected Route component that checks if user is authenticated
 const ProtectedRoute: React.FC = () => {
@@ -117,9 +113,12 @@ const AppRoute: React.FC = () => {
             <Route path="/profile-page" element={<ProfilePage />} />
             <Route path="/payment-success" element={<PaymentSuccess />} />
             <Route path="/payment-cancel" element={<PaymentCancel />} />
-            <Route path="/details" element={<DetailsPage />} />
-
-          </Route >
+            <Route path="/videoPlayer" element={<VideoPlayer control={true} url="
+            https://res.cloudinary.com/do8yh6vwo/video/upload/v1741844217/salar_trailer_nx9yt7.mp4
+            "/>} />
+            <Route path="/details/:mediaId" element={<DetailsPage />}/>
+      
+          </Route>
 
           {/* Admin Routes - requires admin role */}
           < Route element={< AdminRoute />}>
