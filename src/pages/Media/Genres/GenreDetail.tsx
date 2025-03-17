@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import * as React from "react";
 import { useParams } from "react-router-dom";
-import { getMoviesByGenre } from "../services/apis/movieService";
-
-import { genreMap } from "../utils/constants";
+import { getMoviesByGenre } from "../../../services/apis/movieService";
+import { genreMap } from "../../../utils/constants";
 import "./GenreDetail.css";
-import MoviesGrid from "../components/MoviesGrid";
-import { fetchSeriesByGenre } from "../services/apis/seriesService";
-import { Movie } from "../interfaces/movie.interface";
+import MoviesGrid from "../../../components/MoviesGrid";
+import { fetchSeriesByGenre } from "../../../services/apis/seriesService";
+import { Movie } from "../../../interfaces/movie.interface";
 
 
 

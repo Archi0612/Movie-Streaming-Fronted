@@ -2,6 +2,7 @@
 @import 'swiper/css/free-mode';
 @import 'swiper/css/navigation';
 
+/* This are globaly set colors use it by using var(--color-name) */
 :root {
     --primary-color: #0073e6;
     --secondary-color: #0059b3;
@@ -10,7 +11,7 @@
     --card-background: #1a1a1a;
     --hover-shadow: #001f3f;
 }
-
+/* This CSS apply globally to all pages */
 * {
     padding: 0;
     margin: 0;
@@ -18,8 +19,21 @@
     font-family: Arial, sans-serif;
 }
 
-/* Prevent overscrolling globally */
+/* This Prevent overscrolling globally */
 html,
 body {
     overscroll-behavior: none;
 }
+
+/* Customize Swiper Navigation Buttons */
+.swiper-button-next, .swiper-button-prev {
+    color: var(--primary-color) !important;
+}
+
+/* If you want to add a background */
+.swiper-button-next::after, .swiper-button-prev::after {
+    padding: 10px;
+    font-size: 2.5rem !important;
+    font-weight: 900;
+}
+

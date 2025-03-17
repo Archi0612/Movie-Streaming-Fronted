@@ -1,19 +1,25 @@
 import React, { useEffect, useState } from "react";
 import "./DetailsPage.css";
-import { fetchSeriesByID } from "../services/apis/seriesService";
+import { fetchSeriesByID } from "../../services/apis/seriesService";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { getMovieById } from "../services/apis/movieService";
-import { Movie } from "../interfaces/movie.interface";
-import { genreMap } from "../utils/constants";
-import { FaPlay, FaRegBookmark, FaThumbsDown, FaThumbsUp } from "react-icons/fa";
+import { getMovieById } from "../../services/apis/movieService";
+import { Movie } from "../../interfaces/movie.interface";
+import { genreMap } from "../../utils/constants";
+import {
+  FaBookmark,
+  FaPlay,
+  FaRegBookmark,
+  FaThumbsDown,
+  FaThumbsUp,
+} from "react-icons/fa";
 import { FaShareFromSquare } from "react-icons/fa6";
-import { Seriesdata } from "../interfaces/series.interface";
-import { Play, Plus } from "lucide-react";
+import { Seriesdata } from "../../interfaces/series.interface";
+import { Play } from "lucide-react";
 import ReactPlayer from "react-player";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../redux/store";
-import { toggleWatchList } from "../redux/slices/WatchList/WatchList";
-import { toggleLike } from "../redux/slices/LikedList/LikedList";
+import { AppDispatch } from "../../redux/store";
+import { toggleWatchList } from "../../redux/slices/WatchList/WatchList";
+import { toggleLike } from "../../redux/slices/LikedList/LikedList";
 import { toast } from "react-toastify";
 
 const DetailsPage: React.FC = () => {
@@ -25,24 +31,20 @@ const DetailsPage: React.FC = () => {
   const contentType = searchParams.get("contentType");
   const dispatch = useDispatch<AppDispatch>();
   const [selectedSeason, setSelectedSeason] = useState<number | null>(null);
-  const [isLiked, setIsLiked]=useState<boolean>(false);
+  const [isLiked, setIsLiked] = useState<boolean>(false);
+  const [isBookMarked, setBookMarked] = useState<boolean>(false);
 
   const fetchMediaByID = async () => {
     try {
-  
       if (contentType === "Movie") {
         const response = await getMovieById(mediaId as string);
-
         setMediaData(response.movie as Movie);
       } else {
         const response = await fetchSeriesByID(mediaId as string);
-     
         setMediaData(response.seriesInfo as Movie);
         setSeriesData(response.seriesContent as Seriesdata[]);
-
         //  setMediaData(seriesResult.value.seriesInfo as Movie);
       }
-
     } catch (err: unknown) {
       if (err instanceof Error) {
         throw new Error(err.message);
@@ -64,38 +66,60 @@ const DetailsPage: React.FC = () => {
     setSelectedSeason(Number(event.target.value));
   };
   const handleLike = async () => {
-    const response = await dispatch(toggleLike({ contentId: mediaId || "", contentType: contentType || ""}));
-    console.log(response.payload.message, "Response from detail");
-      if(response.payload.message == "Unliked successfully"){
-        setIsLiked(false);
+    try {
+      const response = await dispatch(
+        toggleLike({ contentId: mediaId || "", contentType: contentType || "" })
+      );
+      console.log(response.payload.message, "Response from detail");
+      if (response.payload.message == "Unliked successfully") {
         toast.info("Removed from Liked List");
-      }else if(response.payload.message == "Liked successfully"){
+        setIsLiked(false);
+      } else if (response.payload.message == "Liked successfully") {
         toast.success("Added to Liked List");
         setIsLiked(true);
       }
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
+    }
   };
 
   const handleWatchList = async () => {
     try {
-      dispatch(
+      const response = await dispatch(
         toggleWatchList({
           contentId: mediaId || "",
           contentType: contentType || "",
         })
       );
-      toast.success("Added in Watchlist successfully!", {
-        position: "top-right",
-      });
+      if (response.payload.message == "Removed from watchlist") {
+        toast.info("Removed from Watch List");
+        setBookMarked(false);
+      } else if (response.payload.message == "Added to watchlist") {
+        // console.log(response.payload.message, "Response from watchList");
+        toast.success("Added in Watchlist successfully!", {
+          position: "top-right",
+        });
+        setBookMarked(true);
+      }
     } catch (error: unknown) {
       if (error instanceof Error)
         toast.error("Failed to add. Try again!", { position: "top-right" });
     }
   };
-  const handlePlayVodeo = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handlePlayVideo = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation(); // Stop event from reaching the parent div
     // console.log("video player clicked from movie card");
     navigate(`/videoPlayer`);
   };
+  const handlePlayEpisode = (episodeUrl:string) => {
+    // e.stopPropagation();
+    console.log("episode player clicked from movie card");
+    console.log("episodeUrl", episodeUrl);
+    // navigate(`/videoPlayer/${episodeUrl}`);
+    navigate(`/watch`, { state: { episodeUrl } });
+  }
   return (
     <div className="details-container">
       <div className="header-container">
@@ -127,17 +151,20 @@ const DetailsPage: React.FC = () => {
         </div> */}
             <div className="actions-container">
               <button
-                className={isLiked ? "action-button unlike-button": "action-button like-button"}
+                className={
+                  isLiked
+                    ? "action-button unlike-button"
+                    : "action-button like-button"
+                }
                 // onClick={() => {dispatch(toggleLike({ contentId: mediaId || "", contentType: contentType || ""}))}
-              onClick={handleLike}
-              
+                onClick={handleLike}
               >
-                {/* <FaThumbsUp size={16} />
-                Like */}
-                {isLiked? <FaThumbsDown />: <FaThumbsUp size={16} color={isLiked ? "grey" : "white"} />}
-                {/* <FaThumbsUp size={16} color={isLiked ? "white" : "grey"} /> */}
+                {isLiked ? (
+                  <FaThumbsDown />
+                ) : (
+                  <FaThumbsUp size={16} color={isLiked ? "grey" : "white"} />
+                )}
                 {isLiked ? "Unlike" : "Like"}
-                
               </button>
               <button className="action-button share-button">
                 <FaShareFromSquare size={16} />
@@ -147,8 +174,12 @@ const DetailsPage: React.FC = () => {
                 className="action-button watchlist-button"
                 onClick={handleWatchList}
               >
-                <FaRegBookmark size={16} />
-                Add to Watchlist
+                {isBookMarked ? (
+                  <FaBookmark size={16} />
+                ) : (
+                  <FaRegBookmark size={16} />
+                )}
+                {isBookMarked ? "Added to WatchList" : "Add to WatchList"}
               </button>
             </div>
           </div>
@@ -170,23 +201,29 @@ const DetailsPage: React.FC = () => {
               {new Date(mediaData?.releaseDate as string).getFullYear()}
             </span>
             <span className="divider">•</span>
-            <span className="languages">{mediaData?.languages}</span>
+            <span className="languages">
+              {mediaData?.languages
+                .map((lang) => lang.slice(0, 3))
+                .join(", ")
+                .toUpperCase()}
+            </span>
+          </div>
+          <div className="rating-container">
+            <div className="star-rating">
+              <span className="star">★</span>
+              <span className="rating-score">{mediaData?.rating}</span>
+              <span className="total-votes">/10 (1.4M)</span>
+            </div>
           </div>
 
           <div className="watch-movie">
-            <button className="action-button watch-button"
-            onClick={handlePlayVodeo}>
+            <button
+              className="action-button watch-button"
+              onClick={handlePlayVideo}
+            >
               Watch
               <FaPlay size={16} />
             </button>
-          </div>
-        </div>
-
-        <div className="rating-container">
-          <div className="star-rating">
-            <span className="star">★</span>
-            <span className="rating-score">{mediaData?.rating}</span>
-            <span className="total-votes">/10 (1.4M)</span>
           </div>
         </div>
 
@@ -228,27 +265,37 @@ const DetailsPage: React.FC = () => {
                       <div className="episodes-container">
                         {season.episodes.map((episode) => (
                           <div key={episode._id} className="episode">
-                            <h4 className="episode-title">
-                              Episode {episode.episodeNumber}: {episode.title}
-                            </h4>
-                            <span className="episode-duration">
-                              Duration: {Math.floor(episode.duration / 60)} min
-                            </span>
-                            <span className="divider">•</span>
-                            <span className="episode-release">
-                              Released:{" "}
-                              {new Date(episode.releaseDate).toDateString()}
-                            </span>
-                            <p className="episode-description">
-                              {episode.description}
-                            </p>
-                            <div className="episode-buttons">
-                              <button className="movie-button play">
-                                <Play />
-                              </button>
-                              <button className="movie-button">
-                                <Plus />
-                              </button>
+                            <div className="episode-heading-data">
+                              <h4 className="episode-title">
+                                Episode {episode.episodeNumber}: {episode.title}
+                              </h4>
+                              <span className="episode-duration">
+                                {Math.floor(episode.duration / 60)} min
+                              </span>
+                            </div>
+
+                            <div className="episode-details">
+                              <img
+                                src="/Series/Episodes/episode.png"
+                                alt="episode- image"
+                              />
+
+                              <div className="episode-info">
+                                {/* <span className="divider">•</span> */}
+                                <span className="episode-release">
+                                  {/* Released:{" "} */}
+                                  {new Date(episode.releaseDate).toDateString()}
+                                </span>
+                                <p className="episode-description">
+                                  {episode.description}
+                                </p>
+                                <div className="episode-buttons">
+                                  <button className="episode-button play" onClick={()=>handlePlayEpisode(episode.episodeUrl)}>
+                                    <Play />
+                                  </button>
+                                  
+                                </div>
+                              </div>
                             </div>
                           </div>
                         ))}
@@ -262,7 +309,7 @@ const DetailsPage: React.FC = () => {
               <div className="director">
                 <h3 className="medieaData-subtitle">Directors</h3>
                 <div className="cast-list">
-                  {mediaData?.directors
+                  {mediaData?.directors //series response
                     ? mediaData.directors.map((director, index) => (
                         <div key={index} className="cast-member">
                           <img
@@ -275,7 +322,7 @@ const DetailsPage: React.FC = () => {
                           </div>
                         </div>
                       ))
-                    : mediaData?.director // Fallback for movie response
+                    : mediaData?.director // movie response
                     ? mediaData.director.map((director, index) => (
                         <div key={index} className="cast-member">
                           <img

@@ -57,8 +57,6 @@ import { AppDispatch } from "../../redux/store";
 function WatchList() {
     const watchListState = useSelector((state: RootState) => state.watchlist);
     const dispatch = useDispatch<AppDispatch>();
-
-    console.log(watchListState);
     return (
         <div className="main-watchlist">
             <div className='watchlist-heading'>
