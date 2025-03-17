@@ -35,7 +35,7 @@ const Footer:React.FC = () => {
           <p className="footer-label">
             Email<span className="required">*</span>
           </p>
-          <input type="text" className="footer-input" placeholder="Enter your email" />
+          <input type="text" name="email"className="footer-input" placeholder="Enter your email" />
           <button className="footer-button">Submit</button>
         </div>
       </div>

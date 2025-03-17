@@ -38,6 +38,7 @@ const ContactUs: React.FC = () => {
         { question: "What devices are supported?", answer: "You can stream on mobile, web, and streaming devices." },
         { question: "Do you offer different subscription plans?", answer: "Yes, we have multiple plans to suit your needs. Check our pricing page for details." }
     ];
+    const isFormValid = formData.name.trim() !== '' && formData.email.trim() !== '' && formData.message.trim() !== '';
 
     return (
         <div className="contact-page">
@@ -99,16 +100,17 @@ const ContactUs: React.FC = () => {
                                     onChange={handleChange}
                                     required
                                     rows={4}
-                                    // className="form-input"
+                
                                     className="form-textarea"
 
                                 />
                             </div>
-                            <div className='btn-submit'>
-                                <button type="submit" className="submit-button">
-                                    Send message
-                                </button>
-                            </div>
+                            <div className="btn-submit">
+    <button type="submit" className="submit-button" disabled={!isFormValid} title={!isFormValid ? "Please fill in all fields" : ""}>
+        Send message
+    </button>
+</div>
+
                         </form>
                     </div>
                 </div>

@@ -53,6 +53,9 @@ import { RootState } from '../../redux/store';
 import { WatchListItem } from '../../interfaces/movie.interface';
 import { toggleWatchList } from "../../redux/slices/WatchList/WatchList";
 import { AppDispatch } from "../../redux/store";
+import { CiCircleRemove } from "react-icons/ci";
+import { Play, Plus } from "lucide-react";
+import { toast } from 'react-toastify';
 
 function WatchList() {
     const watchListState = useSelector((state: RootState) => state.watchlist);
@@ -82,8 +85,11 @@ function WatchList() {
                                 <p className='watchlistinfo-p'>{"This is a placeholder description. Add real descriptions later."}</p>
                             </div>
                             <div className='watchlist-buttons'>
-                                <button className='watchlistBtn'>Watch</button>
-                                <button className='watchlistBtn' onClick={() => dispatch(toggleWatchList({ contentId: item.contentId?._id || '', contentType: item.contentType || '' }))}>Remove</button>
+                                <button className='watchlistBtn'><Play size={20}/></button>
+                            <button className='watchlistBtn' onClick={() => {
+                                dispatch(toggleWatchList({ contentId: item.contentId?._id || '', contentType: item.contentType || '' }));
+                                toast.success("Removed from Watchlist successfully!");
+                            }}><CiCircleRemove size={20}/></button>
 
                             </div>
                         </div>

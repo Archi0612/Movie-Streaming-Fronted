@@ -31,7 +31,9 @@ export const toggleWatchList = createAsyncThunk(
         try {
             const response = await api.post("watchlist/toggle", { contentId, contentType }, {
                 withCredentials: true,
+
             });
+            
             dispatch(fetchWatchList());
             return response.data;
         } catch (error: any) {
