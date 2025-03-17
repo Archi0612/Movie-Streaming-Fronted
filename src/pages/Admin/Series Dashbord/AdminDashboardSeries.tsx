@@ -5,12 +5,12 @@ import { ColDef, GridReadyEvent } from "ag-grid-community";
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import { MdEdit, MdDelete, MdAdd } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import DeleteConfirmationModal from "../../components/DeleteConfirmationModal";
-import { deleteSeries, listAllSeries } from "../../services/apis/adminService";
+import DeleteConfirmationModal from "../../../components/ConfirmationPopup/DeleteConfirmationModal";
+import { deleteSeries, listAllSeries } from "../../../services/apis/adminService";
 import { toast } from "react-toastify";
-import "./AdminDashboard.css";
+import "../Movie Dashboard/AdminDashboard.css";
 import EditSeriesModal from "./EditSeriesModal";
-import { Series } from "../../interfaces/admin.interface";
+import { Series } from "../../../interfaces/admin.interface";
 ModuleRegistry.registerModules([ClientSideRowModelModule,PaginationModule,TextFilterModule,NumberFilterModule]);
 
 const AdminDashboardSeries: React.FC = () => {
@@ -37,8 +37,8 @@ const AdminDashboardSeries: React.FC = () => {
         director: s.directors.map((d: any) => d.name).join(", ")
       }));
       setSeries(formattedSeries);
-    } catch (error) {
-      toast.error("Error in fetching series");
+    } catch (error:any) {
+      toast.error(error.response?.data?.message || "Error in fetching series");
     }
   };
 
@@ -52,11 +52,11 @@ const AdminDashboardSeries: React.FC = () => {
   const handleDelete = async () => {
     if (!selectedSeries) return;
     try {
-      await deleteSeries(selectedSeries.id);
-      toast.success("Series Deleted Successfully")
+      const response=await deleteSeries(selectedSeries.id);
+      toast.success(response.data.message)
       fetchAllSeries();
     } catch (error: any) {
-      toast.error(error.message)
+      toast.error(error.response?.data?.message)
     }
     setIsDeleteModelOpen(false)
 

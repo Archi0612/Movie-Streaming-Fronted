@@ -90,6 +90,10 @@
   .save-btn-movie:hover {
     background: #0059b3;
   }
+  .save-btn-movie:disabled{
+    background-color: #88add1;
+    cursor: not-allowed;
+  }
   
   .close-btn-movie {
     background: grey;

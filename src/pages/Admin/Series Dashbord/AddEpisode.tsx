@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AsyncSelect from "react-select/async";
 import "./AddEpisode.css";
 import { MdAdd } from "react-icons/md";
-import { addEpisode, searchSeries } from "../../services/apis/adminService";
+import { addEpisode, searchSeries } from "../../../services/apis/adminService";
 import { toast } from "react-toastify";
-import { Episode, Season } from "../../interfaces/admin.interface";
-import Loader from "../../components/shimmerUI/Loader";
+import { Episode, Season } from "../../../interfaces/admin.interface";
+import Loader from "../../../components/shimmerUI/Loader";
 const AddEpisode: React.FC = () => {
+  const todayDate=new Date().toISOString().split("T")[0];
   const [seasons, setSeasons] = useState<Season[]>([]);
   const [selectedSeries, setSelectedSeries] = useState<{
     value: string;
@@ -15,7 +16,28 @@ const AddEpisode: React.FC = () => {
   } | null>(null);
   const [seasonInput, setSeasonInput] = useState("");
   const [loading, setLoading] = useState<boolean>(false);
+  const[isSaveDisabled,setIsSaveDisabled]=useState<boolean>(true);
   const navigate = useNavigate();
+  useEffect(()=>{
+    validateForm();
+  },[seasons,selectedSeries])
+  const validateForm=()=>{
+    debugger
+    if(!selectedSeries){
+      setIsSaveDisabled(true);
+      return;
+    }
+    for(const season of seasons){
+      for(const episode of season.episodes){
+        if(!episode.title.trim() || !episode.description.trim() || !episode.duration || !episode.episodeNumber || !episode.releaseDate || !episode.episode
+        ){
+          setIsSaveDisabled(true);
+          return
+        }
+      }
+    }
+    setIsSaveDisabled(false);
+  }
   const addSeason = () => {
     const seasonNumber = parseInt(seasonInput, 10);
     if (!isNaN(seasonNumber) && seasonNumber > 0) {
@@ -33,7 +55,7 @@ const AddEpisode: React.FC = () => {
         duration: "",
         episodeNumber: newEpisodeNumber,
         episode: null,
-        releaseDate: "",
+        releaseDate: todayDate,
       };
       updatedSeasons[seasonIndex] = {
         ...updatedSeasons[seasonIndex],
@@ -48,6 +70,12 @@ const AddEpisode: React.FC = () => {
     field: keyof Episode,
     value: any
   ) => {
+    if(field==="releaseDate"){
+      if(value>todayDate){
+        toast.info("Future dates not allowed")
+        return;
+      }
+    }
     setSeasons((prev) => {
       const updatedSeasons = [...prev];
       updatedSeasons[seasonIndex].episodes[episodeIndex] = {
@@ -106,8 +134,8 @@ const AddEpisode: React.FC = () => {
           })
         ) || []
       );
-    } catch (error) {
-      toast.error("Error in fetching series");
+    } catch (error:any) {
+      toast.error(error.response?.data?.message);
     }
   };
 
@@ -115,7 +143,7 @@ const AddEpisode: React.FC = () => {
     <div className="add-episode">
       {loading && <Loader />}
       <div className="add-episode-container">
-        <h2 className="season-header">Seasons</h2>
+        <h2 className="season-header">Add Season</h2>
         <div className="series-selection">
           <div className="series-selection-1">
             <label>Select Series:</label>
@@ -123,7 +151,7 @@ const AddEpisode: React.FC = () => {
               loadOptions={fetchSeriesOptions}
               onChange={setSelectedSeries}
               placeholder="Select Series..."
-              className="select-1"
+              className="series-dropdown"
               classNames={{
                 control: () => "custom-control",
               }}
@@ -154,6 +182,8 @@ const AddEpisode: React.FC = () => {
             />
           </div>
           <div className="series-selection-2">
+            <label>Season Number:</label>
+            <div>
             <input
               type="number"
               className="add-episode-input"
@@ -161,9 +191,8 @@ const AddEpisode: React.FC = () => {
               value={seasonInput}
               onChange={(e) => setSeasonInput(e.target.value)}
             />
-            <button onClick={addSeason}>
-              <MdAdd />
-            </button>
+            <button onClick={addSeason}><MdAdd size="14" /></button>
+            </div>
           </div>
         </div>
         <div className="seasons-container">
@@ -187,6 +216,7 @@ const AddEpisode: React.FC = () => {
                       type="text"
                       className="add-episode-input"
                       placeholder="Episode title"
+                      value={episode.title}
                       onChange={(e) =>
                         updateEpisode(
                           seasonIndex,
@@ -200,6 +230,7 @@ const AddEpisode: React.FC = () => {
                     <label className="episode-label">Description</label>
                     <textarea
                       placeholder="Episode description"
+                      value={episode.description}
                       onChange={(e) =>
                         updateEpisode(
                           seasonIndex,
@@ -215,7 +246,8 @@ const AddEpisode: React.FC = () => {
                     <input
                       type="number"
                       className="add-episode-input"
-                      placeholder="Duration in minutes"
+                      placeholder="Duration in seconds"
+                      value={episode.duration}
                       onChange={(e) =>
                         updateEpisode(
                           seasonIndex,
@@ -230,6 +262,7 @@ const AddEpisode: React.FC = () => {
                     <input
                       type="number"
                       className="add-episode-input"
+                      value={episode.episodeNumber}
                       min={"1"}
                       placeholder="Episode number"
                       onChange={(e) =>
@@ -247,6 +280,7 @@ const AddEpisode: React.FC = () => {
                       type="date"
                       className="add-episode-input"
                       placeholder="Release Date"
+                      value={episode.releaseDate}
                       onChange={(e) =>
                         updateEpisode(
                           seasonIndex,
@@ -255,6 +289,7 @@ const AddEpisode: React.FC = () => {
                           e.target.value
                         )
                       }
+                      max={todayDate}
                     />
 
                     <label className="episode-label">Episode</label>
@@ -281,7 +316,7 @@ const AddEpisode: React.FC = () => {
           <button className="season-close-btn" onClick={handleCancel}>
             Close
           </button>
-          <button className="season-save-btn" onClick={handleSave}>
+          <button className="season-save-btn" onClick={handleSave} disabled={isSaveDisabled} title={isSaveDisabled ? "":"Please fill all fields"}>
             Save
           </button>
         </div>

@@ -4,10 +4,10 @@ import Select from "react-select";
 import AsyncSelect from "react-select/async";
 import "./EditSeriesModal.css"; 
 import { toast } from "react-toastify";
-import { editSeries,getSeriesById,searchCastByName,searchDirectorByName } from "../../services/apis/adminService";
+import { editSeries,getSeriesById,searchCastByName,searchDirectorByName } from "../../../services/apis/adminService";
 import { useNavigate } from "react-router-dom";
-import { EditSeriesModalProps } from "../../interfaces/admin.interface";
-import Loader from "../../components/shimmerUI/Loader";
+import { EditSeriesModalProps } from "../../../interfaces/admin.interface";
+import Loader from "../../../components/shimmerUI/Loader";
 const genreOptions = [
   { value: "28", label: "Action" },
   { value: "18", label: "Drama" },
@@ -45,8 +45,8 @@ const fetchCastOptions = async(inputValue: string): Promise<{ value: string; lab
       value:cast._id,
       label:cast.name
     }))
-  } catch (error) {
-    console.error("Error fetching cast:",error);
+  } catch (error:any) {
+    console.error(error.response?.data?.message || "Error fetching cast");
     return [];
   }
 };
@@ -58,15 +58,16 @@ const fetchDirectorOptions = async(inputValue: string): Promise<{ value: string;
       value:director._id,
       label:director.name
     }))
-  } catch (error) {
-    console.error("Error fetching director:");
+  } catch (error:any) {
+    console.error(error.response?.data?.message ||"Error fetching director:");
     return [];
   }
 };
 const EditSeriesModal: React.FC<EditSeriesModalProps> = ({ seriesId, onClose, onSave }) => {
   const[updatedSeries,setUpdatedSeries]=useState<any>(null);
   const [originalSeries,setOriginalSeries]=useState<any>(null);
-  const[loading,setLoading]=useState<boolean>(false)
+  const[loading,setLoading]=useState<boolean>(false);
+  const todayDate=new Date().toISOString().split("T")[0];
   const navigate=useNavigate();
   useEffect(()=>{
     const fetchSeries=async()=>{
@@ -131,7 +132,13 @@ const EditSeriesModal: React.FC<EditSeriesModalProps> = ({ seriesId, onClose, on
     fetchSeries();
   },[seriesId])
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      const { name, value } = e.target;
+    const { name, value } = e.target;
+    if(name==="releaseDate"){
+      if(value>todayDate){
+          toast.info("Future dates not allowed");
+          return;
+      }
+    }
       setUpdatedSeries((prev: any) => ({ ...prev, [name]: value }));
     };
 
@@ -226,7 +233,7 @@ const EditSeriesModal: React.FC<EditSeriesModalProps> = ({ seriesId, onClose, on
             <textarea name="description" value={updatedSeries?.description} className="edit-series-textarea" onChange={handleChange} />
 
             <label>Release Date</label>
-            <input type="date" name="releaseDate" value={updatedSeries?.releaseDate || ""} className="edit-series-input" onChange={handleChange} />
+            <input type="date" name="releaseDate" value={updatedSeries?.releaseDate || ""} className="edit-series-input" onChange={handleChange} max={todayDate}/>
 
             <label>Genres</label>
             <Select

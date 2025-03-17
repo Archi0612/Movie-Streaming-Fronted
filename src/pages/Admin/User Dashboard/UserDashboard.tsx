@@ -9,15 +9,16 @@ import {
   NumberFilterModule,
 } from "ag-grid-community";
 import "ag-grid-community/styles/ag-theme-quartz.css";
-import "./AdminDashboard.css";
+import "../Movie Dashboard/AdminDashboard.css";
 import {
   getAllUser,
   updateActiveToggle,
   updateRole,
-} from "../../services/apis/adminService";
+} from "../../../services/apis/adminService";
 import { toast } from "react-toastify";
-import { User } from "../../interfaces/admin.interface";
-import Loader from "../../components/shimmerUI/Loader";
+import { User } from "../../../interfaces/admin.interface";
+import Loader from "../../../components/shimmerUI/Loader";
+import ConfirmationModal from "../../../components/ConfirmationPopup/ConfirmationModal";
 // Register AG Grid Modules
 ModuleRegistry.registerModules([
   ClientSideRowModelModule,
@@ -29,45 +30,102 @@ const UserDashboard: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const[modalOpen,setModalOpen]=useState(false);
+  const[modalConfig,setModalConfig]=useState({
+    message:"",
+    onConfirm:()=>{},
+  })
   // const loggedInUserId=123   //here id is of logged in user from redux
 
   // Toggle Active Status (Remove/Suspend User)
-  const handleActiveToggle = async (user: User) => {
-    try {
-      const response = await updateActiveToggle(user._id, !user.isActive);
-      setUsers((prevUsers) =>
-        prevUsers.map((u) =>
-          u._id === user._id ? { ...u, isActive: !u.isActive } : u
-        )
-      );
-      toast.success(
-        response.data.message ||
-          `User ${!user.isActive ? "activated" : "deactivated"} successfully`
-      );
-    } catch (error: any) {
-      if (error.response && error.response.data.message) {
-        toast.error(error.response.data.message);
-      } else {
-        toast.error("Error updating user status");
-      }
-    }
+  const handleActiveToggle = (user: User) => {
+    setModalConfig({
+      message: `Are you sure you want to ${
+        user.isActive ? "deactivate" : "activate"
+      } this user?`,
+      onConfirm: async () => {
+        try {
+          const response = await updateActiveToggle(user._id, !user.isActive);
+          setUsers((prevUsers) =>
+            prevUsers.map((u) =>
+              u._id === user._id ? { ...u, isActive: !u.isActive } : u
+            )
+          );
+          toast.success(
+            response.data.message ||
+              `User ${!user.isActive ? "activated" : "deactivated"} successfully`
+          );
+        } catch (error: any) {
+          toast.error("Error updating user status");
+        } finally {
+          setModalOpen(false);
+        }
+      },
+    });
+    setModalOpen(true);
   };
 
-  const handleRoleChange = async (user: User, isChecked: boolean) => {
+
+  // const handleActiveToggle = async (user: User) => {
+    
+  //   try {
+  //     const response = await updateActiveToggle(user._id, !user.isActive);
+  //     setUsers((prevUsers) =>
+  //       prevUsers.map((u) =>
+  //         u._id === user._id ? { ...u, isActive: !u.isActive } : u
+  //       )
+  //     );
+  //     toast.success(
+  //       response.data.message ||
+  //         `User ${!user.isActive ? "activated" : "deactivated"} successfully`
+  //     );
+  //   } catch (error: any) {
+  //     if (error.response && error.response.data.message) {
+  //       toast.error(error.response.data.message);
+  //     } else {
+  //       toast.error("Error updating user status");
+  //     }
+  //   }
+  // };
+
+  const handleRoleChange = (user: User, isChecked: boolean) => {
     const updatedRole = isChecked ? "admin" : "user";
-    try {
-      const response = await updateRole(user._id, updatedRole);
-      // Update UI immediately
-      setUsers((prevUsers) =>
-        prevUsers.map((u) =>
-          u._id === user._id ? { ...u, role: updatedRole } : u
-        )
-      );
-      toast.success(response.data.message);
-    } catch (error) {
-      toast.error("Error in updating role");
-    }
+    setModalConfig({
+      message: `Are you sure you want to change this user's role to ${updatedRole}?`,
+      onConfirm: async () => {
+        try {
+          const response = await updateRole(user._id, updatedRole);
+          setUsers((prevUsers) =>
+            prevUsers.map((u) =>
+              u._id === user._id ? { ...u, role: updatedRole } : u
+            )
+          );
+          toast.success(response.data.message);
+        } catch (error) {
+          toast.error("Error in updating role");
+        } finally {
+          setModalOpen(false);
+        }
+      },
+    });
+    setModalOpen(true);
   };
+
+  // const handleRoleChange = async (user: User, isChecked: boolean) => {
+  //   const updatedRole = isChecked ? "admin" : "user";
+  //   try {
+  //     const response = await updateRole(user._id, updatedRole);
+  //     // Update UI immediately
+  //     setUsers((prevUsers) =>
+  //       prevUsers.map((u) =>
+  //         u._id === user._id ? { ...u, role: updatedRole } : u
+  //       )
+  //     );
+  //     toast.success(response.data.message);
+  //   } catch (error) {
+  //     toast.error("Error in updating role");
+  //   }
+  // };
   const fetchUsers = async () => {
     setError(null);
     try {
@@ -150,8 +208,8 @@ const UserDashboard: React.FC = () => {
     },
   ];
   const pagination = true;
-  const paginationPageSize = 7;
-  const paginationPageSizeSelector = [7, 10, 20, 50, 100];
+  const paginationPageSize = 8;
+  const paginationPageSizeSelector = [8, 10, 20, 50, 100];
 
   return (
     <div className="admin-container">
@@ -161,7 +219,7 @@ const UserDashboard: React.FC = () => {
           <h2 className="dashboard-h2">User Management</h2>
           <div
             className="ag-theme-quartz"
-            style={{ height: "500px", width: "100%", marginTop: "40px" }}
+            style={{ height: "600px", width: "100%", marginTop: "40px" }}
           >
             <AgGridReact
               rowStyle={{ color: "white" }}
@@ -188,6 +246,7 @@ const UserDashboard: React.FC = () => {
             />
           </div>
         </div>
+        <ConfirmationModal isOpen={modalOpen} message={modalConfig.message} onConfirm={modalConfig.onConfirm} onClose={()=>setModalOpen(false)}/>
       </div>
     </div>
   );

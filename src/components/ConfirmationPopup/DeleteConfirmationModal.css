@@ -38,7 +38,7 @@
     margin-top: 20px;
 }
 
-.cancel-btn, .confirm-btn {
+.delete-cancel-btn, .delete-confirm-btn {
     padding: 10px 10px;
     border: none;
     border-radius: 5px;
@@ -46,20 +46,20 @@
     font-size: 16px;
 }
 
-.cancel-btn {
+.delete-cancel-btn {
     background: #0073e6;
     color: white;
 }
 
-.cancel-btn:hover {
+.delete-cancel-btn:hover {
     background: #0059b3;
 }
 
-.confirm-btn {
+.delete-confirm-btn {
     background: #e60000;
     color: white;
 }
 
-.confirm-btn:hover {
+.delete-confirm-btn:hover {
     background: #cc0000;
 }

@@ -65,7 +65,7 @@
     color: white;
   }
   
-  .text-desc{
+  .edit-text-desc{
     resize: none;
     height: 90px !important;
     width: 100%;
@@ -79,7 +79,7 @@
   .edit-save-btn,.edit-close-btn {
     width: 20%;
     margin-top: 15px;
-    padding: 10px 5px;
+    padding: 8px 4px;
     border: none;
     border-radius: 5px;
     color: white;

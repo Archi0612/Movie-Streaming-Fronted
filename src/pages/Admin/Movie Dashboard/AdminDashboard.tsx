@@ -8,10 +8,10 @@ import "./AdminDashboard.css";
 import { toast } from "react-toastify"
 import { useNavigate } from "react-router-dom";
 import EditMovieModal from "./EditMovieModal";
-import DeleteConfirmationModal from "../../components/DeleteConfirmationModal";
-import { deleteMovie, listAllMovie } from "../../services/apis/adminService";
-import { Movie } from "../../interfaces/admin.interface";
-import Loader from "../../components/shimmerUI/Loader";
+import DeleteConfirmationModal from "../../../components/ConfirmationPopup/DeleteConfirmationModal";
+import { deleteMovie, listAllMovie } from "../../../services/apis/adminService";
+import { Movie } from "../../../interfaces/admin.interface";
+import Loader from "../../../components/shimmerUI/Loader";
 // Register AG Grid Modules
 ModuleRegistry.registerModules([ClientSideRowModelModule, PaginationModule, TextFilterModule, NumberFilterModule]);
 
@@ -35,11 +35,11 @@ const AdminDashboard: React.FC = () => {
   const handleDelete = async () => {
     if (!selectedMovie) return;
     try {
-      await deleteMovie(selectedMovie.id);
-      toast.success("Movie Deleted successfully");
+     const response= await deleteMovie(selectedMovie.id);
+      toast.success(response.data.message);
       fetchAllMovies();
     } catch (error: any) {
-      toast.error(error.message || "Failed to delete movie")
+      toast.error(error.response?.data?.message || "Failed to delete movie")
     }
     setIsDeleteModelOpen(false)
   }
@@ -58,8 +58,8 @@ const AdminDashboard: React.FC = () => {
         }));
         setMovies(formattedMovies)
   
-      } catch (error) {
-        toast.error("Error in fetching Movies")
+      } catch (error:any) {
+        toast.error(error.response?.data?.message||"Error in fetching Movies")
       }
       finally{
         setLoading(false)

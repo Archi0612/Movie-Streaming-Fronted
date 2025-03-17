@@ -4,8 +4,8 @@ import AsyncSelect from "react-select/async";
 import "./EditMovieModal.css";
 import { MdClose } from "react-icons/md";
 import { toast } from "react-toastify";
-import { EditMovieModalProps } from "../../interfaces/admin.interface";
-import { editMovie, getMovieById, searchCastByName,searchDirectorByName } from "../../services/apis/adminService";
+import { EditMovieModalProps } from "../../../interfaces/admin.interface";
+import { editMovie, getMovieById, searchCastByName,searchDirectorByName } from "../../../services/apis/adminService";
 import { useNavigate } from "react-router-dom";
 import { Loader } from "lucide-react";
 
@@ -49,8 +49,8 @@ const fetchCastOptions = async(inputValue: string): Promise<{ value: string; lab
         value:cast._id,
         label:cast.name
       }))
-    } catch (error) {
-      console.error("Error fetching cast:",error);
+    } catch (error:any) {
+      console.error( error.response?.data?.message ||"Error fetching cast:");
       return [];
     }
 };
@@ -62,8 +62,8 @@ const fetchDirectorOptions = async(inputValue: string): Promise<{ value: string;
       value:director._id,
       label:director.name
     }))
-  } catch (error) {
-    console.error("Error fetching director:",error);
+  } catch (error:any) {
+    console.error(error.response?.data?.message || "Error fetching director:");
   return [];
   }
 };
@@ -72,7 +72,8 @@ const EditMovieModal: React.FC<EditMovieModalProps> = ({ movieId, onClose, onSav
   const [updatedMovie, setUpdatedMovie] = useState<any>(null);
   const [originalMovie,setOriginalMovie]=useState<any>(null);
   const [loading,setLoading]=useState<boolean>(false);
-  const navigate=useNavigate();
+  const todayDate=new Date().toISOString().split("T")[0];
+  
   useEffect(() => {
     const fetchMovies = async() => {
       try {
@@ -125,7 +126,7 @@ const EditMovieModal: React.FC<EditMovieModalProps> = ({ movieId, onClose, onSav
         setOriginalMovie(formattedMovie);
         setUpdatedMovie(formattedMovie);
       } catch (error: any) {
-        toast.error(error.message);
+        toast.error(error.result?.data?.message);
       }
     };
     
@@ -133,6 +134,12 @@ const EditMovieModal: React.FC<EditMovieModalProps> = ({ movieId, onClose, onSav
   }, [movieId]);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
+    if(name==="releaseDate"){
+      if(value>todayDate){
+        toast.info("Future date not allowed")
+        return;
+      }
+    }
     setUpdatedMovie((prev: any) => ({ ...prev, [name]: value }));
   };
   const handleSelectChange = (selected: any, action: any) => {
@@ -242,10 +249,10 @@ const handleSave = async() => {
         <input type="text" name="title" value={updatedMovie?.title} className="edit-movie-input" onChange={handleChange} />
 
         <label>Description</label>
-        <textarea className="text-desc" name="description" value={updatedMovie?.description}  onChange={handleChange} />
+        <textarea className="edit-text-desc" name="description" value={updatedMovie?.description}  onChange={handleChange} />
 
         <label>Release Date</label>
-        <input type="date" name="releaseDate" value={updatedMovie?.releaseDate} className="edit-movie-input" onChange={handleChange} />
+        <input type="date" name="releaseDate" value={updatedMovie?.releaseDate} className="edit-movie-input" onChange={handleChange} max={todayDate}/>
 
         <label>Genres</label>
         <Select

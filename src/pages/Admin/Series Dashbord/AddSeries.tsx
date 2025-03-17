@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import AsyncSelect from "react-select/async";
 import "./AddSeries.css";
 import {toast} from "react-toastify"
-import { addSeries, searchCastByName,searchDirectorByName } from "../../services/apis/adminService";
-import { Addseries } from "../../interfaces/admin.interface";
-import Loader from "../../components/shimmerUI/Loader";
+import { addSeries, searchCastByName,searchDirectorByName } from "../../../services/apis/adminService";
+import { Addseries } from "../../../interfaces/admin.interface";
+import Loader from "../../../components/shimmerUI/Loader";
 const genreOptions = [
   { value: "28", label: "Action" },
   { value: "18", label: "Drama" },
@@ -37,6 +37,7 @@ const languageOptions = [
   { value: "malayalam", label: "Malayalam" },
   { value: "kannada", label: "Kannada" },
 ];
+
 const fetchCastOptions = async(inputValue: string): Promise<{ value: string; label: string }[]> => {
     try {
       const results=await searchCastByName(inputValue.trim());
@@ -65,11 +66,12 @@ const fetchDirectorOptions = async(inputValue: string): Promise<{ value: string;
 
 const AddSeries: React.FC = () => {
   const navigate = useNavigate();
+  const todayDate=new Date().toISOString().split("T")[0];
   const [series, setSeries] = useState<Addseries>({
     title: "",
     description: "",
     genres: [],
-    releaseDate: "",
+    releaseDate: todayDate,
     rating: "",
     cast: [],
     director: [],
@@ -79,8 +81,39 @@ const AddSeries: React.FC = () => {
     availableForStreaming: false,
   });
   const[loading,setLoading]=useState<boolean>(false);
+  const [isFormValid, setIsFormValid] = useState<boolean>(false);
+  
+
+  const validateForm=()=>{
+    if(
+      series.title.trim() &&
+      series.description.trim() &&
+      series.releaseDate.trim() &&
+      series.rating.trim() &&
+      series.genres.length > 0 &&
+      series.cast.length > 0 &&
+      series.director.length > 0 &&
+      series.languages.length > 0 &&
+      series.poster &&
+      series.trailerUrl
+    ){
+      setIsFormValid(true)
+    }
+    else{
+      setIsFormValid(false)
+    }
+  }
+  useEffect(()=>{
+    validateForm();
+  },[series])
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value, type, checked,files } = e.target as HTMLInputElement;
+    if(name==="releaseDate"){
+      if(value>todayDate){
+        toast.info("Future dates are not allowed")
+        return;
+      }
+    }
     if(type === "file" && files){
       setSeries((prev) => ({
         ...prev,
@@ -115,10 +148,10 @@ const AddSeries: React.FC = () => {
     try {
       setLoading(true)
       const response=await addSeries(formData);
-      toast.success("Series Added Successfully")
+      toast.success(response.data.message)
       navigate("/admin-dashboard-series")
-    } catch (error) {
-      toast.error("Error in Adding series")
+    } catch (error:any) {
+      toast.error(error.response?.data?.message ||"Error in Adding series")
     }
     finally{
       setLoading(false)
@@ -161,7 +194,7 @@ const AddSeries: React.FC = () => {
               }} />
 
             <label>Release Date</label>
-            <input type="date" name="releaseDate" value={series.releaseDate} className="add-series-input" onChange={handleChange} />
+            <input type="date" name="releaseDate" value={series.releaseDate} className="add-series-input" onChange={handleChange} max={todayDate} />
             <label>Rating</label>
             <input type="number" name="rating" value={series.rating} className="add-series-input" onChange={handleChange} step="0.1" min="0.0" placeholder="Enter series rating "/>
           </div>
@@ -264,7 +297,7 @@ const AddSeries: React.FC = () => {
         <div className="buttons-container">
           <button className="close-btn-series" onClick={() => navigate("/admin-dashboard-series")}>Close</button>
           
-          <button className="save-btn-series" onClick={handleSave}>Save</button>
+          <button className="save-btn-series" onClick={handleSave} disabled={!isFormValid}>Save</button>
         </div>
       </div>
     </div>

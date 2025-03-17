@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import AsyncSelect from "react-select/async";
 import "./AddMovie.css";
-import { addMovie, searchCastByName, searchDirectorByName } from "../../services/apis/adminService";
+import { addMovie, searchCastByName, searchDirectorByName } from "../../../services/apis/adminService";
 import { toast } from "react-toastify";
-import { AddMovies } from "../../interfaces/admin.interface";
-import  Loader  from "../../components/shimmerUI/Loader";
+import { AddMovies } from "../../../interfaces/admin.interface";
+import  Loader  from "../../../components/shimmerUI/Loader";
 
 const genreOptions = [
   { value: "28", label: "Action" },
@@ -68,10 +68,11 @@ const fetchDirectorOptions = async(inputValue: string): Promise<{ value: string;
 const AddMovie: React.FC = () => {
   
   const navigate = useNavigate();
+  const todayDate=new Date().toISOString().split("T")[0];
   const [movie, setMovie] = useState<AddMovies>({
     title: "",
     description: "",
-    releaseDate: "",
+    releaseDate: todayDate,
     genres: [],
     duration: "",
     rating: "",
@@ -83,8 +84,40 @@ const AddMovie: React.FC = () => {
     languages:[]
   });
   const[loading,setLoading]=useState<boolean>(false);
+  const [isFormValid, setIsFormValid] = useState<boolean>(false);
+
+  // Function to check if all required fields are filled
+  const validateForm = () => {
+    if (
+      movie.title.trim() &&
+      movie.description.trim() &&
+      movie.releaseDate.trim() &&
+      movie.duration.trim() &&
+      movie.rating.trim() &&
+      movie.genres.length > 0 &&
+      movie.cast.length > 0 &&
+      movie.director.length > 0 &&
+      movie.languages.length > 0 &&
+      movie.poster &&
+      movie.trailerUrl &&
+      movie.movieUrl
+    ) {
+      setIsFormValid(true);
+    } else {
+      setIsFormValid(false);
+    }
+  };
+  useEffect(()=>{
+    validateForm();
+  },[movie])
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value, type, checked,files } = e.target as HTMLInputElement;
+    if(name==="releaseDate"){
+      if(value>todayDate){
+        toast.info("Future Date not allowed");
+        return;
+      }
+    }
     if(type === "file" && files){
       setMovie((prev) => ({
         ...prev,
@@ -126,12 +159,11 @@ const AddMovie: React.FC = () => {
     try {
       setLoading(true)
       const response=await addMovie(formData)
-      toast.success("Movie Added Successfully")
+      toast.success(response.data.message)
       navigate("/admin-dashboard-movies")
     } 
     catch (error: any) {
-      toast.error("Error in Adding Movie")
-      
+      toast.error(error.response?.data?.message || "Error in Adding Movie")
     }
     finally{
       setLoading(false)
@@ -157,7 +189,7 @@ const AddMovie: React.FC = () => {
             <textarea name="description" value={movie.description}   onChange={handleChange} placeholder="Enter movie details"className="text-desc" autoComplete="off" />
 
             <label>Release Date</label>
-            <input type="date" name="releaseDate" value={movie.releaseDate} className="add-movie-input" onChange={handleChange}  placeholder="Enter movie release date"/>
+            <input type="date" name="releaseDate" value={movie.releaseDate} className="add-movie-input" onChange={handleChange}  placeholder="Enter movie release date" max={todayDate}/>
 
             <label>Genres</label>
             <Select
@@ -298,7 +330,7 @@ const AddMovie: React.FC = () => {
         </div>
         <div className="buttons-container">
           <button className="close-btn-movie" onClick={handleClose}>Close</button>
-          <button className="save-btn-movie" onClick={handleSave}>Save</button>
+          <button className="save-btn-movie" onClick={handleSave} disabled={!isFormValid}>Save</button>
         </div>
       </div>
     </div>

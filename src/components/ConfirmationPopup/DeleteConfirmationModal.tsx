@@ -21,8 +21,8 @@ const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({ isOpe
         <h2 className="delete-modal-h2">Are you sure?</h2>
         <p className="delete-modal-p">Do you really want to delete these records? This process cannot be undone.</p>
         <div className="delete-modal-buttons">
-          <button className="cancel-btn" onClick={onClose}>Cancel</button>
-          <button className="confirm-btn" onClick={onConfirm}>Delete</button>
+          <button className="delete-cancel-btn" onClick={onClose}>Cancel</button>
+          <button className="delete-confirm-btn" onClick={onConfirm}>Delete</button>
         </div>
       </div>
     </div>

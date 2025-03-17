@@ -4,7 +4,7 @@ html {
 
 .profilepagecontainer {
     width: 100vw;
-    height: 100vh;
+    height: auto;
     background-color: #00131f;
     border: none;
 }
@@ -157,8 +157,9 @@ html {
 .profilepage-watchlist,
 .profilepage-likedContent {
     width: auto;
-    height: 55vh;
+    /* height: 55vh; */
     border-radius: 1rem;
+    margin-bottom: 2rem;
 }
 
 @media screen and (max-width:1505px) and (min-width:757px) {
@@ -223,15 +224,7 @@ html {
         text-align: center;
     }
 
-    /* .profilepage-content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        height: auto;
-        flex-wrap: nowrap;
-    } */
-
+  
     .profilepage-content {
         display: flex;
         flex-direction: column;

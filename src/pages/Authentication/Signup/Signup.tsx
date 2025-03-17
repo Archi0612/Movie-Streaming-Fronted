@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./Signup.css";
-import img from "../../../assets/avatar.png";
+import img from "../../../assets/img/auth/avatar.png";
 import { FaEye, FaEyeSlash, FaEdit } from "react-icons/fa";
 import { generateOTP } from "../../../services/apis/authService";
 import {
