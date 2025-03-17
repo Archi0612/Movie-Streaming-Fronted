@@ -24,7 +24,7 @@ import AddMovie from "../pages/Admin/AddMovie";
 import AdminDashboardSeries from "../pages/Admin/AdminDashboardSeries";
 import UserDashboard from "../pages/Admin/UserDashboard";
 import AddSeries from "../pages/Admin/AddSeries";
-import PaymentCancel from "../pages/Stripe-Payment/PaymentCancel/PaymentCancel";
+// import PaymentCancel from "../pages/Stripe-Payment/PaymentCancel/PaymentCancel";
 import { Bounce, ToastContainer } from "react-toastify";
 import GenrePage from "../pages/Media/Genres/GenrePage";
 import Search from "../pages/Search";
@@ -32,11 +32,12 @@ import AddEpisode from "../pages/Admin/AddEpisode";
 import GenreDetail from "../pages/Media/Genres/GenreDetail";
 import DetailsPage from "../pages/Media/DetailsPage";
 import SeriesPage from "../pages/Media/Series/SeriesPage";
-// import VideoPlayer from "../components/videoPlayer/VideoPlayer";
 import WatchVideo from "../pages/Media/WatchVideo";
 import MoviesPage from "../pages/Media/Movies/MoviesPage";
 import Home from "../pages/Home";
-import { PaymentSuccess } from "../pages/Stripe-Payment/PaymentSuccess/paymentSuccess";
+import PaymentCancel from "../pages/Stripe-Payment/paymentCancel/paymentCancel";
+import { PaymentSuccess } from "../pages/Stripe-Payment/paymentSuccess/paymentSuccess";
+
 
 
 // Protected Route component that checks if user is authenticated
