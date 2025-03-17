@@ -21,7 +21,7 @@
 .genre-name{
     display: flex;
     flex-direction: column;
-    gap:40px
+   
 }
 
 .movies-swiper {

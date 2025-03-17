@@ -74,7 +74,7 @@ const ForgotPassword:React.FC = () => {
               </svg>
             </Link>
           </button>
-          <div className="logo-container">
+          <div className="forgot-logo-container">
             <svg
               aria-label="Trouble logging in?"
               className="lock-logo"

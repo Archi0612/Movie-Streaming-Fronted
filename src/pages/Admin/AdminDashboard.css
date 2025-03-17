@@ -3,10 +3,10 @@
   display: flex;
   height: 100vh;
   background-color: var(--background-color);
-  overflow: hidden; /* Prevents child elements from overflowing */
+  overflow: hidden;
 }
 
-/* Main Content Area */
+
 .content {
   flex-grow: 1;
   padding: 20px;
@@ -16,7 +16,7 @@
   overflow-x: hidden;
 }
 
-/* Content Card */
+
 .content-card {
   padding: 20px;
   width: 100%;
@@ -26,13 +26,13 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Grid Container */
+
 .grid-container {
   width: 100%;
   overflow-x: auto;
 }
 
-/* Add Button Container */
+
 .add-btn-container {
   display: flex;
   align-items: center;
@@ -41,7 +41,7 @@
   gap: 15px;
 }
 
-/* Buttons */
+
 .add-movie-btn,
 .add-episode-btn {
   margin-bottom: 15px;
@@ -69,7 +69,7 @@
   background-color: #0059b3;
 }
 
-/* Movie Poster Image */
+
 .poster-img {
   width: 50px;
   height: 50px;
@@ -77,19 +77,18 @@
   margin-bottom: 4px;
 }
 
-/* Action Buttons */
+
 .action-buttons {
   display: flex;
   gap: 10px;
 }
 
-/* Dashboard Heading */
+
 .dashboard-h2 {
   color: #0073e6;
   margin-left: 1rem;
 }
 
-/* Edit & Delete Buttons */
 .action-buttons button {
   width: 40px;
   height: 40px;
@@ -118,99 +117,6 @@
 .delete-btn-dashboard:hover {
   background-color: #e0412f;
 }
-
-/* Modal */
-.modal {
-  background: #003366;
-  padding: 25px;
-  width: 420px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 12px;
-  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
-  animation: fadeIn 0.3s ease-in-out;
-}
-
-/* Modal Title */
-.modal-title {
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 15px;
-  color: white;
-  border-bottom: 2px solid #0073e6;
-  padding-bottom: 8px;
-}
-
-/* Input Fields */
-.input-field {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 14px;
-  background: #f9f9f9;
-  transition: border-color 0.3s ease-in-out;
-}
-
-.input-field:focus {
-  border-color: #0073e6;
-  background: #ffffff;
-  outline: none;
-}
-
-/* Modal Actions */
-.modal-actions {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 15px;
-}
-
-/* Cancel & Save Buttons */
-.cancel-btn,
-.save-btn {
-  padding: 10px 15px;
-  border-radius: 6px;
-  border: none;
-  font-size: 14px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.cancel-btn {
-  background-color: #bdc3c7;
-  color: white;
-}
-
-.cancel-btn:hover {
-  background-color: #95a5a6;
-}
-
-.save-btn {
-  background-color: #27ae60;
-  color: white;
-}
-
-.save-btn:hover {
-  background-color: #219150;
-}
-
-/* Fade-in Animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0.4;
-    transform: translate(-50%, -60%);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%);
-  }
-}
-
-/* AG Grid Theme */
 .ag-theme-quartz {
   --ag-header-background-color: rgba(25, 100, 150, 0.295);
   --ag-background-color: white;
@@ -218,8 +124,6 @@
   --ag-row-spacing: 5px;
   width: 100%;
 }
-
-/* Responsive Design */
 @media screen and (max-width: 768px) {
   .content {
     margin: 0px 15px;

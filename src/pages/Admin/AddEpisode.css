@@ -51,7 +51,6 @@ input[type="file"]::file-selector-button {
     padding: .3em .6em;
     border-radius: .3em;
     background-color: #6da3d6;
-    transition: 0.3s;
     cursor: pointer;
 }
 
@@ -149,9 +148,9 @@ input[type="file"]::file-selector-button:hover {
     color: var(--primary-color);
 }
 
-.series-selection .select-container {
+/* .series-selection .select-container {
     flex: 1;
-}
+} */
 
 .series-selection input {
     width: 120px;

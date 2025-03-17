@@ -163,7 +163,7 @@ label {
   gap: 1vw;
 }
 
-/* .otp-input {
+.otp-input {
   width: 2.5rem;
   padding: 10px;
    margin: 5px 0; 
@@ -173,7 +173,7 @@ label {
   border-radius: 5px;
   background-color: #222;
   color: #fff;
-} */
+}
 
 .otp-input:focus {
   border-color: #457ee8;

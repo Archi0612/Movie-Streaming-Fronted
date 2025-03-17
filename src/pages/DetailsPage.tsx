@@ -59,6 +59,7 @@ const DetailsPage: React.FC = () => {
   const genreNames = mediaData?.genres
     .map((id) => genreMap[id] || "Unknown")
     .join(", ");
+
   const handleSeasonChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedSeason(Number(event.target.value));
   };
@@ -106,6 +107,7 @@ const DetailsPage: React.FC = () => {
               height="25rem"
               controls
               playing
+              muted={true}
             />
           )}
         </div>

@@ -262,9 +262,9 @@ const AddSeries: React.FC = () => {
         </div>
         
         <div className="buttons-container">
-          <button className="close-btn2" onClick={() => navigate("/admin-dashboard-series")}>Close</button>
+          <button className="close-btn-series" onClick={() => navigate("/admin-dashboard-series")}>Close</button>
           
-          <button className="save-btn" onClick={handleSave}>Save</button>
+          <button className="save-btn-series" onClick={handleSave}>Save</button>
         </div>
       </div>
     </div>
