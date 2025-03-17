@@ -1,8 +1,7 @@
-
 import React from "react";
-import MovieCard from "./MovieCard";
-import "./MovieGrid.css";
+import "./MoviesGrid.css";
 import { MediaGridProps } from "../interfaces/movie.interface";
+import MovieCard from "./Cards/MovieCard";
 
 
 const MoviesGrid: React.FC<MediaGridProps> = ({ mediaList, title }) => {

@@ -2,13 +2,16 @@ import React, { useEffect, useState } from "react";
 import {
   fetchLatestSeriesApi,
   fetchPopularSeriesApi,
+  fetchSeriesByGenre,
   fetchTopRatedSeriesApi,
-} from "../services/apis/seriesService";
+} from "../../../services/apis/seriesService";
 import { SwiperSlide, Swiper } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
-import MovieCard from "../components/MovieCard";
-import { Series } from "../interfaces/series.interface";
+
+import { Series } from "../../../interfaces/series.interface";
 import "./SeriesPage.css";
+import MoviesGrid from "../../../components/MoviesGrid";
+import MovieCard from "../../../components/Cards/MovieCard";
 
 const SeriesPage: React.FC = () => {
   const [series, setSeries] = useState<{
@@ -26,6 +29,7 @@ const SeriesPage: React.FC = () => {
     { key: "latest", title: "Latest Series" },
     { key: "topRated", title: "Top Rated Series" },
   ];
+  const [genreSeries, setGenreSeries] = useState([]);
 
   const videoData = [
     {
@@ -46,16 +50,19 @@ const SeriesPage: React.FC = () => {
   ];
   const fetchSeries = async () => {
     try {
-      const [popularSeries, latestSeries, topRatedSeries] = await Promise.all([
-        fetchPopularSeriesApi(),
-        fetchLatestSeriesApi(),
-        fetchTopRatedSeriesApi(),
-      ]);
+      const [popularSeries, latestSeries, topRatedSeries, seriesByGenre] =
+        await Promise.all([
+          fetchPopularSeriesApi(),
+          fetchLatestSeriesApi(),
+          fetchTopRatedSeriesApi(),
+          fetchSeriesByGenre(28),
+        ]);
       setSeries({
         pop: popularSeries?.seriesList || [],
         latest: latestSeries?.seriesList || [],
         topRated: topRatedSeries?.seriesList || [],
       });
+      setGenreSeries(seriesByGenre?.seriesList || []);
     } catch (err: unknown) {
       if (err instanceof Error) {
         throw new Error(err.message);
@@ -66,7 +73,17 @@ const SeriesPage: React.FC = () => {
     fetchSeries();
   }, []);
 
-  // console.log(series, "series page line 69");
+  document
+    .querySelector(".swiper-button-next")
+    ?.addEventListener("click", (e) => {
+      e.stopPropagation();
+    });
+
+  document
+    .querySelector(".swiper-button-prev")
+    ?.addEventListener("click", (e) => {
+      e.stopPropagation();
+    });
 
   return (
     <div className="series-section">
@@ -115,7 +132,6 @@ const SeriesPage: React.FC = () => {
         </div>
       </div>
 
-      
       <div className="genres-grid">
         {seriesCategories.map(({ key, title }) => (
           <div className="series-category" key={key}>
@@ -123,7 +139,7 @@ const SeriesPage: React.FC = () => {
             <Swiper
               slidesPerView={5}
               spaceBetween={20}
-              navigation = {true}
+              navigation={true}
               modules={[Navigation]}
               breakpoints={{
                 1400: { slidesPerView: 6 },
@@ -149,9 +165,8 @@ const SeriesPage: React.FC = () => {
         ))}
       </div>
 
-      {/* 🎥 Latest & Popular Series
-            <MoviesGrid mediaList={series} title="Latest Series" />
-      <MoviesGrid mediaList={popularSeries} title="Popular Series" /> */}
+      {/* Action Series */}
+      {<MoviesGrid mediaList={genreSeries} title="Action Series" />}
     </div>
   );
 };

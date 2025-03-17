@@ -52,7 +52,7 @@
   color: #fff;
   font-size: 1rem !important;
   font-weight: bold;
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
   margin-top: 0.7rem;
   text-align: left;
 }
@@ -151,7 +151,6 @@
 }
 
 .movie-rating {
-
   gap: 2px;
   margin-bottom: 0.5rem;
   justify-content: left;

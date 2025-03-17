@@ -1,6 +1,6 @@
-import "./paymentCancel.css";
+import "./PaymentCancel.css";
 
-const Cancel = () => {
+const PaymentCancel = () => {
     return (
         <div className="cancel-container">
             <div className="cancel-box">
@@ -16,4 +16,4 @@ const Cancel = () => {
     );
 };
 
-export default Cancel;
+export default PaymentCancel;
