@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { MediaGridProps } from "../../interfaces/movie.interface";
-import MovieCard from "../MovieCard";
 import "./SearchBarSlider.css";
+import MovieCard from "../Cards/MovieCard";
 
 const MovieCardSlider: React.FC<MediaGridProps> = ({ mediaList, title }) => {
     const sliderRef = useRef<HTMLDivElement>(null);

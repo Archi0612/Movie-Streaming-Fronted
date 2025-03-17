@@ -1,0 +1,10 @@
+.watch-video-container{
+    /* padding-left: 7rem; */
+    
+    /* background-color: var(--background-color); */
+}
+.video-player-heading{
+    font-size: 2rem;
+    padding: 2rem 0;
+    background-color: var(--background-color);
+}
