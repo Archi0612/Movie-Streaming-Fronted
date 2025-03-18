@@ -120,6 +120,14 @@ const DetailsPage: React.FC = () => {
     // navigate(`/videoPlayer/${episodeUrl}`);
     navigate(`/watch`, { state: { episodeUrl } });
   }
+
+  const handleDurationTime = () => {
+    const totalSeconds = mediaData?.duration || 0 ;
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    if (hours == 0 || minutes == 0) return;
+    return hours > 0 ? `${hours}h ${minutes}m` : `${minutes}m`;
+  }
   return (
     <div className="details-container">
       <div className="header-container">
@@ -186,13 +194,9 @@ const DetailsPage: React.FC = () => {
 
           <div className="movie-meta">
             <span className="runtime">
-              {(() => {
-                const totalSeconds = mediaData?.duration || 0;
-                const hours = Math.floor(totalSeconds / 3600);
-                const minutes = Math.floor((totalSeconds % 3600) / 60);
-                if (hours == 0 || minutes == 0) return;
-                return hours > 0 ? `${hours}h ${minutes}m` : `${minutes}m`;
-              })()}
+              {
+                handleDurationTime()
+              }
             </span>
             <span className="divider">•</span>
             <span className="genres">{genreNames}</span>
@@ -270,7 +274,8 @@ const DetailsPage: React.FC = () => {
                                 Episode {episode.episodeNumber}: {episode.title}
                               </h4>
                               <span className="episode-duration">
-                                {Math.floor(episode.duration / 60)} min
+                                {/* {Math.floor(episode.duration / 60)} min */}
+                                {handleDurationTime()}
                               </span>
                             </div>
 

@@ -107,7 +107,7 @@ html {
 }
 
 .profile-section {
-    width: 51vw;
+    width: 45vw;
     border-radius: 1rem;
     padding: 0.625rem;
     background-color: #003366;
@@ -118,7 +118,8 @@ html {
     justify-content: flex-start;
     align-items: center;
     margin-left: 1rem;
-    height: 17rem;
+    margin-top: 1rem;
+    /* height: 17rem; */
 }
 
 .profile-table {

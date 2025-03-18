@@ -116,6 +116,7 @@ const Home: React.FC = () => {
               modules={[Navigation]}
               className="movie-category-swiper"
               breakpoints={{
+                1600:{  slidesPerView: 6 },
                 1400: { slidesPerView: 6 },
                 1200: { slidesPerView: 5 },
                 1050: { slidesPerView: 4 },

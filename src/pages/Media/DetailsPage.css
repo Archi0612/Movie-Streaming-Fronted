@@ -119,6 +119,7 @@
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 0.51rem;
+  color: var(--primary-color);
 }
 .medieaData-subtitle {
   font-size: 1.5rem;

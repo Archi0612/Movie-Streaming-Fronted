@@ -74,27 +74,37 @@ import { AppDispatch, RootState } from "../../redux/store";
 import { toast } from "react-toastify";
 import { toggleLike } from "../../redux/slices/LikedList/LikedList";
 
+interface Content {
+  _id: string;
+  title: string;
+  poster: string;
+  description: string;
+}
+
+interface LikedItem {
+  contentId?: Content;
+  contentType: string;
+}
+
 function Likedlist() {
   const likedListState = useSelector((state: RootState) => state.likedlist);
-    const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleWatch = (id: string) => {
     console.log(`Watching movie with ID: ${id}`);
   };
 
-//   const handleRemove = (id: string) => {
-//     console.log(`Removing movie with ID: ${id}`);
-//   };
+  //   const handleRemove = (id: string) => {
+  //     console.log(`Removing movie with ID: ${id}`);
+  //   };
   const handleLike = async (contentId: string, contentType: string) => {
-        const response = await dispatch(toggleLike({ contentId, contentType }));
-        // console.log(response.payload.message, "Response from detail page");
-    
-        if (response.payload.message === "Unliked successfully") {
-          toast.info("Removed from Liked List");
-        } else {
-          toast.success("Added to Liked List");
-        }
-      };
+    const response = await dispatch(toggleLike({ contentId, contentType }));
+    if (response.payload.message === "Unliked successfully") {
+      toast.info("Removed from Liked List");
+    } else {
+      toast.success("Added to Liked List");
+    }
+  };
   return (
     <div className="main-likedlist">
       <div className="likedlist-heading">
@@ -112,9 +122,9 @@ function Likedlist() {
               <div className="likedlist-info">
                 <h4>{likedlist.contentId?.title || "Unknown Title"}</h4>
                 <p className="likedlistinfo-p">
-                  {
-                    "This is a placeholder description. Add real descriptions later."
-                  }
+                  {likedlist.contentId?.description?.length > 60
+                    ? likedlist.contentId.description.slice(0, 60) + "..."
+                    : likedlist.contentId?.description}
                 </p>
               </div>
               <div className="likedlist-button">

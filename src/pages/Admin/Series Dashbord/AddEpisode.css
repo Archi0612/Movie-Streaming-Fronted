@@ -1,15 +1,14 @@
-
-.add-episode{
+.add-episode {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; /* Align to the top */
     background-color: var(--background-color);
     min-height: 100vh;
-    height: auto;
     width: 100vw;
-    padding: 20px;
+    padding-top: 50px; /* Adjust space from the top */
     overflow-y: auto;
 }
+
 
 .add-episode-container {
     width: 80vw;
