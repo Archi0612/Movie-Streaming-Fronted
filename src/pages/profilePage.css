@@ -40,7 +40,6 @@ html {
     margin: 2rem 0;
 }
 
-
 .heading {
     display: flex;
     flex-direction: row;
@@ -329,14 +328,14 @@ html {
 @media screen and (min-width:862px) and (max-width: 1134px) {
     .heading {
         display: flex;
-        flex-direction: column;
-        height: 5rem;
-        width: 15rem;
+        flex-direction: row;
+        height: 3rem;
+        width: auto;
+        gap: 1rem;
     }
 
     .heading-personalinfo {
-        margin-left: 0rem;
-        width: 14rem;
+        margin-left: 1rem;
     }
 
     .profile-section {

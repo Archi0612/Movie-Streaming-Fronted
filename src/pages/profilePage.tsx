@@ -2,9 +2,7 @@ import { useEffect, useState } from 'react';
 import * as React from "react";
 import Likedlist from '../components/LikedList/LikedList';
 import WatchList from '../components/WatchList/WatchList';
-import userIcon from '../assets/user_logo.png';
 import './profilePage.css';
-import { getNames } from "country-list";
 import SubscriptionModal from '../components/subscription/Subscription';
 import ReactModal from 'react-modal';
 import { useSelector } from 'react-redux';
@@ -44,7 +42,6 @@ export default function ProfilePage() {
         email: "",
     });
 
-    const countries = getNames().sort();
     const profile = useSelector((state: RootState) => state.profile);
 
     const date = new Date(profile?.data?.dateOfBirth || "")
@@ -126,7 +123,7 @@ export default function ProfilePage() {
                                         </tr>
                                         <tr>
                                             <th>Date Of Birth</th>
-                                            <td>{formattedDate || "N/A"} m</td>
+                                            <td>{formattedDate || "N/A"} </td>
                                         </tr>
                                         <tr>
                                             <th>Gender</th>

@@ -17,8 +17,8 @@ const Search: React.FC = () => {
   });
 
   const [defaultMoviesData, setDefaultMoviesData] = useState<DefaultData>({
-    popularMovies: { title: " Popular Movies", data: [] },
-    popularSeries: { title: "Series", data: [] },
+    popularMovies: { title: "Popular Movies", data: [] },
+    popularSeries: { title: "Popular Series", data: [] },
     topRatedMovie: { title: "Top Rated Movies", data: [] },
     topRatedSeries: { title: "Top Rated Series", data: [] },
   });
@@ -63,6 +63,7 @@ const Search: React.FC = () => {
         const response = await api.get("/search/", {
           params: { search: searchInput },
         });
+
         const searchData: MoviesData = {
           movieList: { title: "Search Results: Movies", data: response?.data?.data?.movieList || [] },
           seriesList: { title: "Search Results: Series", data: response?.data?.data?.seriesList || [] },
@@ -79,6 +80,16 @@ const Search: React.FC = () => {
 
     return () => clearTimeout(timer);
   }, [searchInput, defaultMoviesData]);
+
+  // Determine which data to use: Default or Search Results
+  const displayData = searchInput.trim()
+    ? Object.entries(moviesData).filter(([_, value]) => value.data.length > 0) // Show only non-empty search results
+    : Object.entries({
+      popularMovies: defaultMoviesData.popularMovies,
+      popularSeries: defaultMoviesData.popularSeries,
+      topRatedMovie: defaultMoviesData.topRatedMovie,
+      topRatedSeries: defaultMoviesData.topRatedSeries,
+    }).filter(([_, value]) => value.data.length > 0); // Show only non-empty default data
 
   return (
     <div className="search-page">
@@ -98,26 +109,9 @@ const Search: React.FC = () => {
 
       <div className="searchMovie-main">
         <div className="searchMovie-container">
-          <MovieCardSlider
-            mediaList={searchInput.trim() === "" ? defaultMoviesData.popularMovies.data : moviesData.movieList.data}
-            title={searchInput.trim() === "" ? defaultMoviesData.popularMovies.title : moviesData.movieList.title}
-          />
-          <MovieCardSlider
-            mediaList={searchInput.trim() === "" ? defaultMoviesData.popularSeries.data : moviesData.seriesList.data}
-            title={searchInput.trim() === "" ? defaultMoviesData.popularSeries.title : moviesData.seriesList.title}
-          />
-
-          <MovieCardSlider
-            mediaList={searchInput.trim() === "" ? defaultMoviesData.topRatedMovie.data : moviesData.castAndDirectorWiseMovie.data}
-            title={searchInput.trim() === "" ? defaultMoviesData.topRatedMovie.title : moviesData.castAndDirectorWiseMovie.title}
-
-          />
-
-          <MovieCardSlider
-            mediaList={searchInput.trim() === "" ? defaultMoviesData.topRatedSeries.data : moviesData.castAndDirectorWiseSeries.data}
-            title={searchInput.trim() === "" ? defaultMoviesData.topRatedSeries.title : moviesData.castAndDirectorWiseSeries.title}
-
-          />
+          {displayData.map(([key, value]) => (
+            <MovieCardSlider key={key} mediaList={value.data} title={value.title} />
+          ))}
         </div>
       </div>
     </div>
