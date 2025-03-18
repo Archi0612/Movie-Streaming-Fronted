@@ -85,6 +85,9 @@ input:-webkit-autofill:focus {
     border-radius: 5px;
     font-size: 18px;
     }
+    .form-textarea{
+      width: 100%;
+    }
     label {
     display: block;
     font-size: 16px;
@@ -98,6 +101,7 @@ input:-webkit-autofill:focus {
     font-size: 18px;
     background-color: #022135;
     border: 1px solid #075081;
+    color: #f1f1f1;
     }
 
     .form-input:focus, 
@@ -124,6 +128,11 @@ input:-webkit-autofill:focus {
     .submit-button:hover {
     background-color: #0059b3;
     }
+    .submit-button:disabled {
+      background-color: rgb(107, 105, 105);
+      cursor: not-allowed;
+  }
+  
     .contact-info h3 {
     margin-bottom: 20px;
     }

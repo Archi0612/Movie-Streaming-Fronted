@@ -20,8 +20,8 @@ export const fetchLikedList = createAsyncThunk(
 
             // console.log(response.data.data.likedContent, "This is in LinkedList slice")
             return response.data.data.likedContent; // Extracting liked content array
-        } catch (error: any) {
-            return rejectWithValue(error.response?.data?.message || "Failed to fetch liked list");
+        } catch (error:unknown) {
+            if(error instanceof Error)return rejectWithValue(error.message || "Failed to fetch liked list");
         }
     }
 );
@@ -37,8 +37,8 @@ export const toggleLike = createAsyncThunk(
             dispatch(fetchLikedList());
             return response.data; // Response may contain updated liked list
 
-        } catch (error: any) {
-            return rejectWithValue(error.response?.data?.message || "Failed to update liked list");
+        } catch (error: unknown) {
+            if(error instanceof Error)return rejectWithValue(error.message || "Failed to update liked list");
         }
     }
 );

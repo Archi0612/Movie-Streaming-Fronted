@@ -11,7 +11,7 @@
 .series-slider-container {
   position: relative;
   text-align: center;
-  margin-bottom: 3rem ;
+  margin-bottom: 3rem;
   margin-left: 116px;
   background-color: #000;
 }
@@ -78,7 +78,6 @@
 
 /* Genres Grid */
 .genres-grid {
-
   margin-left: 116px;
   overflow: hidden;
 }
@@ -94,40 +93,36 @@
   color: var(--primary-color);
 }
 
-
-
-    /* Swiper Navigation */
-    .swiper-button-next,
+/* Swiper Navigation */
+.swiper-button-next,
 .swiper-button-prev {
-    display: flex; /* Ensure buttons are displayed */
-    color: #ffffff;
-    font-weight: bold;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 10;
-    transition: opacity 0.3s ease-in-out, font-size 0.3s ease-in-out;
+  display: flex; /* Ensure buttons are displayed */
+  /* color: #ffffff; */
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  transition: opacity 0.3s ease-in-out, font-size 0.3s ease-in-out;
 }
-    .swiper-button-next::after{
-        right: 14px;
-    }
-
-    .swiper-button-prev {
-        left: 10px;
-    }
-
-    .swiper-button-next::after,
-    .swiper-button-prev::after {
-        font-size: 35px !important;
-        position: relative;
-    
-    }
-@media (max-width:768px){
-
-.series-slider-container{
-  margin-left: 8px;
+.swiper-button-next::after {
+  right: 14px;
 }
-.genres-grid{
-  margin-left: 8px;
+
+.swiper-button-prev {
+  left: 10px;
 }
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 35px !important;
+  position: relative;
+}
+@media (max-width: 768px) {
+  .series-slider-container {
+    margin-left: 8px;
+  }
+  .genres-grid {
+    margin-left: 8px;
+  }
 }

@@ -7,7 +7,7 @@ export interface User {
   email: string;
   contactNo?: string;
   password?: string;
-  gender?:string
+  gender?: string
   // token?: string;
   otp?: number;
   role: string;
@@ -28,10 +28,30 @@ export interface MediaCardProps {
 }
 
 export interface MoviesData {
-  movieList: Movie[];
+  movieList: CategoryData;
+  seriesList: CategoryData;
+  castAndDirectorWiseMovie: CategoryData;
+  castAndDirectorWiseSeries: CategoryData;
+}
+
+export interface DefaultData {
+  movieList: CategoryData;
+  seriesList: CategoryData;
+  topRatedMovie: CategoryData;
+  topRatedSeries: CategoryData;
+}
+
+export interface CategoryData {
+  title: string;
+  data: Movie[];
+}
+
+export interface MoviesList {
+  moviesList: Movie[];
+}
+
+export interface SeriesList {
   seriesList: Movie[];
-  castAndDirectorWiseMovie: Movie[];
-  castAndDirectorWiseSeries: Movie[];
 }
 
 // Generic Props for Both Movies & Series
