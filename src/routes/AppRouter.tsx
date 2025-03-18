@@ -24,7 +24,6 @@ import AddMovie from "../pages/Admin/AddMovie";
 import AdminDashboardSeries from "../pages/Admin/AdminDashboardSeries";
 import UserDashboard from "../pages/Admin/UserDashboard";
 import AddSeries from "../pages/Admin/AddSeries";
-// import PaymentCancel from "../pages/Stripe-Payment/PaymentCancel/PaymentCancel";
 import { Bounce, ToastContainer } from "react-toastify";
 import GenrePage from "../pages/Media/Genres/GenrePage";
 import Search from "../pages/Search";
