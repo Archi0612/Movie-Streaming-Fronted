@@ -222,14 +222,15 @@
 
 .watchlist-buttons {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     height: 5rem;
+    gap:0.7rem;
 }
 
 .watchlistBtn {
-    width: 5rem;
+    width: 3rem;
     padding: 8px 15px;
     background-color: #007bff;
     color: white;
@@ -240,7 +241,7 @@
     transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
-.watchlist-button button:hover {
+.watchlistBtn:hover {
     background-color: #0056b3;
     transform: scale(1.05);
 }
@@ -257,7 +258,11 @@
     margin: 1rem;
     font-size: large;
 }
-
+.watchlistinfo-p{
+    font-size: 0.8rem;
+    font-weight: lighter;
+    color: rgb(223, 214, 214);
+}
 
 @media screen and (max-width: 790px) {
     .main-watchlist {
@@ -280,6 +285,7 @@
 
     .watchlistinfo-p {
         align-items: center;
+        
     }
 
     .watchlistBtn {

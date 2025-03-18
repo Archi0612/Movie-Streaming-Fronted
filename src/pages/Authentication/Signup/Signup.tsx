@@ -254,7 +254,7 @@ const Signup: React.FC = () => {
           </div>
           <h2 className="auth-heading">Sign Up</h2>
           {otpState.otpSent && (
-            <button type="button" className="edit-icon" onClick={handleEdit}>
+            <button type="button" className="edit-icon" onClick={handleEdit} title="Edit Details">
               <FaEdit onClick={handleEdit} size={20} />
             </button>
           )}

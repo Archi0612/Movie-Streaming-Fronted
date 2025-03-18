@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom";
-import VideoPlayer from "../../components/videoPlayer/VideoPlayer";
+
 import "./WatchVideo.css"
+import VideoPlayer from "../../components/videoPlayer/videoPlayer";
 
 const WatchVideo = () => {
   const location = useLocation();

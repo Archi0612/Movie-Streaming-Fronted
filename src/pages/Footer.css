@@ -109,18 +109,10 @@
   }
 
   .footer-content {
-<<<<<<< HEAD
-    width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.5rem;
-      padding: 1rem 0;
-=======
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0.5rem;
     padding: 1rem 0;
->>>>>>> dba8fd9c709d8dc721101eaa385773941478b3b3
   }
 
   .footer-section {
@@ -161,6 +153,7 @@
     grid-template-columns: 1fr;
     gap: 0.3rem;
     padding: 0.8rem 0;
+    width: 95%;
   }
 
   .footer-section {

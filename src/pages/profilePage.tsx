@@ -23,7 +23,7 @@ import { fetchLikedList } from '../redux/slices/LikedList/LikedList';
 ReactModal.setAppElement('#root'); // Ensure accessibility compliance
 
 export default function ProfilePage() {
-
+    const todayDate = new Date().toISOString().split("T")[0];
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
 
@@ -93,7 +93,7 @@ export default function ProfilePage() {
                     </div>
                     <div className='profileCard-information'>
                         <div className='primaryContainer'>
-                            <img className="userLogo" src={userIcon} alt="User Icon" />
+                            <img className="userLogo" src={profile.data?.profilePicture} alt="User Icon" />
                         </div>
 
                         <div className='profile-section'>
@@ -102,12 +102,12 @@ export default function ProfilePage() {
                                 <div className='edit-subscribe'>
                                     {/* <button onClick={() => setIsOpen(true)} className="editProfile-btn">Edit</button> */}
                                     <button type="button" onClick={() => setIsOpen(true)} className="editProfile-btn">
-                                        <FaEdit onClick={() => setIsOpen(true)} size={20} />
+                                        <FaEdit onClick={() => setIsOpen(true)} size={20} title='edit profile' />
                                     </button>
                                     <button className='subscribeProfile-btn' onClick={() => setIsSubscribeOpen(true)} >
                                         Subscribe
                                     </button>
-                                    <button className='subscribeProfile-btn' onClick={() => logoutUser()} >
+                                    <button className='subscribeProfile-btn' onClick={() => logoutUser()} title="logout" >
                                         <FiLogOut />
                                     </button>
                                 </div>
@@ -121,7 +121,7 @@ export default function ProfilePage() {
                                         </tr>
                                         <tr>
                                             <th>Date Of Birth</th>
-                                            <td>{profile?.data?.dateOfBirth || "N/A"}</td>
+                                            <td>{profile?.data?.dateOfBirth || "N/A"} m</td>
                                         </tr>
                                         <tr>
                                             <th>Gender</th>
@@ -187,7 +187,7 @@ export default function ProfilePage() {
                     </div> */}
 
                     <label>Date of Birth:</label>
-                    <input type="date" name="dateOfBirth" value={userFormData.dateOfBirth} onChange={handleChange} autoComplete='off'  />
+                    <input type="date" name="dateOfBirth" value={userFormData.dateOfBirth} onChange={handleChange} autoComplete='off'  max={todayDate}/>
 
                     <label>Gender:</label>
                     <select name="gender" value={userFormData.gender} onChange={handleChange}>
