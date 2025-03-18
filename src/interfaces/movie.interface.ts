@@ -35,15 +35,15 @@ export interface MoviesData {
 }
 
 export interface DefaultData {
-  movieList: CategoryData;
-  seriesList: CategoryData;
+  popularMovies: CategoryData;
+  popularSeries: CategoryData;
   topRatedMovie: CategoryData;
   topRatedSeries: CategoryData;
 }
 
 export interface CategoryData {
   title: string;
-  data: Movie[];
+  data: MoviesList[];
 }
 
 export interface MoviesList {

@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import "./Breadcrumb.css";
 import { getMovieById } from "../../services/apis/movieService";
 import { fetchSeriesByID } from "../../services/apis/seriesService";
-
+import { genreMap } from "../../utils/constants";
 const pathLabels: Record<string, string> = {
   "home": "Home",
   "search":"Search",
@@ -36,7 +36,7 @@ const Breadcrumb: React.FC = () => {
   }
   useEffect(() => {
     debugger
-    if (!pathnames.includes("details")) {
+    if (!pathnames.includes("details") && !(pathnames.length===2 && pathnames[0]==="genres")) {
       setTitle(null);
       return;
     }
@@ -45,17 +45,17 @@ const Breadcrumb: React.FC = () => {
 
     const lastSegment = pathnames[pathnames.length - 1];
 
-    if (lastSegment && contentType) {
+    if (pathnames.includes("details") && lastSegment && contentType) {
       const fetchData = async () => {
         try {
           let response;
           if (contentType === "Movie") {
             response = await getMovieById(lastSegment);
-            setTitle(response.movie.title || null);
+            setTitle(response?.movie?.title || null);
           } 
           else if(contentType==="Series") {
             response = await fetchSeriesByID(lastSegment);
-            setTitle(response.seriesInfo.title || null);
+            setTitle(response?.seriesInfo?.title || null);
           }
         } catch (error) {
           console.error("Error fetching content name:", error);
@@ -65,7 +65,13 @@ const Breadcrumb: React.FC = () => {
 
       fetchData();
     }
-  }, [location.search, pathnames]);
+    else if(pathnames.length===2 && pathnames[0]==="genres"){
+      const genreId=parseInt(lastSegment,10);
+      if (!isNaN(genreId) && genreMap[genreId]) {
+        setTitle(genreMap[genreId]);
+      }
+    }
+  }, [location.pathname, location.search]);
 
   return (
     <nav className="breadcrumb">
@@ -84,8 +90,11 @@ const Breadcrumb: React.FC = () => {
 
           let displayText = pathLabels[path] || decodeURIComponent(path);
 
-          if (isLast && title) {
+          if (isLast && pathnames.includes("details") && title) {
             displayText = title;
+          }
+          if(isLast && pathnames.length===2 && pathnames[0]==="genres" && title){
+            displayText=title;
           }
 
           return (

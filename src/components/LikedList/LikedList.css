@@ -1,157 +1,3 @@
-/* .main-likedlist {
-    display: flex;
-    flex-direction: column;
-    height: 51vh;
-    background-color: #001f3f;
-    border-radius: 10px;
-
-}
-
-.likedlist-heading {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin: 20px;
-    color: white;
-    font-size: x-large;
-}
-
-.likedlist-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 20px;
-    color: white;
-    border-radius: 10px;
-    padding: 5px;
-    overflow-y: auto;
-
-    overflow-x: hidden;
-
-    scroll-behavior: smooth;
-    height: auto;
-    max-height: 50vh;
-
-}
-
-.likedlist {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin: 10px;
-    color: white;
-    background-color: #003366;
-    border-radius: 10px;
-    padding: 10px;
-    width: 96%;
-
-    min-height: 80px;
-
-}
-
-
-.likedlist-img {
-    width: 6vw;
-    height: 6vh;
-}
-
-.likedlist-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-
-.likedlist-info {
-    width: 25vw;
-}
-
-.likedList-headingh3 {
-    font-size: 1.3rem;
-    color: var(--text-color);
-}
-
-.likedlist-button {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    height: 5rem;
-}
-
-.likedListBtn {
-    width: 6rem;
-    padding: 8px 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
-}
-
-.likedlist-button button:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
-}
-
-@media screen and (max-width: 790px) {
-    .main-likedlist {
-        width: 20rem;
-    }
-
-    .likedlist {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-    }
-
-    .likedlist-info {
-        font-size: 12px;
-        width: 8rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    .likedlistinfo-p {
-        align-items: center;
-    }
-
-    .likedListBtn {
-        font-size: 10px;
-        font-weight: 900;
-        width: 4rem;
-    }
-}
-
-
-
-@media screen and (max-width: 1018px) and (min-width: 790px) {
-    .main-likedlist {
-        width: 40vw;
-    }
-
-    .likedlist {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-    }
-
-    .likedlist-info {
-        font-size: 12px;
-        width: 10rem;
-    }
-}
-
-@media screen and (min-width:1018px) and (max-width:1300px) {
-    .main-likedlist {
-        width: 40vw;
-    }
-} */
-
 .main-likedlist {
     display: flex;
     flex-direction: column;
@@ -193,13 +39,12 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin: 10px;
     color: white;
     background-color: #003366;
     border-radius: 10px;
     padding: 10px;
     width: 96%;
-
+    gap: 1rem;
     min-height: 80px;
 
 }
@@ -228,14 +73,15 @@
 
 .likedlist-button {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     height: 5rem;
+    gap: 0.7rem;
 }
 
 .likedListBtn {
-    width: 6rem;
+    width: 3rem;
     padding: 8px 15px;
     background-color: #007bff;
     color: white;

@@ -23,7 +23,7 @@
     display: block;
 }
 
-h1 {
+.payment-heading {
     color: #d9534f;
     font-size: 1.8rem;
     font-weight: bold;

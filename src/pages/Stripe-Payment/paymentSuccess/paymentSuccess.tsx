@@ -15,7 +15,7 @@ export const PaymentSuccess = () => {
                     <p className="loading-text">Processing payment...</p>
                 ) : (
                     <>
-                        <h1>Thank You for Subscribing!</h1>
+                        <h1 className="payment-success-heading">Thank You for Subscribing!</h1>
                         <p className="paymentSuccess-p">Welcome to <span className="brand-name">Filmster</span>. Enjoy unlimited movies and shows.</p>
                         <button onClick={() => window.location.href = "/home"} className="home-button">
                             Go to Home

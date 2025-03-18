@@ -131,12 +131,12 @@ const DetailsPage: React.FC = () => {
   return (
     <div className="details-container">
       <div className="header-container">
-        <div className="video-overlay">
+        <div className="video-overlay" >
           {mediaData?.trailerUrl && (
             <ReactPlayer
               url={mediaData.trailerUrl}
               width="100%"
-              height="25rem"
+              height="40rem"
               controls
               playing
               muted={true}
