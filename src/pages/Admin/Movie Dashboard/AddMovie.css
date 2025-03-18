@@ -8,6 +8,7 @@
     align-items: center;
     padding: 20px;
     overflow-y: auto;
+    flex-direction: column;
 }
 .add-movie-container {
     width: 80vw;
@@ -115,5 +116,20 @@
     color: white;
     resize: none;
     height:90px !important;
+  }
+  .movie-breadcrumb-container {
+    width: 80vw;
+    max-width: 1200px;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: #2c2f36;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+  }
+  @media (max-width:350px){
+    .movie-breadcrumb-container{
+      padding: 6px 14px;
+    }
   }
   
