@@ -1,6 +1,7 @@
+import React from "react";
 import "./PaymentCancel.css";
 
-const PaymentCancel = () => {
+const PaymentCancel:React.FC = () => {
     return (
         <div className="cancel-container">
             <div className="cancel-box">

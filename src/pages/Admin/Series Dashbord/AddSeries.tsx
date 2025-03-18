@@ -7,7 +7,7 @@ import {toast} from "react-toastify"
 import { addSeries, searchCastByName,searchDirectorByName } from "../../../services/apis/adminService";
 import { Addseries } from "../../../interfaces/admin.interface";
 import Loader from "../../../components/shimmerUI/Loader";
-import Breadcrumb from "../../../components/Breadcrumb/Breadcrumb";
+
 const genreOptions = [
   { value: "28", label: "Action" },
   { value: "18", label: "Drama" },

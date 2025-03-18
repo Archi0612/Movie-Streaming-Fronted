@@ -23,6 +23,7 @@ export interface Series {
   episodes: Episodes[];
   seasonNumber: number;
   season?: number;
+  duration: number;
   episodeUrl?: string;
   contentType: string;
 }

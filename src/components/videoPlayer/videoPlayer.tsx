@@ -7,7 +7,7 @@ import {
   MdFullscreen,
   MdFullscreenExit,
 } from "react-icons/md";
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import screenfull from "screenfull";
 import { FaVolumeHigh } from "react-icons/fa6";
 import { FaVolumeDown, FaVolumeMute } from "react-icons/fa";

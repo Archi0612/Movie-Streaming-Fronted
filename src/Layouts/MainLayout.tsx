@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "../pages/Sidebar";
 import Footer from "../pages/Footer";
-
 import { fetchUserData } from "../services/apis/userApi";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import Breadcrumb from "../components/Breadcrumb/Breadcrumb";
+import { Loader } from "lucide-react";
+import Breadcrumb from "../components/BreadCrumbComponent/Breadcrumb";
+
 
 const MainLayout: React.FC = () => {
   const [user, setUser] = useState<string>("user");
@@ -20,7 +21,7 @@ const MainLayout: React.FC = () => {
     fetchUser();
   });
   if (user === null) {
-    return <div>Loading...</div>;
+    return <Loader/>;
   }
   return (
     <div className="main-layout">

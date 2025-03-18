@@ -7,7 +7,7 @@ import { addMovie, searchCastByName, searchDirectorByName } from "../../../servi
 import { toast } from "react-toastify";
 import { AddMovies } from "../../../interfaces/admin.interface";
 import  Loader  from "../../../components/shimmerUI/Loader";
-import Breadcrumb from "../../../components/Breadcrumb/Breadcrumb";
+
 
 const genreOptions = [
   { value: "28", label: "Action" },

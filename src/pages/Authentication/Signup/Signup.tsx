@@ -197,11 +197,11 @@ const Signup: React.FC = () => {
         } else {
           // If OTP verification fails, display an error toast
           toast.error(
-            resultAction.payload || "OTP verification failed. Please try again."
+            "OTP verification failed. Please try again."
           );
         }
-      } catch (error) {
-
+      } catch (error:unknown) {
+        if(error instanceof Error)
         toast.error("Something went wrong. Please try again.");
       }
     } else {

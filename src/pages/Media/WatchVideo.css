@@ -1,7 +1,6 @@
 .watch-video-container{
-    /* padding-left: 7rem; */
-    
-    /* background-color: var(--background-color); */
+    padding: 5rem;
+    background-color: var(--background-color);
 }
 .video-player-heading{
     font-size: 2rem;

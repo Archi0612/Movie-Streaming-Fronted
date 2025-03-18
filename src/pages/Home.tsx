@@ -45,7 +45,7 @@ const Home: React.FC = () => {
         getTopRatedMovies(),
         getHomeTrending(),
       ]);
-
+      console.log("latest movies:", latestResponse?.moviesList)
       if (trendingResponse?.data?.heroContent) {
         setTrending(trendingResponse.data.heroContent);
       } else {
