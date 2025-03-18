@@ -82,7 +82,7 @@ const Home: React.FC = () => {
             <SwiperSlide
               key={`${movie._id}${"hero"}` || `${movie.title}-${index}`}
             >
-              <div className="video-overlay">
+              <div className="home-video-overlay">
                 <video width="100%" height="auto" controls autoPlay muted>
                   <source src={movie.trailerUrl} type="video/webm" />
                   Your browser does not support the video tag.

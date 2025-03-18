@@ -6,12 +6,15 @@
   background-color: #121212;
   color: #ffffff;
   padding-left: 7rem;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Header Styles */
 .header-container {
   position: relative;
   width: 100%;
+  margin-top: 3rem;
 }
 
 .header-image-container {
@@ -45,7 +48,9 @@
   gap: 8px;
   margin: 10px 0;
 }
+.video-overlay{
 
+}
 /* Title Section */
 .title-section {
   display: flex;
