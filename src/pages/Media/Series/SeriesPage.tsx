@@ -89,6 +89,7 @@ const SeriesPage: React.FC = () => {
     <div className="series-section">
       <div className="series-slider-container">
         <Swiper
+          
           className="main-series-slider"
           spaceBetween={10}
           freeMode={true}
@@ -108,6 +109,7 @@ const SeriesPage: React.FC = () => {
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   referrerPolicy="strict-origin-when-cross-origin"
                   allowFullScreen
+                  key={video.url}
                 ></iframe>
               </div>
             </SwiperSlide>

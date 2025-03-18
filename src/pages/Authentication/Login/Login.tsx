@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
-import img1 from "../../../assets/login-64.png";
+import img1 from "../../../assets/img/auth/login-64.png";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { loginUser } from "../../../redux/slices/user/userSlice";
 import { useDispatch } from "react-redux";

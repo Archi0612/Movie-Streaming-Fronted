@@ -1,14 +1,14 @@
 import './Watchlist.css';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { WatchListItem } from '../../interfaces/movie.interface';
 import { toggleWatchList } from "../../redux/slices/WatchList/WatchList";
 import { AppDispatch } from "../../redux/store";
 import { CiCircleRemove } from "react-icons/ci";
-import { Play, Plus } from "lucide-react";
+import { Play } from "lucide-react";
 import { toast } from 'react-toastify';
 
-function WatchList() {
+const WatchList = () => {
     const watchListState = useSelector((state: RootState) => state.watchlist);
     const dispatch = useDispatch<AppDispatch>();
     return (

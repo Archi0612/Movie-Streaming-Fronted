@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import './ResetPassword.css';
-import img2 from "../../../assets/resetlogo.png"
+import img2 from "../../../assets/img/auth/resetlogo.png"
 import { FaEye,FaEyeSlash } from 'react-icons/fa';
 import { resetPassword } from '../../../services/apis/authService';
 import { useNavigate, useSearchParams } from 'react-router-dom';

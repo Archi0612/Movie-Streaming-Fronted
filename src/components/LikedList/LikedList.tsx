@@ -69,22 +69,11 @@
 
 // export default Likedlist;
 import "./LikedList.css";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import { toast } from "react-toastify";
 import { toggleLike } from "../../redux/slices/LikedList/LikedList";
-
-interface Content {
-  _id: string;
-  title: string;
-  poster: string;
-  description: string;
-}
-
-interface LikedItem {
-  contentId?: Content;
-  contentType: string;
-}
+import { Movie } from "../../interfaces/admin.interface";
 
 function Likedlist() {
   const likedListState = useSelector((state: RootState) => state.likedlist);

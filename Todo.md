@@ -49,3 +49,7 @@ WORK DONE BY FRONTEND TEAM
     - Store management using REDUX
     - Profile Page
     - Search bar functinality
+
+Date: 18/03/2025
+[ ] Episode section in Admin
+[ ] Director Cast in Admin
