@@ -2,7 +2,7 @@
   padding-left: 6rem;
   background-color: var(--background-color);
   color: white;
-  height: 100vh;
+  height: auto;
 }
 
 .search-container {
@@ -55,7 +55,9 @@
   margin-left: 2rem;
   overflow-y: auto;
   scroll-behavior: smooth;
-  max-height: 62rem;
+  max-height: 70rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 /* Media Queries for Responsiveness */

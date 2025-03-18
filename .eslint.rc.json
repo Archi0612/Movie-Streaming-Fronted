@@ -1,0 +1,97 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "airbnb"
+    ],
+    "parser": "@babel/eslint-parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 2021,
+        "requireConfigFile": false,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+        "react/prop-types": "error",
+        "react/prefer-stateless-function": "off",
+        "react/jsx-filename-extension": "off",
+        "react/jsx-props-no-spreading": "off",
+        "react/forbid-prop-types": "off",
+        "max-len": "off",
+        "react/static-property-placement": "off",
+        "react/no-unstable-nested-components": "off",
+        "no-console": [
+            "error",
+            {
+                "allow": [
+                    "info",
+                    "warn",
+                    "error"
+                ]
+            }
+        ],
+        "no-underscore-dangle": "off",
+        "default-param-last": "off",
+        "no-unsafe-optional-chaining": "off",
+        "react/require-default-props": "off",
+        "jsx-a11y/media-has-caption": "off",
+        "jsx-a11y/anchor-is-valid": "off",
+        "jsx-a11y/click-events-have-key-events": "off",
+        "jsx-a11y/no-static-element-interactions": "off",
+        "jsx-a11y/label-has-associated-control": "off",
+        "jsx-a11y/no-noninteractive-element-interactions": "off",
+        "react/state-in-constructor": [
+            "error",
+            "always"
+        ],
+        "react/no-access-state-in-setstate": "error",
+        "no-unused-vars": [
+            "error",
+            {
+                "argsIgnorePattern": "^_"
+            }
+        ],
+        "react/no-array-index-key": "error",
+        "react/no-unused-state": "error",
+        "react/no-unused-prop-types": "error",
+        "react/jsx-no-bind": [
+            "error",
+            {
+                "allowArrowFunctions": true,
+                "allowFunctions": false,
+                "allowBind": false
+            }
+        ],
+        "react/no-did-update-set-state": "error",
+        "react/no-will-update-set-state": "error",
+        "react/no-redundant-should-component-update": "error",
+        "react/no-typos": "error",
+        "react/no-unsafe": "error",
+        "react/jsx-pascal-case": "error",
+        "react/jsx-no-script-url": "error",
+        "react/jsx-key": [
+            "error",
+            {
+                "checkFragmentShorthand": true
+            }
+        ],
+        "react/no-direct-mutation-state": "error",
+        "react/forbid-foreign-prop-types": "error",
+        "react/jsx-no-useless-fragment": "error",
+        "react/jsx-curly-brace-presence": [
+            "error",
+            {
+                "props": "never",
+                "children": "never"
+            }
+        ]
+    }
+}
