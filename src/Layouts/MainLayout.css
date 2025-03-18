@@ -10,15 +10,22 @@
   overflow-y: auto;
   height: 100vh;
   width: 100%;
+  display: flex;
+  flex-direction: column;
   /* padding-left: 3rem; */
 }
 
-.main-layout-container {
+/* .main-layout-container {
   display: flex;
   flex-direction: column;
   height: 100vh
+} */
+.breadcrumb-container{
+  width: 100%;
+  background-color: var(--background-color);
+  padding: 12px 20px;
+  z-index: 1000;
 }
-
 
 @media (max-width:785px) {
   .content1 {

@@ -1,6 +1,7 @@
-.container1 {
+.series-container {
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
+    flex-direction: column;
     align-items: center;
     background-color: var(--background-color);
     min-height: 100vh;
@@ -159,3 +160,21 @@ input[type="file"]::file-selector-button:hover {
     margin-bottom: 20px;
     width: 50%;
 }
+.series-breadcrumb-container {
+    position: sticky;
+    top: 0;
+    width: 80vw;
+    max-width: 1200px;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: #2c2f36;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    z-index: 1000;
+  }
+  @media (max-width:350px){
+    .series-breadcrumb-container{
+      padding: 6px 14px;
+    }
+  }

@@ -7,6 +7,7 @@ import { addEpisode, searchSeries } from "../../../services/apis/adminService";
 import { toast } from "react-toastify";
 import { Episode, Season } from "../../../interfaces/admin.interface";
 import Loader from "../../../components/shimmerUI/Loader";
+import Breadcrumb from "../../../components/Breadcrumb/Breadcrumb";
 const AddEpisode: React.FC = () => {
   const todayDate=new Date().toISOString().split("T")[0];
   const [seasons, setSeasons] = useState<Season[]>([]);

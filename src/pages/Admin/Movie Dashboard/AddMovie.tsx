@@ -7,6 +7,7 @@ import { addMovie, searchCastByName, searchDirectorByName } from "../../../servi
 import { toast } from "react-toastify";
 import { AddMovies } from "../../../interfaces/admin.interface";
 import  Loader  from "../../../components/shimmerUI/Loader";
+import Breadcrumb from "../../../components/Breadcrumb/Breadcrumb";
 
 const genreOptions = [
   { value: "28", label: "Action" },
@@ -178,6 +179,9 @@ const AddMovie: React.FC = () => {
   return (
     <div className="container1">
       {loading && (<Loader/>)}
+      {/* <div className="movie-breadcrumb-container">
+      <Breadcrumb />
+    </div> */}
       <div className="add-movie-container">
         <h2 className="admin-h2">Add Movie</h2>
         <div className="fields-container">
