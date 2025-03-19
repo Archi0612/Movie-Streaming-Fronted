@@ -38,10 +38,12 @@ const DetailsPage: React.FC = () => {
 
  const fetchMediaByID = async () => {
     try {
+      debugger
       setLoading(true);
       if (contentType === "Movie") {
         const response = await getMovieById(mediaId as string);
         setMediaData(response.movie as Movie);
+        console.log(response.movie, "Movie response");
       } else {
         const response = await fetchSeriesByID(mediaId as string);
         setMediaData(response.seriesInfo as Movie);
@@ -355,11 +357,29 @@ const DetailsPage: React.FC = () => {
               <div className="cast-section">
                 <h3 className="medieaData-subtitle">Casts</h3>
                 <div className="cast-list">
-                  {mediaData?.casts
+                { 
+                mediaData?.cast && mediaData.cast.length > 0 ? (
+                  
+      mediaData.cast.map((c, index) => (
+        <div key={index} className="cast-member">
+          <img
+            src={c.profilePicture || "/public/default.png"} // Use default if no profilePicture
+            alt={c.name}
+            className="cast-image"
+          />
+          <div className="cast-info">
+            <h4 className="media-name">{c.name}</h4>
+          </div>
+        </div>
+      ))
+    ) : (
+      <p>No cast information available.</p>
+    )}
+                  {/* {mediaData?.casts 
                     ? mediaData.casts.map((cast, index) => (
                         <div key={index} className="cast-member">
                           <img
-                            src="/public/default.png"
+                            src={cast.profilePicture}
                             alt={cast.name}
                             className="cast-image"
                           />
@@ -381,7 +401,7 @@ const DetailsPage: React.FC = () => {
                           </div>
                         </div>
                       ))
-                    : null}
+                    : null} */}
                 </div>
               </div>
             </section>

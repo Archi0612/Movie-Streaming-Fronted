@@ -36,6 +36,7 @@ import Home from "../pages/Home";
 import AddEpisode from "../pages/Admin/Series Dashbord/AddEpisode";
 import PaymentCancel from "../pages/Stripe-Payment/paymentCancel/PaymentCancel";
 import { PaymentSuccess } from "../pages/Stripe-Payment/paymentSuccess/paymentSuccess";
+import AddCast from "../pages/Admin/Cast/AddCast";
 
 
 // Protected Route component that checks if user is authenticated
@@ -133,6 +134,7 @@ const AppRoute: React.FC = () => {
             <Route path="/add-series" element={<AddSeries />} />
             <Route path="/add-episode" element={<AddEpisode />} />
             <Route path="/user-dashboard" element={<UserDashboard />} />
+            <Route path="/add-cast" element={<AddCast/>}/>
           </Route >
         </Route >
 
