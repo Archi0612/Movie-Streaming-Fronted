@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./PaymentSuccess.css";
 
-export const PaymentSuccess = () => {
+export const PaymentSuccess:React.FC = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {

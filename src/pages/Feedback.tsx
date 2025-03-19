@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "./Feedback.css";
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
-import { ratingToReview } from "../utils/constants";
+import { ratingToReview } from "../utils/MediaConstants";
 
 const Feedback: React.FC = () => {
   const [feedback, setFeedback] = useState({
-    rating: 0,
+    rating: 1,
     review: "Needs Improvement",
     comment: "",
   });

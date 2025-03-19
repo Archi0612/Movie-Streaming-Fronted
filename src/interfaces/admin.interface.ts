@@ -10,6 +10,7 @@ export interface Movie {
     cast: {_id:string;name:string}[];
     director: {_id:string;name:string}[];
     action?: string;
+    
   }
 export interface Series {
     id: string;

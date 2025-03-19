@@ -86,6 +86,7 @@ const SeriesPage: React.FC = () => {
     <div className="series-section">
       <div className="series-slider-container">
         <Swiper
+          
           className="main-series-slider"
           spaceBetween={10}
           freeMode={true}

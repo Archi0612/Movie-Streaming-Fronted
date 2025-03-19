@@ -7,6 +7,7 @@ import {toast} from "react-toastify"
 import { addSeries, searchCastByName,searchDirectorByName } from "../../../services/apis/adminService";
 import { Addseries } from "../../../interfaces/admin.interface";
 import Loader from "../../../components/shimmerUI/Loader";
+
 const genreOptions = [
   { value: "28", label: "Action" },
   { value: "18", label: "Drama" },
@@ -158,7 +159,7 @@ const AddSeries: React.FC = () => {
     }
   }
   return (
-    <div className="container1">
+    <div className="series-container">
       {loading && (<Loader/>)}
       <div className="add-series-container">
       <h2 className="admin-h2">Add Series</h2>

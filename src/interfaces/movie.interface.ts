@@ -1,6 +1,7 @@
 // src/interfaces/movie.interface.ts
 // USER INTERFACES
 import { IconType } from "react-icons/lib";
+import { Series } from "./admin.interface";
 export interface User {
   id: string;
   name: string;
@@ -19,11 +20,14 @@ export interface MediaCardProps {
     title: string;
     poster: string;
     description: string;
+    duration: number;
     releaseDate: string;
     rating: number;
     languages: string[];
     genres: number[];
     contentType: string;
+    trailerUrl?: string;
+    movieUrl?:string;
   };
 }
 
@@ -35,23 +39,26 @@ export interface MoviesData {
 }
 
 export interface DefaultData {
-  popularMovies: CategoryData;
-  popularSeries: CategoryData;
   topRatedMovie: CategoryData;
   topRatedSeries: CategoryData;
+  popularMovies: CategoryData;
+  popularSeries: CategoryData;
 }
 
 export interface CategoryData {
   title: string;
   data: MoviesList[];
 }
-
+export interface MediaList {
+  moviesList: Movie[];
+  seriesList: Series[];
+}
 export interface MoviesList {
   moviesList: Movie[];
 }
 
 export interface SeriesList {
-  seriesList: Movie[];
+  moviesList: Series[];
 }
 
 // Generic Props for Both Movies & Series
@@ -65,6 +72,7 @@ export interface MediaGridProps {
     rating: number;
     languages: string[];
     genres: number[];
+    duration: number;
     contentType: string;
   }[];
   title: string;
@@ -143,13 +151,9 @@ export interface Movie {
   cast: ObjectData[];
   likes?: boolean;
   trailerUrl: string;
-  duration?: number;
+  duration: number;
   contentType: string;
-  // director?: Movie[];
-  // cast?: Movie[];
-  // likes?: boolean;
-  // duration?: number;
-  // trailerUrl: string;
+  movieUrl?:string;
 }
 export interface TrendingMoviesProps {
   movies: Movie;
@@ -182,19 +186,6 @@ export interface MovieResponse {
   total_results: number;
 }
 
-export interface VideoResult {
-  id: string;
-  key: string;
-  name: string;
-  site: string;
-  size: number;
-  type: string;
-}
-
-export interface VideoResponse {
-  id: number;
-  results: VideoResult[];
-}
 export interface Profile {
   name: string;
   gender: string;

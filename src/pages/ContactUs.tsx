@@ -49,7 +49,7 @@ const ContactUs: React.FC = () => {
                             <div className="contact-info-content">
                                 <h2>Get in touch</h2>
                                 <p className='contact-info-text'>
-                                    Have questions or need assistance? We're here to help! Reach out to us and our team will respond as quickly as possible. Your feedback is important to us!
+                                    Have questions or need assistance? We are here to help! Reach out to us and our team will respond as quickly as possible. Your feedback is important to us!
                                 </p>
                                 <p><strong>Email:</strong> support@example.com</p>
                                 <p><strong>Phone:</strong> +1 (234) 567-890</p>

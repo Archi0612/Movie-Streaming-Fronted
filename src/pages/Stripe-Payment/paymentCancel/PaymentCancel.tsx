@@ -1,10 +1,11 @@
+import React from "react";
 import "./PaymentCancel.css";
 
-const PaymentCancel = () => {
+const PaymentCancel:React.FC = () => {
     return (
         <div className="cancel-container">
             <div className="cancel-box">
-                <img src="/cancel.svg" alt="Canceled" className="cancel-icon" />
+                {/* <img src="/cancel.svg" alt="Canceled" className="cancel-icon" /> */}
                 <h1 className="payment heading">Payment Canceled ❌</h1>
                 <p className="para">It looks like you canceled your subscription.</p>
 
