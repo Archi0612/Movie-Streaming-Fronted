@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { Loader } from "lucide-react";
 import VideoPlayer from "../../components/videoPlayer/videoPlayer";
 
-
 const WatchVideo:React.FC = () => {
   const mediaId = useParams();
   const [movieUrl, setMovieUrl] = useState<null>(null);
