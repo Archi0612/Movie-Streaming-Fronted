@@ -2,7 +2,8 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { User, UserState, AuthResponse } from "../../../interfaces/movie.interface";
 import { api } from "../../../services/api";
-import { deleteCookie, getCookie } from "../../../utils/constants";
+import { deleteCookie, getCookie } from "../../../utils/MediaConstants";
+import { persistor } from "../../store";
 
 const storedToken = getCookie('token');
 const user = localStorage.getItem("currentUser");
@@ -17,7 +18,7 @@ const initialState: UserState = {
     error: undefined,
     detailsLoading: false,
     detailsError: undefined,
-    userDetails: undefined
+    userDetails: undefined,
 };
 
 export const registerUser = createAsyncThunk<
@@ -73,8 +74,9 @@ export const logoutUser = createAsyncThunk("user/logout", async () => {
         const response = await api.post<AuthResponse>('/auth/logout');
         if (response.status === 200) {
             console.log("got status 200");
-            // localStorage.removeItem("currentUser");
-            // deleteCookie('token');
+            localStorage.removeItem("currentUser");
+            deleteCookie('token');
+            persistor.purge();
         }
         return null;
     } catch (error: unknown) {

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FaHome,
   FaFilm,
@@ -10,7 +10,7 @@ import {
 import { BiCategory } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
 import { MdDashboard, MdMovie, MdTv } from "react-icons/md";
-import logo from "../assets/logo.png";
+import logo from "../assets/img/Home/logo.png";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./Sidebar.css";
 import { SidebarProps } from "../interfaces/movie.interface";

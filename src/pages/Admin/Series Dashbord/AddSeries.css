@@ -1,0 +1,180 @@
+.series-container {
+    display: flex;
+    /* justify-content: center; */
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--background-color);
+    min-height: 100vh;
+    height: auto;
+    width: 100vw;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.add-series-container {
+    width: 80vw;
+    max-width: 1200px;
+    padding: 20px;
+    color: #ffffff;
+    border-radius: 10px;
+    background-color: rgba(26, 26, 45, 0.9);
+    box-shadow: 0px 2px 5px var(--hover-shadow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.fields-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    width: 100%;
+}
+
+.fields1, .fields2 {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    font-weight: bold;
+}
+
+.add-series-input{
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: rgba(93, 94, 95, 0.3);
+    color: white;
+}
+.text-desc1{
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: rgba(93, 94, 95, 0.3);
+    color: white;
+    resize: none;
+    height:110px !important;
+  }
+input[type="file"]::file-selector-button {
+    border: 2px solid #4da4df;
+    padding: .3em .6em;
+    border-radius: .3em;
+    background-color: #6da3d6;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+input[type="file"]::file-selector-button:hover {
+    background-color: #51afdb;
+    border: 2px solid #4da4df;
+}
+
+.buttons-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.save-btn-series {
+    background: #0073e6;
+    color: white;
+}
+.save-btn-series:disabled{
+    background: #88add1;
+    cursor: not-allowed;
+}
+.save-btn-series:disabled:hover{
+    background-color: #88add1;
+    cursor: not-allowed;
+}
+.save-btn-series:hover {
+    background: #0059b3;
+}
+
+
+.close-btn-series,.save-btn-series {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+    
+} 
+.close-btn-series{
+    background: grey;
+    color: white;
+}
+.close-btn-series:hover {
+    background: #666;
+  }
+::-webkit-calendar-picker-indicator  {
+    filter: invert(1);
+  }
+  .episode-number{
+    margin-bottom: 11px;
+  }
+  .episode-label{
+    margin-top: 3px;
+  }
+@media (max-width: 768px) {
+    .fields-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .buttons-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+@media (max-width:480px){
+    
+    .season-add-btn{
+        left: 10%;
+        padding: 2px 5px;
+        
+    }
+    .season-heading-container{
+        left: 20%;
+        margin-top: 5px;
+    }
+    .season-header{
+        position: relative;
+        font-size: 16px;
+        right: 16%;
+    }
+}
+.season-heading-container{
+    position: relative;
+    left: 23%;
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 50%;
+}
+.series-breadcrumb-container {
+    position: sticky;
+    top: 0;
+    width: 80vw;
+    max-width: 1200px;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: #2c2f36;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    z-index: 1000;
+  }
+  @media (max-width:350px){
+    .series-breadcrumb-container{
+      padding: 6px 14px;
+    }
+  }

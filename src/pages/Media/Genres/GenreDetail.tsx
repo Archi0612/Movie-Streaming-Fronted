@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import * as React from "react";
 import { useParams } from "react-router-dom";
 import { getMoviesByGenre } from "../../../services/apis/movieService";
-import { genreMap } from "../../../utils/constants";
+import { genreMap } from "../../../utils/MediaConstants";
 import "./GenreDetail.css";
 import MoviesGrid from "../../../components/MoviesGrid";
 import { fetchSeriesByGenre } from "../../../services/apis/seriesService";

@@ -4,7 +4,7 @@ import { fetchSeriesByID } from "../../services/apis/seriesService";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { getMovieById } from "../../services/apis/movieService";
 import { Movie } from "../../interfaces/movie.interface";
-import { genreMap } from "../../utils/constants";
+import { genreMap } from "../../utils/MediaConstants";
 import {
   FaBookmark,
   FaPlay,
@@ -21,6 +21,7 @@ import { AppDispatch } from "../../redux/store";
 import { toggleWatchList } from "../../redux/slices/WatchList/WatchList";
 import { toggleLike } from "../../redux/slices/LikedList/LikedList";
 import { toast } from "react-toastify";
+import Loader from "../../components/shimmerUI/Loader";
 
 const DetailsPage: React.FC = () => {
   const { mediaId } = useParams();
@@ -33,9 +34,11 @@ const DetailsPage: React.FC = () => {
   const [selectedSeason, setSelectedSeason] = useState<number | null>(null);
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [isBookMarked, setBookMarked] = useState<boolean>(false);
+  const [loading, setLoading]=useState(false);
 
-  const fetchMediaByID = async () => {
+ const fetchMediaByID = async () => {
     try {
+      setLoading(true);
       if (contentType === "Movie") {
         const response = await getMovieById(mediaId as string);
         setMediaData(response.movie as Movie);
@@ -49,14 +52,16 @@ const DetailsPage: React.FC = () => {
       if (err instanceof Error) {
         throw new Error(err.message);
       }
+    }finally{
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchMediaByID();
-  }, [mediaId]);
+  }, [mediaId, contentType]);
 
-  // 🎭 Genre Mapping
+  //Genre Mapping
 
   const genreNames = mediaData?.genres
     .map((id) => genreMap[id] || "Unknown")
@@ -105,38 +110,42 @@ const DetailsPage: React.FC = () => {
       }
     } catch (error: unknown) {
       if (error instanceof Error)
-        toast.error("Failed to add. Try again!", { position: "top-right" });
+        toast.error(error.message, { position: "top-right" });
     }
   };
   const handlePlayVideo = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation(); // Stop event from reaching the parent div
-    // console.log("video player clicked from movie card");
+    e.stopPropagation(); 
     navigate(`/videoPlayer`);
   };
-  const handlePlayEpisode = (episodeUrl:string) => {
+  const handlePlayEpisode = (episodeUrl: string) => {
     // e.stopPropagation();
-    console.log("episode player clicked from movie card");
-    console.log("episodeUrl", episodeUrl);
-    // navigate(`/videoPlayer/${episodeUrl}`);
+    // console.log("episode player clicked from movie card");
+    // console.log("episodeUrl", episodeUrl);
     navigate(`/watch`, { state: { episodeUrl } });
-  }
+  };
 
   const handleDurationTime = () => {
-    const totalSeconds = mediaData?.duration || 0 ;
+    const totalSeconds = mediaData?.duration || 0;
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);
-    if (hours == 0 || minutes == 0) return;
-    return hours > 0 ? `${hours}h ${minutes}m` : `${minutes}m`;
+    if (hours > 0 && minutes > 0) return `${hours}h ${minutes}m`;
+    if (hours > 0) return `${hours}h`;
+    if (minutes > 0) return `${minutes}m`;
+    return "Unknown";
+  };
+  if(loading){
+    return <Loader/>
   }
   return (
+  
     <div className="details-container">
       <div className="header-container">
-        <div className="video-overlay">
+        <div className="video-overlay" >
           {mediaData?.trailerUrl && (
             <ReactPlayer
               url={mediaData.trailerUrl}
               width="100%"
-              height="25rem"
+              height="40rem"
               controls
               playing
               muted={true}
@@ -164,7 +173,6 @@ const DetailsPage: React.FC = () => {
                     ? "action-button unlike-button"
                     : "action-button like-button"
                 }
-                // onClick={() => {dispatch(toggleLike({ contentId: mediaId || "", contentType: contentType || ""}))}
                 onClick={handleLike}
               >
                 {isLiked ? (
@@ -193,11 +201,7 @@ const DetailsPage: React.FC = () => {
           </div>
 
           <div className="movie-meta">
-            <span className="runtime">
-              {
-                handleDurationTime()
-              }
-            </span>
+            <span className="runtime">{handleDurationTime()}</span>
             <span className="divider">•</span>
             <span className="genres">{genreNames}</span>
             <span className="divider">•</span>
@@ -242,8 +246,8 @@ const DetailsPage: React.FC = () => {
             {seriesData && (
               <div className="season-selector">
                 <label htmlFor="season">Select Season: </label>
-                <select id="season" onChange={handleSeasonChange}>
-                  <option value="No Seasons">Select</option>
+                <select id="season" key={seriesData.length} onChange={handleSeasonChange}>
+                  <option value="No Seasons" key={seriesData.length}>Select</option>
                   {seriesData.map((season) => (
                     <option
                       key={season._id}
@@ -274,8 +278,7 @@ const DetailsPage: React.FC = () => {
                                 Episode {episode.episodeNumber}: {episode.title}
                               </h4>
                               <span className="episode-duration">
-                                {/* {Math.floor(episode.duration / 60)} min */}
-                                {handleDurationTime()}
+                                {Math.floor(episode.duration / 60)} min
                               </span>
                             </div>
 
@@ -295,10 +298,14 @@ const DetailsPage: React.FC = () => {
                                   {episode.description}
                                 </p>
                                 <div className="episode-buttons">
-                                  <button className="episode-button play" onClick={()=>handlePlayEpisode(episode.episodeUrl)}>
+                                  <button
+                                    className="episode-button play"
+                                    onClick={() =>
+                                      handlePlayEpisode(episode.episodeUrl)
+                                    }
+                                  >
                                     <Play />
                                   </button>
-                                  
                                 </div>
                               </div>
                             </div>
@@ -387,9 +394,9 @@ const DetailsPage: React.FC = () => {
 
               <div className="featured-review">
                 <p className="review-text">
-                  "I don't know why I could this movie so much. Maybe it was the
+                  I do not know why I could this movie so much. Maybe it was the
                   plot, maybe it was the special effects. Whatever the reason,
-                  it was phenomenal and I love it to this day."
+                  it was phenomenal and I love it to this day.
                 </p>
                 <div className="reviewer-info">
                   <span className="reviewer-name">John</span>
@@ -403,7 +410,10 @@ const DetailsPage: React.FC = () => {
         </div>
       </div>
     </div>
+
+    
   );
+
 };
 
 export default DetailsPage;

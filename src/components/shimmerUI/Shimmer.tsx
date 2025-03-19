@@ -1,7 +1,7 @@
 import React from "react";
 import "./Shimmer.css";
 
-const ShimmerUI: React.FC = () => {
+const Shimmer: React.FC = () => {
   return (
     <div className="shimmer-wrapper">
       {/* Shimmer for Trending Movies (Swiper) */}
@@ -27,4 +27,4 @@ const ShimmerUI: React.FC = () => {
   );
 };
 
-export default ShimmerUI;
+export default Shimmer;
