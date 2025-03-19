@@ -1,19 +1,44 @@
 // src/interfaces/movie.interface.ts
 // USER INTERFACES
-import { IconType } from "react-icons/lib";
 import { Series } from "./admin.interface";
-export interface User {
-  id: string;
+// this interface is for the whole user profile including userRole
+export interface UserDetails {
+  id: string | number;
   name: string;
   email: string;
-  contactNo?: string;
   password?: string;
-  gender?: string
-  // token?: string;
-  otp?: number;
+  profilePicture?: string;
+  contactNo: string;
+  dateOfBirth: string;
+  gender?: string;
   role: string;
+  otp?: number;
+   user: UserProfile;
+}
+export interface UserProfile {
+  _id: string;
+  email: string;
+  name: string;
+  contactNo?: string;
+  profilePicture?: string;
+  dateOfBirth?: string;
+  gender?: string;
+  subscriptionPlan?: string;
+  role: string;
+  isActive: boolean;
 }
 
+// Define State Interface
+export interface UserState {
+  currentUser: UserDetails | null;
+  isAuthenticated: boolean;
+  loading: boolean;
+  success: boolean;
+  error?: string;
+  // detailsLoading?: boolean;
+  // detailsError?: string;
+  // userDetails?: UserDetails;
+}
 export interface MediaCardProps {
   media: {
     _id: string;
@@ -78,28 +103,8 @@ export interface MediaGridProps {
   title: string;
 }
 
-// Define State Interface
-export interface UserState {
-  currentUser: User | null;
-  isAuthenticated: boolean;
-  loading: boolean;
-  success: boolean;
-  error?: string;
-  detailsLoading?: boolean;
-  detailsError?: string;
-  userDetails?: UserDetails;
-}
-
-// export interface UserResponse{
-//   id: string;
-//   name: string;
-//   email: string;
-//   contactNo:string
-//   role: string;
-// }
-
 export interface UserData {
-  userData: User;
+  userData: UserDetails;
 }
 
 // Define API Response Types
@@ -108,33 +113,9 @@ export interface AuthResponse {
   message?: string | string[];
 }
 
-// this interface is for the whole user profile
-export interface UserDetails {
-  id: string | number;
-  name: string;
-  email: string;
-  profilePicture?: string;
-  contactNo: string;
-  dateOfBirth: string;
-  gender: string;
-  role: string;
-  // add info about watchlist and subscription and like content
-}
 
-export interface SidebarProps {
-  userRole: string; // Optional prop to determine if user is admin
-}
 
-export interface MenuItem {
-  name: string;
-  icon: IconType;
-  path: string;
-  isAdminMenu: boolean; // Make it optional
-}
-export interface ObjectData {
-  id: string;
-  name: string;
-}
+// Movie Interface with all movie data
 export interface Movie {
   _id: string;
   title: string;
@@ -154,6 +135,21 @@ export interface Movie {
   duration: number;
   contentType: string;
   movieUrl?:string;
+}
+
+//  Object Data of Casta and Directors
+export interface ObjectData {
+  id: string;
+  name: string;
+  profilePicture: string;
+}
+export interface Cast{
+  cast:{
+    _id: string;
+    name: string;
+    profilePicture: string; 
+  }
+
 }
 export interface TrendingMoviesProps {
   movies: Movie;
@@ -194,7 +190,8 @@ export interface Profile {
   email: string;
 }
 
-// changed the name from FormData to userFormData
+// changed the name from FormData to userFormData 
+//For signup
 export interface UserFormData {
   email: string;
   name: string;
@@ -226,37 +223,12 @@ export interface LoginDetails {
   password: string;
 }
 
-// // Define API Response Types
-// export interface AuthResponse {
-//   token: string;
-//   data: data;
-//   message?: string | string[];
-// }
-
-
-// this is to fetch profile info for profile page 
-
-export interface UserProfile {
-  _id: string;
-  email: string;
-  name: string;
-  contactNo?: string;
-  profilePicture?: string;
-  dateOfBirth?: string;
-  gender?: string;
-  subscriptionPlan?: string;
-  role: string;
-  isActive: boolean;
-}
 
 // Define Type for API Response
 export interface ProfileApiResponse {
-  data: User
+  data: UserDetails
 }
 
-export interface User {
-  user: UserProfile;
-}
 
 // Define Type for State
 export interface ProfileState {
@@ -283,6 +255,18 @@ export interface WatchListData {
   _id: string;
   watchlist: WatchListItem[];
 }
+// format of watchlist
+
+// data:{
+//   watchlist:{
+//   _id:123,
+//   watchlist:{
+//     contenrtId:1234,
+//     contentType:MovieCard,
+//     _id321
+//   }
+//   }
+// }
 
 export interface WatchListApiResponse {
   data: {

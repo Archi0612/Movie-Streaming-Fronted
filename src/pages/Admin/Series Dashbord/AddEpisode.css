@@ -7,12 +7,12 @@
     width: 100vw;
     padding-top: 50px; /* Adjust space from the top */
     overflow-y: auto;
-    flex-direction: column;
+    /* flex-direction: column; */
 }
 
 
 .add-episode-container {
-    width: 80vw;
+    width: 45vw;
     max-width: 1200px;
     padding: 20px;
     color: #ffffff;
@@ -24,7 +24,6 @@
     align-items: center;
     justify-content: center;
 }
-
 label {
     font-weight: bold;
 }
@@ -175,7 +174,6 @@ input[type="file"]::file-selector-button:hover {
 }
 
 .series-selection-2{
-    width: 70%;
     display: flex;
     flex-direction: column;
     /* margin-top: 19px; */
@@ -248,7 +246,7 @@ input[type="file"]::file-selector-button:hover {
 }
 .custom-control{
     background-color: rgba(93, 94, 95, 0.3) !important;
-    width: 70%;
+    width: 100%;
     border: none;
     color: white
 }
