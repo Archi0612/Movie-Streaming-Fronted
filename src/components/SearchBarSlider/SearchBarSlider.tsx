@@ -5,10 +5,6 @@ import MovieCard from "../Cards/MovieCard";
 
 const MovieCardSlider: React.FC<MediaGridProps> = ({ mediaList, title }) => {
     const sliderRef = useRef<HTMLDivElement>(null);
-
-    console.log(mediaList, "mediaList");
-    console.log(title, "title"); 
-
     return (
         <div className="searchbarslidermain_container">
             <h2 className="searchbarslidermain_title">{title}</h2>

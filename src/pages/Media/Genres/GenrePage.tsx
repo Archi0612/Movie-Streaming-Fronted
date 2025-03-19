@@ -2,7 +2,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./GenrePage.css";
-import { genreImages } from "../../../utils/constants";
+import { genreImages } from "../../../utils/MediaConstants";
 import GenreCard from "../../../components/Cards/GenreCard";
 const genreMap: { [key: string]: number } = {
   "Rom.": 10749,

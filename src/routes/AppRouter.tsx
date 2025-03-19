@@ -15,28 +15,27 @@ import Signup from "../pages/Authentication/Signup/Signup";
 import ForgotPassword from "../pages/Authentication/Forgot-Password/ForgotPassword";
 import ResetPassword from "../pages/Authentication/Reset-Password/ResetPassword";
 import ProfilePage from "../pages/profilePage";
-import AdminDashboard from "../pages/Admin/AdminDashboard";
+import AdminDashboard from "../pages/Admin/Movie Dashboard/AdminDashboard";
 import HeaderLayout from "../Layouts/HeaderLayout";
 import MainLayout from "../Layouts/MainLayout";
 import ContactUs from "../pages/ContactUs";
 import Feedback from "../pages/Feedback";
-import AddMovie from "../pages/Admin/AddMovie";
-import AdminDashboardSeries from "../pages/Admin/AdminDashboardSeries";
-import UserDashboard from "../pages/Admin/UserDashboard";
-import AddSeries from "../pages/Admin/AddSeries";
-import PaymentCancel from "../pages/Stripe-Payment/PaymentCancel/PaymentCancel";
+import AddMovie from "../pages/Admin/Movie Dashboard/AddMovie";
+import AdminDashboardSeries from "../pages/Admin/Series Dashbord/AdminDashboardSeries";
+import UserDashboard from "../pages/Admin/User Dashboard/UserDashboard";
+import AddSeries from "../pages/Admin/Series Dashbord/AddSeries";
 import { Bounce, ToastContainer } from "react-toastify";
 import GenrePage from "../pages/Media/Genres/GenrePage";
 import Search from "../pages/Search";
-import AddEpisode from "../pages/Admin/AddEpisode";
 import GenreDetail from "../pages/Media/Genres/GenreDetail";
 import DetailsPage from "../pages/Media/DetailsPage";
 import SeriesPage from "../pages/Media/Series/SeriesPage";
-// import VideoPlayer from "../components/videoPlayer/VideoPlayer";
 import WatchVideo from "../pages/Media/WatchVideo";
 import MoviesPage from "../pages/Media/Movies/MoviesPage";
 import Home from "../pages/Home";
-import { PaymentSuccess } from "../pages/Stripe-Payment/PaymentSuccess/paymentSuccess";
+import AddEpisode from "../pages/Admin/Series Dashbord/AddEpisode";
+import PaymentCancel from "../pages/Stripe-Payment/paymentCancel/PaymentCancel";
+import { PaymentSuccess } from "../pages/Stripe-Payment/paymentSuccess/paymentSuccess";
 
 
 // Protected Route component that checks if user is authenticated
@@ -114,11 +113,11 @@ const AppRoute: React.FC = () => {
             <Route path="/contact-us" element={<ContactUs />} />
             <Route path="/profile-page" element={<ProfilePage />} />
             <Route path="/payment-success" element={<PaymentSuccess />} />
-            <Route path="/payment-cancel" element={<PaymentCancel />} />
+            <Route path="/payment-cancel" element={<PaymentCancel/>} />
             {/* <Route path="/videoPlayer" element={<VideoPlayer control={true} url="
             https://res.cloudinary.com/do8yh6vwo/video/upload/v1741844217/salar_trailer_nx9yt7.mp4
             "/>} /> */}
-            <Route path="/watch" element={<WatchVideo/>} />
+            <Route path="/watch/:mediaId" element={<WatchVideo/>} />
             <Route path="/details/:mediaId" element={<DetailsPage />}/>
       
           </Route>

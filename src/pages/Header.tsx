@@ -14,7 +14,7 @@ const Header: React.FC<HeaderProps> = ({ showFullHeader, showOnlyLogo }) => {
   return (
     <header className="header">
       <img
-        src="src/assets/filmsterLogo.png"
+        src="src/assets/img/Home/filmsterLogo.png"
         alt="Filmster Logo"
         className="logo"
         onClick={handleLogoClick}

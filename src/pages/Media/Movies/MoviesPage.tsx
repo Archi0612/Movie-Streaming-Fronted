@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
+import { Navigation,Pagination   } from "swiper/modules";
 import MoviesGrid from "../../../components/MoviesGrid";
 
-import { getLatestMovies, getMoviesByGenre, getPopularMovies, getTopRatedMovies } from "../../../services/apis/movieService";
+import { getHomeTrending, getLatestMovies, getMoviesByGenre, getPopularMovies, getTopRatedMovies } from "../../../services/apis/movieService";
 import { Movie } from "../../../interfaces/movie.interface";
 import "./MoviesPage.css";
 import Shimmer from "../../../components/shimmerUI/Shimmer";
@@ -15,61 +15,93 @@ const MoviesPage: React.FC = () => {
   const [topRatedMovies, setTopRatedMovies] = useState<Movie[]>([]);
   const [actionMovies, setActionMovies] = useState<Movie[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+    const [trendingMovies, setTrendingMovies] = useState<Movie[]>([]);
+      const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     const fetchMovies = async () => {
       try {
         setIsLoading(true);
-
-        const popular = await getPopularMovies();
+  
+        const [popular, latest, topRated, action,trending] = await Promise.all([
+          getPopularMovies(),
+          getLatestMovies(),
+          getTopRatedMovies(),
+          getMoviesByGenre(28),
+          getHomeTrending(),
+        ]);
+      
+  
         setPopularMovies(popular?.moviesList || []);
-
-        const latest = await getLatestMovies();
         setLatestMovies(latest?.moviesList || []);
-
-        const topRated = await getTopRatedMovies();
         setTopRatedMovies(topRated?.moviesList || []);
-
-        const action = await getMoviesByGenre(28);
         setActionMovies(action?.moviesList || []);
+
+        const trendingData = trending?.data?.heroContent || [];
+        const filteredTrending = trendingData.filter(
+          (item: Movie) => item.contentType === "Movie"
+        );
+
+        setTrendingMovies(filteredTrending);
+
       } catch (error) {
         console.error("Error fetching movies:", error);
       } finally {
         setIsLoading(false);
       }
     };
-
+  
     fetchMovies();
   }, []);
-
+  
   const movieSections = [
     { title: "Popular Movies", movies: popularMovies },
     { title: "Latest Movies", movies: latestMovies },
     { title: "Top Rated Movies", movies: topRatedMovies },
   ];
-  // const videoData = [
-  //   {
-  //     id: 1,
-  //     title: "The Falcon and the Winter Soldier",
-  //     url: "https://www.youtube.com/embed/pW_b6jOl1o8?si=BU8mEiGDuf5dbMEo",
-  //   },
-  //   {
-  //     id: 2,
-  //     title: "Loki",
-  //     url: "https://www.youtube.com/embed/dug56u8NN7g?si=8val9smLbvGc3Har",
-  //   },
-  //   {
-  //     id: 3,
-  //     title: "The Mandalorian",
-  //     url: "https://www.youtube.com/embed/Znsa4Deavgg?si=_SSagp7GeRpZIp99",
-  //   },
-  // ];
+
+
   return (
     <>
+
       {isLoading ? (
         <Shimmer />
       ) : (
         <div className="home-container">
+          <div className="moviepage-slider-container">
+          <Swiper
+          className="main-movie-slider"
+          spaceBetween={10}
+          freeMode={true}
+          navigation={true}
+          pagination={{ clickable: true }}
+          loop={false}
+          modules={[Navigation, Pagination]}
+          onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
+        >
+          {trendingMovies.map((movie) => (
+            <SwiperSlide>
+              <div className="movie-video-slider">
+              <video width="100%" height="auto" controls autoPlay muted>
+                  <source src={movie.trailerUrl} type="video/webm" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        {trendingMovies.length > 0 && (
+          <div className="movie-details">
+            <h2 className="movie-title">{trendingMovies[activeIndex]?.title}</h2>
+            <p className="movie-info">
+              {new Date(trendingMovies[activeIndex]?.releaseDate).getFullYear()} |{" "}
+              {trendingMovies[activeIndex]?.languages.join(", ")}
+            </p>
+            <p className="movie-desc">{trendingMovies[activeIndex]?.description}</p>
+            <button className="watch-now">▶ Watch Now</button>
+          </div>
+        )}
+      </div>
           <div className="section-container">
             {movieSections.map(({ title, movies }) => (
               <div key={title}>
@@ -79,7 +111,7 @@ const MoviesPage: React.FC = () => {
                   spaceBetween={4}
                   navigation
                   modules={[Navigation]}
-                  className="movies-swiper"
+                  className="popular-movies-swiper"
                   breakpoints={{
                     1600: { slidesPerView: 6 },
                     1400: { slidesPerView: 6 },
@@ -89,7 +121,7 @@ const MoviesPage: React.FC = () => {
                     640: { slidesPerView: 4 },
                     480: { slidesPerView: 3 },
                     400: { slidesPerView: 3 },
-                    380: { slidesPerView: 3 },
+                    380:{slidesPerView :3},
                     300: { slidesPerView: 2 },
                   }}
                 >
@@ -104,7 +136,7 @@ const MoviesPage: React.FC = () => {
               </div>
             ))}
           </div>
-
+          
 
           {/* Action Movies - Grid */}
           <div className="home-grid-container">
