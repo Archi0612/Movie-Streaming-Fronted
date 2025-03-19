@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import "./Feedback.css";
 import { FaStar } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const Feedback: React.FC = () => {
   const [rating, setRating] = useState(0);
     const [review, setReview] = useState("Needs Improvement");
   const [comment, setComment] = useState("");
+  const navigate = useNavigate();
 
   const reviewOptions: { [key: string]: number } = {
     "Excellent": 10,
@@ -42,8 +44,9 @@ const Feedback: React.FC = () => {
   const handleSkip = () => {
     setRating(0);
     setReview("Needs Improvement");
-  
     setComment("");
+    navigate(-1);
+
   };
 
   return (

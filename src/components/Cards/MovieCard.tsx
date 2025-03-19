@@ -9,7 +9,6 @@ import { MediaCardProps } from "../../interfaces/movie.interface";
 import { AppDispatch } from "../../redux/store";
 import { genreMap } from "../../utils/MediaConstants";
 import { toggleWatchList } from "../../redux/slices/WatchList/WatchList";
-
 const MovieCard: React.FC<MediaCardProps> = ({ media }) => {
   const { _id, title, poster, description, contentType, releaseDate, rating, languages, genres} = media;
   const [isHovered, setIsHovered] = useState(false);
@@ -35,13 +34,19 @@ const MovieCard: React.FC<MediaCardProps> = ({ media }) => {
 
   
   const handleCardClick = () => {
+    if(!_id){
+      navigate("/error")
+    }
     navigate(`/details/${_id}?contentType=${contentType}`)
   }
   const handlePlayVideo = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation(); // Stop event from reaching the parent div
     // navigate(`/videoPlayer`);
+    if(!_id){
+      navigate("/error")
+    }
     if(contentType === "Movie"){
-      navigate(`/watch/${_id}?contentType=${contentType}`)
+        navigate(`/watch/${_id}?contentType=${contentType}`);
     }else(
       navigate(`/details/${_id}?contentType=${contentType}`)
     )

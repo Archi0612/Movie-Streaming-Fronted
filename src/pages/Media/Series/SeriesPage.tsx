@@ -99,7 +99,7 @@ const SeriesPage: React.FC = () => {
           modules={[Navigation, Pagination]}
         >
           {videoData.map((video) => (
-            <SwiperSlide>
+            <SwiperSlide key={video.id}>
               <div className="series-video-slider">
                 <iframe
                   width="100%"

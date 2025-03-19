@@ -80,7 +80,7 @@ const MoviesPage: React.FC = () => {
           onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
         >
           {trendingMovies.map((movie) => (
-            <SwiperSlide>
+            <SwiperSlide key={movie._id}>
               <div className="movie-video-slider">
               <video width="100%" height="auto" controls autoPlay muted>
                   <source src={movie.trailerUrl} type="video/webm" />
