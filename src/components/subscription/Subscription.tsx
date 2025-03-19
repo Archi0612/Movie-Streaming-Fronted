@@ -96,7 +96,7 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
 
     return (
         <Elements stripe={stripePromise}>
-            <div className="subscription-selection-overlay">
+            <div className="subscription-selection-overlay" onClick={onClose}>
                 <div className="subscription-selection-container">
                     <h2 style={{ color: "white" }}>Choose Your Subscription</h2>
 

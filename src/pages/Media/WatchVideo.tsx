@@ -7,6 +7,8 @@ import { Loader } from "lucide-react";
 import VideoPlayer from "../../components/videoPlayer/VideoPlayer";
 import Feedback from "../Feedback";
 import { fetchEpisodeById } from "../../services/apis/seriesService";
+import Modal from "react-modal";
+Modal.setAppElement("#root"); 
 const WatchVideo: React.FC = () => {
   const {mediaId} = useParams();
   const [searchParams] = useSearchParams();
@@ -14,7 +16,6 @@ const WatchVideo: React.FC = () => {
   const [mediaUrl, setMediaUrl] = useState<null>(null);
   const [loading, setLoading] = useState(false);
   const [showFeedBack, setShowFeedBack] = useState(false);
-  const modelRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const url =
     mediaUrl ||
@@ -51,13 +52,16 @@ const WatchVideo: React.FC = () => {
   return (
     <div className="watch-video-container">
       <VideoPlayer url={url} control={true} loop={false} setPopUp={setShowFeedBack} />
-      {showFeedBack && (
-        <div className="feedback-modal-overlay" onClick={()=>setShowFeedBack(false)}>
-          <div ref={modelRef} className="feedback-modal-content" onClick={(e) => e.stopPropagation()}>
-            <Feedback />
-          </div>
-        </div>
-      )}
+      <Modal
+        isOpen={showFeedBack}
+        onRequestClose={() => setShowFeedBack(false)}
+        className="feedback-modal"
+        overlayClassName="feedback-overlay"
+        shouldCloseOnOverlayClick={true} 
+      >
+        <Feedback />
+        {/* <button onClick={() => setShowFeedBack(false)} className="feedback-close-modal-btn">Close</button> */}
+      </Modal>
     </div>
   );
 };
