@@ -169,7 +169,7 @@ export const addEpisode=async(formData:any)=>{
     }
   }
 }
-export const searchSeries=async(search:string)=>{
+export const searchSeries=async(search:string="")=>{
     try {
       const response=await api.get(`/series/searchByAdmin?search=${search}`)
       return response;
@@ -209,6 +209,18 @@ export const getSeriesById=async(seriesId:string)=>{
   try {
     const response=await api.get(`/series/get/${seriesId}`)
     return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(error.response?.data?.message || "Something went wrong");
+    } else {
+      throw new Error("An unknown error occurred");
+    }
+  }
+}
+export const addCrew=async(formData:any)=>{
+  try {
+    const response=apiFormData.post("/cast/addOrUpdateCast",formData)
+    return response;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       throw new Error(error.response?.data?.message || "Something went wrong");

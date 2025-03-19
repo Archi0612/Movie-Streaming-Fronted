@@ -134,6 +134,7 @@ export interface MenuItem {
 export interface ObjectData {
   id: string;
   name: string;
+  profilePicture: string;
 }
 export interface Movie {
   _id: string;
@@ -146,7 +147,7 @@ export interface Movie {
   languages: string[];
   genres: number[];
   directors: ObjectData[];
-  casts: ObjectData[];
+  // casts: ObjectData[];
   director: ObjectData[];
   cast: ObjectData[];
   likes?: boolean;
@@ -154,6 +155,14 @@ export interface Movie {
   duration: number;
   contentType: string;
   movieUrl?:string;
+}
+export interface Cast{
+  cast:{
+    _id: string;
+    name: string;
+    profilePicture: string; 
+  }
+
 }
 export interface TrendingMoviesProps {
   movies: Movie;

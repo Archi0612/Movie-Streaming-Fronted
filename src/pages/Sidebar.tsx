@@ -72,6 +72,7 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole = "user" }) => {
       path: "/admin-dashboard-movies",
     },
     { name: "Series Dashboard", icon: MdTv, path: "/admin-dashboard-series" },
+    {name:"Add Cast",icon:FaUsers,path:"/add-cast"}
   ];
 
   // Select the appropriate menu items based on user role
