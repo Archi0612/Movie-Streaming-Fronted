@@ -93,7 +93,7 @@ const AddCast: React.FC = () => {
   return (
     <div className="add-cast-container">
     <div className="add-cast">
-        <div className="header">
+        <div className="add-cast-header">
 
       <h2 className="add-cast-heading">Add Crew</h2>
       <button className="cast-add-btn" onClick={addActor}><MdAdd size={20} /> Add Crew</button>
