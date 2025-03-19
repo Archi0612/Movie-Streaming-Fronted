@@ -1,10 +1,10 @@
 .page-container {
+  padding: 20px 12px;
   background-color: var(--background-color);
-
+  min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: flex-start; 
-  padding-top: 3rem; 
+  align-items: center;
 }
 
 .feedback-container {
@@ -42,6 +42,14 @@
     margin-bottom: 0.5rem;
     display: block;
   }
+  .feedback-star {
+    font-size: 1.75rem;
+
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  
+
   
   .feedback-select, 
   .feedback-textarea {
@@ -68,7 +76,7 @@
    .comment-container {
     margin-bottom: 1rem;
   }
-  .rating-container{
+  .feedback-rating-container{
     display: flex;
     gap: 4px;
     margin-bottom: 6px;

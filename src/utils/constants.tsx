@@ -62,6 +62,20 @@ export const genreImages: { [key: string]: string } = {
   "Thriller": thrillerImage,
 };
 
+
+export const ratingToReview: { [key: number]: string } = {
+  10: "Outstanding",
+  9: "Excellent",
+  8: "Very Good",
+  7: "Great",
+  6: "Above Average",
+  5: "Average",
+  4: "Below Average",
+  3: "Mediocre",
+  2: "Poor",
+  1: "Terrible",
+};
+
 export const getCookie = (name: string) => {
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);

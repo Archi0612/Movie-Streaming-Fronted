@@ -12,6 +12,8 @@ import { Series } from "../../../interfaces/series.interface";
 import "./SeriesPage.css";
 import MoviesGrid from "../../../components/MoviesGrid";
 import MovieCard from "../../../components/Cards/MovieCard";
+import { Movie } from "../../../interfaces/movie.interface";
+import { getHomeTrending } from "../../../services/apis/movieService";
 
 const SeriesPage: React.FC = () => {
   const [series, setSeries] = useState<{
@@ -30,32 +32,19 @@ const SeriesPage: React.FC = () => {
     { key: "topRated", title: "Top Rated Series" },
   ];
   const [genreSeries, setGenreSeries] = useState([]);
+  const [trendingSeries, setTrendingSeries] = useState<Movie[]>([]);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  const videoData = [
-    {
-      id: 1,
-      title: "The Falcon and the Winter Soldier",
-      url: "https://www.youtube.com/embed/pW_b6jOl1o8?si=BU8mEiGDuf5dbMEo",
-    },
-    {
-      id: 2,
-      title: "Loki",
-      url: "https://www.youtube.com/embed/dug56u8NN7g?si=8val9smLbvGc3Har",
-    },
-    {
-      id: 3,
-      title: "The Mandalorian",
-      url: "https://www.youtube.com/embed/Znsa4Deavgg?si=_SSagp7GeRpZIp99",
-    },
-  ];
+
   const fetchSeries = async () => {
     try {
-      const [popularSeries, latestSeries, topRatedSeries, seriesByGenre] =
+      const [popularSeries, latestSeries, topRatedSeries, seriesByGenre, trending] =
         await Promise.all([
           fetchPopularSeriesApi(),
           fetchLatestSeriesApi(),
           fetchTopRatedSeriesApi(),
           fetchSeriesByGenre(28),
+          getHomeTrending(),
         ]);
       setSeries({
         pop: popularSeries?.seriesList || [],
@@ -63,6 +52,14 @@ const SeriesPage: React.FC = () => {
         topRated: topRatedSeries?.seriesList || [],
       });
       setGenreSeries(seriesByGenre?.seriesList || []);
+
+      const trendingData = trending?.data?.heroContent || [];
+      const filteredTrending = trendingData.filter(
+        (item: Movie) => item.contentType === "Series"
+      );
+
+      setTrendingSeries(filteredTrending);
+
     } catch (err: unknown) {
       if (err instanceof Error) {
         throw new Error(err.message);
@@ -94,42 +91,32 @@ const SeriesPage: React.FC = () => {
           freeMode={true}
           navigation={true}
           pagination={{ clickable: true }}
-          loop={true}
+          loop={false}
           modules={[Navigation, Pagination]}
+          onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
         >
-          {videoData.map((video) => (
+          {trendingSeries.map((series) => (
             <SwiperSlide>
-              <div className="series-video-slider">
-                <iframe
-                  width="100%"
-                  height="1000"
-                  src={video.url}
-                  title={video.title}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  referrerPolicy="strict-origin-when-cross-origin"
-                  allowFullScreen
-                ></iframe>
+              <div className="movie-video-slider">
+                <video width="100%" height="auto" controls autoPlay muted>
+                  <source src={series.trailerUrl} type="video/webm" />
+                  Your browser does not support the video tag.
+                </video>
               </div>
             </SwiperSlide>
           ))}
         </Swiper>
-
-        <div className="series-details">
-          {/* {seriesCategories.map(({key, title}) => (
-                <div className="series-title" key={key}>{title}</div>
-                      
-            ))} */}
-
-          <h2 className="series-video-title">
-            The Falcon and the Winter Soldier
-          </h2>
-          <p className="series-info">2025 | U/A 16+ | 1 Season | 7 Languages</p>
-          <p className="series-desc">
-            Roohi’s life turns topsy-turvy after an ‘accident’ during a medical
-            check-up.
-          </p>
-          <button className="watch-now">▶ Watch Now</button>
-        </div>
+        {trendingSeries.length > 0 && (
+          <div className="movie-details">
+            <h2 className="movie-title">{trendingSeries[activeIndex]?.title}</h2>
+            <p className="movie-info">
+              {new Date(trendingSeries[activeIndex]?.releaseDate).getFullYear()} |{" "}
+              {trendingSeries[activeIndex]?.languages.join(", ")}
+            </p>
+            <p className="movie-desc">{trendingSeries[activeIndex]?.description}</p>
+            <button className="watch-now">▶ Watch Now</button>
+          </div>
+        )}
       </div>
 
       <div className="genres-grid">

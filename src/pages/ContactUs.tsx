@@ -20,7 +20,7 @@ const ContactUs: React.FC = () => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        toast.success("Thanks! We'll respond shortly");  
+        toast.success("Thanks! We'll respond shortly");
     };
 
     const [activeQuestion, setActiveQuestion] = useState<number | null>(null);
@@ -100,16 +100,16 @@ const ContactUs: React.FC = () => {
                                     onChange={handleChange}
                                     required
                                     rows={4}
-                
+
                                     className="form-textarea"
 
                                 />
                             </div>
                             <div className="btn-submit">
-    <button type="submit" className="submit-button" disabled={!isFormValid} title={!isFormValid ? "Please fill in all fields" : ""}>
-        Send message
-    </button>
-</div>
+                                <button type="submit" className="submit-button" disabled={!isFormValid} title={!isFormValid ? "Please fill in all fields" : ""}>
+                                    Send message
+                                </button>
+                            </div>
 
                         </form>
                     </div>
