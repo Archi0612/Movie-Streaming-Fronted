@@ -29,8 +29,8 @@ const AddEpisode: React.FC = () => {
     }
     for(const season of seasons){
       for(const episode of season.episodes){
-        if(!episode.title.trim() || !episode.description.trim() || !episode.duration || !episode.episodeNumber || !episode.releaseDate || !episode.episode
-        ){
+        if(!episode.title.trim() || !episode.description.trim() || !episode.duration || !episode.episodeNumber || !episode.releaseDate || !episode.episode || !episode.thumbnail)
+          {
           setIsSaveDisabled(true);
           return
         }
@@ -55,6 +55,7 @@ const AddEpisode: React.FC = () => {
         duration: "",
         episodeNumber: newEpisodeNumber,
         episode: null,
+        thumbnail:null,
         releaseDate: todayDate,
       };
       updatedSeasons[seasonIndex] = {
@@ -102,6 +103,9 @@ const AddEpisode: React.FC = () => {
           formData.append("duration", episode.duration);
           formData.append("episodeNumber", episode.episodeNumber.toString());
           formData.append("releaseDate", episode.releaseDate);
+          if(episode.thumbnail instanceof File){
+            formData.append("thumbnail",episode.thumbnail);
+          }
           if (episode.episode instanceof File) {
             formData.append("episode", episode.episode);
           }
@@ -125,7 +129,8 @@ const AddEpisode: React.FC = () => {
   };
   const fetchSeriesOptions = async (inputValue: string) => {
     try {
-      const response = await searchSeries(inputValue.trim());
+      const trimmedInput = inputValue.trim(); 
+      const response = await searchSeries(trimmedInput || ""); 
       return (
         response?.data?.data?.seriesList.map(
           (series: { _id: string; title: string }) => ({
@@ -134,21 +139,24 @@ const AddEpisode: React.FC = () => {
           })
         ) || []
       );
-    } catch (error:any) {
-      toast.error(error.response?.data?.message);
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || "Error fetching series");
+      return [];
     }
   };
+  
 
   return (
     <div className="add-episode">
       {loading && <Loader />}
       <div className="add-episode-container">
-        <h2 className="season-header">Add Season</h2>
+        <h2 className="season-header">Add Episode</h2>
         <div className="series-selection">
           <div className="series-selection-1">
             <label>Select Series:</label>
             <AsyncSelect
               loadOptions={fetchSeriesOptions}
+              defaultOptions
               onChange={setSelectedSeries}
               placeholder="Select Series..."
               className="series-dropdown"
@@ -183,7 +191,7 @@ const AddEpisode: React.FC = () => {
           </div>
           <div className="series-selection-2">
             <label>Season Number:</label>
-            <div>
+            <div className="season-number-input">
             <input
               type="number"
               className="add-episode-input"
@@ -291,7 +299,8 @@ const AddEpisode: React.FC = () => {
                       }
                       max={todayDate}
                     />
-
+                    <label className="episode-label">Thumbnail</label>
+                    <input type="file" className="add-episode-input" placeholder="Enter thumbnail URL" onChange={(e)=>updateEpisode(seasonIndex,episodeIndex,"thumbnail",e.target.files?.[0])} />
                     <label className="episode-label">Episode</label>
                     <input
                       type="file"

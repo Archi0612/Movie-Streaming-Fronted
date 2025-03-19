@@ -65,7 +65,7 @@
   .watch-now {
     color: #fff;
     border: none;
-    /* padding: 1rem 2rem; */
+
     font-size: 1rem;
     cursor: pointer;
     border-radius: 0.5rem;
@@ -93,8 +93,7 @@
 }
 
 .movie-category-slider .swiper-slide {
-    flex: 0 0 220px !important; /* ✅ Fixed width */
-    width: 220px !important;
+    flex: 0 0 220px !important; 
     height: 350px !important;
     display: flex;
     justify-content: center;
@@ -108,7 +107,7 @@
     transform: scale(1.05);
 }
 .swiper-button-next::after{
-    right: 20px !important;
+    right: 32px !important;
 }
 
 .movie-category-slider .swiper-button-prev,
@@ -116,20 +115,21 @@
     color: white;
     top: 50%;
     transform: translateY(-50%);
+    position: absolute;
     z-index: 10;
     opacity: 1;
     width: 40px;
     height: 40px;
 }
 
-
+/* 
 .movie-category-slider .swiper-button-next {
     right: 10px !important;
 }
 
 .movie-category-slider .swiper-button-prev {
     left: 10px !important;
-}
+} */
 
 .home-popular-movies {
     font-size: 1.5rem;

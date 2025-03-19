@@ -64,6 +64,7 @@ export interface Episode {
     duration: string;
     episodeNumber: number;
     episode: File | null;
+    thumbnail:File | null;
     releaseDate: string;
   }
 export interface Season {

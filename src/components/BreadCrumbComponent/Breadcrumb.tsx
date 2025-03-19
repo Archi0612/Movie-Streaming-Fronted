@@ -35,7 +35,6 @@ const Breadcrumb: React.FC = () => {
     extraBreadcrumb = { path: "/admin-dashboard-series", label: "Series Dashboard" };
   }
   useEffect(() => {
-    debugger
     if (!pathnames.includes("details") && !(pathnames.length===2 && pathnames[0]==="genres")) {
       setTitle(null);
       return;
