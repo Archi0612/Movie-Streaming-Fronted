@@ -1,5 +1,5 @@
-import { Movie } from "../../interfaces/movie.interface";
-import { api } from "../api";
+import { Movie } from "../../../interfaces/movie.interface";
+import { api } from "../../api";
 
 const fetchMovieData = async (endpoint: string) => {
   try {

@@ -107,7 +107,7 @@ const ForgotPassword:React.FC = () => {
           </div>
           <h2 className="forgot-title">Forgot Password</h2>
           <p className="forgot-subtitle">
-            Enter your email and we'll send you a link to get back into your
+            Enter your email and we will send you a link to get back into your
             account.
           </p>
           <form onSubmit={handleSubmit}>

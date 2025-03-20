@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { AgGridReact } from "ag-grid-react";
-import { ModuleRegistry, ClientSideRowModelModule, PaginationModule, TextFilterModule, NumberFilterModule } from "ag-grid-community";
+import { ModuleRegistry, ClientSideRowModelModule, PaginationModule, TextFilterModule, NumberFilterModule, GridApi, ICellRendererParams } from "ag-grid-community";
 import { ColDef, GridReadyEvent } from "ag-grid-community";
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import { MdEdit, MdDelete, MdAdd } from "react-icons/md";
@@ -21,24 +21,34 @@ const AdminDashboardSeries: React.FC = () => {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(12);
   const [search, setSearch] = useState("");
-  const gridApiRef = useRef<any>(null);
+  const gridApiRef = useRef<GridApi | null>(null);
   const navigate = useNavigate();
 
   const fetchAllSeries = async () => {
     try {
       const response = await listAllSeries(search, page, pageSize);
-      const formattedSeries = response.data.seriesList.map((s: any) => ({
+      const formattedSeries = response.data.seriesList.map((s:{
+        _id: string;
+        poster: string;
+        title: string;
+        description: string;
+        rating: number;
+        casts: { name: string }[];
+        directors: { name: string }[];
+      }) => ({
         id: s._id,
         poster: s.poster,
         title: s.title,
         description: s.description || "N/A",
         rating: s.rating || "N/A",
-        cast: s.casts.map((c: any) => c.name).join(", "),
-        director: s.directors.map((d: any) => d.name).join(", ")
+        cast: s.casts.map((c) => c.name).join(", "),
+        director: s.directors.map((d) => d.name).join(", ")
       }));
       setSeries(formattedSeries);
-    } catch (error:any) {
-      toast.error(error.response?.data?.message || "Error in fetching series");
+    } catch (error:unknown) {
+      if(error instanceof Error){
+        toast.error(error.message||"Error in fetching series");
+      }
     }
   };
 
@@ -52,11 +62,14 @@ const AdminDashboardSeries: React.FC = () => {
   const handleDelete = async () => {
     if (!selectedSeries) return;
     try {
+      debugger
       const response=await deleteSeries(selectedSeries.id);
       toast.success(response.data.message)
       fetchAllSeries();
-    } catch (error: any) {
-      toast.error(error.response?.data?.message)
+    } catch (error: unknown) {
+      if(error instanceof Error){
+        toast.error(error.message||"Failed to delete series")
+      }
     }
     setIsDeleteModelOpen(false)
 
@@ -65,7 +78,16 @@ const AdminDashboardSeries: React.FC = () => {
     setSelectedSeries(ser)
     setIsEditModalOpen(true)
   }
-  const handleSaveChanges = async (updatedSeries: any) => {
+  const handleSaveChanges = async (updatedSeries:{
+    _id: string;
+      poster: string;
+      title: string;
+      description: string;
+      rating: number;
+      duration: string;
+      casts: { value:string;label: string }[];
+      directors: { value:string; label: string }[];
+  }) => {
     try {
       const formattedMovie: Series = {
         id: updatedSeries._id,
@@ -73,12 +95,17 @@ const AdminDashboardSeries: React.FC = () => {
         title: updatedSeries.title,
         description: updatedSeries.description,
         rating: updatedSeries.rating,
-        cast: updatedSeries.casts.map((c: any) => c.label).join(", "),
-        director: updatedSeries.directors.map((d: any) => d.label).join(", ")
+        cast: updatedSeries.casts.map((c): { _id: string; name: string } => ({ _id: c.value, name: c.label })),
+        director: updatedSeries.directors.map((d): { _id: string; name: string } => ({ _id: d.value, name: d.label }))
       };
 
       setSeries((prevSeries) =>
-        prevSeries.map((m) => (m.id === formattedMovie.id ? formattedMovie : m))
+         // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        prevSeries.map((m:any) => (m.id === formattedMovie.id ? {
+          ...formattedMovie,
+          cast: formattedMovie.cast.map(c => c.name).join(", "), 
+          director: formattedMovie.director.map(d => d.name).join(", ")
+        } : m))
       );
 
       toast.success("Series updated successfully");
@@ -92,7 +119,7 @@ const AdminDashboardSeries: React.FC = () => {
     {
       headerName: "Poster",
       field: "poster",
-      cellRenderer: (params: any) => (
+      cellRenderer: (params: {value:string}) => (
         <img src={params.value} alt="poster" className="poster-img" />
       ),
       flex: 2,
@@ -114,12 +141,12 @@ const AdminDashboardSeries: React.FC = () => {
     },
     {
       headerName: "Action",
-      cellRenderer: (params: any) => (
+      cellRenderer: (params: ICellRendererParams<Series>) => (
         <div className="action-buttons">
-          <button className="edit-btn-dashboard" onClick={() => handleEdit(params.data)}>
+          <button className="edit-btn-dashboard" onClick={() => params.data && handleEdit(params.data)}>
             <MdEdit size={15} />
           </button>
-          <button className="delete-btn-dashboard" onClick={() => { setSelectedSeries(params.data); setIsDeleteModelOpen(true) }}><MdDelete size={15} /></button>
+          <button className="delete-btn-dashboard" onClick={() => { setSelectedSeries(params.data ?? null); setIsDeleteModelOpen(true) }}><MdDelete size={15} /></button>
         </div>
       ),
       flex: 1,

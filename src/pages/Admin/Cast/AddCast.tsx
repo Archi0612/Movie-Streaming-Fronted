@@ -4,7 +4,7 @@ import { MdAdd } from "react-icons/md";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { addCrew } from "../../../services/apis/adminService";
-interface Actor {
+export interface Actor {
   name: string;
   dateOfBirth:string;
   nationality:string;
@@ -40,7 +40,7 @@ const AddCast: React.FC = () => {
     setActors([...actors, { name: "",dateOfBirth:"",nationality:"",designation:"",gender:"", profilePicture: null, preview: "https://placehold.co/200x200/gray/white?text=Add+image" }]);
   };
 
-  const updateActor = (index: number, field: keyof Actor, value: any) => {
+  const updateActor = (index: number, field: keyof Actor, value: string | File | null ) => {
     setActors((prev) => {
       const updatedActors = [...prev];
       updatedActors[index] = { ...updatedActors[index], [field]: value };
@@ -93,7 +93,7 @@ const AddCast: React.FC = () => {
   return (
     <div className="add-cast-container">
     <div className="add-cast">
-        <div className="header">
+        <div className="add-cast-header">
 
       <h2 className="add-cast-heading">Add Crew</h2>
       <button className="cast-add-btn" onClick={addActor}><MdAdd size={20} /> Add Crew</button>

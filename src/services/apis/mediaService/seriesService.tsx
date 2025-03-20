@@ -1,6 +1,5 @@
-import { Series } from "../../interfaces/admin.interface";
-import { api } from "../api";
-
+import { Series } from "../../../interfaces/admin.interface";
+import { api } from "../../api";
 const fetchSeriesData = async (endpoint: string) => {
   try {
     const response = await api.get(endpoint);

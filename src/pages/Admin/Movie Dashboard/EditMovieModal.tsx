@@ -4,7 +4,7 @@ import AsyncSelect from "react-select/async";
 import "./EditMovieModal.css";
 import { MdClose } from "react-icons/md";
 import { toast } from "react-toastify";
-import { EditMovieModalProps } from "../../../interfaces/admin.interface";
+import { AddMovies, EditMovieModalProps, Movie } from "../../../interfaces/admin.interface";
 import { editMovie, getMovieById, searchCastByName,searchDirectorByName } from "../../../services/apis/adminService";
 import { useNavigate } from "react-router-dom";
 import { Loader } from "lucide-react";
@@ -49,8 +49,8 @@ const fetchCastOptions = async(inputValue: string): Promise<{ value: string; lab
         value:cast._id,
         label:cast.name
       }))
-    } catch (error:any) {
-      console.error( error.response?.data?.message ||"Error fetching cast:");
+    } catch (error:unknown) {
+      if(error instanceof Error) toast.error(error?.message || "Error in fetching cast");
       return [];
     }
 };
@@ -62,15 +62,15 @@ const fetchDirectorOptions = async(inputValue: string): Promise<{ value: string;
       value:director._id,
       label:director.name
     }))
-  } catch (error:any) {
-    console.error(error.response?.data?.message || "Error fetching director:");
+  } catch (error:unknown) {
+    if(error instanceof Error) toast.error(error?.message || "Error in fetching director")
   return [];
   }
 };
 
 const EditMovieModal: React.FC<EditMovieModalProps> = ({ movieId, onClose, onSave }) => {
-  const [updatedMovie, setUpdatedMovie] = useState<any>(null);
-  const [originalMovie,setOriginalMovie]=useState<any>(null);
+  const [updatedMovie, setUpdatedMovie] = useState<AddMovies | null>(null);
+  const [originalMovie,setOriginalMovie]=useState<AddMovies | null>(null);
   const [loading,setLoading]=useState<boolean>(false);
   const todayDate=new Date().toISOString().split("T")[0];
   
@@ -125,8 +125,8 @@ const EditMovieModal: React.FC<EditMovieModalProps> = ({ movieId, onClose, onSav
         
         setOriginalMovie(formattedMovie);
         setUpdatedMovie(formattedMovie);
-      } catch (error: any) {
-        toast.error(error.result?.data?.message);
+      } catch (error: unknown) {
+        if(error instanceof Error) toast.error(error?.message || "Error in fetching movies")
       }
     };
     
@@ -140,14 +140,24 @@ const EditMovieModal: React.FC<EditMovieModalProps> = ({ movieId, onClose, onSav
         return;
       }
     }
-    setUpdatedMovie((prev: any) => ({ ...prev, [name]: value }));
+    setUpdatedMovie((prev) => (prev ? { ...prev, [name]: value } : null));
   };
-  const handleSelectChange = (selected: any, action: any) => {
-    setUpdatedMovie((prev: any) => ({
-      ...prev,
-      [action.name]: selected || [],
-    }));
-  }; 
+  const handleSelectChange = (
+    selected: { value: string; label: string } | readonly { value: string; label: string }[] | null,
+    action: { name: string }
+  ) => {
+    setUpdatedMovie((prev) =>
+      prev
+        ? {
+            ...prev,
+            [action.name]: selected
+              ? (Array.isArray(selected) ? [...selected] : [selected as { value: string; label: string }])
+              : [],
+          }
+        : null
+    );
+  };
+  
   
   
   
@@ -157,10 +167,10 @@ const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const { name } = e.target;
       const file = e.target.files[0];
-      setUpdatedMovie((prev: any) => ({ ...prev, [name]: file }));
+      setUpdatedMovie((prev) => (prev ?{ ...prev, [name]: file }:null));
     }
   };
-  const hasChanged = (field: string) => {
+  const hasChanged = (field: keyof AddMovies) => {
     if (!updatedMovie || !originalMovie) return false;
   
     const updatedValue = updatedMovie[field];
@@ -168,8 +178,8 @@ const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   
     if (Array.isArray(updatedValue) && Array.isArray(originalValue)) {
       // Convert to sorted strings to compare effectively
-      const updatedStr = updatedValue.map((item: any) => item.value).sort().join(",");
-      const originalStr = originalValue.map((item: any) => item.value).sort().join(",");
+      const updatedStr = updatedValue.map((item: { value: string; label: string }) => item.value).sort().join(",");
+      const originalStr = originalValue.map((item: { value: string; label: string }) => item.value).sort().join(",");
       return updatedStr !== originalStr;
     }
     return updatedValue !== originalValue;
@@ -178,43 +188,43 @@ const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
 const handleSave = async() => {
   const formData=new FormData()
-    if (hasChanged("title")) formData.append("title", updatedMovie.title);
-    if (hasChanged("description")) formData.append("description", updatedMovie.description);
-    if (hasChanged("releaseDate")) formData.append("releaseDate", updatedMovie.releaseDate);
-    if (hasChanged("duration")) formData.append("duration", updatedMovie.duration.toString());
-    if (hasChanged("rating")) formData.append("rating", updatedMovie.rating.toString());
+    if (updatedMovie && hasChanged("title")) formData.append("title", updatedMovie.title);
+    if (updatedMovie && hasChanged("description")) formData.append("description", updatedMovie.description);
+    if (updatedMovie && hasChanged("releaseDate")) formData.append("releaseDate", updatedMovie.releaseDate);
+    if (updatedMovie && hasChanged("duration")) formData.append("duration", updatedMovie.duration.toString());
+    if (updatedMovie && hasChanged("rating")) formData.append("rating", updatedMovie.rating.toString());
 
-    if (hasChanged("genres")) {
+    if (updatedMovie && hasChanged("genres")) {
       updatedMovie.genres.forEach((genre: { value: string }) => {
         // Convert string value back to integer for the backend
         formData.append("genres", parseInt(genre.value).toString());
       });
     }
     
-    if (hasChanged("languages")) {
+    if (updatedMovie && hasChanged("languages")) {
       updatedMovie.languages.forEach((lang: { value: string }) =>
         formData.append("languages", lang.value)
       );
     }
     
-    if (hasChanged("cast")) {
+    if ( updatedMovie && hasChanged("cast")) {
       updatedMovie.cast.forEach((cast: { value: string }) =>
         formData.append("casts", cast.value)
       );
     }
-    if (hasChanged("director")) {
+    if ( updatedMovie && hasChanged("director")) {
       updatedMovie.director.forEach((director: { value: string }) =>
         formData.append("directors", director.value)
       );
     }
     
-    if (updatedMovie.poster && updatedMovie.poster !== originalMovie.poster) {
+    if ( updatedMovie && originalMovie && updatedMovie.poster && updatedMovie.poster !== originalMovie.poster) {
       formData.append("poster", updatedMovie.poster);
     }
-    if (updatedMovie.trailerUrl && updatedMovie.trailerUrl !== originalMovie.trailerUrl) {
+    if (updatedMovie && originalMovie && updatedMovie.trailerUrl && updatedMovie.trailerUrl !== originalMovie.trailerUrl) {
       formData.append("trailer", updatedMovie.trailerUrl);
     }
-    if (updatedMovie.movieUrl && updatedMovie.movieUrl !== originalMovie.movieUrl) {
+    if (updatedMovie && originalMovie &&  updatedMovie.movieUrl && updatedMovie.movieUrl !== originalMovie.movieUrl) {
       formData.append("movie", updatedMovie.movieUrl);
     }
 
@@ -227,8 +237,10 @@ const handleSave = async() => {
     onClose();
     // navigate("/admin-dashboard-movies")
     
-  } catch (error:any) {
-    toast.error(error.message)
+  } catch (error:unknown) {
+    if(error instanceof Error){
+      toast.error(error.message || "Error in editing movie")
+    }
   }
   finally{
     setLoading(false)

@@ -1,5 +1,3 @@
-import exp from "constants";
-
 export interface Movie {
     id: string;
     poster: string;
@@ -18,8 +16,8 @@ export interface Series {
     title: string;
     description?: string;
     rating: number;
-    cast?: {_id:string;name:string}[];
-    director?: {_id:string;name:string}[];
+    cast: {_id:string;name:string}[];
+    director: {_id:string;name:string}[];
   }
 export interface AddMovies{
     title: string;
@@ -48,6 +46,19 @@ export interface  Addseries {
     rating: string;
     cast: { value: string; label: string }[];
     director: { value: string; label: string }[];
+    languages: { value: string; label: string }[];
+    poster: File | null;
+    trailerUrl: File | null;
+    availableForStreaming: boolean;
+  }
+  export interface EditSeries{
+    title: string;
+    description: string;
+    genres: { value: string; label: string }[];
+    releaseDate: string;
+    rating: string;
+    casts: { value: string; label: string }[];
+    directors: { value: string; label: string }[];
     languages: { value: string; label: string }[];
     poster: File | null;
     trailerUrl: File | null;

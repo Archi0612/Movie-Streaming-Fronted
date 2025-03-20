@@ -137,7 +137,7 @@ export const listAllSeries=async(search:string="",page:number=1,limit:number=10)
       withCredentials:true,
     });
     return response.data;
-  } catch (error:any) {
+  } catch (error:unknown) {
     if (axios.isAxiosError(error)) {
       throw new Error(error.response?.data?.message || "Something went wrong");
     } else {
