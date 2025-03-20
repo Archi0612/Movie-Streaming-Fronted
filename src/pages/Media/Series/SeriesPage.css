@@ -1,10 +1,11 @@
 /* Global Styles */
 .series-section {
+  display: flex;
+  flex-direction: column;
   background-color: var(--background-color);
-  color: #fff;
   min-height: 100vh;
-  margin: 0;
-  padding: 0%;
+  overflow-x: hidden;
+ 
 }
 
 /* Main Series Slider */
@@ -13,7 +14,8 @@
   text-align: center;
   margin-bottom: 3rem;
   margin-left: 116px;
-  background-color: #000;
+
+  margin-top: 4rem;
 }
 
 .main-series-slider {
