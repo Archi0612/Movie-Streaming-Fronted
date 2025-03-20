@@ -51,5 +51,10 @@ WORK DONE BY FRONTEND TEAM
     - Search bar functinality
 
 Date: 18/03/2025
-[ ] Episode section in Admin
+[ ] ADD Episode thumbnail section in Admin
 [ ] Director Cast in Admin
+
+- 19/03/2025
+- [x] Add Error Page in Details Page (A)
+- [ ] Add pop up Review Page after watching Movie or Series episode (A)
+- [ ] Add series videoplayer after fetching videourl from series api

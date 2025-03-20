@@ -25,7 +25,7 @@ const MainLayout: React.FC = () => {
   }
   return (
     <div className="main-layout">
-      <Sidebar userRole={user} />
+      <Sidebar role={user} />
       <div className="main-layout">
         <main className="content1">
           {isAuthenticated && 

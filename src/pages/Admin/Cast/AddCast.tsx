@@ -40,7 +40,7 @@ const AddCast: React.FC = () => {
     setActors([...actors, { name: "",dateOfBirth:"",nationality:"",designation:"",gender:"", profilePicture: null, preview: "https://placehold.co/200x200/gray/white?text=Add+image" }]);
   };
 
-  const updateActor = (index: number, field: keyof Actor, value: any) => {
+  const updateActor = (index: number, field: keyof Actor, value: string | File | null ) => {
     setActors((prev) => {
       const updatedActors = [...prev];
       updatedActors[index] = { ...updatedActors[index], [field]: value };

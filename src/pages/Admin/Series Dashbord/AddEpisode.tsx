@@ -22,7 +22,6 @@ const AddEpisode: React.FC = () => {
     validateForm();
   },[seasons,selectedSeries])
   const validateForm=()=>{
-    debugger
     if(!selectedSeries){
       setIsSaveDisabled(true);
       return;
@@ -69,7 +68,7 @@ const AddEpisode: React.FC = () => {
     seasonIndex: number,
     episodeIndex: number,
     field: keyof Episode,
-    value: any
+    value: string | number | File
   ) => {
     if(field==="releaseDate"){
       if(value>todayDate){
@@ -139,9 +138,12 @@ const AddEpisode: React.FC = () => {
           })
         ) || []
       );
-    } catch (error: any) {
-      toast.error(error.response?.data?.message || "Error fetching series");
-      return [];
+    } catch (error:unknown)
+     {
+      if(error instanceof Error){
+        toast.error(error.message||"Error in fetching series");
+        return [];
+      }
     }
   };
   
@@ -300,7 +302,7 @@ const AddEpisode: React.FC = () => {
                       max={todayDate}
                     />
                     <label className="episode-label">Thumbnail</label>
-                    <input type="file" className="add-episode-input" placeholder="Enter thumbnail URL" onChange={(e)=>updateEpisode(seasonIndex,episodeIndex,"thumbnail",e.target.files?.[0])} />
+                    <input type="file" className="add-episode-input" placeholder="Enter thumbnail URL" onChange={(e)=>updateEpisode(seasonIndex,episodeIndex,"thumbnail",e.target.files?.[0] ?? new File([], ""))} />
                     <label className="episode-label">Episode</label>
                     <input
                       type="file"
@@ -311,7 +313,7 @@ const AddEpisode: React.FC = () => {
                           seasonIndex,
                           episodeIndex,
                           "episode",
-                          e.target.files?.[0]
+                          e.target.files?.[0] ?? new File([], "")
                         )
                       }
                     />

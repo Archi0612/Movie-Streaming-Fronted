@@ -64,6 +64,18 @@ const Breadcrumb: React.FC = () => {
 
       fetchData();
     }
+    else if(pathnames.includes("watch") && lastSegment){
+      const fetchData=async()=>{
+        try {
+          const response=await getMovieById(lastSegment);
+          setTitle(response?.movie?.title || null);
+        } catch (error) {
+          console.error("Error fetching movie title",error)
+          setTitle(null);
+        }
+      }
+      fetchData();
+    }
     else if(pathnames.length===2 && pathnames[0]==="genres"){
       const genreId=parseInt(lastSegment,10);
       if (!isNaN(genreId) && genreMap[genreId]) {
@@ -89,7 +101,7 @@ const Breadcrumb: React.FC = () => {
 
           let displayText = pathLabels[path] || decodeURIComponent(path);
 
-          if (isLast && pathnames.includes("details") && title) {
+          if (isLast && (pathnames.includes("details") || pathnames.includes("watch") ) && title) {
             displayText = title;
           }
           if(isLast && pathnames.length===2 && pathnames[0]==="genres" && title){

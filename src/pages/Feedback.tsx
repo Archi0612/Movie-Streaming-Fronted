@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Feedback.css";
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { ratingToReview } from "../utils/MediaConstants";
+import { useNavigate } from "react-router-dom";
 
 const Feedback: React.FC = () => {
   const [feedback, setFeedback] = useState({
@@ -9,6 +10,7 @@ const Feedback: React.FC = () => {
     review: "Needs Improvement",
     comment: "",
   });
+  const navigate = useNavigate();
 
 
   const handleRating = (star: number, event: React.MouseEvent<HTMLSpanElement>) => {
@@ -49,10 +51,10 @@ const Feedback: React.FC = () => {
 
   const handleSkip = () => {
     //close this modal
+    navigate(-1);
   };
 
   return (
-    <div className="page-container">
       <div className="feedback-container">
         <form className="feedback-form" onSubmit={handleSubmit}>
           <h2 className="auth-heading">Give Your Feedback</h2>
@@ -116,7 +118,6 @@ const Feedback: React.FC = () => {
           </div>
         </form>
       </div>
-    </div>
   );
 };
 
