@@ -11,7 +11,7 @@ import {
   getLatestMovies,
   getTopRatedMovies,
   getHomeTrending,
-} from "../services/apis/movieService";
+} from "../services/apis/mediaService/movieService";
 
 const Home: React.FC = () => {
   const [movies, setMovies] = useState<{

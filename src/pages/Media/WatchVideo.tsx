@@ -1,13 +1,14 @@
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import "./WatchVideo.css";
 import React from "react";
-import { getMovieById } from "../../services/apis/movieService";
+import { getMovieById } from "../../services/apis/mediaService/movieService";
 import { useEffect, useState } from "react";
 import { Loader } from "lucide-react";
 
 import Feedback from "../Feedback";
-import { fetchEpisodeById } from "../../services/apis/seriesService";
+
 import Modal from "react-modal";
+import { fetchEpisodeById } from "../../services/apis/mediaService/seriesService";
 import VideoPlayer from "../../components/videoPlayer/videoPlayer";
 Modal.setAppElement("#root"); 
 const WatchVideo: React.FC = () => {

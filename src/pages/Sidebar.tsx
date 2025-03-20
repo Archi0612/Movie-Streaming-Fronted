@@ -13,7 +13,7 @@ import { MdDashboard, MdMovie, MdTv } from "react-icons/md";
 import logo from "../assets/img/Home/logo.png";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./Sidebar.css";
-import { SidebarProps, UserDetails } from "../interfaces/movie.interface";
+import { SidebarProps } from "../interfaces/movie.interface";
 import { IconType } from "react-icons";
 
 interface MenuItem {

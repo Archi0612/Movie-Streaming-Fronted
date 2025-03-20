@@ -6,17 +6,14 @@ export interface UserDetails {
   id: string | number;
   name: string;
   email: string;
+  role: string;
   password?: string;
   profilePicture?: string;
   contactNo: string;
   dateOfBirth: string;
   gender?: string;
-  role: string;
   otp?: number;
-   user: UserProfile;
-}
-export interface SidebarProps {
-  role: string;
+  user: UserProfile;
 }
 export interface UserProfile {
   _id: string;
@@ -30,7 +27,9 @@ export interface UserProfile {
   role: string;
   isActive: boolean;
 }
-
+export interface SidebarProps{
+  role: string;
+}
 // Define State Interface
 export interface UserState {
   currentUser: UserDetails | null;
@@ -40,7 +39,7 @@ export interface UserState {
   error?: string;
   // detailsLoading?: boolean;
   // detailsError?: string;
-  // userDetails?: UserDetails;
+  userDetails?: UserDetails;
 }
 export interface MediaCardProps {
   media: {
@@ -55,7 +54,7 @@ export interface MediaCardProps {
     genres: number[];
     contentType: string;
     trailerUrl?: string;
-    movieUrl?:string;
+    movieUrl?: string;
   };
 }
 
@@ -116,8 +115,6 @@ export interface AuthResponse {
   message?: string | string[];
 }
 
-
-
 // Movie Interface with all movie data
 export interface Movie {
   _id: string;
@@ -137,7 +134,7 @@ export interface Movie {
   trailerUrl: string;
   duration: number;
   contentType: string;
-  movieUrl?:string;
+  movieUrl?: string;
 }
 
 //  Object Data of Casta and Directors
@@ -146,13 +143,12 @@ export interface ObjectData {
   name: string;
   profilePicture: string;
 }
-export interface Cast{
-  cast:{
+export interface Cast {
+  cast: {
     _id: string;
     name: string;
-    profilePicture: string; 
-  }
-
+    profilePicture: string;
+  };
 }
 export interface TrendingMoviesProps {
   movies: Movie;
@@ -193,7 +189,7 @@ export interface Profile {
   email: string;
 }
 
-// changed the name from FormData to userFormData 
+// changed the name from FormData to userFormData
 //For signup
 export interface UserFormData {
   email: string;
@@ -226,12 +222,10 @@ export interface LoginDetails {
   password: string;
 }
 
-
 // Define Type for API Response
 export interface ProfileApiResponse {
-  data: UserDetails
+  data: UserDetails;
 }
-
 
 // Define Type for State
 export interface ProfileState {
@@ -283,8 +277,6 @@ export interface WatchListState {
   error: string | null;
 }
 
-
-
 // LikedList Interface for state Management
 export interface LikedListState {
   data: LikedContentItem[] | null;
@@ -309,4 +301,3 @@ export interface LikedListApiResponse {
   message: string;
   data: LikedContent;
 }
-
