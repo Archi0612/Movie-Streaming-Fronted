@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./Breadcrumb.css";
-import { getMovieById } from "../../services/apis/movieService";
-import { fetchSeriesByID } from "../../services/apis/seriesService";
+import { getMovieById } from "../../services/apis/mediaService/movieService";
+import { fetchSeriesByID } from "../../services/apis/mediaService/seriesService";
 import { genreMap } from "../../utils/MediaConstants";
 const pathLabels: Record<string, string> = {
   "home": "Home",

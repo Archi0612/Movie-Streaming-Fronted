@@ -8,11 +8,11 @@ import ShimmerUI from "../components/shimmerUI/Shimmer";
 import {
   getPopularMovies,
   getTopRatedMovies,
-} from "../services/apis/movieService";
+} from "../services/apis/mediaService/movieService";
 import {
   fetchPopularSeriesApi,
   fetchTopRatedSeriesApi,
-} from "../services/apis/seriesService";
+} from "../services/apis/mediaService/seriesService";
 
 const Search: React.FC = () => {
   const [moviesData, setMoviesData] = useState<MoviesData>({

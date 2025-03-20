@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation,Pagination   } from "swiper/modules";
 import MoviesGrid from "../../../components/MoviesGrid";
 
-import { getHomeTrending, getLatestMovies, getMoviesByGenre, getPopularMovies, getTopRatedMovies } from "../../../services/apis/movieService";
+import { getHomeTrending, getLatestMovies, getMoviesByGenre, getPopularMovies, getTopRatedMovies } from "../../../services/apis/mediaService/movieService";
 import { Movie } from "../../../interfaces/movie.interface";
 import "./MoviesPage.css";
 import Shimmer from "../../../components/shimmerUI/Shimmer";
