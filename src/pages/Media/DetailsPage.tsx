@@ -34,11 +34,10 @@ const DetailsPage: React.FC = () => {
   const [selectedSeason, setSelectedSeason] = useState<number | null>(null);
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [isBookMarked, setBookMarked] = useState<boolean>(false);
-  const [loading, setLoading]=useState(false);
+  const [loading, setLoading] = useState(false);
 
- const fetchMediaByID = async () => {
+  const fetchMediaByID = async () => {
     try {
-      debugger
       setLoading(true);
       if (contentType === "Movie") {
         const response = await getMovieById(mediaId as string);
@@ -54,7 +53,7 @@ const DetailsPage: React.FC = () => {
       if (err instanceof Error) {
         throw new Error(err.message);
       }
-    }finally{
+    } finally {
       setLoading(false);
     }
   };
@@ -116,14 +115,14 @@ const DetailsPage: React.FC = () => {
     }
   };
   const handlePlayVideo = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation(); 
-    navigate(`/videoPlayer`);
+    e.stopPropagation();
+    navigate(`/watch/${mediaId}?contentType=${contentType}`);
   };
-  const handlePlayEpisode = (episodeUrl: string) => {
+  const handlePlayEpisode = (episodeId: string) => {
     // e.stopPropagation();
     // console.log("episode player clicked from movie card");
     // console.log("episodeUrl", episodeUrl);
-    navigate(`/watch`, { state: { episodeUrl } });
+    navigate(`/watch/${episodeId}?contentType=${contentType}`);
   };
 
   const handleDurationTime = () => {
@@ -135,14 +134,16 @@ const DetailsPage: React.FC = () => {
     if (minutes > 0) return `${minutes}m`;
     return "Unknown";
   };
-  if(loading){
-    return <Loader/>
+  if (loading) {
+    return <Loader />;
+  }
+  if (!mediaData?._id) {
+    navigate("/error");
   }
   return (
-  
     <div className="details-container">
       <div className="header-container">
-        <div className="video-overlay" >
+        <div className="video-overlay">
           {mediaData?.trailerUrl && (
             <ReactPlayer
               url={mediaData.trailerUrl}
@@ -225,16 +226,19 @@ const DetailsPage: React.FC = () => {
               <span className="total-votes">/10 (1.4M)</span>
             </div>
           </div>
-
-          <div className="watch-movie">
-            <button
-              className="action-button watch-button"
-              onClick={handlePlayVideo}
-            >
-              Watch
-              <FaPlay size={16} />
-            </button>
-          </div>
+          {contentType == "Movie" ? (
+            <div className="watch-movie">
+              <button
+                className="action-button watch-button"
+                onClick={handlePlayVideo}
+              >
+                Watch
+                <FaPlay size={16} />
+              </button>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
 
         <div className="main-content">
@@ -248,8 +252,14 @@ const DetailsPage: React.FC = () => {
             {seriesData && (
               <div className="season-selector">
                 <label htmlFor="season">Select Season: </label>
-                <select id="season" key={seriesData.length} onChange={handleSeasonChange}>
-                  <option value="No Seasons" key={seriesData.length}>Select</option>
+                <select
+                  id="season"
+                  key={seriesData.length}
+                  onChange={handleSeasonChange}
+                >
+                  <option value="No Seasons" key={seriesData.length}>
+                    Select
+                  </option>
                   {seriesData.map((season) => (
                     <option
                       key={season._id}
@@ -303,7 +313,7 @@ const DetailsPage: React.FC = () => {
                                   <button
                                     className="episode-button play"
                                     onClick={() =>
-                                      handlePlayEpisode(episode.episodeUrl)
+                                      handlePlayEpisode(episode._id)
                                     }
                                   >
                                     <Play />
@@ -357,24 +367,22 @@ const DetailsPage: React.FC = () => {
               <div className="cast-section">
                 <h3 className="medieaData-subtitle">Casts</h3>
                 <div className="cast-list">
-                { 
-                mediaData?.cast && mediaData.cast.length > 0 ? (
-                  
-      mediaData.cast.map((c, index) => (
-        <div key={index} className="cast-member">
-          <img
-            src={c.profilePicture || "/public/default.png"} // Use default if no profilePicture
-            alt={c.name}
-            className="cast-image"
-          />
-          <div className="cast-info">
-            <h4 className="media-name">{c.name}</h4>
-          </div>
-        </div>
-      ))
-    ) : (
-      <p>No cast information available.</p>
-    )}
+                  {mediaData?.cast && mediaData.cast.length > 0 ? (
+                    mediaData.cast.map((c, index) => (
+                      <div key={index} className="cast-member">
+                        <img
+                          src={c.profilePicture || "/public/default.png"} // Use default if no profilePicture
+                          alt={c.id}
+                          className="cast-image"
+                        />
+                        <div className="cast-info">
+                          <h4 className="media-name">{c.name}</h4>
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <p>No cast information available.</p>
+                  )}
                   {/* {mediaData?.casts 
                     ? mediaData.casts.map((cast, index) => (
                         <div key={index} className="cast-member">
@@ -430,10 +438,7 @@ const DetailsPage: React.FC = () => {
         </div>
       </div>
     </div>
-
-    
   );
-
 };
 
 export default DetailsPage;

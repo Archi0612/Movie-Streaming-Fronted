@@ -4,7 +4,7 @@ import { MdAdd } from "react-icons/md";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { addCrew } from "../../../services/apis/adminService";
-interface Actor {
+export interface Actor {
   name: string;
   dateOfBirth:string;
   nationality:string;

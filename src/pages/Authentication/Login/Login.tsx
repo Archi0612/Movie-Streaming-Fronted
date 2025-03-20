@@ -63,13 +63,15 @@ const Login = () => {
     } else {
       try {
         //  await dispatch(loginUser(userFormData));
-        const response = await dispatch(loginUser(userFormData)).unwrap();
+        await dispatch(loginUser(userFormData)).unwrap();
 
         toast.success("Successfully logged in!");
         navigate("/home");
-      } catch (err) {
-  
-        toast.error("Incorrect Email or Password!");
+      } catch (err:unknown) {
+        if(err instanceof Error)
+          {
+            toast.error(err.message || "Incorrect Email or Password!");
+          }
       }
     }
   };
@@ -116,7 +118,7 @@ const Login = () => {
               <Link to="/forgot-password">Forgot password?</Link>
             </p>
             <div className="signup-text">
-              <span>Don't have an account yet?</span>
+              <span>Don&apos;t have an account yet?</span>
               <span className="signup-link">
                 <Link to="/signup">Create an account</Link>
               </span>

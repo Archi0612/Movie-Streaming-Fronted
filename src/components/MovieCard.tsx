@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Play, Plus } from "lucide-react";
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { genreMap } from "../utils/constants";
+import { genreMap } from "../utils/MediaConstants";
 import "./MovieCard.css";
 import { MediaCardProps } from "../interfaces/movie.interface";
 import { toggleWatchList } from "../redux/slices/WatchList/WatchList";

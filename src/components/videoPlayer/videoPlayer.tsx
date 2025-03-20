@@ -11,8 +11,9 @@ import React, { useRef, useState } from "react";
 import screenfull from "screenfull";
 import { FaVolumeHigh } from "react-icons/fa6";
 import { FaVolumeDown, FaVolumeMute } from "react-icons/fa";
+import { VideoPlayerProps } from "../../interfaces/series.interface";
 
-const VideoPlayer: React.FC<{ url: string, control?: boolean, loop?:boolean }> = ({ url, control = false, loop = true }) => {
+const VideoPlayer: React.FC<VideoPlayerProps> = ({ url, control = false, loop = false, setPopUp }) => {
   const [player, setPlayer] = useState({
     playing: true,
     loop: loop,
@@ -131,6 +132,11 @@ const VideoPlayer: React.FC<{ url: string, control?: boolean, loop?:boolean }> =
     setPlayer({ ...player, duration: dur });
   };
 
+  const handleVideoEnd = () => {
+    setPlayer((prev) => ({ ...prev, playing: false }));
+    setPopUp(true);
+  };
+
   const formatTime = (seconds: number) => {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
@@ -158,6 +164,7 @@ const VideoPlayer: React.FC<{ url: string, control?: boolean, loop?:boolean }> =
         muted={player.muted}
         onDuration={handleDuration}
         onProgress={handleProgress}
+        onEnded={handleVideoEnd}
       />
 
       {control && <div className="control-wrapper" 

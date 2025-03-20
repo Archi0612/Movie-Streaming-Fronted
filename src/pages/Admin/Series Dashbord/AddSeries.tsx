@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Select from "react-select";
+import Select, { MultiValue } from "react-select";
 import AsyncSelect from "react-select/async";
 import "./AddSeries.css";
 import {toast} from "react-toastify"
@@ -151,8 +151,10 @@ const AddSeries: React.FC = () => {
       const response=await addSeries(formData);
       toast.success(response.data.message)
       navigate("/admin-dashboard-series")
-    } catch (error:any) {
-      toast.error(error.response?.data?.message ||"Error in Adding series")
+    } catch (error:unknown) {
+      if(error instanceof Error){
+        toast.error(error.message || "Error in Adding")
+      }
     }
     finally{
       setLoading(false)
@@ -172,7 +174,7 @@ const AddSeries: React.FC = () => {
             <textarea name="description" value={series.description}  onChange={handleChange} placeholder="Enter series details" autoComplete="off" className="text-desc1"/>
 
             <label>Genres</label>
-            <Select isMulti options={genreOptions} value={series.genres}  onChange={(selected: any) => setSeries((prev) => ({ ...prev, genres: selected }))} styles={{
+            <Select isMulti options={genreOptions} value={series.genres}  onChange={(selected) => setSeries((prev) => ({...prev,genres: selected ? (selected as { value: string; label: string }[]) : [],}))}  styles={{
                 control: (provided) => ({
                   ...provided,
                   backgroundColor: "rgba(93, 94, 95, 0.3)",
@@ -205,7 +207,12 @@ const AddSeries: React.FC = () => {
             <AsyncSelect
               isMulti
               loadOptions={fetchCastOptions}
-              onChange={(selected:any) => setSeries((prev) => ({ ...prev, cast: selected }))}
+              onChange={(selected) =>
+                setSeries((prev) => ({
+                  ...prev,
+                  cast: selected ? (selected as { value: string; label: string }[]) : [],
+                }))
+              }
               placeholder="Select movie cast"
               styles={{
                 control: (provided) => ({
@@ -233,7 +240,12 @@ const AddSeries: React.FC = () => {
             <AsyncSelect
             isMulti
               loadOptions={fetchDirectorOptions}
-              onChange={(selected:any) => setSeries((prev) => ({ ...prev, director: selected }))}
+              onChange={(selected) =>
+                setSeries((prev) => ({
+                  ...prev,
+                  director: selected ? (selected as { value: string; label: string }[]) : [],
+                }))
+              }
               placeholder="Select movie director"
               styles={{
                 control: (provided) => ({
@@ -262,7 +274,7 @@ const AddSeries: React.FC = () => {
               isMulti
               options={languageOptions}
               value={series.languages}
-              onChange={(selected: any) => setSeries((prev) => ({ ...prev, languages: selected }))}
+              onChange={(selected) => setSeries((prev) => ({...prev,languages: selected ? (selected as { value: string; label: string }[]) : [],}))}
               placeholder="Select languages"
               className="select"
               styles={{

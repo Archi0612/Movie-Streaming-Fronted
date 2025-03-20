@@ -55,8 +55,10 @@ const UserDashboard: React.FC = () => {
             response.data.message ||
               `User ${!user.isActive ? "activated" : "deactivated"} successfully`
           );
-        } catch (error: any) {
-          toast.error("Error updating user status");
+        } catch (error: unknown) {
+          if(error instanceof Error){
+          toast.error(error.message ||"Error updating user status");
+          }
         } finally {
           setModalOpen(false);
         }
@@ -132,9 +134,11 @@ const UserDashboard: React.FC = () => {
       setLoading(true);
       const response = await getAllUser();
       setUsers(response.data.data.userList);
-    } catch (err: any) {
+    } catch (err: unknown) {
+      if(err instanceof Error){
       setError(err.message);
       toast.error("Error in fetching data");
+      }
     } finally {
       setLoading(false);
     }

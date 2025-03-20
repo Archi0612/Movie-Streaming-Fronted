@@ -36,6 +36,7 @@ import Home from "../pages/Home";
 import AddEpisode from "../pages/Admin/Series Dashbord/AddEpisode";
 import PaymentCancel from "../pages/Stripe-Payment/paymentCancel/PaymentCancel";
 import { PaymentSuccess } from "../pages/Stripe-Payment/paymentSuccess/paymentSuccess";
+import ErrorPage from "../pages/Error/ErrorPage";
 import AddCast from "../pages/Admin/Cast/AddCast";
 
 
@@ -115,11 +116,9 @@ const AppRoute: React.FC = () => {
             <Route path="/profile-page" element={<ProfilePage />} />
             <Route path="/payment-success" element={<PaymentSuccess />} />
             <Route path="/payment-cancel" element={<PaymentCancel/>} />
-            {/* <Route path="/videoPlayer" element={<VideoPlayer control={true} url="
-            https://res.cloudinary.com/do8yh6vwo/video/upload/v1741844217/salar_trailer_nx9yt7.mp4
-            "/>} /> */}
             <Route path="/watch/:mediaId" element={<WatchVideo/>} />
             <Route path="/details/:mediaId" element={<DetailsPage />}/>
+            <Route path="/error" element={<ErrorPage/>}/>
       
           </Route>
 
