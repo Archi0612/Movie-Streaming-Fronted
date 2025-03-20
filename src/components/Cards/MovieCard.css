@@ -166,8 +166,8 @@
 }
 
 
-@media (max-width:1500px){
-  .movie-card{
+@media (max-width:1500px) {
+  .movie-card {
     height: 18rem;
     width: 13rem;
   }
@@ -212,7 +212,7 @@
   }
 
   .movie-rating svg {
-    font-size: 16px !important; 
+    font-size: 16px !important;
   }
 
 }
@@ -220,7 +220,7 @@
 @media (max-width: 1024px) {
   .movie-card {
     width: 10rem;
-    height: 15rem; 
+    height: 15rem;
   }
 
 
@@ -257,7 +257,7 @@
   }
 
   .movie-rating svg {
-    font-size: 16px !important; 
+    font-size: 16px !important;
   }
 }
 
@@ -299,11 +299,11 @@
   .movie-button {
     padding: 0.3rem;
     font-size: 0.7rem;
- 
+
   }
 
   .movie-rating svg {
-    font-size: 14px !important; 
+    font-size: 14px !important;
   }
 }
 
@@ -350,7 +350,8 @@
   .movie-hover {
     padding: 0.35rem;
   }
-  .movie-card{
+
+  .movie-card {
     width: 7rem;
     height: 11rem;
   }
@@ -392,11 +393,12 @@
   }
 
   .movie-rating svg {
-    font-size: 12px !important; 
+    font-size: 12px !important;
   }
 }
+
 @media (max-width: 400px) {
-  .movie-card{
+  .movie-card {
     width: 6rem;
     height: 10rem;
   }

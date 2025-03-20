@@ -121,11 +121,11 @@ const Search: React.FC = () => {
   const displayData = searchInput.trim()
     ? Object.entries(moviesData).filter(([_, value]) => value.data.length > 0) // Show only non-empty search results
     : Object.entries({
-        popularMovies: defaultMoviesData.popularMovies,
-        popularSeries: defaultMoviesData.popularSeries,
-        topRatedMovie: defaultMoviesData.topRatedMovie,
-        topRatedSeries: defaultMoviesData.topRatedSeries,
-      }).filter(([_, value]) => value.data.length > 0); // Show only non-empty default data
+      popularMovies: defaultMoviesData.popularMovies,
+      popularSeries: defaultMoviesData.popularSeries,
+      topRatedMovie: defaultMoviesData.topRatedMovie,
+      topRatedSeries: defaultMoviesData.topRatedSeries,
+    }).filter(([_, value]) => value.data.length > 0); // Show only non-empty default data
 
   return (
     <div className="search-page">

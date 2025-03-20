@@ -6,7 +6,7 @@ import MovieCard from "../Cards/MovieCard";
 const MovieCardSlider: React.FC<MediaGridProps> = ({ mediaList, title }) => {
     const sliderRef = useRef<HTMLDivElement>(null);
     return (
-        <div className="searchbarslidermain_container">
+        <div className="main_container">
             <h2 className="searchbarslidermain_title">{title}</h2>
             <div className="slider-container">
                 <div className="searchmovie-slider" ref={sliderRef}>
@@ -16,7 +16,6 @@ const MovieCardSlider: React.FC<MediaGridProps> = ({ mediaList, title }) => {
                         </div>
                     ))}
                 </div>
-
             </div>
         </div>
     );
