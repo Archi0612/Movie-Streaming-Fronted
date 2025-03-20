@@ -23,7 +23,7 @@ import { toggleLike } from "../../redux/slices/LikedList/LikedList";
 import { toast } from "react-toastify";
 import Loader from "../../components/shimmerUI/Loader";
 import { fetchSeriesByID } from "../../services/apis/mediaService/seriesService";
-
+import SharePopup from "../../components/Search-popUp/SharePopup";
 
 const DetailsPage: React.FC = () => {
   const { mediaId } = useParams();
@@ -37,7 +37,15 @@ const DetailsPage: React.FC = () => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [isBookMarked, setBookMarked] = useState<boolean>(false);
   const [loading, setLoading] = useState(false);
-  
+  const [isSharePopupOpen, setSharePopupOpen] = useState(false);
+
+  const handleShare = () => {
+    setSharePopupOpen(true);
+  };
+
+  const handleCloseSharePopup = () => {
+    setSharePopupOpen(false);
+  };
 
   const fetchMediaByID = async () => {
     try {
@@ -188,10 +196,20 @@ const DetailsPage: React.FC = () => {
                 )}
                 {isLiked ? "Unlike" : "Like"}
               </button>
-              <button className="action-button share-button">
+              <button
+                className="action-button share-button"
+                onClick={handleShare}
+              >
                 <FaShareFromSquare size={16} />
                 Share
               </button>
+              {/* // Add SharePopup Component (conditionally render it) */}
+              {isSharePopupOpen && (
+                <SharePopup
+                  url={window.location.href}
+                  onClose={handleCloseSharePopup}
+                />
+              )}
               <button
                 className="action-button watchlist-button"
                 onClick={handleWatchList}
