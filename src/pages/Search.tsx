@@ -5,8 +5,14 @@ import { api } from "../services/api";
 import { DefaultData, MoviesData } from "../interfaces/movie.interface";
 import MovieCardSlider from "../components/SearchBarSlider/SearchBarSlider";
 import ShimmerUI from "../components/shimmerUI/Shimmer";
-import { getPopularMovies, getTopRatedMovies } from "../services/apis/movieService";
-import { fetchPopularSeriesApi, fetchTopRatedSeriesApi } from "../services/apis/seriesService";
+import {
+  getPopularMovies,
+  getTopRatedMovies,
+} from "../services/apis/mediaService/movieService";
+import {
+  fetchPopularSeriesApi,
+  fetchTopRatedSeriesApi,
+} from "../services/apis/mediaService/seriesService";
 
 const Search: React.FC = () => {
   const [moviesData, setMoviesData] = useState<MoviesData>({

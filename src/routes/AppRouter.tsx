@@ -133,7 +133,7 @@ const AppRoute: React.FC = () => {
             <Route path="/add-series" element={<AddSeries />} />
             <Route path="/add-episode" element={<AddEpisode />} />
             <Route path="/user-dashboard" element={<UserDashboard />} />
-            <Route path="/add-cast" element={<AddCast/>}/>
+            <Route path="/add-crew" element={<AddCast/>}/>
           </Route >
         </Route >
 

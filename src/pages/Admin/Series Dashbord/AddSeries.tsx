@@ -7,7 +7,6 @@ import {toast} from "react-toastify"
 import { addSeries, searchCastByName,searchDirectorByName } from "../../../services/apis/adminService";
 import { Addseries } from "../../../interfaces/admin.interface";
 import Loader from "../../../components/shimmerUI/Loader";
-
 const genreOptions = [
   { value: "28", label: "Action" },
   { value: "18", label: "Drama" },
@@ -27,7 +26,6 @@ const genreOptions = [
   {value:"10402",label:"Music"},
   {value:"9648",label:"Myst."},
   {value:"37",label:"Western"},
-
 ];
 const languageOptions = [
   { value: "hindi", label: "Hindi" },
@@ -38,7 +36,6 @@ const languageOptions = [
   { value: "malayalam", label: "Malayalam" },
   { value: "kannada", label: "Kannada" },
 ];
-
 const fetchCastOptions = async(inputValue: string): Promise<{ value: string; label: string }[]> => {
     try {
       const results=await searchCastByName(inputValue.trim());
@@ -51,7 +48,6 @@ const fetchCastOptions = async(inputValue: string): Promise<{ value: string; lab
     return [];
     }
 };
-
 const fetchDirectorOptions = async(inputValue: string): Promise<{ value: string; label: string }[]> => {
   try {
     const results=await searchDirectorByName(inputValue.trim());
@@ -64,7 +60,6 @@ const fetchDirectorOptions = async(inputValue: string): Promise<{ value: string;
   return [];
   }
 };
-
 const AddSeries: React.FC = () => {
   const navigate = useNavigate();
   const todayDate=new Date().toISOString().split("T")[0];
@@ -83,8 +78,6 @@ const AddSeries: React.FC = () => {
   });
   const[loading,setLoading]=useState<boolean>(false);
   const [isFormValid, setIsFormValid] = useState<boolean>(false);
-  
-
   const validateForm=()=>{
     if(
       series.title.trim() &&
@@ -129,7 +122,6 @@ const AddSeries: React.FC = () => {
     }
   };
   const handleSave = async() => {
-
     const formData=new FormData();
     formData.append("title",series.title);
     formData.append("description",series.description);
@@ -169,10 +161,8 @@ const AddSeries: React.FC = () => {
           <div className="fields1">
             <label>Title</label>
             <input type="text" name="title" value={series.title} className="add-series-input" onChange={handleChange} placeholder="Enter series title" autoComplete="off"/>
-
             <label>Description</label>
             <textarea name="description" value={series.description}  onChange={handleChange} placeholder="Enter series details" autoComplete="off" className="text-desc1"/>
-
             <label>Genres</label>
             <Select isMulti options={genreOptions} value={series.genres}  onChange={(selected) => setSeries((prev) => ({...prev,genres: selected ? (selected as { value: string; label: string }[]) : [],}))}  styles={{
                 control: (provided) => ({
@@ -187,7 +177,7 @@ const AddSeries: React.FC = () => {
                 }),
                 multiValue: (provided) => ({
                     ...provided,
-                    backgroundColor: "#6da3d6",
+                    backgroundColor: "#6DA3D6",
                     color: "white"
                 }),
                 input: (provided) => ({
@@ -195,13 +185,11 @@ const AddSeries: React.FC = () => {
                   color: "white"
               })
               }} />
-
             <label>Release Date</label>
             <input type="date" name="releaseDate" value={series.releaseDate} className="add-series-input" onChange={handleChange} max={todayDate} />
             <label>Rating</label>
             <input type="number" name="rating" value={series.rating} className="add-series-input" onChange={handleChange} step="0.1" min="0.0" placeholder="Enter series rating "/>
           </div>
-
           <div className="fields2">
             <label>Cast</label>
             <AsyncSelect
@@ -227,7 +215,7 @@ const AddSeries: React.FC = () => {
                 }),
                 multiValue: (provided) => ({
                     ...provided,
-                    backgroundColor: "#6da3d6",
+                    backgroundColor: "#6DA3D6",
                     color: "white"
                 }),
                 input: (provided) => ({
@@ -260,7 +248,7 @@ const AddSeries: React.FC = () => {
                 }),
                 multiValue: (provided) => ({
                     ...provided,
-                    backgroundColor: "#6da3d6",
+                    backgroundColor: "#6DA3D6",
                     color: "white"
                 }),
                 input: (provided) => ({
@@ -290,7 +278,7 @@ const AddSeries: React.FC = () => {
                 }),
                 multiValue: (provided) => ({
                   ...provided,
-                  backgroundColor: "#6da3d6",
+                  backgroundColor: "#6DA3D6",
                   color: "white"
               }),
                 input: (provided) => ({
@@ -301,20 +289,16 @@ const AddSeries: React.FC = () => {
             />
             <label>Poster</label>
             <input type="file" name="poster" className="add-series-input" onChange={handleChange} />
-
             <label>Trailer</label>
             <input type="file" name="trailerUrl" className="add-series-input" onChange={handleChange} />
           </div>
         </div>
-        
         <div className="buttons-container">
           <button className="close-btn-series" onClick={() => navigate("/admin-dashboard-series")}>Close</button>
-          
           <button className="save-btn-series" onClick={handleSave} disabled={!isFormValid}>Save</button>
         </div>
       </div>
     </div>
   );
 };
-
 export default AddSeries;

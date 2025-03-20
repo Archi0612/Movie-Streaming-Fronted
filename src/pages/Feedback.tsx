@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const Feedback: React.FC = () => {
   const [feedback, setFeedback] = useState({
+    // mediaId: String,
     rating: 1,
     review: "Needs Improvement",
     comment: "",

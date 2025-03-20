@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./DetailsPage.css";
-import { fetchSeriesByID } from "../../services/apis/seriesService";
+
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { getMovieById } from "../../services/apis/movieService";
+import { getMovieById } from "../../services/apis/mediaService/movieService";
 import { Movie } from "../../interfaces/movie.interface";
 import { genreMap } from "../../utils/MediaConstants";
 import {
@@ -22,6 +22,8 @@ import { toggleWatchList } from "../../redux/slices/WatchList/WatchList";
 import { toggleLike } from "../../redux/slices/LikedList/LikedList";
 import { toast } from "react-toastify";
 import Loader from "../../components/shimmerUI/Loader";
+import { fetchSeriesByID } from "../../services/apis/mediaService/seriesService";
+
 
 const DetailsPage: React.FC = () => {
   const { mediaId } = useParams();
@@ -35,6 +37,7 @@ const DetailsPage: React.FC = () => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [isBookMarked, setBookMarked] = useState<boolean>(false);
   const [loading, setLoading] = useState(false);
+  
 
   const fetchMediaByID = async () => {
     try {
@@ -329,40 +332,6 @@ const DetailsPage: React.FC = () => {
               </section>
             )}
             <section className="credits-section">
-              {/* Directors Section */}
-              <div className="director">
-                <h3 className="medieaData-subtitle">Directors</h3>
-                <div className="cast-list">
-                  {mediaData?.directors //series response
-                    ? mediaData.directors.map((director, index) => (
-                        <div key={index} className="cast-member">
-                          <img
-                            src="/public/default.png"
-                            alt={director.name}
-                            className="cast-image"
-                          />
-                          <div className="cast-info">
-                            <h4 className="media-name">{director.name}</h4>
-                          </div>
-                        </div>
-                      ))
-                    : mediaData?.director // movie response
-                    ? mediaData.director.map((director, index) => (
-                        <div key={index} className="cast-member">
-                          <img
-                            src="/public/default.png"
-                            alt={director.name}
-                            className="cast-image"
-                          />
-                          <div className="cast-info">
-                            <h4 className="media-name">{director.name}</h4>
-                          </div>
-                        </div>
-                      ))
-                    : null}
-                </div>
-              </div>
-
               {/* Casts Section */}
               <div className="cast-section">
                 <h3 className="medieaData-subtitle">Casts</h3>
@@ -381,35 +350,50 @@ const DetailsPage: React.FC = () => {
                       </div>
                     ))
                   ) : (
-                    <p>No cast information available.</p>
+                    <p className="cast-no-data">
+                      No cast information available.
+                    </p>
                   )}
-                  {/* {mediaData?.casts 
-                    ? mediaData.casts.map((cast, index) => (
-                        <div key={index} className="cast-member">
-                          <img
-                            src={cast.profilePicture}
-                            alt={cast.name}
-                            className="cast-image"
-                          />
-                          <div className="cast-info">
-                            <h4 className="media-name">{cast.name}</h4>
-                          </div>
+                </div>
+              </div>
+
+              {/* Directors Section */}
+              <div className="director">
+                <h3 className="medieaData-subtitle">Directors</h3>
+                <div className="cast-list">
+                  {mediaData?.directors ? ( //series response
+                    mediaData.directors.map((director, index) => (
+                      // <Swiper>
+                      <div key={index} className="cast-member">
+                        <img
+                          src="/public/default.png"
+                          alt={director.name}
+                          className="cast-image"
+                        />
+                        <div className="cast-info">
+                          <h4 className="media-name">{director.name}</h4>
                         </div>
-                      ))
-                    : mediaData?.cast // Fallback for movie response
-                    ? mediaData.cast.map((cast, index) => (
-                        <div key={index} className="cast-member">
-                          <img
-                            src="/public/default.png"
-                            alt={cast.name}
-                            className="cast-image"
-                          />
-                          <div className="cast-info">
-                            <h4 className="media-name">{cast.name}</h4>
-                          </div>
+                        {/* </Swiper> */}
+                      </div>
+                    ))
+                  ) : mediaData?.director ? ( // movie response
+                    mediaData.director.map((director, index) => (
+                      <div key={index} className="cast-member">
+                        <img
+                          src="/public/default.png"
+                          alt={director.name}
+                          className="cast-image"
+                        />
+                        <div className="cast-info">
+                          <h4 className="media-name">{director.name}</h4>
                         </div>
-                      ))
-                    : null} */}
+                      </div>
+                    ))
+                  ) : (
+                    <p className="cast-no-data">
+                      No Directors information are available.
+                    </p>
+                  )}
                 </div>
               </div>
             </section>

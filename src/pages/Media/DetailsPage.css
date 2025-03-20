@@ -81,7 +81,6 @@
   font-weight: 600;
 }
 .like-button {
-  /* background: none; */
   background-color: var(--primary-color);
   color: white;
 }
@@ -117,7 +116,12 @@
 .watchlist-button:hover {
   border: 0.1rem solid var(--primary-color);
 }
-
+.director{
+padding-bottom: 0.5rem;
+}
+.cast-section{
+  padding-bottom: 0.5rem;
+}
 .mediaData-title {
   font-size: 2rem;
   font-weight: 700;
@@ -125,7 +129,7 @@
   color: var(--primary-color);
 }
 .medieaData-subtitle {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   margin-bottom: 0.5rem;
 }
 .cast-image {
@@ -180,7 +184,9 @@
 }
 
 /* Description Section */
-
+.description-section{
+  padding-bottom: 0.5rem;
+}
 .description-para {
   color: #c1ccd0;
 }
@@ -306,7 +312,14 @@
 .review-action-btn:hover {
   background-color: #333333;
 }
-
+.cast-image{
+  width: 10rem;
+  height: 10rem;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid var(--secondary-color);
+  box-shadow: 1rem ;
+}
 .cast-title {
   font-size: 2rem;
   margin-bottom: 2rem;
@@ -316,7 +329,9 @@
   flex-wrap: wrap;
   gap: 1rem;
 }
-
+.cast-no-data{
+  color: #aaaaaa;
+}
 /* SeriesDate Design */
 .episodes-container {
   display: flex;

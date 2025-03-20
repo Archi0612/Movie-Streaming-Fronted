@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { AgGridReact } from "ag-grid-react";
-import { ColDef } from "ag-grid-community";
+import { ColDef ,ICellRendererParams} from "ag-grid-community";
 import {
   ModuleRegistry,
   ClientSideRowModelModule,
@@ -171,7 +171,7 @@ const UserDashboard: React.FC = () => {
     {
       headerName: "Subscription",
       field: "subscription.plan",
-      valueGetter: (params: any) => params.data.subscription?.plan,
+      valueGetter: (params) => params.data?.subscription?.plan || "",
       flex: 2,
       filter: true,
       sortable: true,
@@ -179,7 +179,7 @@ const UserDashboard: React.FC = () => {
     {
       headerName: "Role",
       field: "role",
-      cellRenderer: (params: any) => {
+      cellRenderer: (params: ICellRendererParams<User>) => {
         const isAdmin = params.value === "admin";
         // const isCurrentUser = params.data.id === loggedInUserId; // Logged-in admin ID
         return (
@@ -187,7 +187,7 @@ const UserDashboard: React.FC = () => {
             type="checkbox"
             checked={isAdmin}
             disabled={isAdmin}
-            onChange={(e) => handleRoleChange(params.data, e.target.checked)}
+            onChange={(e) => params.data && handleRoleChange(params.data, e.target.checked)}
           />
         );
       },
@@ -198,11 +198,11 @@ const UserDashboard: React.FC = () => {
     {
       headerName: "Active",
       field: "isActive",
-      cellRenderer: (params: any) => (
+      cellRenderer: (params: ICellRendererParams<User>) => (
         <input
           type="checkbox"
-          checked={params.data.isActive}
-          onChange={() => handleActiveToggle(params.data)}
+          checked={params.data?.isActive || false}
+          onChange={() => params.data && handleActiveToggle(params.data)}
           className="active-checkbox"
         />
       ),
