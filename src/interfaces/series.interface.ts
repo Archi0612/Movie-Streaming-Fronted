@@ -1,15 +1,12 @@
-// export interface Series {
-//   _id: string;
-//   title: string;
-//   poster: string;
-//   description: string;
-//   releaseDate: string;
-//   genres: number[];
-//   languages: string[];
-//   video: boolean;
-//   rating: number;
-// }
+import { Dispatch, SetStateAction } from "react";
 
+//Video Player Interface
+export interface VideoPlayerProps {
+  url: string;
+  control?: boolean;
+  loop?: boolean;
+  setPopUp: Dispatch<SetStateAction<boolean>>; 
+}
 export interface Series {
   _id: string;
   title: string;

@@ -7,6 +7,7 @@ import { addMovie, searchCastByName, searchDirectorByName } from "../../../servi
 import { toast } from "react-toastify";
 import { AddMovies } from "../../../interfaces/admin.interface";
 import  Loader  from "../../../components/shimmerUI/Loader";
+import { Dispatch } from "redux";
 
 
 const genreOptions = [
@@ -163,8 +164,8 @@ const AddMovie: React.FC = () => {
       toast.success(response.data.message)
       navigate("/admin-dashboard-movies")
     } 
-    catch (error: any) {
-      toast.error(error.response?.data?.message || "Error in Adding Movie")
+    catch (error: unknown) {
+      if(error instanceof Error) toast.error(error?.message || "Error in Adding Movie")
     }
     finally{
       setLoading(false)
@@ -201,7 +202,7 @@ const AddMovie: React.FC = () => {
               isMulti
               options={genreOptions}
               value={movie.genres}
-              onChange={(selected: any) => setMovie((prev) => ({ ...prev, genres: selected }))}
+              onChange={(selected: Dispatch<setter>) => setMovie((prev) => ({ ...prev, genres: selected }))}
               placeholder="Select genres"
               className="select"
               styles={{

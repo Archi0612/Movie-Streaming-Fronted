@@ -1,14 +1,15 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-import { User, UserState, AuthResponse } from "../../../interfaces/movie.interface";
+import { UserState, AuthResponse, UserDetails } from "../../../interfaces/movie.interface";
 import { api } from "../../../services/api";
 import { deleteCookie, getCookie } from "../../../utils/MediaConstants";
 import { persistor } from "../../store";
 
+
 const storedToken = getCookie('token');
 const user = localStorage.getItem("currentUser");
 
-const parsedUser = user && user !== "undefined" ? JSON.parse(user) as User : null;
+const parsedUser = user && user !== "undefined" ? JSON.parse(user) as UserDetails : null;
 
 const initialState: UserState = {
     currentUser: parsedUser,
@@ -16,9 +17,6 @@ const initialState: UserState = {
     loading: false,
     success: false,
     error: undefined,
-    detailsLoading: false,
-    detailsError: undefined,
-    userDetails: undefined,
 };
 
 export const registerUser = createAsyncThunk<
@@ -41,7 +39,7 @@ export const registerUser = createAsyncThunk<
 
 export const loginUser = createAsyncThunk<
     AuthResponse,
-    Pick<User, "email" | "password">,
+    Pick<UserDetails, "email" | "password">,
     { rejectValue: string }
 >(
     "user/login",
@@ -90,7 +88,7 @@ const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
-        login: (state, action: PayloadAction<User>) => {
+        login: (state, action: PayloadAction<UserDetails>) => {
             state.currentUser = action.payload;
             state.isAuthenticated = true;
             state.success = true;

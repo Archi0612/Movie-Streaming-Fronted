@@ -1,0 +1,175 @@
+.add-cast-container{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: var(--background-color);
+    min-height: 100vh;
+    /* height: auto; */
+    width: 100vw;
+    /* align-items: center; */
+    padding-top: 20px;
+    overflow-y: auto;
+    /* flex-direction: column; */
+    
+}
+.add-cast {
+    width: 40vw;
+    max-width: 1200px;
+    margin-top: 50px;
+    padding: 20px;
+    color: #ffffff;
+    border-radius: 10px;
+    background-color: rgba(26,26,45,0.8);
+    box-shadow: 0px 2px 5px var(--hover-shadow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+  }
+  .header{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    /* margin-bottom: 20px; */
+    padding-bottom: 15px;
+    position: relative;
+    align-items: center;
+    /* border-bottom: 1px solid rgba(255,255,255,0.2); */
+  }
+  .add-cast-heading{
+        /* text-align: center; */
+        font-size: 30px;
+        margin: 0;
+        /* margin-bottom: 30px; */
+        color: var(--primary-color);
+        
+  }
+  .cast-add-btn {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    position: absolute;
+    right: 0;
+    /* margin-bottom: 20px; */
+  }
+  .cast-add-btn:hover {
+    background-color: #45a048;
+  }
+  
+  .cast-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+  }
+  
+  .actor-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
+  .cast-name-label{
+    width: 100%;
+    /* padding-left: 15px; */
+    align-self: flex-start;
+  }
+  .actor-card select option{
+    color: white;
+    background: rgba(30, 30, 30, 0.89);
+  }
+  .photo-label {
+    cursor: pointer;
+  }
+  
+  .profile-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+  }
+  
+  .photo-input {
+    display: none;
+  }
+  
+  .actor-name-input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: rgba(51, 51, 51, 0.3);
+    color: white;
+    font-size: 16px;
+  }
+  .cast-buttons-groups {
+    display: flex;
+    /* margin: 0px 20px; */
+    justify-content: space-between;
+    /* width: 100%; */
+    margin-top: 20px;
+    gap: 30px;
+}
+.cast-save-btn {
+    
+    /* flex: 1; */
+    width: 120px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+}
+.cast-save-btn:hover {
+    background-color: var(--secondary-color);
+}
+.cast-save-btn:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+.cast-cancel-btn {
+    /* flex: 1; */
+    width: 120px;
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+}
+.cast-cancel-btn:hover{
+    background-color: #c9302c;
+}
+@media screen and (max-width:1024px){
+    .add-cast {
+        width: 60%;
+    }
+}
+@media screen and (max-width: 768px) {
+    .add-cast {
+        width: 90%;
+    }
+
+    .cast-buttons-groups {
+        /* width: 100%; */
+        /* flex-direction: column; */
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .cast-save-btn, .cast-cancel-btn {
+        width: 100px;
+    }
+}

@@ -1,0 +1,84 @@
+.error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: var(--background-color);
+    color: white;
+    text-align: center;
+    
+}
+
+.error-image {
+    width: 25vw;
+}
+
+.error-title {
+    font-size: 2.5rem;
+    margin: 20px 0;
+    font-weight: 500;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+  .error-subtitle{
+    font-size: 1.5rem;
+    font-weight:200;
+    padding: 0.5rem;
+    border: 1px solid var(--secondary-color);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    
+  }
+  .error-message {
+    font-size: 1rem;
+    color: rgb(133, 155, 163);
+    max-width: 600px;
+    margin-top: 1rem;
+  }
+  
+  .error-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: white;
+    background-color:var(--primary-color);
+    border: none;
+    border-radius: 0.5rem;
+    text-decoration: none;
+  }
+  
+  .error-button:hover {
+    background-color: var(--secondary-color);
+    transition: 0.2s ease-in-out;
+  }
+  
+  /* Responsive  */
+  @media (max-width: 1024px) { 
+    .error-title {
+        font-size: 2rem;
+    }
+    .error-subtitle {
+        font-size: 1.25rem;
+    }
+    .error-image {
+        width: 60vw;
+    }
+}
+
+@media (max-width: 768px) { 
+    .error-title {
+        font-size: 1.75rem;
+    }
+    .error-subtitle {
+        font-size: 1.125rem;
+    }
+    .error-message {
+        font-size: 0.875rem;
+    }
+    .error-image {
+        width: 70vw;
+    }
+    .error-button {
+        font-size: 0.875rem;
+        padding: 0.5rem 1rem;
+    }
+}
