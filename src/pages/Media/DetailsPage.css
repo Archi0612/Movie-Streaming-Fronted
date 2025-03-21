@@ -1,6 +1,4 @@
-/* Base styles and resets */
 .details-container {
-  /* position: absolute; */
   width: 100%;
   /* margin: 0 auto; */
   background-color: #121212;
@@ -92,6 +90,29 @@
   background-color: var(--primary-color);
   color: white;
 }
+ /* Share button modal */
+.share-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 900;
+}
+.share-modal {
+  width: 40vw;
+  height: 47vh;
+  padding: 20px;
+  border-radius: 0;
+  z-index: 901;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .watch-movie {
   /* width: 2rem; */
   /* padding: 1rem; */
@@ -116,10 +137,10 @@
 .watchlist-button:hover {
   border: 0.1rem solid var(--primary-color);
 }
-.director{
-padding-bottom: 0.5rem;
+.director {
+  padding-bottom: 0.5rem;
 }
-.cast-section{
+.cast-section {
   padding-bottom: 0.5rem;
 }
 .mediaData-title {
@@ -184,7 +205,7 @@ padding-bottom: 0.5rem;
 }
 
 /* Description Section */
-.description-section{
+.description-section {
   padding-bottom: 0.5rem;
 }
 .description-para {
@@ -312,13 +333,13 @@ padding-bottom: 0.5rem;
 .review-action-btn:hover {
   background-color: #333333;
 }
-.cast-image{
+.cast-image {
   width: 10rem;
   height: 10rem;
   object-fit: cover;
   border-radius: 50%;
   border: 1px solid var(--secondary-color);
-  box-shadow: 1rem ;
+  box-shadow: 1rem;
 }
 .cast-title {
   font-size: 2rem;
@@ -329,7 +350,7 @@ padding-bottom: 0.5rem;
   flex-wrap: wrap;
   gap: 1rem;
 }
-.cast-no-data{
+.cast-no-data {
   color: #aaaaaa;
 }
 /* SeriesDate Design */
@@ -356,13 +377,12 @@ padding-bottom: 0.5rem;
   gap: 1rem;
   padding: 0.3rem 0;
 }
-.episode:hover  {
+.episode:hover {
   background-color: #333;
   box-shadow: 0.5rem 0.5rem 0.2rem var(--shadow-hover);
-
 }
-.episode:hover .episode-button{
-    opacity: 1;
+.episode:hover .episode-button {
+  opacity: 1;
 }
 .episode-title {
   font-size: 1rem;
@@ -375,7 +395,6 @@ padding-bottom: 0.5rem;
   margin-top: 0.7rem;
 }
 .episode-buttons {
-  
   display: flex;
   margin-top: 1rem;
   gap: 2rem;
@@ -395,8 +414,8 @@ padding-bottom: 0.5rem;
     45deg,
     var(--primary-color),
     var(--secondary-color)
-    );
-  
+  );
+
   transition: all 0.3s ease-in-out;
 }
 .episode-button:hover {
