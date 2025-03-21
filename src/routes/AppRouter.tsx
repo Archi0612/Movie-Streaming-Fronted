@@ -38,6 +38,7 @@ import PaymentCancel from "../pages/Stripe-Payment/paymentCancel/PaymentCancel";
 import { PaymentSuccess } from "../pages/Stripe-Payment/paymentSuccess/paymentSuccess";
 import ErrorPage from "../pages/Error/ErrorPage";
 import AddCast from "../pages/Admin/Cast/AddCast";
+import StreamRoom from "../components/Media-Room/StreamRoom";
 
 
 // Protected Route component that checks if user is authenticated
@@ -119,6 +120,7 @@ const AppRoute: React.FC = () => {
             <Route path="/watch/:mediaId" element={<WatchVideo/>} />
             <Route path="/details/:mediaId" element={<DetailsPage />}/>
             <Route path="/error" element={<ErrorPage/>}/>
+            <Route path="/streamRoom/:roomId" element={<StreamRoom/>}/>
       
           </Route>
 

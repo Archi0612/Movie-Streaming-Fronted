@@ -4,7 +4,7 @@ import "./DetailsPage.css";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { getMovieById } from "../../services/apis/mediaService/movieService";
 import { Movie } from "../../interfaces/movie.interface";
-import { genreMap } from "../../utils/MediaConstants";
+import { genreMap, secondToMin } from "../../utils/MediaConstants";
 import {
   FaBookmark,
   FaPlay,
@@ -139,14 +139,9 @@ const DetailsPage: React.FC = () => {
   };
 
   const handleDurationTime = () => {
-    const totalSeconds = mediaData?.duration || 0;
-    const hours = Math.floor(totalSeconds / 3600);
-    const minutes = Math.floor((totalSeconds % 3600) / 60);
-    if (hours > 0 && minutes > 0) return `${hours}h ${minutes}m`;
-    if (hours > 0) return `${hours}h`;
-    if (minutes > 0) return `${minutes}m`;
-    return "Unknown";
+   return secondToMin(mediaData?.duration || 0);
   };
+
   if (loading) {
     return <Loader />;
   }
@@ -217,6 +212,8 @@ const DetailsPage: React.FC = () => {
                   <SharePopup
                   url={window.location.href}
                   onClose={handleCloseSharePopup}
+                  mediaId = {mediaId}
+                  contentType = {contentType}
                 />
                 </ReactModal>)}
               {/* // Add SharePopup Component (conditionally render it) */}
@@ -268,6 +265,7 @@ const DetailsPage: React.FC = () => {
               <button
                 className="action-button watch-button"
                 onClick={handlePlayVideo}
+                name="watch-btn"
               >
                 Watch
                 <FaPlay size={16} />

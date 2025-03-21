@@ -4,17 +4,28 @@ import {
   FaFacebook, FaEnvelope, FaVideo 
 } from "react-icons/fa";
 import "./SharePopup.css";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 
 interface SharePopupProps {
   url: string;
   onClose: () => void;
+  mediaId: string;
+  contentType:string;
 }
 
-const SharePopup: React.FC<SharePopupProps> = ({ url, onClose }) => {
+const SharePopup: React.FC<SharePopupProps> = ({ url, onClose, mediaId, contentType }) => {
+  const navigate = useNavigate();
+  console.log("contentType from shareprops", contentType);
+  console.log("mediaId from shareprops", mediaId);
   const copyToClipboard = () => {
     navigator.clipboard.writeText(url);
     alert("Link copied to clipboard!");
   };
+
+  const handleCreateRoom = () => {
+    const roomId = Date.now().toString();
+    navigate(`/streamRoom/${roomId}`);
+  }
 
   return (
     <div className="share-popup-overlay" onClick={onClose}>
@@ -74,7 +85,7 @@ const SharePopup: React.FC<SharePopupProps> = ({ url, onClose }) => {
         </div>
 
         {/* Create Room */}
-        <button className="create-room">
+        <button className="create-room" onClick={handleCreateRoom}>
           <FaVideo /> Create Room
         </button>
       </div>

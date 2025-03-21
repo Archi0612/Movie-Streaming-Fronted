@@ -153,7 +153,6 @@ const Sidebar: React.FC<SidebarProps> = ({ role = "user" }) => {
               >
                 <IconComponent size={20} />
                 {isExpanded && <span className="Link-text">{item.name}</span>}
-
                 {/* Show admin submenu when hovering over admin menu item */}
                 {item.isAdminMenu && showAdminSubmenu && isExpanded && (
                   <div
