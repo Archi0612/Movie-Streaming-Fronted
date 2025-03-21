@@ -24,6 +24,7 @@ import { toast } from "react-toastify";
 import Loader from "../../components/shimmerUI/Loader";
 import { fetchSeriesByID } from "../../services/apis/mediaService/seriesService";
 import SharePopup from "../../components/Search-popUp/SharePopup";
+import ReactModal from "react-modal";
 
 const DetailsPage: React.FC = () => {
   const { mediaId } = useParams();
@@ -40,6 +41,7 @@ const DetailsPage: React.FC = () => {
   const [isSharePopupOpen, setSharePopupOpen] = useState(false);
 
   const handleShare = () => {
+    console.log("sharebtn clicked");
     setSharePopupOpen(true);
   };
 
@@ -53,7 +55,7 @@ const DetailsPage: React.FC = () => {
       if (contentType === "Movie") {
         const response = await getMovieById(mediaId as string);
         setMediaData(response.movie as Movie);
-        console.log(response.movie, "Movie response");
+        
       } else {
         const response = await fetchSeriesByID(mediaId as string);
         setMediaData(response.seriesInfo as Movie);
@@ -202,14 +204,28 @@ const DetailsPage: React.FC = () => {
               >
                 <FaShareFromSquare size={16} />
                 Share
+                
               </button>
+              {isSharePopupOpen && (<ReactModal
+                  isOpen={isSharePopupOpen}
+                  onRequestClose={() => setSharePopupOpen(false)}
+                  className="share-modal"
+                  shouldCloseOnEsc={true}
+                  shouldCloseOnOverlayClick={true}
+                  overlayClassName="share-overlay"
+                >
+                  <SharePopup
+                  url={window.location.href}
+                  onClose={handleCloseSharePopup}
+                />
+                </ReactModal>)}
               {/* // Add SharePopup Component (conditionally render it) */}
-              {isSharePopupOpen && (
+              {/* {isSharePopupOpen && (
                 <SharePopup
                   url={window.location.href}
                   onClose={handleCloseSharePopup}
                 />
-              )}
+              )} */}
               <button
                 className="action-button watchlist-button"
                 onClick={handleWatchList}

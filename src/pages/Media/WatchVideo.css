@@ -13,20 +13,20 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.6); /* Dark overlay */
+  background-color: rgba(0, 0, 0, 0.6); 
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index :900; /* Ensure it's above everything */
+  z-index :900; 
 }
 
 .feedback-modal {
 
-width: 49vw; /* Set width */
+width: 45vw; 
 height: 55vh;
 padding: 20px;
-border-radius: 0; /* Remove rounded corners */
-z-index: 901; /* Ensure modal stays on top */
+border-radius: 0; 
+z-index: 901;
 display: flex;
 justify-content: center;
 align-items: center;

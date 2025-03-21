@@ -11,9 +11,9 @@ import ReactModal from "react-modal";
 import { fetchEpisodeById } from "../../services/apis/mediaService/seriesService";
 import VideoPlayer from "../../components/videoPlayer/VideoPlayer";
 
-ReactModal.setAppElement("#root"); 
+ReactModal.setAppElement("#root");
 const WatchVideo: React.FC = () => {
-  const {mediaId} = useParams();
+  const { mediaId } = useParams();
   const [searchParams] = useSearchParams();
   const contentType = searchParams.get("contentType");
   const [mediaUrl, setMediaUrl] = useState<null>(null);
@@ -29,8 +29,7 @@ const WatchVideo: React.FC = () => {
       if (contentType === "Movie") {
         const response = await getMovieById(mediaId as string);
         setMediaUrl(response.movie.movieUrl);
-      }
-       else if( contentType === "Series") {
+      } else if (contentType === "Series") {
         const responseOfepisodes = await fetchEpisodeById(mediaId as string);
         setMediaUrl(responseOfepisodes.episodeUrl);
       }
@@ -54,18 +53,22 @@ const WatchVideo: React.FC = () => {
   }
   return (
     <div className="watch-video-container">
-      <VideoPlayer url={url} control={true} loop={false} setPopUp={setShowFeedBack} />
+      <VideoPlayer
+        url={url}
+        control={true}
+        loop={false}
+        setPopUp={setShowFeedBack}
+      />
       <ReactModal
-  isOpen={showFeedBack}
-  onRequestClose={() => setShowFeedBack(false)}
-  shouldCloseOnOverlayClick={true}
-  shouldCloseOnEsc={true}
-  className="feedback-modal"
-  overlayClassName="feedback-overlay"
->
-  <Feedback />
-</ReactModal>
-
+        isOpen={showFeedBack}
+        onRequestClose={() => setShowFeedBack(false)}
+        shouldCloseOnOverlayClick={true}
+        shouldCloseOnEsc={true}
+        className="feedback-modal"
+        overlayClassName="feedback-overlay"
+      >
+        <Feedback />
+      </ReactModal>
     </div>
   );
 };

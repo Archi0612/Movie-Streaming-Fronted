@@ -1,0 +1,126 @@
+/* Share pop up overlay Background */
+.share-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  /* share Popup Container where sharing content will display */
+  .share-popup {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    width: 350px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    position: relative;
+  }
+  
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #333;
+  }
+  
+  /* Heading */
+  .share-movie {
+    font-size: 20px;
+    font-weight: bold;
+    color: #222;
+    margin-bottom: 1rem;
+  }
+  
+  /* Social Media Icons */
+  .share-social-media {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 15px;
+  }
+  
+  .share-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+    transition: 0.3s;
+  }
+  
+  .whatsapp { background: #25D366; }
+  .twitter { background: #1DA1F2; }
+  .facebook { background: #1877F2; }
+  .email { background: #D44638; }
+  
+  .share-btn:hover {
+    opacity: 0.8;
+  }
+  
+  /* Copy Link Section */
+  .copy-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f1f1f1;
+    border-radius: 8px;
+    padding: 8px;
+  }
+  
+  .copy-link-input {
+    border: none;
+    background: none;
+    font-size: 14px;
+    flex-grow: 1;
+    color: #333;
+    outline: none;
+  }
+  
+  .copy-btn {
+    background: #6c5ce7;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s;
+    margin-left: 1px;
+  }
+  
+  .copy-btn:hover {
+    background: #4834d4;
+  }
+  
+  /* Create Room Button */
+  .create-room {
+    margin-top: 15px;
+    padding: 10px 15px;
+    background: var(--primary-color);
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: 0.3s;
+  }
+  
+  .create-room:hover {
+    background: var(--secondary-color);
+  }
+  
