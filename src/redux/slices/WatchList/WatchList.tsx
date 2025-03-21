@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { api } from "../../../services/api";
 import { WatchListApiResponse, WatchListState, WatchListItem } from "../../../interfaces/movie.interface";
+import { handleApiError } from "../../../utils/MediaConstants";
 
 // Initial State
 const initialState: WatchListState = {
@@ -18,8 +19,8 @@ export const fetchWatchList = createAsyncThunk(
                 withCredentials: true,
             });
             return response.data.data.watchlist.watchlist;
-        } catch (error: any) {
-            return rejectWithValue(error.response?.data?.message || "Failed to fetch watchlist");
+        } catch (error) {
+            return rejectWithValue(handleApiError(error));
         }
     }
 );
@@ -33,11 +34,11 @@ export const toggleWatchList = createAsyncThunk(
                 withCredentials: true,
 
             });
-            
+
             dispatch(fetchWatchList());
             return response.data;
-        } catch (error: any) {
-            return rejectWithValue(error.response?.data?.message || "Failed to update watchlist");
+        } catch (error) {
+            return rejectWithValue(handleApiError(error));
         }
     }
 );

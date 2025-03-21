@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { ProfileApiResponse, ProfileState, UserProfile } from "../../../interfaces/movie.interface";
 import { api } from "../../../services/api";
+import { handleApiError } from "../../../utils/MediaConstants";
 
 // Initial State
 const initialState: ProfileState = {
@@ -12,14 +13,14 @@ const initialState: ProfileState = {
 // Fetch Profile Data
 export const fetchProfile = createAsyncThunk<UserProfile>(
     "profile/fetchProfile",
-    async () => {
+    async (_, { rejectWithValue }) => {
         try {
             const response = await api.get<ProfileApiResponse>("user/profile", {
                 withCredentials: true, // Ensures authentication token is sent
             });
             return response.data.data.user;
-        } catch (error: any) {
-            return (error.response?.data || "Failed to fetch profile info");
+        } catch (error) {
+            return rejectWithValue(handleApiError(error));
         }
     }
 );

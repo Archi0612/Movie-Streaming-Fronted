@@ -35,7 +35,7 @@ import MoviesPage from "../pages/Media/Movies/MoviesPage";
 import Home from "../pages/Home";
 import AddEpisode from "../pages/Admin/Series Dashbord/AddEpisode";
 import PaymentCancel from "../pages/Stripe-Payment/paymentCancel/PaymentCancel";
-import { PaymentSuccess } from "../pages/Stripe-Payment/paymentSuccess/paymentSuccess";
+import { PaymentSuccess } from "../pages/Stripe-Payment/PaymentSuccess/paymentSuccess";
 import ErrorPage from "../pages/Error/ErrorPage";
 import AddCast from "../pages/Admin/Cast/AddCast";
 
@@ -115,11 +115,11 @@ const AppRoute: React.FC = () => {
             <Route path="/contact-us" element={<ContactUs />} />
             <Route path="/profile-page" element={<ProfilePage />} />
             <Route path="/payment-success" element={<PaymentSuccess />} />
-            <Route path="/payment-cancel" element={<PaymentCancel/>} />
-            <Route path="/watch/:mediaId" element={<WatchVideo/>} />
-            <Route path="/details/:mediaId" element={<DetailsPage />}/>
-            <Route path="/error" element={<ErrorPage/>}/>
-      
+            <Route path="/payment-cancel" element={<PaymentCancel />} />
+            <Route path="/watch/:mediaId" element={<WatchVideo />} />
+            <Route path="/details/:mediaId" element={<DetailsPage />} />
+            <Route path="/error" element={<ErrorPage />} />
+
           </Route>
 
           {/* Admin Routes - requires admin role */}
@@ -133,7 +133,7 @@ const AppRoute: React.FC = () => {
             <Route path="/add-series" element={<AddSeries />} />
             <Route path="/add-episode" element={<AddEpisode />} />
             <Route path="/user-dashboard" element={<UserDashboard />} />
-            <Route path="/add-cast" element={<AddCast/>}/>
+            <Route path="/add-cast" element={<AddCast />} />
           </Route >
         </Route >
 

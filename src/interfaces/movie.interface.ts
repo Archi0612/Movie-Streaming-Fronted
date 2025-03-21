@@ -13,7 +13,7 @@ export interface UserDetails {
   gender?: string;
   role: string;
   otp?: number;
-   user: UserProfile;
+  user: UserProfile;
 }
 export interface UserProfile {
   _id: string;

@@ -13,12 +13,16 @@
     display: flex;
     align-items: center;
     position: relative;
+    overflow-x: scroll;
+    height: 20rem;
+
 }
 
 .searchmovie-slider {
     display: flex;
     justify-content: space-between;
-    overflow-x: auto;
+    align-items: center;
+    height: 20rem;
     scroll-behavior: smooth;
     white-space: nowrap;
     scrollbar-width: none;

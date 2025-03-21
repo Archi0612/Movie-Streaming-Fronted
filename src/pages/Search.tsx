@@ -15,6 +15,7 @@ import {
 } from "../services/apis/seriesService";
 
 const Search: React.FC = () => {
+
   const [moviesData, setMoviesData] = useState<MoviesData>({
     movieList: { title: "Movies", data: [] },
     seriesList: { title: "Series", data: [] },
@@ -37,6 +38,7 @@ const Search: React.FC = () => {
 
   const [searchInput, setSearchInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   // Fetch all movies on page load
   const fetchAllMovies = useCallback(async () => {
@@ -70,6 +72,7 @@ const Search: React.FC = () => {
       };
       setDefaultMoviesData(newMoviesData);
     } catch (err) {
+      setError("Error fetching movies and series");
       console.error("Error fetching movies and series", err);
     } finally {
       setIsLoading(false);
@@ -90,19 +93,19 @@ const Search: React.FC = () => {
         });
         const searchData: MoviesData = {
           movieList: {
-            title: "Search Results: Movies",
+            title: "Movies",
             data: response?.data?.data?.movieList || [],
           },
           seriesList: {
-            title: "Search Results: Series",
+            title: "Series",
             data: response?.data?.data?.seriesList || [],
           },
           castAndDirectorWiseMovie: {
-            title: "Search Results: Movies by Cast & Directors",
+            title: "Movies by Cast & Directors",
             data: response?.data?.data?.castAndDirectorWiseMovie || [],
           },
           castAndDirectorWiseSeries: {
-            title: "Search Results: Series by Cast & Directors",
+            title: "Series by Cast & Directors",
             data: response?.data?.data?.castAndDirectorWiseSeries || [],
           },
         };
@@ -115,17 +118,17 @@ const Search: React.FC = () => {
     }, 1000);
 
     return () => clearTimeout(timer);
-  }, [searchInput, defaultMoviesData]);
+  }, [searchInput]);
 
   // Determine which data to use: Default or Search Results
   const displayData = searchInput.trim()
-    ? Object.entries(moviesData).filter(([_, value]) => value.data.length > 0) // Show only non-empty search results
+    ? Object.entries(moviesData).filter(([_, value]) => value.data.length > 0)
     : Object.entries({
       popularMovies: defaultMoviesData.popularMovies,
       popularSeries: defaultMoviesData.popularSeries,
       topRatedMovie: defaultMoviesData.topRatedMovie,
       topRatedSeries: defaultMoviesData.topRatedSeries,
-    }).filter(([_, value]) => value.data.length > 0); // Show only non-empty default data
+    }).filter(([_, value]) => value.data.length > 0);
 
   return (
     <div className="search-page">

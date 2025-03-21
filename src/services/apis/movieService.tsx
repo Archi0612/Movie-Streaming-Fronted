@@ -59,7 +59,7 @@ export const getMovieById = (mediaId: string) => fetchMovieData(`movie/getMovieB
 export const getHomeTrending = async () => {
   try {
     const response = await api.get(`trending/getTrendingContent`);
-    
+
     return response?.data; // Return full data object
   } catch (err: unknown) {
     if (err instanceof Error) {

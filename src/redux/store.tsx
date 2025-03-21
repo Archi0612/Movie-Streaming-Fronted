@@ -5,6 +5,8 @@ import userReducer from "./slices/user/userSlice";
 import profileReducer from './slices/Profile/Profile';
 import watchlistReducer from "./slices/WatchList/WatchList";
 import likedlistReducer from "./slices/LikedList/LikedList";
+import roomSliceReducer from "./slices/Room/RoomSlice"
+import videoPlayerReducer from "./slices/VideoPlayer/PlayerSlice"
 
 const persistConfig = {
     key: "root",
@@ -16,7 +18,9 @@ const rootReducer = combineReducers({
     user: userReducer,
     profile: profileReducer,
     watchlist: watchlistReducer,
-    likedlist: likedlistReducer
+    likedlist: likedlistReducer,
+    room: roomSliceReducer,
+    player: videoPlayerReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
