@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./Breadcrumb.css";
 import { getMovieById } from "../../services/apis/mediaService/movieService";
-import { fetchSeriesByID } from "../../services/apis/mediaService/seriesService";
+import { fetchEpisodeById, fetchSeriesByID } from "../../services/apis/mediaService/seriesService";
 import { genreMap } from "../../utils/MediaConstants";
 const pathLabels: Record<string, string> = {
   "home": "Home",
@@ -35,7 +35,7 @@ const Breadcrumb: React.FC = () => {
     extraBreadcrumb = { path: "/admin-dashboard-series", label: "Series Dashboard" };
   }
   useEffect(() => {
-    if (!pathnames.includes("details") && !(pathnames.length===2 && pathnames[0]==="genres")) {
+    if (!pathnames.includes("details") && !pathnames.includes("watch") && !(pathnames.length===2 && pathnames[0]==="genres")) {
       setTitle(null);
       return;
     }
@@ -43,46 +43,92 @@ const Breadcrumb: React.FC = () => {
     const contentType = queryParams.get("contentType") as "Movie" | "Series" | null;
 
     const lastSegment = pathnames[pathnames.length - 1];
-
-    if (pathnames.includes("details") && lastSegment && contentType) {
-      const fetchData = async () => {
-        try {
-          let response;
-          if (contentType === "Movie") {
-            response = await getMovieById(lastSegment);
+    const fetchData=async()=>{
+      try {
+        let response;
+        if(pathnames.includes("details") && lastSegment && contentType){
+          if(contentType==="Movie"){
+            response=await getMovieById(lastSegment);
             setTitle(response?.movie?.title || null);
-          } 
-          else if(contentType==="Series") {
-            response = await fetchSeriesByID(lastSegment);
+          }
+          else if(contentType==="Series"){
+            response=await fetchSeriesByID(lastSegment);
             setTitle(response?.seriesInfo?.title || null);
           }
-        } catch (error) {
-          console.error("Error fetching content name:", error);
-          setTitle(null);
+          return;
         }
-      };
+        if(pathnames.includes("watch") && lastSegment && contentType){
+          if(contentType==="Movie"){
+            response=await getMovieById(lastSegment);
+            setTitle(response?.movie?.title || null);
+          }
+          else if(contentType==="Series"){
+            response=await fetchEpisodeById(lastSegment);
+            setTitle(response?.episode?.title || null);
+          }
+          return;
 
-      fetchData();
-    }
-    else if(pathnames.includes("watch") && lastSegment){
-      const fetchData=async()=>{
-        try {
-          const response=await getMovieById(lastSegment);
-          setTitle(response?.movie?.title || null);
-        } catch (error) {
-          console.error("Error fetching movie title",error)
-          setTitle(null);
         }
+       if(pathnames.length===2 && pathnames[0]==="genres"){
+          const genreId=parseInt(lastSegment,10);
+          if(!isNaN(genreId) && genreMap[genreId]){
+            setTitle(genreMap[genreId]);
+          }
+       } 
+      } catch (error) {
+        console.error("Error fetching content name:", error);
       }
-      fetchData();
     }
-    else if(pathnames.length===2 && pathnames[0]==="genres"){
-      const genreId=parseInt(lastSegment,10);
-      if (!isNaN(genreId) && genreMap[genreId]) {
-        setTitle(genreMap[genreId]);
-      }
-    }
-  }, [location.pathname, location.search]);
+    fetchData();
+  },[location.pathname,location.search])
+  //   if (pathnames.includes("details") && lastSegment && contentType) {
+  //     const fetchData = async () => {
+  //       try {
+  //         let response;
+  //         if (contentType === "Movie") {
+  //           response = await getMovieById(lastSegment);
+  //           setTitle(response?.movie?.title || null);
+  //         } 
+  //         else if(contentType==="Series") {
+  //           response = await fetchSeriesByID(lastSegment);
+  //           setTitle(response?.seriesInfo?.title || null);
+  //         }
+  //       } catch (error) {
+  //         console.error("Error fetching content name:", error);
+  //         setTitle(null);
+  //       }
+  //     };
+
+  //     fetchData();
+  //   }
+  //   else if(pathnames.includes("watch") && lastSegment && contentType){
+  //     const fetchData=async()=>{
+  //       try {
+  //         let response;
+  //         if(contentType==="Movie"){
+  //           response=await getMovieById(lastSegment);
+  //           console.log(response)
+  //           setTitle(response?.movie?.title || null);
+  //         }
+  //         else if(contentType==="Series"){
+  //           response=await fetchEpisodeById(lastSegment);
+  //           console.log(response)
+  //           // setTitle(response?.seriesInfo?.title || null);
+  //         }
+  //       } catch (error) {
+  //         console.error("Error fetching movie title",error)
+  //         setTitle(null);
+  //       }
+  //     }
+  //     fetchData();
+  //   }
+  //   else if(pathnames.length===2 && pathnames[0]==="genres"){
+  //     const genreId=parseInt(lastSegment,10);
+  //     if (!isNaN(genreId) && genreMap[genreId]) {
+  //       setTitle(genreMap[genreId]);
+  //     }
+  //   }
+  // }, [location.pathname, location.search]);
 
   return (
     <nav className="breadcrumb">

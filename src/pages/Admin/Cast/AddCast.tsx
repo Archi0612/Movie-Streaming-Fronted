@@ -96,7 +96,7 @@ const AddCast: React.FC = () => {
         <div className="add-cast-header">
 
       <h2 className="add-cast-heading">Add Crew</h2>
-      <button className="cast-add-btn" onClick={addActor}><MdAdd size={20} /> Add Crew</button>
+      <button className="cast-add-btn" onClick={addActor} title="Add New Crew"><MdAdd size={20} />New</button>
         </div>
       <div className="cast-container">
         {actors.map((actor, index) => (
@@ -111,18 +111,18 @@ const AddCast: React.FC = () => {
               accept="image/*"
               onChange={(e) => handlePhotoChange(index, e.target.files?.[0] || null)}
             />
-            <label className="cast-name-label">Crew Name</label>
+            <label className="cast-name-label">Full Name</label>
             <input
               type="text"
               className="actor-name-input"
-              placeholder="Enter actor name"
+              placeholder="Enter full name"
               value={actor.name}
               onChange={(e) => updateActor(index, "name", e.target.value)}
             />
             <label className="cast-name-label">Date of Birth</label>
             <input type="date" className="actor-name-input" value={actor.dateOfBirth} onChange={(e)=>updateActor(index,"dateOfBirth",e.target.value)} />
             <label className="cast-name-label">Nationality</label>
-            <input type="text" className="actor-name-input" placeholder="Enter nationality" value={actor.nationality} onChange={(e)=>updateActor(index,"nationality",e.target.value)}/>
+            <input type="text" className="actor-name-input" placeholder="Enter country of origin" value={actor.nationality} onChange={(e)=>updateActor(index,"nationality",e.target.value)}/>
             <label className="cast-name-label">Gender</label>
                     <select name="gender" className="actor-name-input" value={actor.gender} onChange={(e)=>updateActor(index,"gender",e.target.value)}>
                         <option value="">Select Gender</option>
@@ -130,7 +130,7 @@ const AddCast: React.FC = () => {
                         <option value="female">Female</option>
                         <option value="Other">other</option>
                     </select>
-            <label className="cast-name-label">Designamtion</label>
+            <label className="cast-name-label">Designation</label>
             <select name="designation" className="actor-name-input" value={actor.designation} onChange={(e)=>updateActor(index,"designation",e.target.value)}>
                   <option value="">Select Designation</option>
                   <option value="cast">Actor</option>
@@ -140,8 +140,8 @@ const AddCast: React.FC = () => {
         ))}
       </div>
       <div className="cast-buttons-groups">
-        <button className="cast-cancel-btn" onClick={()=>navigate("/admin-dashboard-movies")}>Cancel</button>
-      <button className="cast-save-btn" onClick={handleSave} disabled={isSaveDisabled} title={isSaveDisabled ? "Please fill name and profilePhoto field":""}>Save Cast</button>
+        <button className="cast-cancel-btn" onClick={()=>navigate("/admin-dashboard-movies")}>Cancel and Go Back</button>
+      <button className="cast-save-btn" onClick={handleSave} disabled={isSaveDisabled} title={isSaveDisabled ? "Please fill name and profilePhoto field":""}>Save Crew Member</button>
       </div>
     </div>
     </div>
