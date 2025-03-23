@@ -7,14 +7,19 @@ import MovieCard from "./Cards/MovieCard";
 const MoviesGrid: React.FC<MediaGridProps> = ({ mediaList, title }) => {
   return (
     <div className="movies-grid">
-      <h2 className="all-movies-title">{title}</h2>
-      <div className="movies-container">
-        {mediaList.map((media) => (
-          <MovieCard key={media._id} media={media} />
-        ))}
-      </div>
+      <h2 className="all-movies-title" data-testid="grid-title">{title}</h2>
+      {mediaList.length === 0 ? (
+        <p data-testid="no-movies">No movies available</p>
+      ) : (
+        <div className="movies-container">
+          {mediaList.map((media) => (
+            <MovieCard key={media._id} media={media} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
+
 
 export default MoviesGrid;
