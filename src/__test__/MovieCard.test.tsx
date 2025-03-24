@@ -7,7 +7,7 @@ import watchlistReducer from "../redux/slices/WatchList/WatchList"
 import { describe, expect, it, test, vi } from "vitest";
 import React from "react";
 
-// Mock Functions for navigation
+// this is Mock Function for navigation
 const mockNavigate = vi.fn();
 vi.mock("react-router-dom", async (importOriginal) => {
     const actual = await importOriginal();
