@@ -9,7 +9,7 @@ import Feedback from "../Feedback";
 
 import ReactModal from "react-modal";
 import { fetchEpisodeById } from "../../services/apis/mediaService/seriesService";
-import VideoPlayer from "@/components/videoPlayer/videoPlayer";
+import VideoPlayer from "../../components/videoPlayer/VideoPlayer";
 
 
 ReactModal.setAppElement("#root");

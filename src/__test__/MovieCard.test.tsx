@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 import MovieCard from "../components/Cards/MovieCard"
-import { fireEvent, render, screen, waitFor } from "@testing-library/react"
+import { fireEvent, render, screen } from "@testing-library/react"
 import { Provider } from "react-redux";
-import { BrowserRouter, MemoryRouter, useNavigate } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import watchlistReducer from "../redux/slices/WatchList/WatchList"
 import { describe, expect, it, test, vi } from "vitest";
 import React from "react";
@@ -48,7 +48,6 @@ const renderWithProviders = (component: React.ReactElement) => {
         </Provider>
     )
 }
-
 
 
 // It is Test suits
@@ -120,7 +119,6 @@ describe("MovieCard Component", () => {
 
     });
 
-
     // ********** REGRESSION TEST CASES ************
 
     //If nothing in movieCard component then it shouldn't be rendered.
@@ -130,7 +128,6 @@ describe("MovieCard Component", () => {
         expect(screen.queryByText(mockMedia.title)).not.toBeInTheDocument();
 
     });
-
 
 
     //****** BRANCH TEST CASES ************

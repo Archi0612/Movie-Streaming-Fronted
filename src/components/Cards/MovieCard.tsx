@@ -54,7 +54,6 @@ const MovieCard: React.FC<MediaCardProps> = ({ media }) => {
   }
   const handlePlayVideo = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation(); // Stop event from reaching the parent div
-    // navigate(`/videoPlayer`);
     if (!_id) {
       navigate("/error")
     }

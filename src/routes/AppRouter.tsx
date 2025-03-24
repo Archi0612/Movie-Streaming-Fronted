@@ -120,7 +120,7 @@ const AppRoute: React.FC = () => {
             <Route path="/watch/:mediaId" element={<WatchVideo/>} />
             <Route path="/details/:mediaId" element={<DetailsPage />}/>
             <Route path="/error" element={<ErrorPage/>}/>
-            <Route path="/streamRoom/:roomId" element={<StreamRoom/>}/>
+            {/* <Route path="/streamRoom/:roomId" element={<StreamRoom/>}/> */}
       
           </Route>
 
