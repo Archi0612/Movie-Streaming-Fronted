@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">54.54% </span>
+                <span class="strong">65.15% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>36/66</span>
+                <span class='fraction'>43/66</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">54.54% </span>
+                <span class="strong">65.15% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>36/66</span>
+                <span class='fraction'>43/66</span>
             </div>
         
             
@@ -170,21 +170,21 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -203,8 +203,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -247,18 +247,18 @@ export const fetchWatchList = createAsyncThunk(
 export const toggleWatchList = createAsyncThunk(
     "watchlist/toggleWatchList",
     async ({ contentId, contentType }: { contentId: string; contentType: string }, { rejectWithValue, dispatch }) =&gt; {
-<span class="cstat-no" title="statement not covered" >        try {</span>
-<span class="cstat-no" title="statement not covered" >            const response = await api.post("watchlist/toggle", { contentId, contentType }, {</span>
-<span class="cstat-no" title="statement not covered" >                withCredentials: true,</span>
+        try {
+            const response = await api.post("watchlist/toggle", { contentId, contentType }, {
+                withCredentials: true,
 &nbsp;
-<span class="cstat-no" title="statement not covered" >            });</span>
+            }<span class="branch-0 cbranch-no" title="branch not covered" >);</span>
             
 <span class="cstat-no" title="statement not covered" >            dispatch(fetchWatchList());</span>
 <span class="cstat-no" title="statement not covered" >            return response.data;</span>
 <span class="cstat-no" title="statement not covered" >        } catch (error: any) {</span>
 <span class="cstat-no" title="statement not covered" >            return rejectWithValue(error.response?.data?.message || "Failed to update watchlist");</span>
 <span class="cstat-no" title="statement not covered" >        }</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
+    }
 );
 &nbsp;
 const watchListSlice = createSlice({
@@ -280,8 +280,8 @@ const watchListSlice = createSlice({
 <span class="cstat-no" title="statement not covered" >                state.error = action.payload as string || "Unknown error occurred";</span>
             })
             .addCase(toggleWatchList.pending, (state) =&gt; {
-<span class="cstat-no" title="statement not covered" >                state.loading = true;</span>
-<span class="cstat-no" title="statement not covered" >                state.error = null;</span>
+                state.loading = true;
+                state.error = null;
             })
             .addCase(toggleWatchList.fulfilled, (state) =&gt; {
 <span class="cstat-no" title="statement not covered" >                state.loading = false;</span>
@@ -301,7 +301,7 @@ export type AppDispatch = typeof import("../../store").store.dispatch;</pre></td
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-03-23T13:31:29.636Z
+                at 2025-03-24T08:57:00.923Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

@@ -6,8 +6,8 @@ import watchlistReducer from "../redux/slices/WatchList/WatchList";
 import UserReducer from "../redux/slices/user/userSlice";
 import MoviesGrid from "../components/MoviesGrid";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { title } from "process";
-import { expect } from "vitest";
+import { describe, expect, it, test } from "vitest";
+import React from "react";
 
 // Mock movies list
 const mockMovies: MediaGridProps = {
@@ -83,7 +83,7 @@ describe("Movie Grid component testing", () => {
     expect(screen.getByText("Second test movie")).toBeInTheDocument();
   });
 
-  //Brand testing
+  //Branch testing
 
   test("should display 'No movies available' if no movies available", () => {
     const emptyMovie = { title: "", mediaList: [] };

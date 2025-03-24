@@ -4,7 +4,8 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react"
 import { Provider } from "react-redux";
 import { BrowserRouter, MemoryRouter, useNavigate } from "react-router-dom";
 import watchlistReducer from "../redux/slices/WatchList/WatchList"
-import { vi } from "vitest";
+import { describe, expect, it, test, vi } from "vitest";
+import React from "react";
 
 // Mock Functions for navigation
 const mockNavigate = vi.fn();
@@ -121,13 +122,6 @@ describe("MovieCard Component", () => {
 
 
     // ********** REGRESSION TEST CASES ************
-    //It checks different content types are handled or not? like Movie/Series
-    // it("should handle diff. contentTypes", () => {
-    //     renderWithProviders(<MovieCard media={{ ...mockMedia, contentType: "Series" }} />);
-    //     const card = screen.getByTestId("movie-card");
-    //     fireEvent.click(card);
-    //     expect(mockNavigate).toHaveBeenCalledWith(`details/123?contentType=Series`);
-    // })
 
     //If nothing in movieCard component then it shouldn't be rendered.
     it("should handle missing or invalid media properties", () => {
