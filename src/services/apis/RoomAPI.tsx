@@ -4,7 +4,7 @@ export const roomAPI = {
     createRoom: async (name: string, movie: {
         title: string;
         url: string;
-        duration: number;
+        duration: string;
     }) => {
         const response = await api.post('/rooms/create', {
             name,

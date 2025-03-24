@@ -14,7 +14,7 @@ interface Movie {
 }
 
 interface Room {
-    roomId: string;
+    roomId: string | null;
     name: string;
     hostId: string;
     movie: Movie;

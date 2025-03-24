@@ -6,7 +6,7 @@ import "./EditSeriesModal.css";
 import { toast } from "react-toastify";
 import { editSeries,getSeriesById,searchCastByName,searchDirectorByName } from "../../../services/apis/adminService";
 import { useNavigate } from "react-router-dom";
-import { EditSeriesModalProps } from "../../../interfaces/admin.interface";
+import { Addseries, EditSeries, EditSeriesModalProps } from "../../../interfaces/admin.interface";
 import Loader from "../../../components/shimmerUI/Loader";
 const genreOptions = [
   { value: "28", label: "Action" },
@@ -44,9 +44,11 @@ const fetchCastOptions = async(inputValue: string): Promise<{ value: string; lab
     return results.map((cast:{_id:string;name:string})=>({
       value:cast._id,
       label:cast.name
-    }))
-  } catch (error:any) {
-    console.error(error.response?.data?.message || "Error fetching cast");
+    }));
+  } catch (error:unknown) {
+    if(error instanceof Error){
+      toast.error(error.message);
+    }
     return [];
   }
 };
@@ -58,14 +60,16 @@ const fetchDirectorOptions = async(inputValue: string): Promise<{ value: string;
       value:director._id,
       label:director.name
     }))
-  } catch (error:any) {
-    console.error(error.response?.data?.message ||"Error fetching director:");
+  } catch (error:unknown) {
+    if(error instanceof Error){
+      toast.error(error.message);
+    }
     return [];
   }
 };
 const EditSeriesModal: React.FC<EditSeriesModalProps> = ({ seriesId, onClose, onSave }) => {
-  const[updatedSeries,setUpdatedSeries]=useState<any>(null);
-  const [originalSeries,setOriginalSeries]=useState<any>(null);
+  const[updatedSeries,setUpdatedSeries]=useState<EditSeries | null>(null);
+  const [originalSeries,setOriginalSeries]=useState<EditSeries | null>(null);
   const[loading,setLoading]=useState<boolean>(false);
   const todayDate=new Date().toISOString().split("T")[0];
   const navigate=useNavigate();
@@ -122,8 +126,10 @@ const EditSeriesModal: React.FC<EditSeriesModalProps> = ({ seriesId, onClose, on
         
         setOriginalSeries(formattedSeries);
         setUpdatedSeries(formattedSeries);
-      } catch (error:any) {
-        toast.error(error.message)
+      } catch (error:unknown) {
+        if(error instanceof Error){
+          toast.error(error.message);
+        }
       }
       finally{
         setLoading(false)
@@ -139,23 +145,27 @@ const EditSeriesModal: React.FC<EditSeriesModalProps> = ({ seriesId, onClose, on
           return;
       }
     }
-      setUpdatedSeries((prev: any) => ({ ...prev, [name]: value }));
+      setUpdatedSeries((prev) => (prev ? { ...prev, [name]: value } : null));
     };
 
-  const handleSelectChange = (selected: any, action: any) => {
-      setUpdatedSeries((prev: any) => ({
-        ...prev,
-        [action.name]: selected || [],
-      }));
+  const handleSelectChange = (selected: { value: string; label: string } | readonly { value: string; label: string }[] | null, action:{name:string}) => {
+      setUpdatedSeries((prev) => prev
+      ? {
+          ...prev,
+          [action.name]: selected
+            ? (Array.isArray(selected) ? [...selected] : [selected as { value: string; label: string }])
+            : [],
+        }
+      : null);
     }; 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       if (e.target.files && e.target.files.length > 0) {
         const { name } = e.target;
         const file = e.target.files[0]; // Safe access
-        setUpdatedSeries((prev: any) => ({ ...prev, [name]: file }));
+        setUpdatedSeries((prev) => (prev ?{ ...prev, [name]: file }:null));
       }
     };
-    const hasChanged = (field: string) => {
+    const hasChanged = (field: keyof EditSeries) => {
       if (!updatedSeries || !originalSeries) return false;
     
       const updatedValue = updatedSeries[field];
@@ -163,42 +173,42 @@ const EditSeriesModal: React.FC<EditSeriesModalProps> = ({ seriesId, onClose, on
     
       if (Array.isArray(updatedValue) && Array.isArray(originalValue)) {
         // Convert to sorted strings to compare effectively
-        const updatedStr = updatedValue.map((item: any) => item.value).sort().join(",");
-        const originalStr = originalValue.map((item: any) => item.value).sort().join(",");
+        const updatedStr = updatedValue.map((item:{value: string; label: string}) => item.value).sort().join(",");
+        const originalStr = originalValue.map((item:{value: string; label: string}) => item.value).sort().join(",");
         return updatedStr !== originalStr;
       }
       return updatedValue !== originalValue;
     };  
   const handleSave=async()=>{
       const formData=new FormData();
-      if(hasChanged("title")) formData.append("title",updatedSeries.title);
-      if(hasChanged("description")) formData.append("description",updatedSeries.description)
-      if(hasChanged("releaseDate")) formData.append("releaseDate",updatedSeries.releaseDate)
-      if(hasChanged("rating")) formData.append("rating",updatedSeries.rating.toString())
-      if(hasChanged("genres")){
+      if(updatedSeries && hasChanged("title")) formData.append("title",updatedSeries.title);
+      if(updatedSeries && hasChanged("description")) formData.append("description",updatedSeries.description)
+      if(updatedSeries && hasChanged("releaseDate")) formData.append("releaseDate",updatedSeries.releaseDate)
+      if(updatedSeries && hasChanged("rating")) formData.append("rating",updatedSeries.rating.toString())
+      if(updatedSeries && hasChanged("genres")){
         updatedSeries.genres.forEach((genre:{value:string})=>{
           formData.append("genres",parseInt(genre.value).toString())
         });
       }
-     if(hasChanged("languages")){
+     if(updatedSeries && hasChanged("languages")){
       updatedSeries.languages.forEach((lang:{value:string})=>{
         formData.append("languages",lang.value)
       });
      } 
-     if(hasChanged("casts")){
+     if(updatedSeries && hasChanged("casts")){
       updatedSeries.casts.forEach((cast:{value:string})=>{
         formData.append("casts",cast.value)
       })
      }
-     if(hasChanged("directors")){
+     if(updatedSeries && hasChanged("directors")){
       updatedSeries.directors.forEach((director:{value:string})=>{
         formData.append("directors",director.value)
       })
      }
-     if (updatedSeries.poster && updatedSeries.poster !== originalSeries.poster) {
+     if (updatedSeries &&  originalSeries &&updatedSeries.poster && updatedSeries.poster !== originalSeries.poster) {
       formData.append("poster", updatedSeries.poster);
     }
-    if (updatedSeries.trailerUrl && updatedSeries.trailerUrl !== originalSeries.trailerUrl) {
+    if (updatedSeries && originalSeries && updatedSeries.trailerUrl && updatedSeries.trailerUrl !== originalSeries.trailerUrl) {
       formData.append("trailer", updatedSeries.trailerUrl);
     }
     formData.append("seriesId",seriesId)
@@ -209,8 +219,10 @@ const EditSeriesModal: React.FC<EditSeriesModalProps> = ({ seriesId, onClose, on
       onClose();
       navigate("/admin-dashboard-series")
     } 
-    catch (error:any) {
-      toast.error(error.message)
+    catch (error:unknown) {
+     if(error instanceof Error){
+           toast.error(error.message || "Error in editing movie")
+         }
     }
     finally{
       setLoading(false);

@@ -2,8 +2,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../redux/store';
-import { socketService } from '../../services/Socket/SocketService';
+import { RootState } from '../../../redux/store';
+import { socketService } from '../../../services/Socket/SocketService';
 import {
     setIsPlaying,
     setCurrentTime,
@@ -12,8 +12,8 @@ import {
     setPlaybackRate,
     setVolume,
     setMuted
-} from '../../redux/slices/VideoPlayer/PlayerSlice';
-import PlayerControls from './PlayerControls';
+} from '../../../redux/slices/VideoPlayer/PlayerSlice';
+import PlayerControls from '../PlayerControl/PlayerControls';
 
 interface VideoPlayerProps {
     url: string;

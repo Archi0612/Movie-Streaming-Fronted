@@ -202,7 +202,7 @@ const AddMovie: React.FC = () => {
               isMulti
               options={genreOptions}
               value={movie.genres}
-              onChange={(selected: Dispatch<setter>) => setMovie((prev) => ({ ...prev, genres: selected }))}
+              onChange={(selected) => setMovie((prev) => ({ ...prev, genres: selected as { value: string; label: string }[] }))}
               placeholder="Select genres"
               className="select"
               styles={{
@@ -240,7 +240,7 @@ const AddMovie: React.FC = () => {
             <AsyncSelect
               isMulti
               loadOptions={fetchCastOptions}
-              onChange={(selected:any) => setMovie((prev) => ({ ...prev, cast: selected }))}
+              onChange={(selected) => setMovie((prev) => ({ ...prev, cast: selected as { value: string; label: string }[] }))}
               placeholder="Select movie cast"
               styles={{
                 
@@ -270,7 +270,7 @@ const AddMovie: React.FC = () => {
             <AsyncSelect
             isMulti
               loadOptions={fetchDirectorOptions}
-              onChange={(selected:any) => setMovie((prev) => ({ ...prev, director: selected }))}
+              onChange={(selected) => setMovie((prev) => ({ ...prev, director: selected as { value: string; label: string }[] }))}
               placeholder="Select movie director"
               styles={{
                 control: (provided) => ({
@@ -299,7 +299,7 @@ const AddMovie: React.FC = () => {
               isMulti
               options={languageOptions}
               value={movie.languages}
-              onChange={(selected: any) => setMovie((prev) => ({ ...prev, languages: selected }))}
+              onChange={(selected) => setMovie((prev) => ({ ...prev, languages: selected as { value: string; label: string }[]}))}
               placeholder="Select languages"
               className="select"
               styles={{

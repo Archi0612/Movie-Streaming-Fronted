@@ -36,7 +36,7 @@ const videoPlayer = createSlice({
         setMuted(state, action: PayloadAction<boolean>) {
             state.isMuted = action.payload;
         },
-        updatePlayerState(state, action: PayloadAction<Partial<PlayerState>>) {
+        updatePlayerState(state, action: PayloadAction<Partial<VideoPlayerState>>) {
             return { ...state, ...action.payload };
         },
         resetPlayer(state) {

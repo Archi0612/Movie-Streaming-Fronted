@@ -8,25 +8,19 @@ import ShimmerUI from "../components/shimmerUI/Shimmer";
 import {
   getPopularMovies,
   getTopRatedMovies,
-} from "../services/apis/movieService";
+} from "../services/apis/mediaService/movieService";
 import {
   fetchPopularSeriesApi,
   fetchTopRatedSeriesApi,
-} from "../services/apis/seriesService";
+} from "../services/apis/mediaService/seriesService";
 
 const Search: React.FC = () => {
 
   const [moviesData, setMoviesData] = useState<MoviesData>({
     movieList: { title: "Movies", data: [] },
     seriesList: { title: "Series", data: [] },
-    castAndDirectorWiseMovie: {
-      title: "Cast And Director Wise Movie",
-      data: [],
-    },
-    castAndDirectorWiseSeries: {
-      title: "Cast And Director Wise Series",
-      data: [],
-    },
+    castAndDirectorWiseMovie: { title: "Cast And Director Wise Movie", data: [] },
+    castAndDirectorWiseSeries: { title: "Cast And Director Wise Series", data: [] },
   });
 
   const [defaultMoviesData, setDefaultMoviesData] = useState<DefaultData>({
@@ -44,31 +38,18 @@ const Search: React.FC = () => {
   const fetchAllMovies = useCallback(async () => {
     try {
       setIsLoading(true);
-      const [allMoviesRes, allSeriesRes, allTopRatedMovie, allTopRatedSeries] =
-        await Promise.all([
-          getPopularMovies(),
-          fetchPopularSeriesApi(),
-          getTopRatedMovies(),
-          fetchTopRatedSeriesApi(),
-        ]);
+      const [allMoviesRes, allSeriesRes, allTopRatedMovie, allTopRatedSeries] = await Promise.all([
+        getPopularMovies(),
+        fetchPopularSeriesApi(),
+        getTopRatedMovies(),
+        fetchTopRatedSeriesApi(),
+      ]);
 
       const newMoviesData: DefaultData = {
-        popularMovies: {
-          title: "Popular Movies",
-          data: allMoviesRes?.moviesList || [],
-        },
-        popularSeries: {
-          title: "Popular Series",
-          data: allSeriesRes?.seriesList || [],
-        },
-        topRatedMovie: {
-          title: "Top Rated Movies",
-          data: allTopRatedMovie?.moviesList || [],
-        },
-        topRatedSeries: {
-          title: "Top Rated Series",
-          data: allTopRatedSeries?.seriesList || [],
-        },
+        popularMovies: { title: "Popular Movies", data: allMoviesRes?.moviesList || [] },
+        popularSeries: { title: "Popular Series", data: allSeriesRes?.seriesList || [] },
+        topRatedMovie: { title: "Top Rated Movies", data: allTopRatedMovie?.moviesList || [] },
+        topRatedSeries: { title: "Top Rated Series", data: allTopRatedSeries?.seriesList || [] },
       };
       setDefaultMoviesData(newMoviesData);
     } catch (err) {
@@ -91,6 +72,7 @@ const Search: React.FC = () => {
         const response = await api.get("/search/", {
           params: { search: searchInput },
         });
+
         const searchData: MoviesData = {
           movieList: {
             title: "Movies",
@@ -110,8 +92,8 @@ const Search: React.FC = () => {
           },
         };
         setMoviesData(searchData);
-      } catch (err: unknown) {
-        if (err instanceof Error) throw new Error(err.message);
+      } catch (err) {
+        console.error("Error searching movies", err);
       } finally {
         setIsLoading(false);
       }
@@ -149,11 +131,7 @@ const Search: React.FC = () => {
       <div className="searchMovie-main">
         <div className="searchMovie-container">
           {displayData.map(([key, value]) => (
-            <MovieCardSlider
-              key={key}
-              mediaList={value.data}
-              title={value.title}
-            />
+            <MovieCardSlider key={key} mediaList={value.data} title={value.title} />
           ))}
         </div>
       </div>

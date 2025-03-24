@@ -13,7 +13,7 @@ import { MdDashboard, MdMovie, MdTv } from "react-icons/md";
 import logo from "../assets/img/Home/logo.png";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./Sidebar.css";
-import { SidebarProps, UserDetails } from "../interfaces/movie.interface";
+import { SidebarProps } from "../interfaces/movie.interface";
 import { IconType } from "react-icons";
 
 interface MenuItem {
@@ -23,7 +23,7 @@ interface MenuItem {
   isAdminMenu?: boolean; // Optional property
 }
 
-const Sidebar: React.FC<UserDetails> = ({ role = "user" }) => {
+const Sidebar: React.FC<SidebarProps> = ({ role = "user" }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isExpanded, setIsExpanded] = useState(false);
@@ -72,7 +72,7 @@ const Sidebar: React.FC<UserDetails> = ({ role = "user" }) => {
       path: "/admin-dashboard-movies",
     },
     { name: "Series Dashboard", icon: MdTv, path: "/admin-dashboard-series" },
-    {name:"Add Cast",icon:FaUsers,path:"/add-cast"}
+    {name:"Add Crew",icon:FaUsers,path:"/add-crew"}
   ];
 
   // Select the appropriate menu items based on user role

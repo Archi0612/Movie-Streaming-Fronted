@@ -14,7 +14,8 @@
     align-items: center;
     position: relative;
     overflow-x: scroll;
-    height: 20rem;
+    height: 25rem;
+    scrollbar-width: none;
 
 }
 

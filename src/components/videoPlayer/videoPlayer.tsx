@@ -35,6 +35,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ url, control = false, loop = 
     if(controllerRef.current) {
       controllerRef.current.style.opacity = "1";
     }
+    
 
     if (timeoutId) clearTimeout(timeoutId);
 

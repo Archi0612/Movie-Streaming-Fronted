@@ -1,6 +1,6 @@
 // client/src/services/socketService.ts
 import { io, Socket } from 'socket.io-client';
-import { store } from '../store';
+import { store } from "../../redux/store";
 import {
     setRoomData,
     addParticipant,
@@ -11,10 +11,9 @@ import {
     updatePlayerState,
     setCurrentTime
 } from '../../redux/slices/VideoPlayer/PlayerSlice';
-import { handleApiError } from '../../utils/MediaConstants';
-import { PlayerState } from '../../interfaces/Socket.interface';
+import { VideoPlayerState } from '../../interfaces/Socket.interface';
 
-const SOCKET_SERVER_URL = 'http://localhost:4000';
+const SOCKET_SERVER_URL = 'http://localhost:7777';
 
 class SocketService {
     private socket: Socket | null = null;
@@ -43,15 +42,14 @@ class SocketService {
         if (!this.socket?.connected) {
             return;
         }
-
         this.socket.emit('join-room', { roomId });
+        console.log("dispatching room join room socket service");
     }
 
     leaveRoom(roomId: string) {
         if (!this.socket?.connected) {
             return;
         }
-
         this.socket.emit('leave-room', { roomId });
     }
 
@@ -112,7 +110,7 @@ class SocketService {
         });
 
         // Player events
-        this.socket.on('player-state-update', (playerState: PlayerState) => {
+        this.socket.on('player-state-update', (playerState: VideoPlayerState) => {
             store.dispatch(updatePlayerState(playerState));
         });
 

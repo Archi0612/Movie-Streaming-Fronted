@@ -10,22 +10,22 @@ import Breadcrumb from "../components/BreadCrumbComponent/Breadcrumb";
 
 
 const MainLayout: React.FC = () => {
-  const [user, setUser] = useState<string>("user");
+  const [userRole, setUserRole] = useState<string>("user");
   const isAuthenticated = useSelector((state:RootState) => state.user.isAuthenticated);
   const fetchUser = async () => {
     const res = await fetchUserData();
-    setUser(res.role);
-    return res;
+    setUserRole(res.role);
+    return res.role;
   };
   useEffect(() => {
     fetchUser();
   });
-  if (user === null) {
+  if (userRole === null) {
     return <Loader/>;
   }
   return (
     <div className="main-layout">
-      <Sidebar userRole={user} />
+      <Sidebar role={userRole} />
       <div className="main-layout">
         <main className="content1">
           {isAuthenticated && 

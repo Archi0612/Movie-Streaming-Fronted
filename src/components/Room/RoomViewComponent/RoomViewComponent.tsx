@@ -2,22 +2,24 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../redux/store';
-import { socketService } from '../../services/Socket/SocketService';
-import { roomAPI } from '../../services/apis/RoomAPI';
-import { setRoomLoading, setRoomError, clearRoom } from '../../redux/slices/Room/RoomSlice';
-import { resetPlayer } from '../../redux/slices/VideoPlayer/PlayerSlice';
-import VideoPlayer from './RoomVideoPlayer';
+import { RootState } from '../../../redux/store';
+import { socketService } from '../../../services/Socket/SocketService';
+import { roomAPI } from '../../../services/apis/RoomAPI';
+import { setRoomLoading, setRoomError, clearRoom } from '../../../redux/slices/Room/RoomSlice';
+import { resetPlayer } from '../../../redux/slices/VideoPlayer/PlayerSlice';
+import VideoPlayer from '../RoomVideoPlayer/RoomVideoPlayer';
+import { getCookie } from '../../../utils/MediaConstants';
+import './RoomViewComponent.css';
 
 const RoomPage: React.FC = () => {
-    const { roomId } = useParams<{ roomId: string }>();
+    const { roomId } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [copied, setCopied] = useState(false);
-
-
-    const { isAuthenticated, token } = useSelector((state: RootState) => state.user.currentUser.isAuthenticated);
+    const isAuthenticated = useSelector((state: RootState) => state.user.isAuthenticated);
+    const token = getCookie('token');
     const { currentRoom, isHost, loading, error } = useSelector((state: RootState) => state.room);
+
 
     // Redirect if not authenticated
     useEffect(() => {
@@ -25,6 +27,7 @@ const RoomPage: React.FC = () => {
             navigate('/login', { state: { from: `/room/${roomId}` } });
         }
     }, [isAuthenticated, navigate, roomId]);
+
 
     // Connect to socket and join room
     useEffect(() => {
@@ -34,14 +37,17 @@ const RoomPage: React.FC = () => {
 
             // Get room details and join
             const fetchRoomAndJoin = async () => {
+                console.log("fetching room and joining")
                 try {
                     dispatch(setRoomLoading(true));
 
                     // Get room details
                     const roomData = await roomAPI.getRoomDetails(roomId);
-
-                    // Join room via socket
-                    socketService.joinRoom(roomId);
+                    if (roomData) {
+                        console.log(roomData, 'here is the room data line 47 roomviewcomponent')
+                        // Join room via socket
+                        socketService.joinRoom(roomId);
+                    }
                 } catch (error) {
                     console.error('Error joining room:', error);
                     dispatch(setRoomError('Failed to join room'));
@@ -49,7 +55,6 @@ const RoomPage: React.FC = () => {
                     dispatch(setRoomLoading(false));
                 }
             };
-
             fetchRoomAndJoin();
 
             // Cleanup on unmount

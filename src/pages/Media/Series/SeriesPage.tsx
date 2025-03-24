@@ -4,16 +4,15 @@ import {
   fetchPopularSeriesApi,
   fetchSeriesByGenre,
   fetchTopRatedSeriesApi,
-} from "../../../services/apis/seriesService";
+} from "../../../services/apis/mediaService/seriesService";
 import { SwiperSlide, Swiper } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
-
 import { Series } from "../../../interfaces/series.interface";
 import "./SeriesPage.css";
 import MoviesGrid from "../../../components/MoviesGrid";
 import MovieCard from "../../../components/Cards/MovieCard";
 import { Movie } from "../../../interfaces/movie.interface";
-import { getHomeTrending } from "../../../services/apis/movieService";
+import { getHomeTrending } from "../../../services/apis/mediaService/movieService";
 
 const SeriesPage: React.FC = () => {
   const [series, setSeries] = useState<{
@@ -86,7 +85,6 @@ const SeriesPage: React.FC = () => {
     <div className="series-section">
       <div className="series-slider-container">
         <Swiper
-          
           className="main-series-slider"
           spaceBetween={10}
           freeMode={true}

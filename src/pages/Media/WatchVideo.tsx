@@ -1,14 +1,16 @@
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import "./WatchVideo.css";
-import React, { useRef } from "react";
-import { getMovieById } from "../../services/apis/movieService";
+import React from "react";
+import { getMovieById } from "../../services/apis/mediaService/movieService";
 import { useEffect, useState } from "react";
 import { Loader } from "lucide-react";
-import VideoPlayer from "../../components/videoPlayer/VideoPlayer";
+
 import Feedback from "../Feedback";
-import { fetchEpisodeById } from "../../services/apis/seriesService";
-import Modal from "react-modal";
-Modal.setAppElement("#root"); 
+
+import ReactModal from "react-modal";
+import { fetchEpisodeById } from "../../services/apis/mediaService/seriesService";
+import VideoPlayer from "../../components/videoPlayer/videoPlayer";
+ReactModal.setAppElement("#root"); 
 const WatchVideo: React.FC = () => {
   const {mediaId} = useParams();
   const [searchParams] = useSearchParams();
@@ -52,16 +54,17 @@ const WatchVideo: React.FC = () => {
   return (
     <div className="watch-video-container">
       <VideoPlayer url={url} control={true} loop={false} setPopUp={setShowFeedBack} />
-      <Modal
-        isOpen={showFeedBack}
-        onRequestClose={() => setShowFeedBack(false)}
-        className="feedback-modal"
-        overlayClassName="feedback-overlay"
-        shouldCloseOnOverlayClick={true} 
-      >
-        <Feedback />
-        {/* <button onClick={() => setShowFeedBack(false)} className="feedback-close-modal-btn">Close</button> */}
-      </Modal>
+      <ReactModal
+  isOpen={showFeedBack}
+  onRequestClose={() => setShowFeedBack(false)}
+  shouldCloseOnOverlayClick={true}
+  shouldCloseOnEsc={true}
+  className="feedback-modal"
+  overlayClassName="feedback-overlay"
+>
+  <Feedback />
+</ReactModal>
+
     </div>
   );
 };

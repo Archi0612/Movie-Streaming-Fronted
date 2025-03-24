@@ -98,3 +98,13 @@ export const handleApiError = (error: unknown): string => {
   }
   return "An unexpected error occurred";
 };
+
+export const handleDurationTime = (time: number) => {
+  const totalSeconds = time
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  if (hours > 0 && minutes > 0) return `${hours}h ${minutes}m`;
+  if (hours > 0) return `${hours}h`;
+  if (minutes > 0) return `${minutes}m`;
+  return "Unknown";
+};
