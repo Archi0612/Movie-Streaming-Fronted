@@ -38,32 +38,32 @@ const MovieCard: React.FC<MediaCardProps> = ({ media }) => {
         return <FaStar key={index} className="star-gray" size={16} />;
       }
     }
-
   });
 
   //Genre maping
-  const genreNames = (genres ?? []).slice(4).map((id) => genreMap[id] || "Unknown").join(", ");
-
-
+  const genreNames = (genres ?? [])
+    .slice(4)
+    .map((id) => genreMap[id] || "Unknown")
+    .join(", ");
 
   const handleCardClick = () => {
     if (!_id) {
-      navigate("/error")
+      navigate("/error");
     }
-    navigate(`/details/${_id}?contentType=${contentType}`)
-  }
+    navigate(`/details/${_id}?contentType=${contentType}`);
+  };
   const handlePlayVideo = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation(); // Stop event from reaching the parent div
     if (!_id) {
-      navigate("/error")
+      navigate("/error");
     }
     if (contentType === "Movie") {
       navigate(`/watch/${_id}?contentType=${contentType}`);
-    } else (
-      navigate(`/details/${_id}?contentType=${contentType}`)
-    )
+    } else navigate(`/details/${_id}?contentType=${contentType}`);
   };
-  const handleAddToWatchList = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleAddToWatchList = async (
+    e: React.MouseEvent<HTMLButtonElement>
+  ) => {
     e.stopPropagation(); // Stop event from reaching the parent div
     try {
       const response = await dispatch(
@@ -98,51 +98,49 @@ const MovieCard: React.FC<MediaCardProps> = ({ media }) => {
       onClick={handleCardClick}
     >
       <img src={poster} alt={title} />
-      {
-        isHovered && (
-          <div className="movie-hover">
-            <div className="movie-hover-content">
-              <h3 className="movies-title">{title.toUpperCase()}</h3>
-              {rating >= 0 && (
-                <div className="movie-rating" data-testid="star-rating">{stars}</div>
-              )}
-              <ul className="movie-details1">
-                <li>{new Date(releaseDate).getFullYear()}</li>
-                {languages.map((lang, index) => (
-                  <li key={index}>{lang.slice(0, 3).toUpperCase()}</li>
-                ))}
-                <li>{genreNames}</li>
-              </ul>
-              <p className="movie-overview">{description}</p>
+      {isHovered && (
+        <div className="movie-hover">
+          <div className="movie-hover-content">
+            <h3 className="movies-title">{title.toUpperCase()}</h3>
+            {rating >= 0 && (
+              <div className="movie-rating" data-testid="star-rating">
+                {stars}
+              </div>
+            )}
+            <ul className="movie-details1">
+              <li>{new Date(releaseDate).getFullYear()}</li>
+              {languages.map((lang, index) => (
+                <li key={index}>{lang.slice(0, 3).toUpperCase()}</li>
+              ))}
+              <li>{genreNames}</li>
+            </ul>
+            <p className="movie-overview">{description}</p>
 
-              {/* Buttons */}
-              <div className='button-container'>
-                <div className="movie-buttons">
-                  <button className="movie-button play"
-                    onClick={handlePlayVideo}>
-                    <Play />
-                  </button>
-                  <button
-                    data-testid="watchlist-button"
-                    aria-label="Add to Watchlist"
-                    className="movie-button"
-                    onClick={handleAddToWatchList}>
-                    {isBookMarked ? (
-                      <Minus />
-                    ) : (
-                      <Plus />
-                    )}
-                  </button>
-                </div>
+            {/* Buttons */}
+            <div className="button-container">
+              <div className="movie-buttons">
+                <button
+                  className="movie-button play"
+                  data-testid="play-btn"
+                  onClick={handlePlayVideo}
+                >
+                  <Play/>
+                </button>
+                <button
+                  data-testid="watchlist-button"
+                  aria-label="Add to Watchlist"
+                  className="movie-button"
+                  onClick={handleAddToWatchList}
+                >
+                  {isBookMarked ? <Minus /> : <Plus />}
+                </button>
               </div>
             </div>
           </div>
-        )
-      }
-    </div >
+        </div>
+      )}
+    </div>
   );
 };
 
 export default MovieCard;
-
-

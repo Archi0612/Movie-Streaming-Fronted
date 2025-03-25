@@ -3,7 +3,6 @@ import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import watchlistReducer from "../redux/slices/WatchList/WatchList";
-import UserReducer from "../redux/slices/user/userSlice";
 import MoviesGrid from "../components/MoviesGrid";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { describe, expect, it, test } from "vitest";
@@ -22,7 +21,7 @@ const mockMovies: MediaGridProps = {
       releaseDate: "2024-01-01",
       rating: 7.8,
       languages: ["English"],
-      genres: [1],
+      genres: [28],
       contentType: "Movie",
     },
     {
@@ -34,7 +33,7 @@ const mockMovies: MediaGridProps = {
       releaseDate: "2024-02-01",
       rating: 8.2,
       languages: ["Hindi"],
-      genres: [2],
+      genres: [35],
       contentType: "Movie",
     },
   ],
@@ -42,7 +41,6 @@ const mockMovies: MediaGridProps = {
 const mockStore = configureStore({
   reducer: {
     watchlist: watchlistReducer,
-    user: UserReducer,
   },
 });
 const renderGrid = (comp: React.ReactElement) => {
@@ -68,7 +66,7 @@ describe("Movie Grid component testing", () => {
     expect(movieCards.length).toBe(mockMovies.mediaList.length);
   });
 
-  // Integration testing
+
 
   //passing all movies list correctly
   test("should pass all movies list correctly", async () => {
@@ -83,7 +81,7 @@ describe("Movie Grid component testing", () => {
     expect(screen.getByText("Second test movie")).toBeInTheDocument();
   });
 
-  //Branch testing
+
 
   test("should display 'No movies available' if no movies available", () => {
     const emptyMovie = { title: "", mediaList: [] };
@@ -93,8 +91,7 @@ describe("Movie Grid component testing", () => {
     );
   });
     
-    //Regression test
-    //   regression testing ensure the functionalities work properly if their is new code is added
+  
     
     it("should render movie grid with title", () => {
         renderGrid(<MoviesGrid {...mockMovies} />);
