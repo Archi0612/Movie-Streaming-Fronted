@@ -132,8 +132,8 @@ const AdminDashboard: React.FC = () => {
       field: "action",
       cellRenderer: (params: ICellRendererParams<Movie>) => (
         <div className="action-buttons">
-          <button className="edit-btn-dashboard" onClick={() => params.data && handleEdit(params.data)}><MdEdit size={15} /></button>
-          <button className="delete-btn-dashboard" onClick={() => { setSelectedMovie(params.data ?? null); setIsDeleteModelOpen(true) }}><MdDelete size={15} /></button>
+          <button className="edit-btn-dashboard" onClick={() => params.data && handleEdit(params.data)} data-testid="edit-btn"><MdEdit size={15} /></button>
+          <button className="delete-btn-dashboard" onClick={() => { setSelectedMovie(params.data ?? null); setIsDeleteModelOpen(true) }} data-testid="delete-btn"><MdDelete size={15} /></button>
         </div>
       ),
       flex: 1,
@@ -155,7 +155,7 @@ const AdminDashboard: React.FC = () => {
         <div className="content-card">
           <h2 className="dashboard-h2">Manage Movies</h2>
           <div className="add-btn-container">
-            <button className="add-movie-btn" onClick={handleClick}>
+            <button className="add-movie-btn" onClick={handleClick} data-testid="add-movie-btn">
               <MdAdd size={20} />
             </button>
           </div>

@@ -9,7 +9,6 @@ import { AddMovies } from "../../../interfaces/admin.interface";
 import  Loader  from "../../../components/shimmerUI/Loader";
 import { Dispatch } from "redux";
 
-
 const genreOptions = [
   { value: "28", label: "Action" },
   { value: "18", label: "Drama" },
@@ -187,18 +186,19 @@ const AddMovie: React.FC = () => {
         <h2 className="admin-h2">Add Movie</h2>
         <div className="fields-container">
           <div className="fields-one">
-            <label>Title</label>
-            <input type="text" name="title" value={movie.title} className="add-movie-input" onChange={handleChange} placeholder="Enter movie title" autoComplete="off" />
+            <label htmlFor="title">Title</label>
+            <input type="text" id="title" name="title" value={movie.title} className="add-movie-input" onChange={handleChange} placeholder="Enter movie title" autoComplete="off" />
 
-            <label>Description</label>
-            <textarea name="description" value={movie.description}   onChange={handleChange} placeholder="Enter movie details"className="text-desc" autoComplete="off" />
+            <label htmlFor="description">Description</label>
+            <textarea name="description" id="description" value={movie.description}   onChange={handleChange} placeholder="Enter movie details"className="text-desc" autoComplete="off" />
 
-            <label>Release Date</label>
-            <input type="date" name="releaseDate" value={movie.releaseDate} className="add-movie-input" onChange={handleChange}  placeholder="Enter movie release date" max={todayDate}/>
+            <label htmlFor="releaseDate">Release Date</label>
+            <input type="date" id="releaseDate" name="releaseDate" value={movie.releaseDate} className="add-movie-input" onChange={handleChange}  placeholder="Enter movie release date" max={todayDate}/>
 
-            <label>Genres</label>
+            <label htmlFor="genres">Genres</label>
             <Select
             name="genres"
+            id="genres"
               isMulti
               options={genreOptions}
               value={movie.genres}
@@ -228,17 +228,18 @@ const AddMovie: React.FC = () => {
               }}
             />
 
-            <label>Duration (Seconds)</label>
-            <input type="number" name="duration" value={movie.duration} className="add-movie-input" onChange={handleChange} placeholder="Enter duration" min="0"/>
-            <label>Rating</label>
-            <input type="number" name="rating" value={movie.rating} className="add-movie-input" onChange={handleChange} step="0.1" min="0.0" placeholder="Enter movie rating"/>
+            <label htmlFor="duration">Duration (Seconds)</label>
+            <input type="number" id="duration" name="duration" value={movie.duration} className="add-movie-input" onChange={handleChange} placeholder="Enter duration" min="0"/>
+            <label htmlFor="rating">Rating</label>
+            <input type="number" id="rating" name="rating" value={movie.rating} className="add-movie-input" onChange={handleChange} step="0.1" min="0.0" placeholder="Enter movie rating"/>
           </div>
 
           <div className="fields-two">
 
-            <label>Cast</label>
+            <label htmlFor="cast">Cast</label>
             <AsyncSelect
               isMulti
+              id="cast"
               loadOptions={fetchCastOptions}
               onChange={(selected) => setMovie((prev) => ({ ...prev, cast: selected as { value: string; label: string }[] }))}
               placeholder="Select movie cast"
@@ -266,9 +267,10 @@ const AddMovie: React.FC = () => {
               }}
             />
 
-            <label>Director</label>
+            <label htmlFor="director">Director</label>
             <AsyncSelect
             isMulti
+            id="director"
               loadOptions={fetchDirectorOptions}
               onChange={(selected) => setMovie((prev) => ({ ...prev, director: selected as { value: string; label: string }[] }))}
               placeholder="Select movie director"
@@ -294,9 +296,10 @@ const AddMovie: React.FC = () => {
                 })
               }}
             />
-            <label>Language</label>
+            <label htmlFor="language">Language</label>
             <Select
               isMulti
+              id="language"
               options={languageOptions}
               value={movie.languages}
               onChange={(selected) => setMovie((prev) => ({ ...prev, languages: selected as { value: string; label: string }[]}))}
@@ -324,13 +327,13 @@ const AddMovie: React.FC = () => {
                 }),
               }}
             />
-            <label>Poster</label>
-            <input type="file" name="poster" className="add-movie-input" onChange={handleChange} />
+            <label htmlFor="poster">Poster</label>
+            <input type="file" id="poster" name="poster" className="add-movie-input" onChange={handleChange} aria-label="Poster" />
 
-            <label>Trailer</label>
-            <input type="file" name="trailerUrl" className="add-movie-input" onChange={handleChange} />
-            <label>Movie</label>
-            <input type="file" name="movieUrl" className="add-movie-input" onChange={handleChange} />
+            <label htmlFor="trailer">Trailer</label>
+            <input type="file" id="trailer" name="trailerUrl" className="add-movie-input" onChange={handleChange} aria-label="Trailer"/>
+            <label htmlFor="movie">Movie</label>
+            <input type="file" id="movie" name="movieUrl" className="add-movie-input" onChange={handleChange} aria-label="Movie" />
           </div>
         </div>
         <div className="buttons-container">

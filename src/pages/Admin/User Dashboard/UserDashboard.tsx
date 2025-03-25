@@ -133,6 +133,9 @@ const UserDashboard: React.FC = () => {
     try {
       setLoading(true);
       const response = await getAllUser();
+      if (!response || !response.data || !response.data.data) {
+        throw new Error("Invalid API response");
+      }
       setUsers(response.data.data.userList);
     } catch (err: unknown) {
       if(err instanceof Error){
