@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../redux/store';
+import './RoomVideoPlayer.css';
 import { socketService } from '../../../services/Socket/SocketService';
 import {
     setIsPlaying,

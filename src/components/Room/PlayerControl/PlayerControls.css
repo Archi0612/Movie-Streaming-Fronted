@@ -1,0 +1,26 @@
+.player-controls {
+    display: flex;
+    flex-direction: row;
+}
+
+.time-display {
+    color: white;
+}
+
+
+.controls-container {
+    display: flex;
+    flex-direction: row;
+    /* background-color: var(--secondary-color); */
+}
+
+.mute-button i {
+    font-size: 24px;
+    /* Adjust the size */
+    width: 24px;
+    height: 24px;
+}
+
+.volume-slider {
+    width: 10vw;
+}

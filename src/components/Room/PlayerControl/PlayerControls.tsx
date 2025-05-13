@@ -1,5 +1,6 @@
 // client/src/components/PlayerControls.tsx
 import React from 'react';
+import './PlayerControls.css';
 
 interface PlayerControlsProps {
     isPlaying: boolean;
@@ -54,6 +55,13 @@ const PlayerControls: React.FC<PlayerControlsProps> = ({
         <div className="player-controls">
             {/* Timeline slider */}
             <div className="timeline-container">
+                <button
+                    onClick={isPlaying ? onPause : onPlay}
+                    disabled={!isHost || buffering}
+                    className="control-button"
+                >
+                    {buffering ? 'Buffering...' : isPlaying ? 'Pause' : 'Play'}
+                </button>
                 <span className="time-display">{formatTime(currentTime)}</span>
                 <input
                     type="range"
@@ -71,13 +79,7 @@ const PlayerControls: React.FC<PlayerControlsProps> = ({
             {/* Main controls */}
             <div className="controls-container">
                 {/* Play/Pause button */}
-                <button
-                    onClick={isPlaying ? onPause : onPlay}
-                    disabled={!isHost || buffering}
-                    className="control-button"
-                >
-                    {buffering ? 'Buffering...' : isPlaying ? 'Pause' : 'Play'}
-                </button>
+
 
                 {/* Playback rate selector */}
                 <div className="playback-rate-container">
@@ -97,12 +99,18 @@ const PlayerControls: React.FC<PlayerControlsProps> = ({
 
                 {/* Volume controls */}
                 <div className="volume-container">
+                    {/* <button onClick={() => onMute(!muted)} className="mute-button">
+                        <i className={muted ? "fas fa-volume-mute" : "fas fa-volume-up"}></i>
+                    </button> */}
+
+
                     <button
                         onClick={() => onMute(!muted)}
                         className="mute-button"
                     >
                         {muted ? 'Unmute' : 'Mute'}
                     </button>
+
                     <input
                         type="range"
                         min={0}

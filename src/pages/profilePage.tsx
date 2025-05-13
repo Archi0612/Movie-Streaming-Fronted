@@ -17,8 +17,24 @@ import { api } from '../services/api';
 import { fetchProfile } from '../redux/slices/Profile/Profile';
 import { fetchWatchList } from '../redux/slices/WatchList/WatchList';
 import { fetchLikedList } from '../redux/slices/LikedList/LikedList';
+import { UserUpdatedData } from '../interfaces/movie.interface';
 
-ReactModal.setAppElement('#root'); // Ensure accessibility compliance
+// ReactModal.setAppElement('#root'); // Ensure accessibility compliance
+
+
+export const updateInfo = async (userUpdatedData: UserUpdatedData, dispatch: AppDispatch) => {
+    try {
+        const response = await api.put('/user/editProfile', userUpdatedData);
+        // Check if response itself has status 200
+        if (response.status === 200) {
+            dispatch(fetchProfile());
+        } else {
+            console.log("Unexpected response status:", response.status);
+        }
+    } catch (error) {
+        console.error("Error updating profile:", error);
+    }
+};
 
 export default function ProfilePage() {
     const todayDate = new Date().toISOString().split("T")[0];
@@ -33,7 +49,7 @@ export default function ProfilePage() {
 
     const [isOpen, setIsOpen] = useState(false);
     const [isSubscribeOpen, setIsSubscribeOpen] = useState(false);
-    const [userFormData, setUserFormData] = useState({
+    const [userUpdatedData, setUserUpdatedData] = useState<UserUpdatedData>({
         name: "",
         contactNo: "",
         country: "",
@@ -48,7 +64,7 @@ export default function ProfilePage() {
     const formattedDate = date.toLocaleDateString("en-US");
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        setUserFormData({ ...userFormData, [e.target.name]: e.target.value });
+        setUserUpdatedData({ ...userUpdatedData, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -67,24 +83,6 @@ export default function ProfilePage() {
             }
         }
     }
-
-
-
-    const updateInfo = async () => {
-        try {
-            const response = await api.put('/user/editProfile', userFormData);
-
-            // Check if response itself has status 200
-            if (response.status === 200) {
-                dispatch(fetchProfile());
-            } else {
-                console.log("Unexpected response status:", response.status);
-            }
-        } catch (error) {
-            console.error("Error updating profile:", error);
-        }
-    };
-
 
     return (
         <>
@@ -168,14 +166,14 @@ export default function ProfilePage() {
             >
                 <h2 style={{ color: 'white' }}>Edit Profile</h2>
                 <form onSubmit={handleSubmit}>
-                    <label>Name:</label>
-                    <input type="text" name="name" value={userFormData.name} onChange={handleChange} autoComplete='off' />
+                    <label htmlFor="name">Name:</label>
+                    <input type="text" name="name" value={userUpdatedData.name} onChange={handleChange} autoComplete='off' />
 
-                    <label>Email:</label>
+                    <label htmlFor="email">Email:</label>
                     <input type="email" placeholder="" name="email" value={profile?.data?.email} onChange={handleChange} autoComplete='off' disabled />
 
-                    <label>Phone Number:</label>
-                    <input type="tel" name="contactNo" value={userFormData.contactNo} onChange={handleChange} autoComplete='off' />
+                    <label htmlFor="contactNo" >Phone Number:</label>
+                    <input type="tel" name="contactNo" value={userUpdatedData.contactNo} onChange={handleChange} autoComplete='off' />
                     {/* <div className="country">
                         <label className="country-label">Country:</label>
                         <select name="country" value={userFormData.country} onChange={handleChange} required className="country-select">
@@ -188,11 +186,11 @@ export default function ProfilePage() {
                         </select>
                     </div> */}
 
-                    <label>Date of Birth:</label>
-                    <input type="date" name="dateOfBirth" value={userFormData.dateOfBirth} onChange={handleChange} autoComplete='off' max={todayDate} />
+                    <label htmlFor="dateOfBirth">Date of Birth:</label>
+                    <input type="date" name="dateOfBirth" value={userUpdatedData.dateOfBirth} onChange={handleChange} autoComplete='off' max={todayDate} />
 
                     <label>Gender:</label>
-                    <select name="gender" value={userFormData.gender} onChange={handleChange}>
+                    <select name="gender" value={userUpdatedData.gender} onChange={handleChange}>
                         <option value="">Select Gender</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
@@ -202,7 +200,7 @@ export default function ProfilePage() {
                     <div className="modal-buttons">
 
                         <button type="button" onClick={() => setIsOpen(false)}>Cancel</button>
-                        <button type="submit" onClick={updateInfo}>Save</button>
+                        <button type="submit" onClick={() => updateInfo(userUpdatedData, dispatch)}>Save</button>
                     </div>
                 </form>
             </ReactModal>
@@ -217,3 +215,6 @@ export default function ProfilePage() {
         </>
     );
 }
+
+
+

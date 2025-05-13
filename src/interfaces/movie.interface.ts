@@ -27,7 +27,7 @@ export interface UserProfile {
   role: string;
   isActive: boolean;
 }
-export interface SidebarProps{
+export interface SidebarProps {
   role: string;
 }
 // Define State Interface
@@ -200,6 +200,15 @@ export interface UserFormData {
   showPassword: boolean;
   showConfirmPassword: boolean;
   numberOTP?: number;
+}
+
+export interface UserUpdatedData {
+  name: string;
+  contactNo: string;
+  country: string;
+  dateOfBirth: string;
+  gender: string;
+  email: string;
 }
 
 export interface Errors {

@@ -10,13 +10,15 @@ import { AppDispatch } from "../../redux/store";
 import { genreMap } from "../../utils/MediaConstants";
 import { toggleWatchList } from "../../redux/slices/WatchList/WatchList";
 const MovieCard: React.FC<MediaCardProps> = ({ media }) => {
-  const { _id, title, poster, description, contentType, releaseDate, rating, languages, genres} = media;
-  const [isHovered, setIsHovered] = useState(false);
+
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   // State Variable for WatchList toggle
   const [isBookMarked, setBookMarked] = useState<boolean>(false);
-// console.log("Trailer Url", trailerUrl, title);
+  const { _id, title, poster, description, contentType, releaseDate, rating, languages, genres } = media;
+  const [isHovered, setIsHovered] = useState(false);
+
+
   // Star Ratings
   const stars = Array.from({ length: 5 }, (_, index) => {
     const ratingStar = rating / 2;
@@ -30,11 +32,10 @@ const MovieCard: React.FC<MediaCardProps> = ({ media }) => {
   });
 
   //Genre maping
-  const genreNames = genres.slice(4).map((id) => genreMap[id] || "Unknown").join(", ");
-
-  
+  // const genreNames = genres.slice(4).map((id) => genreMap[id] || "Unknown").join(", ");
+  const genreNames = (genres ?? []).slice(4).map((id) => genreMap[id] || "Unknown").join(", ");
   const handleCardClick = () => {
-    if(!_id){
+    if (!_id) {
       navigate("/error")
     }
     navigate(`/details/${_id}?contentType=${contentType}`)
@@ -42,16 +43,16 @@ const MovieCard: React.FC<MediaCardProps> = ({ media }) => {
   const handlePlayVideo = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation(); // Stop event from reaching the parent div
     // navigate(`/videoPlayer`);
-    if(!_id){
+    if (!_id) {
       navigate("/error")
     }
-    if(contentType === "Movie"){
-        navigate(`/watch/${_id}?contentType=${contentType}`);
-    }else(
+    if (contentType === "Movie") {
+      navigate(`/watch/${_id}?contentType=${contentType}`);
+    } else (
       navigate(`/details/${_id}?contentType=${contentType}`)
     )
   };
-  const handleAddToWatchList = async(e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleAddToWatchList = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation(); // Stop event from reaching the parent div
     try {
       const response = await dispatch(
@@ -74,7 +75,7 @@ const MovieCard: React.FC<MediaCardProps> = ({ media }) => {
       if (error instanceof Error)
         toast.error(error.message, { position: "top-right" });
     }
-    };
+  };
 
   return (
     <div
@@ -108,11 +109,11 @@ const MovieCard: React.FC<MediaCardProps> = ({ media }) => {
                     <Play />
                   </button>
                   <button className="movie-button" onClick={handleAddToWatchList}>
-                  {isBookMarked ? (
-                    <Minus/>
-                  ) : (
-                    <Plus/>
-                )}
+                    {isBookMarked ? (
+                      <Minus />
+                    ) : (
+                      <Plus />
+                    )}
                   </button>
                 </div>
               </div>

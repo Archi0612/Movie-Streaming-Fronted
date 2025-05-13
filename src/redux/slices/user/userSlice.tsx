@@ -21,18 +21,24 @@ const initialState: UserState = {
 
 export const registerUser = createAsyncThunk<
     AuthResponse,
+    {
+        email: string;
+        name: string;
+        password: string;
+        contactNo: string;
+        otp: number;
+    },
     { rejectValue: string }
 >(
     "user/register",
     async (user, { rejectWithValue }) => {
         try {
             const response = await api.post<AuthResponse>('/auth/signup', user);
+            console.log(response, "response");
             return response.data;
         } catch (err: unknown) {
-            if (axios.isAxiosError(err)) {
-                return rejectWithValue(err.response?.data?.message || "Something went wrong");
-            }
-            return rejectWithValue("An unknown error occurred");
+
+            return rejectWithValue(err);
         }
     }
 );

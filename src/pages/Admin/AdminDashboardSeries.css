@@ -1,0 +1,87 @@
+.admin-container {
+    display: flex;
+    height: 100vh;
+    background-color: #021c2c;
+  }
+  .content {
+    padding: 20px;
+    margin: 0px 30px;
+    flex-grow: 1;
+  }
+  
+  .content-card {
+    padding: 20px;
+  }
+  .add-btn-container{
+    display: flex;
+    align-items: end;
+    justify-content: end;
+  }
+  .add-movie-btn {
+    margin-bottom: 15px;
+    width: 70px;
+    height: 35px;
+    border:none;
+    color: white;
+    background-color: #0073e6;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bolder;
+  }
+  .add-movie-btn:hover{
+    background-color: #0059b3;
+  }
+  
+  .grid-container {
+    height: 400px;
+    width: 100%;
+  }
+  
+  .poster-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    margin-bottom: 4px;
+  }
+  
+  .action-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .action-buttons .edit-btn {
+    width: 40px;
+    height: 40px;
+    background-color: #3498db;
+    color: white !important;
+    margin:4px 0px 5px 4px !important;
+    cursor: pointer !important;
+    border-radius: 5px !important;
+    border: none;
+  }
+  .action-buttons .edit-btn:hover{
+    background-color: #188ad6;
+  }
+  
+  .action-buttons .delete-btn {
+    width: 40px;
+    width: 40px;
+    background-color: #e44f3e ;
+    color: white !important;
+    margin:4px 0px 5px 4px !important;
+    cursor: pointer !important;
+    border-radius: 5px !important;
+    border: none;
+  }
+   .delete-btn:hover{
+    background-color: #e0412f;
+  } 
+.ag-theme-quartz {  
+    /* --ag-foreground-color:white; */
+    --ag-header-background-color: rgba(25, 100, 150, 0.295);
+    /* --ag-background-color:#003366 */
+    --ag-background-color:white;
+    --ag-row-hover-color:#95b6da;
+    --ag-row-spacing: 5px;
+  }
+  

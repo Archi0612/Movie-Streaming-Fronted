@@ -106,43 +106,52 @@ const RoomPage: React.FC = () => {
     }
 
     return (
-        <div className="room-page">
-            <div className="room-header">
-                <h1>{currentRoom.name}</h1>
-                <div className="room-actions">
-                    <button onClick={copyInviteLink} className="invite-button">
-                        {copied ? 'Copied!' : 'Copy Invite Link'}
-                    </button>
+        <div className='main-room-page-container'>
+            <div className="room-page">
+                <div className="room-header">
+                    <div className='roomName-heading'>
+                        <div className='room-title'>
+                            <h1> Room:</h1>
+                            <p className='room-name'>{currentRoom.name}</p>
+                        </div>
+                        <div className="room-actions">
+                            <button onClick={copyInviteLink} className="invite-button">
+                                {copied ? 'Copied!' : 'Copy Invite Link'}
+                            </button>
 
-                    {isHost && (
-                        <button onClick={handleEndRoom} className="end-room-button">
-                            End Watch Party
-                        </button>
-                    )}
+                            {isHost && (
+                                <button onClick={handleEndRoom} className="end-room-button">
+                                    End Watch Party
+                                </button>
+                            )}
+                        </div>
+                    </div>
+                    <div className="participants-sidebar">
+                        <h3>Participants ({currentRoom.participants.length})</h3>
+                        <ul className="participants-list">
+                            {currentRoom.participants.map(participant => (
+                                <li key={participant.userId} className="participant-item">
+                                    <span className="participant-name">
+                                        {participant.username}
+                                    </span>
+                                    <span className="participant-role">
+                                        {participant.role === 'host' ? '(Host)' : ''}
+                                    </span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 </div>
-            </div>
 
-            <div className="room-content">
-                <div className="video-container">
-                    {currentRoom.movie && (
-                        <VideoPlayer url={currentRoom.movie.url} />
-                    )}
-                </div>
 
-                <div className="participants-sidebar">
-                    <h3>Participants ({currentRoom.participants.length})</h3>
-                    <ul className="participants-list">
-                        {currentRoom.participants.map(participant => (
-                            <li key={participant.userId} className="participant-item">
-                                <span className="participant-name">
-                                    {participant.username}
-                                </span>
-                                <span className="participant-role">
-                                    {participant.role === 'host' ? '(Host)' : ''}
-                                </span>
-                            </li>
-                        ))}
-                    </ul>
+                <div className="room-content">
+                    <div className="video-container">
+                        {currentRoom.movie && (
+                            <VideoPlayer url={currentRoom.movie.url} />
+                        )}
+                    </div>
+
+
                 </div>
             </div>
         </div>

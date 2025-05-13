@@ -1,4 +1,4 @@
-import {api} from "../api";
+import { api } from "../api";
 import axios from "axios";
 // const api_BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
@@ -61,8 +61,10 @@ export const signup = async (userData: {
         return result;
     } catch (err: unknown) {
         if (axios.isAxiosError(err)) {
+            console.log("error");
+
             // If it's an Axios error, check for response data
-            throw new Error(err.response?.data?.message || "Something went wrong");
+            throw new Error(err.response?.data?.message && "Something went wrong");
         } else {
             // Generic error handling 
             throw new Error("An unknown error occurred");

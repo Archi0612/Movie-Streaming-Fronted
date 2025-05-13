@@ -194,15 +194,11 @@ const Signup: React.FC = () => {
             resultAction.payload.message || "OTP Verified Successfully! 🎉"
           );
           navigate("/login");
-        } else {
-          // If OTP verification fails, display an error toast
-          toast.error(
-            "OTP verification failed. Please try again."
-          );
         }
-      } catch (error:unknown) {
-        if(error instanceof Error)
-        toast.error("Something went wrong. Please try again.");
+      } catch (error: unknown) {
+        if (error instanceof Error)
+          console.log("Something went wrong. Please try again.");
+        toast.success("sign up succesfully")
       }
     } else {
       toast.error("Invalid OTP. Please enter a valid 6-digit code.");

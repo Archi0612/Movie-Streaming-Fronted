@@ -1,4 +1,48 @@
 .room-page {
     height: 100vh;
     border: 1px solid black;
+    margin-left: 7rem;
+
+}
+
+.main-room-page-container {
+    /* height: 100vh; */
+    background-color: var(--background-color);
+}
+
+.room-header {
+    margin-top: 5rem;
+    background-color: lightblue;
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.roomName-heading {
+    width: 22rem;
+}
+
+.room-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.room-name {
+    font-size: 1.4rem;
+    margin-left: 9px;
+}
+
+.room-actions {
+    width: 20rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 1px;
+    height: 2rem;
+}
+
+.room-content {
+    height: auto;
 }

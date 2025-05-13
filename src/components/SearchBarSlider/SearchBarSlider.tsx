@@ -5,15 +5,13 @@ import MovieCard from "../Cards/MovieCard";
 
 const MovieCardSlider: React.FC<MediaGridProps> = ({ mediaList, title }) => {
     const sliderRef = useRef<HTMLDivElement>(null);
-
-    console.log(mediaList, "mediaList");
     return (
         <div className="main_container">
             <h2 className="searchbarslidermain_title">{title}</h2>
             <div className="slider-container">
                 <div className="searchmovie-slider" ref={sliderRef}>
-                    {mediaList?.map((media) => (
-                        <div key={media._id} className="movie-slide">
+                    {mediaList?.map((media, index) => (
+                        <div key={media._id || index} className="movie-slide">
                             <MovieCard media={media} />
                         </div>
                     ))}

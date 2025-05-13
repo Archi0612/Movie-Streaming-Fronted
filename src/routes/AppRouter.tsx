@@ -34,7 +34,7 @@ import WatchVideo from "../pages/Media/WatchVideo";
 import MoviesPage from "../pages/Media/Movies/MoviesPage";
 import Home from "../pages/Home";
 import AddEpisode from "../pages/Admin/Series Dashbord/AddEpisode";
-import PaymentCancel from "../pages/Stripe-Payment/paymentCancel/PaymentCancel";
+import PaymentCancel from "../pages/Stripe-Payment/paymentCancel/PaymentCancel"
 import { PaymentSuccess } from "../pages/Stripe-Payment/PaymentSuccess/paymentSuccess";
 import ErrorPage from "../pages/Error/ErrorPage";
 import AddCast from "../pages/Admin/Cast/AddCast";
